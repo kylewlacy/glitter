@@ -2,5 +2,8 @@ extern crate gl as gl_lib;
 
 mod context;
 
-pub use gl_lib as gl;
+pub mod gl {
+    pub use super::gl_lib::*;
+}
+
 pub use context::Context;
