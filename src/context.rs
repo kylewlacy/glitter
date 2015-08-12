@@ -1,13 +1,19 @@
 use std::mem;
 use super::gl;
 use super::gl_lib::types::*;
-use super::Buffer;
+use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
 
-pub struct Context;
+pub struct Context {
+    array_buffer: ArrayBufferBinder,
+    element_array_buffer: ElementArrayBufferBinder
+}
 
 impl Context {
     pub unsafe fn current_context() -> Self {
-        Context
+        Context {
+            array_buffer: ArrayBufferBinder,
+            element_array_buffer: ElementArrayBufferBinder
+        }
     }
 
     pub fn clear_color(&mut self, color: super::Color) {
