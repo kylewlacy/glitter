@@ -36,3 +36,17 @@ impl Context {
         }
     }
 }
+
+#[macro_export]
+macro_rules! bind_array_buffer {
+    ($gl:expr, $buffer:expr) => {
+        $gl.array_buffer.bind($buffer)
+    }
+}
+
+#[macro_export]
+macro_rules! bind_element_array_buffer {
+    ($gl:expr, $buffer:expr) => {
+        $gl.element_array_buffer.bind($buffer)
+    }
+}

@@ -1,7 +1,7 @@
 #[macro_use] extern crate bitflags;
 extern crate gl as gl_lib;
 
-mod context;
+#[macro_use] mod context;
 mod buffer;
 mod types;
 
