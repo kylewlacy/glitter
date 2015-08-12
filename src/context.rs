@@ -4,8 +4,8 @@ use super::gl_lib::types::*;
 use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
 
 pub struct Context {
-    array_buffer: ArrayBufferBinder,
-    element_array_buffer: ElementArrayBufferBinder
+    pub array_buffer: ArrayBufferBinder,
+    pub element_array_buffer: ElementArrayBufferBinder
 }
 
 impl Context {
