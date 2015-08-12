@@ -9,6 +9,17 @@ impl Shader {
     pub unsafe fn from_id(id: GLuint) -> Shader {
         Shader { gl_id: id }
     }
+
+    pub fn source(&mut self, shader_source: &str) {
+        unsafe {
+            let source = shader_source.as_ptr() as *const GLchar;
+            let length = shader_source.len() as GLint;
+
+            gl::ShaderSource(self.gl_id, 1,
+                             &source as *const *const GLchar,
+                             &length as *const GLint);
+        }
+    }
 }
 
 impl Drop for Shader {
