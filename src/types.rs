@@ -20,3 +20,8 @@ bitflags! {
         const STENCIL_BUFFER_BIT = gl::STENCIL_BUFFER_BIT
     }
 }
+
+#[derive(Debug)]
+pub struct GLError {
+    pub message: String
+}
