@@ -2,6 +2,7 @@ use std::mem;
 use super::gl;
 use super::gl_lib::types::*;
 use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
+use super::{Shader, ShaderType};
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
@@ -33,6 +34,18 @@ impl Context {
             let mut id : GLuint = mem::uninitialized();
             gl::GenBuffers(1, &mut id as *mut GLuint);
             Buffer::from_id(id)
+        }
+    }
+
+    pub fn create_shader(&self, shader_type: ShaderType) -> Result<Shader, ()> {
+        unsafe {
+            let id = gl::CreateShader(shader_type as GLenum);
+            if id > 0 {
+                Ok(Shader::from_id(id))
+            }
+            else {
+                Err(())
+            }
         }
     }
 }
