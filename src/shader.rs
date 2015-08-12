@@ -18,3 +18,11 @@ impl Drop for Shader {
         }
     }
 }
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+pub enum ShaderType {
+    VERTEX_SHADER = gl::VERTEX_SHADER as isize,
+    FRAGMENT_SHADER = gl::FRAGMENT_SHADER as isize
+}
+pub use self::ShaderType::*;

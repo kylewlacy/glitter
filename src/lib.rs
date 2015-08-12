@@ -13,6 +13,6 @@ pub use buffer::{Buffer, BufferDataUsage, BufferBinding,
                  STREAM_DRAW, STATIC_DRAW, DYNAMIC_DRAW,
                  ArrayBufferBinder, ElementArrayBufferBinder,
                  ArrayBufferBinding, ElementArrayBufferBinding};
-pub use shader::Shader;
+pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use types::{Color, BufferBits,
                 COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT};
