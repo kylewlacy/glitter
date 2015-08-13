@@ -4,6 +4,7 @@ extern crate gl as gl_lib;
 #[macro_use] mod context;
 mod buffer;
 mod shader;
+mod vertex_data;
 mod types;
 
 pub use gl_lib as gl;
@@ -14,5 +15,6 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
                  ArrayBufferBinder, ElementArrayBufferBinder,
                  ArrayBufferBinding, ElementArrayBufferBinding};
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
+pub use vertex_data::VertexData;
 pub use types::{Color, GLError, BufferBits,
                 COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT};
