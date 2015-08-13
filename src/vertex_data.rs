@@ -1,7 +1,20 @@
+use super::gl;
 use std::mem;
 use std::raw;
 
 pub trait VertexData: Copy { }
+
+#[allow(non_camel_case_types)]
+#[derive(Debug, Clone, Copy)]
+pub enum DataType {
+    BYTE = gl::BYTE as isize,
+    UNSIGNED_BYTE = gl::UNSIGNED_BYTE as isize,
+    SHORT = gl::SHORT as isize,
+    UNSIGNED_SHORT = gl::UNSIGNED_SHORT as isize,
+    FIXED = gl::FIXED as isize,
+    FLOAT = gl::FLOAT as isize
+}
+pub use self::DataType::*;
 
 pub trait VertexBytes {
     fn vertex_bytes(&self) -> &[u8];

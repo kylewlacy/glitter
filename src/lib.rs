@@ -17,6 +17,8 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
                  ArrayBufferBinder, ElementArrayBufferBinder,
                  ArrayBufferBinding, ElementArrayBufferBinding};
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
-pub use vertex_data::{VertexData, VertexBytes};
+pub use vertex_data::{VertexData, VertexBytes, DataType,
+                      BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT,
+                      FIXED, FLOAT};
 pub use types::{Color, GLError, BufferBits,
                 COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT};
