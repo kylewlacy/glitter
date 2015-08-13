@@ -17,3 +17,18 @@ impl<T> VertexBytes for T where T: VertexData {
         }
     }
 }
+
+#[macro_export]
+macro_rules! vertex_data {
+    (struct $name:ident {
+        $($field_name:ident: $field_type:ty),*
+    }) => {
+        #[repr(C)]
+        #[derive(Debug, Clone, Copy)]
+        struct $name {
+            $($field_name: $field_type),*
+        }
+
+        impl $crate::VertexData for $name { }
+    }
+}
