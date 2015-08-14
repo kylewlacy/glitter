@@ -18,3 +18,10 @@ impl Drop for Program {
         }
     }
 }
+
+
+
+#[derive(Debug, Clone, Copy)]
+pub struct ProgramAttrib {
+    pub gl_index: GLuint
+}
