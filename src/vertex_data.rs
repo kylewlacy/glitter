@@ -18,6 +18,16 @@ pub enum DataType {
 }
 pub use self::DataType::*;
 
+
+
+pub trait VertexDatum {
+    fn gl_type() -> DataType;
+    fn components() -> i8;
+    fn normalized() -> bool { false }
+}
+
+
+
 pub trait VertexBytes {
     fn vertex_bytes(&self) -> &[u8];
 }
