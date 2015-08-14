@@ -50,6 +50,12 @@ impl Context {
         }
     }
 
+    pub fn enable_vertex_attrib_array(&self, attrib: super::ProgramAttrib) {
+        unsafe {
+            gl::EnableVertexAttribArray(attrib.gl_index);
+        }
+    }
+
     pub fn gen_buffer(&self) -> Buffer {
         unsafe {
             let mut id : GLuint = mem::uninitialized();
