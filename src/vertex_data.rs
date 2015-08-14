@@ -20,6 +20,10 @@ pub use self::DataType::*;
 
 
 
+pub trait VertexPrimitive {
+    fn gl_type() -> DataType;
+}
+
 pub trait VertexDatum {
     fn gl_type() -> DataType;
     fn components() -> i8;
