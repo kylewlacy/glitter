@@ -3,6 +3,7 @@ use std::mem;
 use std::raw;
 
 pub trait VertexData: Copy {
+    type Binder;
 }
 
 #[allow(non_camel_case_types)]
@@ -51,8 +52,10 @@ macro_rules! vertex_data {
                         $($field_name: $field_type),*
                     }
 
-                    impl $crate::VertexData for $name {
+                    pub struct Binder;
 
+                    impl $crate::VertexData for $name {
+                        type Binder = Binder;
                     }
                 }
             )+
