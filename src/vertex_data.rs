@@ -50,6 +50,31 @@ pub trait VertexDatum {
     fn normalized() -> bool { false }
 }
 
+impl<T> VertexDatum for T where T: VertexPrimitive {
+    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
+    fn components() -> i8 { 1 }
+}
+
+impl<T> VertexDatum for [T; 1] where T: VertexPrimitive {
+    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
+    fn components() -> i8 { 1 }
+}
+
+impl<T> VertexDatum for [T; 2] where T: VertexPrimitive {
+    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
+    fn components() -> i8 { 2 }
+}
+
+impl<T> VertexDatum for [T; 3] where T: VertexPrimitive {
+    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
+    fn components() -> i8 { 3 }
+}
+
+impl<T> VertexDatum for [T; 4] where T: VertexPrimitive {
+    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
+    fn components() -> i8 { 4 }
+}
+
 
 
 pub trait VertexBytes {
