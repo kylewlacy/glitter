@@ -24,6 +24,26 @@ pub trait VertexPrimitive {
     fn gl_type() -> DataType;
 }
 
+impl VertexPrimitive for i8 {
+    fn gl_type() -> DataType { self::BYTE }
+}
+
+impl VertexPrimitive for u8 {
+    fn gl_type() -> DataType { self::UNSIGNED_BYTE }
+}
+
+impl VertexPrimitive for i16 {
+    fn gl_type() -> DataType { self::SHORT }
+}
+
+impl VertexPrimitive for u16 {
+    fn gl_type() -> DataType { self::UNSIGNED_SHORT }
+}
+
+impl VertexPrimitive for f32 {
+    fn gl_type() -> DataType { self::FLOAT }
+}
+
 pub trait VertexDatum {
     fn gl_type() -> DataType;
     fn components() -> i8;
