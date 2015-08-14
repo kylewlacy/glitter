@@ -36,25 +36,32 @@ impl<T> VertexBytes for T where T: VertexData {
 
 #[macro_export]
 macro_rules! vertex_data {
-    (struct $name:ident {
-        $($field_name:ident: $field_type:ty),*
-    }) => {
+    ($(
+        struct $name:ident {
+            $($field_name:ident: $field_type:ty),*
+        }
+    )+) => {
         mod _glitter_vertex_data {
-            #[allow(non_snake_case)]
-            pub mod $name {
-                #[repr(C)]
-                #[derive(Debug, Clone, Copy)]
-                pub struct $name {
-                    $($field_name: $field_type),*
-                }
+            $(
+                #[allow(non_snake_case)]
+                pub mod $name {
+                    #[repr(C)]
+                    #[derive(Debug, Clone, Copy)]
+                    pub struct $name {
+                        $($field_name: $field_type),*
+                    }
 
-                impl $crate::VertexData for $name {
+                    impl $crate::VertexData for $name {
 
+                    }
                 }
-            }
+            )+
         }
 
-        #[allow(unused_imports)]
-        use self::_glitter_vertex_data::$name::$name;
+
+        $(
+            #[allow(unused_imports)]
+            use self::_glitter_vertex_data::$name::$name;
+        )+
     }
 }
