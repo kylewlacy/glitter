@@ -4,7 +4,7 @@ use std::mem;
 use std::raw;
 
 pub trait VertexData: Copy {
-    type Binder;
+    type Binder: VertexAttribBinder;
 }
 
 pub trait VertexAttribBinder {
