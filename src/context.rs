@@ -3,6 +3,7 @@ use super::gl;
 use super::gl_lib::types::*;
 use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
 use super::{Shader, ShaderType};
+use super::Program;
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
@@ -69,6 +70,18 @@ impl Context {
             let id = gl::CreateShader(shader_type as GLenum);
             if id > 0 {
                 Ok(Shader::from_id(id))
+            }
+            else {
+                Err(())
+            }
+        }
+    }
+
+    pub fn create_program(&self) -> Result<Program, ()> {
+        unsafe {
+            let id = gl::CreateProgram();
+            if id > 0 {
+                Ok(Program::from_id(id))
             }
             else {
                 Err(())
