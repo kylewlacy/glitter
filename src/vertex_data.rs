@@ -1,9 +1,18 @@
 use super::gl;
+use super::Context;
 use std::mem;
 use std::raw;
 
 pub trait VertexData: Copy {
     type Binder;
+}
+
+pub trait VertexAttribBinder {
+    type Builder;
+
+    fn build() -> Self::Builder;
+
+    fn bind(&mut self, gl: Context);
 }
 
 #[allow(non_camel_case_types)]
