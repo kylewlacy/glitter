@@ -13,6 +13,10 @@ impl Shader {
         Shader { gl_id: id }
     }
 
+    pub fn gl_id(&self) -> GLuint {
+        self.gl_id
+    }
+
     pub fn source(&mut self, shader_source: &str) {
         unsafe {
             let source = shader_source.as_ptr() as *const GLchar;
