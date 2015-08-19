@@ -55,6 +55,7 @@ impl Shader {
                                      info_length,
                                      ptr::null_mut(),
                                      bytes.as_mut_ptr() as *mut GLchar);
+                bytes.set_len((info_length - 1) as usize);
 
                 let msg = String::from_utf8(bytes)
                                  .unwrap_or(String::from("<Unknown error>"));
