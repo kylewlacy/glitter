@@ -26,4 +26,14 @@ impl<T: VertexData> VertexBuffer<T> {
     {
         T::build_attrib_binder()
     }
+
+    pub fn bind(&self, gl: &super::Context) -> Result<(), ()> {
+        match self.attrib_binder {
+            Some(ref binder) => {
+                binder.bind(gl);
+                Ok(())
+            },
+            None => { Err(()) }
+        }
+    }
 }
