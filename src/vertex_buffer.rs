@@ -56,4 +56,11 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
             vbo: vbo
         }
     }
+
+    pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
+        where [T]: VertexBytes
+    {
+        self.vbo.count = data.len();
+        self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
+    }
 }
