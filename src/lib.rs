@@ -23,6 +23,6 @@ pub use program::{Program, ProgramAttrib};
 pub use vertex_data::{VertexData, VertexDatum, VertexBytes, VertexAttribBinder,
                       DataType, BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT,
                       FIXED, FLOAT};
-pub use vertex_buffer::VertexBuffer;
+pub use vertex_buffer::{VertexBuffer, VertexBufferBinding};
 pub use types::{Color, GLError, BufferBits,
                 COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT};

@@ -37,3 +37,23 @@ impl<T: VertexData> VertexBuffer<T> {
         }
     }
 }
+
+pub struct VertexBufferBinding<'a, T: VertexData>
+    where T: 'a, T::Binder: 'a
+{
+    gl_buffer: ArrayBufferBinding<'a>,
+    vbo: &'a mut VertexBuffer<T>
+}
+
+impl<'a, T: VertexData> VertexBufferBinding<'a, T>
+    where T: 'a, T::Binder: 'a
+{
+    pub fn new(gl_buffer: ArrayBufferBinding<'a>, vbo: &'a mut VertexBuffer<T>)
+        -> Self
+    {
+        VertexBufferBinding {
+            gl_buffer: gl_buffer,
+            vbo: vbo
+        }
+    }
+}
