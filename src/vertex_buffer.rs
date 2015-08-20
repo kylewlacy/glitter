@@ -20,4 +20,10 @@ impl<T: VertexData> VertexBuffer<T> {
             phantom: PhantomData
         }
     }
+
+    pub fn build_attrib_binder(&self)
+        -> <T::Binder as VertexAttribBinder>::Builder
+    {
+        T::build_attrib_binder()
+    }
 }
