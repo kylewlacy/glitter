@@ -1,5 +1,6 @@
 use std::mem;
 use std::ptr;
+use std::ffi::CString;
 use super::gl;
 use super::gl_lib::types::*;
 use super::GLError;
@@ -53,6 +54,20 @@ impl Program {
                                  .unwrap_or(String::from("<Unknown error>"));
 
                 Err(GLError { message: msg })
+            }
+        }
+    }
+
+    pub fn get_attrib_location(&self, name: &str) -> Result<ProgramAttrib, ()> {
+        let c_str = try!(CString::new(name).or(Err(())));
+        let str_ptr = c_str.as_ptr() as *const GLchar;
+        unsafe {
+            let index = gl::GetAttribLocation(self.gl_id, str_ptr);
+            if index >= 0 {
+                Ok(ProgramAttrib { gl_index: index as GLuint })
+            }
+            else {
+                Err(())
             }
         }
     }
