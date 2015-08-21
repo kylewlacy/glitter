@@ -25,3 +25,16 @@ bitflags! {
 pub struct GLError {
     pub message: String
 }
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+pub enum DrawingMode {
+    POINTS = gl::POINTS as isize,
+    LINE_STRIP = gl::LINE_STRIP as isize,
+    LINE_LOOP = gl::LINE_LOOP as isize,
+    LINES = gl::LINES as isize,
+    TRIANGLE_STRIP = gl::TRIANGLE_STRIP as isize,
+    TRIANGLE_FAN = gl::TRIANGLE_FAN as isize,
+    TRIANGLES = gl::TRIANGLES as isize
+}
+pub use self::DrawingMode::*;
