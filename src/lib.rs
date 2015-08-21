@@ -7,7 +7,7 @@ extern crate gl as gl_lib;
 mod buffer;
 mod shader;
 mod program;
-mod vertex_data;
+#[macro_use] mod vertex_data;
 #[macro_use] mod vertex_buffer;
 mod types;
 

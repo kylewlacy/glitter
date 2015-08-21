@@ -233,3 +233,18 @@ macro_rules! vertex_data {
         )+
     }
 }
+
+#[macro_export]
+macro_rules! bind_attrib_pointers {
+    ($gl:expr, $vbo:expr, {
+        $($field_name:ident => $field_attrib:expr),*
+    }) => {
+        {
+            let vbo = $vbo;
+            let binder = vbo.build_attrib_binder()
+                         $(.$field_name($field_attrib))*
+                         .unwrap($gl);
+            vbo.attrib_binder = Some(binder)
+        }
+    }
+}
