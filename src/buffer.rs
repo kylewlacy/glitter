@@ -2,6 +2,7 @@ use std::mem;
 use std::marker::PhantomData;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
+use super::context::Context;
 
 pub struct Buffer {
     gl_id: GLuint
@@ -21,6 +22,16 @@ impl Drop for Buffer {
     fn drop(&mut self) {
         unsafe {
             gl::DeleteBuffers(1, &self.gl_id as *const GLuint);
+        }
+    }
+}
+
+impl Context {
+    pub fn gen_buffer(&self) -> Buffer {
+        unsafe {
+            let mut id : GLuint = mem::uninitialized();
+            gl::GenBuffers(1, &mut id as *mut GLuint);
+            Buffer { gl_id: id }
         }
     }
 }

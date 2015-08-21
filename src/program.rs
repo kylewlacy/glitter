@@ -4,6 +4,7 @@ use std::ffi::CString;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
 use super::types::GLError;
+use super::context::Context;
 use super::shader::Shader;
 
 pub struct Program {
@@ -87,6 +88,20 @@ impl Drop for Program {
     fn drop(&mut self) {
         unsafe {
             gl::DeleteProgram(self.gl_id);
+        }
+    }
+}
+
+impl Context {
+    pub fn create_program(&self) -> Result<Program, ()> {
+        unsafe {
+            let id = gl::CreateProgram();
+            if id > 0 {
+                Ok(Program { gl_id: id })
+            }
+            else {
+                Err(())
+            }
         }
     }
 }

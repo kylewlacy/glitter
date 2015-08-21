@@ -1,9 +1,6 @@
-use std::mem;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
-use super::buffer::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
-use super::shader::{Shader, ShaderType};
-use super::program::Program;
+use super::buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use super::types::DrawingMode;
 
 pub struct Context {
@@ -55,38 +52,6 @@ impl Context {
     pub fn enable_vertex_attrib_array(&self, attrib: super::ProgramAttrib) {
         unsafe {
             gl::EnableVertexAttribArray(attrib.gl_index);
-        }
-    }
-
-    pub fn gen_buffer(&self) -> Buffer {
-        unsafe {
-            let mut id : GLuint = mem::uninitialized();
-            gl::GenBuffers(1, &mut id as *mut GLuint);
-            Buffer::from_id(id)
-        }
-    }
-
-    pub fn create_shader(&self, shader_type: ShaderType) -> Result<Shader, ()> {
-        unsafe {
-            let id = gl::CreateShader(shader_type as GLenum);
-            if id > 0 {
-                Ok(Shader::from_id(id))
-            }
-            else {
-                Err(())
-            }
-        }
-    }
-
-    pub fn create_program(&self) -> Result<Program, ()> {
-        unsafe {
-            let id = gl::CreateProgram();
-            if id > 0 {
-                Ok(Program::from_id(id))
-            }
-            else {
-                Err(())
-            }
         }
     }
 

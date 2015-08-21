@@ -2,6 +2,7 @@ use std::mem;
 use std::ptr;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
+use super::context::Context;
 use super::types::GLError;
 
 pub struct Shader {
@@ -70,6 +71,20 @@ impl Drop for Shader {
     fn drop(&mut self) {
         unsafe {
             gl::DeleteShader(self.gl_id);
+        }
+    }
+}
+
+impl Context {
+    pub fn create_shader(&self, shader_type: ShaderType) -> Result<Shader, ()> {
+        unsafe {
+            let id = gl::CreateShader(shader_type as GLenum);
+            if id > 0 {
+                Ok(Shader { gl_id: id })
+            }
+            else {
+                Err(())
+            }
         }
     }
 }
