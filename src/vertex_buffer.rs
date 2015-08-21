@@ -11,15 +11,6 @@ pub struct VertexBuffer<T: VertexData> {
 }
 
 impl<T: VertexData> VertexBuffer<T> {
-    pub fn new(buffer: Buffer) -> Self {
-        VertexBuffer {
-            attrib_binder: None,
-            buffer: buffer,
-            count: 0,
-            phantom: PhantomData
-        }
-    }
-
     pub fn build_attrib_binder(&self)
         -> <T::Binder as VertexAttribBinder>::Builder
     {
@@ -33,6 +24,17 @@ impl<T: VertexData> VertexBuffer<T> {
                 Ok(())
             },
             None => { Err(()) }
+        }
+    }
+}
+
+impl Context {
+    pub fn new_vertex_buffer<T: VertexData>(&self) -> VertexBuffer<T> {
+        VertexBuffer {
+            attrib_binder: None,
+            buffer: self.gen_buffer(),
+            count: 0,
+            phantom: PhantomData
         }
     }
 }
