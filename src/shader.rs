@@ -9,7 +9,7 @@ pub struct Shader {
 }
 
 impl Shader {
-    pub unsafe fn from_id(id: GLuint) -> Shader {
+    pub unsafe fn from_id(id: GLuint) -> Self {
         Shader { gl_id: id }
     }
 

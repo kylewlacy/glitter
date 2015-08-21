@@ -8,8 +8,12 @@ pub struct Buffer {
 }
 
 impl Buffer {
-    pub unsafe fn from_id(id: GLuint) -> Buffer {
+    pub unsafe fn from_id(id: GLuint) -> Self {
         Buffer { gl_id: id }
+    }
+
+    pub fn gl_id(&self) -> GLuint {
+        self.gl_id
     }
 }
 
