@@ -8,7 +8,7 @@ mod buffer;
 mod shader;
 mod program;
 mod vertex_data;
-mod vertex_buffer;
+#[macro_use] mod vertex_buffer;
 mod types;
 
 pub use gl_lib as gl;

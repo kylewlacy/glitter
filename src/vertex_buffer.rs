@@ -64,3 +64,20 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
         self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
     }
 }
+
+#[macro_export]
+macro_rules! bind_vertex_buffer {
+    ($gl:expr, $vbo:expr) => {
+        {
+            let vbo = $vbo;
+            let gl : &mut _ = $gl;
+
+            {
+                vbo.bind(gl).unwrap();
+            }
+
+            let gl_buffer = bind_array_buffer!(gl, &mut vbo.buffer);
+            $crate::VertexBufferBinding::new(gl_buffer, vbo)
+        }
+    }
+}
