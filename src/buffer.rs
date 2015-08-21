@@ -1,6 +1,6 @@
 use std::mem;
 use std::marker::PhantomData;
-use super::gl;
+use super::gl_lib as gl;
 use super::gl_lib::types::*;
 
 pub struct Buffer {

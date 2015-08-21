@@ -1,10 +1,10 @@
 use std::mem;
 use std::ptr;
 use std::ffi::CString;
-use super::gl;
+use super::gl_lib as gl;
 use super::gl_lib::types::*;
-use super::GLError;
-use super::Shader;
+use super::types::GLError;
+use super::shader::Shader;
 
 pub struct Program {
     gl_id: GLuint

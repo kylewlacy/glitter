@@ -1,8 +1,7 @@
 use std::marker::PhantomData;
-use super::Context;
-use super::{VertexData, VertexBytes, VertexAttribBinder};
-use super::Buffer;
-use super::{BufferBinding, ArrayBufferBinding};
+use super::context::Context;
+use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
+use super::buffer::{Buffer, BufferBinding, ArrayBufferBinding};
 
 pub struct VertexBuffer<T: VertexData> {
     pub attrib_binder: Option<T::Binder>,

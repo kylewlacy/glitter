@@ -1,10 +1,10 @@
 use std::mem;
-use super::gl;
+use super::gl_lib as gl;
 use super::gl_lib::types::*;
-use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
-use super::{Shader, ShaderType};
-use super::Program;
-use super::DrawingMode;
+use super::buffer::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
+use super::shader::{Shader, ShaderType};
+use super::program::Program;
+use super::types::DrawingMode;
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,

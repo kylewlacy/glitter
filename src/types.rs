@@ -1,4 +1,4 @@
-use super::gl;
+use super::gl_lib as gl;
 
 pub struct Color {
     pub r: f32,

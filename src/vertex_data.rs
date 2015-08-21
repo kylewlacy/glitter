@@ -1,7 +1,7 @@
-use super::gl;
-use super::Context;
 use std::mem;
 use std::raw;
+use super::gl_lib as gl;
+use super::context::Context;
 
 pub trait VertexData: Copy {
     type Binder: VertexAttribBinder;
