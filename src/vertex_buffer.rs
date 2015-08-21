@@ -5,7 +5,7 @@ use super::buffer::{Buffer, BufferBinding, ArrayBufferBinding};
 
 pub struct VertexBuffer<T: VertexData> {
     pub attrib_binder: Option<T::Binder>,
-    pub buffer: Buffer,
+    buffer: Buffer,
     count: usize,
     phantom: PhantomData<*const T>
 }
@@ -25,6 +25,14 @@ impl<T: VertexData> VertexBuffer<T> {
             },
             None => { Err(()) }
         }
+    }
+
+    pub fn buffer(&self) -> &Buffer {
+        &self.buffer
+    }
+
+    pub fn buffer_mut(&mut self) -> &mut Buffer {
+        &mut self.buffer
     }
 }
 
@@ -77,7 +85,7 @@ macro_rules! bind_vertex_buffer {
                 vbo.bind(gl).unwrap();
             }
 
-            let gl_buffer = bind_array_buffer!(gl, &mut vbo.buffer);
+            let gl_buffer = bind_array_buffer!(gl, vbo.buffer_mut());
             $crate::VertexBufferBinding::new(gl_buffer, vbo)
         }
     }
