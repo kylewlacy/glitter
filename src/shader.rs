@@ -1,4 +1,3 @@
-use std::mem;
 use std::ptr;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
@@ -12,54 +11,6 @@ pub struct Shader {
 impl Shader {
     pub fn gl_id(&self) -> GLuint {
         self.gl_id
-    }
-
-    pub fn source(&mut self, shader_source: &str) {
-        unsafe {
-            let source = shader_source.as_ptr() as *const GLchar;
-            let length = shader_source.len() as GLint;
-
-            gl::ShaderSource(self.gl_id, 1,
-                             &source as *const *const GLchar,
-                             &length as *const GLint);
-        }
-    }
-
-    pub fn compile(&mut self) -> Result<(), GLError> {
-        let success = unsafe {
-            gl::CompileShader(self.gl_id);
-            let mut compile_status : GLint = mem::uninitialized();
-            gl::GetShaderiv(self.gl_id,
-                            gl::COMPILE_STATUS,
-                            &mut compile_status as *mut GLint);
-
-            compile_status == gl::TRUE as GLint
-        };
-
-        if success {
-            Ok(())
-        }
-        else {
-            unsafe {
-                let mut info_length : GLint = mem::uninitialized();
-                gl::GetShaderiv(self.gl_id,
-                                gl::INFO_LOG_LENGTH,
-                                &mut info_length as *mut GLint);
-
-                let mut bytes = Vec::<u8>::with_capacity(info_length as usize);
-
-                gl::GetShaderInfoLog(self.gl_id,
-                                     info_length,
-                                     ptr::null_mut(),
-                                     bytes.as_mut_ptr() as *mut GLchar);
-                bytes.set_len((info_length - 1) as usize);
-
-                let msg = String::from_utf8(bytes)
-                                 .unwrap_or(String::from("<Unknown error>"));
-
-                Err(GLError { message: msg })
-            }
-        }
     }
 }
 
@@ -80,6 +31,54 @@ impl Context {
             }
             else {
                 Err(())
+            }
+        }
+    }
+
+    pub fn shader_source(&self, shader: &mut Shader, source: &str) {
+        unsafe {
+            let source_ptr = source.as_ptr() as *const GLchar;
+            let source_len = source.len() as GLint;
+
+            gl::ShaderSource(shader.gl_id(), 1,
+                             &source_ptr as *const *const GLchar,
+                             &source_len as *const GLint);
+        }
+    }
+
+    pub fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
+        let success = unsafe {
+            gl::CompileShader(shader.gl_id());
+            let mut compile_status : GLint = 0;
+            gl::GetShaderiv(shader.gl_id(),
+                            gl::COMPILE_STATUS,
+                            &mut compile_status as *mut GLint);
+
+            compile_status == gl::TRUE as GLint
+        };
+
+        if success {
+            Ok(())
+        }
+        else {
+            unsafe {
+                let mut info_length : GLint = 0;
+                gl::GetShaderiv(shader.gl_id(),
+                                gl::INFO_LOG_LENGTH,
+                                &mut info_length as *mut GLint);
+
+                let mut bytes = Vec::<u8>::with_capacity(info_length as usize);
+
+                gl::GetShaderInfoLog(shader.gl_id(),
+                                     info_length,
+                                     ptr::null_mut(),
+                                     bytes.as_mut_ptr() as *mut GLchar);
+                bytes.set_len((info_length - 1) as usize);
+
+                let msg = String::from_utf8(bytes)
+                                 .unwrap_or(String::from("<Unknown error>"));
+
+                Err(GLError { message: msg })
             }
         }
     }
