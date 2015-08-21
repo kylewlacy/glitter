@@ -4,6 +4,7 @@ use super::gl_lib::types::*;
 use super::{Buffer, ArrayBufferBinder, ElementArrayBufferBinder};
 use super::{Shader, ShaderType};
 use super::Program;
+use super::DrawingMode;
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
@@ -87,6 +88,14 @@ impl Context {
                 Err(())
             }
         }
+    }
+
+    pub unsafe fn draw_arrays(&self,
+                              mode: DrawingMode,
+                              first: u32,
+                              count: usize)
+    {
+        gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
     }
 }
 
