@@ -63,6 +63,19 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
         self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
     }
 
+    pub fn draw_arrays_range(&self,
+                             mode: DrawingMode,
+                             start: u32,
+                             length: usize)
+    {
+        debug_assert!((start as usize) + length <= self.vbo.count);
+
+        unsafe {
+            let gl = Context::current_context();
+            gl.draw_arrays_current(mode, start, length);
+        }
+    }
+
     pub fn draw_arrays(&self, mode: DrawingMode) {
         unsafe {
             let gl = Context::current_context();
