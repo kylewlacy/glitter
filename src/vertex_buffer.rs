@@ -17,10 +17,10 @@ impl<T: VertexData> VertexBuffer<T> {
         T::build_attrib_binder()
     }
 
-    pub fn bind(&self, gl: &super::Context) -> Result<(), ()> {
+    pub fn bind(&self, gl_buffer: &ArrayBufferBinding) -> Result<(), ()> {
         match self.attrib_binder {
             Some(ref binder) => {
-                binder.bind(gl);
+                binder.bind(gl_buffer);
                 Ok(())
             },
             None => { Err(()) }
@@ -96,11 +96,8 @@ macro_rules! bind_vertex_buffer {
             let vbo = $vbo;
             let gl : &mut _ = $gl;
 
-            {
-                vbo.bind(gl).unwrap();
-            }
-
             let gl_buffer = bind_array_buffer!(gl, vbo.buffer_mut());
+            vbo.bind(&gl_buffer).unwrap();
             $crate::VertexBufferBinding::new(gl_buffer, vbo)
         }
     }

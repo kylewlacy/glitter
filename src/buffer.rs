@@ -78,6 +78,27 @@ impl<'a> BufferBinding for ArrayBufferBinding<'a> {
     }
 }
 
+impl<'a> ArrayBufferBinding<'a> {
+    pub unsafe fn vertex_attrib_pointer(&self,
+                                        attrib: super::ProgramAttrib,
+                                        components: i8,
+                                        gl_type: super::DataType,
+                                        normalized: bool,
+                                        stride: usize,
+                                        offset: usize)
+    {
+        debug_assert!(1 <= components && components <= 4);
+
+        let gl_normalized = if normalized { gl::TRUE } else { gl::FALSE };
+        gl::VertexAttribPointer(attrib.gl_index,
+                                components as GLint,
+                                gl_type as GLenum,
+                                gl_normalized,
+                                stride as GLsizei,
+                                offset as *const GLvoid);
+    }
+}
+
 pub struct ElementArrayBufferBinding<'a> {
     phantom: PhantomData<&'a mut Buffer>
 }

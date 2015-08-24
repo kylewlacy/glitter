@@ -1,7 +1,7 @@
 use std::mem;
 use std::raw;
 use super::gl_lib as gl;
-use super::context::Context;
+use super::buffer::ArrayBufferBinding;
 
 pub trait VertexData: Copy {
     type Binder: VertexAttribBinder;
@@ -12,7 +12,7 @@ pub trait VertexData: Copy {
 pub trait VertexAttribBinder {
     type Builder;
 
-    fn bind(&self, gl: &Context);
+    fn bind(&self, gl_buffer: &ArrayBufferBinding);
 }
 
 #[allow(non_camel_case_types)]
@@ -163,7 +163,7 @@ macro_rules! vertex_data {
                 impl $crate::VertexAttribBinder for Binder {
                     type Builder = BinderBuilder;
 
-                    fn bind(&self, gl: &$crate::Context) {
+                    fn bind(&self, gl_buffer: &$crate::ArrayBufferBinding) {
                         use std::mem;
                         use $crate::VertexDatum as Datum;
 
@@ -177,12 +177,15 @@ macro_rules! vertex_data {
                             let stride = mem::size_of::<$name>();
                             let offset = offset_of!($name, $field_name);
 
-                            gl.vertex_attrib_pointer(self.$field_name,
-                                                     components,
-                                                     gl_type,
-                                                     normalized,
-                                                     stride,
-                                                     offset);
+                            unsafe {
+                                gl_buffer.vertex_attrib_pointer(
+                                    self.$field_name,
+                                    components,
+                                    gl_type,
+                                    normalized,
+                                    stride,
+                                    offset);
+                            }
                         };)*
                     }
                 }
