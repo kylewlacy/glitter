@@ -3,6 +3,7 @@ use std::marker::PhantomData;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
 use super::context::Context;
+use super::types::DrawingMode;
 
 pub struct Buffer {
     gl_id: GLuint
@@ -96,6 +97,14 @@ impl<'a> ArrayBufferBinding<'a> {
                                 gl_normalized,
                                 stride as GLsizei,
                                 offset as *const GLvoid);
+    }
+
+    pub unsafe fn draw_arrays_range(&self,
+                                    mode: DrawingMode,
+                                    first: u32,
+                                    count: usize)
+    {
+        gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
     }
 }
 

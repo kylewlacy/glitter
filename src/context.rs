@@ -1,7 +1,5 @@
 use super::gl_lib as gl;
-use super::gl_lib::types::*;
 use super::buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
-use super::types::DrawingMode;
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
@@ -32,14 +30,6 @@ impl Context {
         unsafe {
             gl::EnableVertexAttribArray(attrib.gl_index);
         }
-    }
-
-    pub unsafe fn draw_arrays_current(&self,
-                                      mode: DrawingMode,
-                                      first: u32,
-                                      count: usize)
-    {
-        gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
     }
 }
 
