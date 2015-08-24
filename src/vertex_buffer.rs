@@ -2,6 +2,7 @@ use std::marker::PhantomData;
 use super::context::Context;
 use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
 use super::buffer::{Buffer, BufferBinding, ArrayBufferBinding};
+use super::types::DrawingMode;
 
 pub struct VertexBuffer<T: VertexData> {
     pub attrib_binder: Option<T::Binder>,
@@ -36,17 +37,6 @@ impl<T: VertexData> VertexBuffer<T> {
     }
 }
 
-impl Context {
-    pub fn new_vertex_buffer<T: VertexData>(&self) -> VertexBuffer<T> {
-        VertexBuffer {
-            attrib_binder: None,
-            buffer: self.gen_buffer(),
-            count: 0,
-            phantom: PhantomData
-        }
-    }
-}
-
 pub struct VertexBufferBinding<'a, T: VertexData>
     where T: 'a, T::Binder: 'a
 {
@@ -71,6 +61,24 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
     {
         self.vbo.count = data.len();
         self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
+    }
+
+    pub fn draw_arrays(&self, mode: DrawingMode) {
+        unsafe {
+            let gl = Context::current_context();
+            gl.draw_arrays_current(mode, 0, self.vbo.count);
+        }
+    }
+}
+
+impl Context {
+    pub fn new_vertex_buffer<T: VertexData>(&self) -> VertexBuffer<T> {
+        VertexBuffer {
+            attrib_binder: None,
+            buffer: self.gen_buffer(),
+            count: 0,
+            phantom: PhantomData
+        }
     }
 }
 
