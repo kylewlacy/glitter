@@ -34,10 +34,10 @@ impl Context {
         }
     }
 
-    pub unsafe fn draw_arrays(&self,
-                              mode: DrawingMode,
-                              first: u32,
-                              count: usize)
+    pub unsafe fn draw_arrays_current(&self,
+                                      mode: DrawingMode,
+                                      first: u32,
+                                      count: usize)
     {
         gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
     }
