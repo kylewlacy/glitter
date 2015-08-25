@@ -97,6 +97,22 @@ impl Context {
         }
     }
 
+    pub fn get_uniform_location(&self, program: &Program, name: &str)
+        -> Result<ProgramUniform, ()>
+    {
+        let c_str = try!(CString::new(name).or(Err(())));
+        let str_ptr = c_str.as_ptr() as *const GLchar;
+        unsafe {
+            let index = gl::GetUniformLocation(program.gl_id(), str_ptr);
+            if index >= 0 {
+                Ok(ProgramUniform { gl_index: index as GLuint })
+            }
+            else {
+                Err(())
+            }
+        }
+    }
+
     pub fn use_program(&self, program: &Program) {
         unsafe {
             gl::UseProgram(program.gl_id())
