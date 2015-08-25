@@ -110,3 +110,8 @@ impl Context {
 pub struct ProgramAttrib {
     pub gl_index: GLuint
 }
+
+#[derive(Debug, Clone, Copy)]
+pub struct ProgramUniform {
+    pub gl_index: GLuint
+}
