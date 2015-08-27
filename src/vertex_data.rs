@@ -1,5 +1,5 @@
 use std::mem;
-use std::raw;
+use std::slice;
 use super::gl_lib as gl;
 use super::buffer::ArrayBufferBinding;
 
@@ -93,21 +93,16 @@ pub trait VertexBytes {
 impl<T> VertexBytes for T where T: VertexData {
     fn vertex_bytes(&self) -> &[u8] {
         unsafe {
-            mem::transmute(raw::Slice::<Self> {
-                data: self,
-                len: mem::size_of::<Self>()
-            })
+            slice::from_raw_parts(mem::transmute(self), mem::size_of::<Self>())
         }
     }
 }
 
 impl<T> VertexBytes for [T] where T: VertexData {
     fn vertex_bytes(&self) -> &[u8] {
+        let size = mem::size_of::<T>() * self.len();
         unsafe {
-            mem::transmute(raw::Slice::<T> {
-                data: &self[0],
-                len: mem::size_of::<T>() * self.len()
-            })
+            slice::from_raw_parts(mem::transmute(&self[0]), size)
         }
     }
 }
