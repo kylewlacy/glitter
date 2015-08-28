@@ -49,3 +49,10 @@ macro_rules! bind_element_array_buffer {
         $gl.element_array_buffer.bind($buffer)
     }
 }
+
+#[macro_export]
+macro_rules! use_program {
+    ($gl:expr, $program:expr) => {
+        $gl.program.bind($program)
+    }
+}
