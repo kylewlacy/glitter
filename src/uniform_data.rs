@@ -44,3 +44,53 @@ impl UniformPrimitive for i32 {
         UniformPrimitiveType::Int
     }
 }
+
+
+
+impl<T: UniformPrimitive> UniformDatum for T {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(T::uniform_primitive_type())
+    }
+}
+
+impl<T: UniformPrimitive> UniformDatum for [T; 1] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(T::uniform_primitive_type())
+    }
+}
+
+impl<T: UniformPrimitive> UniformDatum for [T; 2] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(T::uniform_primitive_type())
+    }
+}
+
+impl<T: UniformPrimitive> UniformDatum for [T; 3] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(T::uniform_primitive_type())
+    }
+}
+
+impl<T> UniformDatum for [T; 4] where T: UniformPrimitive {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(T::uniform_primitive_type())
+    }
+}
+
+impl UniformDatum for [[f32; 2]; 2] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Matrix2x2
+    }
+}
+
+impl UniformDatum for [[f32; 3]; 3] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Matrix3x3
+    }
+}
+
+impl UniformDatum for [[f32; 4]; 4] {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Matrix4x4
+    }
+}
