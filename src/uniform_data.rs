@@ -27,3 +27,8 @@ pub trait UniformData {
 pub trait UniformDatum {
     fn uniform_datum_type() -> UniformDatumType;
 }
+
+
+pub trait UniformPrimitive {
+    fn uniform_primitive_type() -> UniformPrimitiveType;
+}
