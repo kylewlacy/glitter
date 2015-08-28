@@ -13,6 +13,24 @@ impl Color {
     }
 }
 
+pub struct Viewport {
+    pub x: u32,
+    pub y: u32,
+    pub width: u32,
+    pub height: u32
+}
+
+impl Viewport {
+    pub fn new(x: u32, y: u32, width: u32, height: u32) -> Self {
+        Viewport {
+            x: x,
+            y: y,
+            width: width,
+            height: height
+        }
+    }
+}
+
 bitflags! {
     flags BufferBits: gl::types::GLbitfield {
         const COLOR_BUFFER_BIT = gl::COLOR_BUFFER_BIT,
