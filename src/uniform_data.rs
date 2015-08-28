@@ -21,3 +21,9 @@ pub trait UniformData {
     fn uniform_bytes(&self) -> &[u8];
     fn uniform_elements(&self) -> usize;
 }
+
+
+
+pub trait UniformDatum {
+    fn uniform_datum_type() -> UniformDatumType;
+}
