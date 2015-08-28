@@ -7,6 +7,7 @@ use super::gl_lib::types::*;
 use super::types::GLError;
 use super::context::Context;
 use super::shader::Shader;
+use super::uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
 
 pub struct Program {
     gl_id: GLuint
@@ -121,6 +122,75 @@ pub struct ProgramBinding<'a> {
 }
 
 impl<'a> ProgramBinding<'a> {
+    pub fn set_uniform<T>(&self, uniform: ProgramUniform, val: T)
+        where T: UniformData
+    {
+        let idx = uniform.gl_index as GLint;
+        let count = val.uniform_elements() as GLsizei;
+        let ptr = val.uniform_bytes().as_ptr();
+        unsafe {
+            match T::uniform_datum_type() {
+                UniformDatumType::Vec1(p) => {
+                    match p {
+                        UniformPrimitiveType::Float => {
+                            gl::Uniform1fv(idx, count, ptr as *const GLfloat)
+                        },
+                        UniformPrimitiveType::Int => {
+                            gl::Uniform1iv(idx, count, ptr as *const GLint)
+                        }
+                    }
+                },
+                UniformDatumType::Vec2(p) => {
+                    match p {
+                        UniformPrimitiveType::Float => {
+                            gl::Uniform2fv(idx, count, ptr as *const GLfloat)
+                        },
+                        UniformPrimitiveType::Int => {
+                            gl::Uniform2iv(idx, count, ptr as *const GLint)
+                        }
+                    }
+                },
+                UniformDatumType::Vec3(p) => {
+                    match p {
+                        UniformPrimitiveType::Float => {
+                            gl::Uniform2fv(idx, count, ptr as *const GLfloat)
+                        },
+                        UniformPrimitiveType::Int => {
+                            gl::Uniform2iv(idx, count, ptr as *const GLint)
+                        }
+                    }
+                },
+                UniformDatumType::Vec4(p) => {
+                    match p {
+                        UniformPrimitiveType::Float => {
+                            gl::Uniform2fv(idx, count, ptr as *const GLfloat)
+                        },
+                        UniformPrimitiveType::Int => {
+                            gl::Uniform2iv(idx, count, ptr as *const GLint)
+                        }
+                    }
+                },
+                UniformDatumType::Matrix2x2 => {
+                    gl::UniformMatrix2fv(idx,
+                                         count,
+                                         gl::FALSE,
+                                         ptr as *const GLfloat)
+                },
+                UniformDatumType::Matrix3x3 => {
+                    gl::UniformMatrix3fv(idx,
+                                         count,
+                                         gl::FALSE,
+                                         ptr as *const GLfloat)
+                },
+                UniformDatumType::Matrix4x4 => {
+                    gl::UniformMatrix4fv(idx,
+                                         count,
+                                         gl::FALSE,
+                                         ptr as *const GLfloat)
+                },
+            }
+        }
+    }
 }
 
 pub struct ProgramBinder;
