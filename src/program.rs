@@ -1,5 +1,6 @@
 use std::mem;
 use std::ptr;
+use std::marker::PhantomData;
 use std::ffi::CString;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
@@ -112,11 +113,26 @@ impl Context {
             }
         }
     }
+}
 
-    pub fn use_program(&self, program: &Program) {
+
+pub struct ProgramBinding<'a> {
+    phantom: PhantomData<&'a mut Program>
+}
+
+impl<'a> ProgramBinding<'a> {
+}
+
+pub struct ProgramBinder;
+impl ProgramBinder {
+    pub fn bind<'a>(&'a mut self, program: &mut Program)
+        -> ProgramBinding<'a>
+    {
+        let binding = ProgramBinding { phantom: PhantomData };
         unsafe {
-            gl::UseProgram(program.gl_id())
+            gl::UseProgram(program.gl_id());
         }
+        binding
     }
 }
 
