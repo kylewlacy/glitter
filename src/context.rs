@@ -1,16 +1,19 @@
 use super::gl_lib as gl;
 use super::buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
+use super::program::{ProgramBinder};
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
-    pub element_array_buffer: ElementArrayBufferBinder
+    pub element_array_buffer: ElementArrayBufferBinder,
+    pub program: ProgramBinder
 }
 
 impl Context {
     pub unsafe fn current_context() -> Self {
         Context {
             array_buffer: ArrayBufferBinder,
-            element_array_buffer: ElementArrayBufferBinder
+            element_array_buffer: ElementArrayBufferBinder,
+            program: ProgramBinder
         }
     }
 
