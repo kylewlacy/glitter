@@ -32,3 +32,15 @@ pub trait UniformDatum {
 pub trait UniformPrimitive {
     fn uniform_primitive_type() -> UniformPrimitiveType;
 }
+
+impl UniformPrimitive for f32 {
+    fn uniform_primitive_type() -> UniformPrimitiveType {
+        UniformPrimitiveType::Float
+    }
+}
+
+impl UniformPrimitive for i32 {
+    fn uniform_primitive_type() -> UniformPrimitiveType {
+        UniformPrimitiveType::Int
+    }
+}
