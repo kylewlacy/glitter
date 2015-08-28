@@ -113,9 +113,8 @@ macro_rules! bind_vertex_buffer {
     ($gl:expr, $vbo:expr) => {
         {
             let vbo = $vbo;
-            let gl : &mut _ = $gl;
 
-            let gl_buffer = bind_array_buffer!(gl, vbo.buffer_mut());
+            let gl_buffer = bind_array_buffer!($gl, vbo.buffer_mut());
             vbo.bind(&gl_buffer).unwrap();
             $crate::VertexBufferBinding::new(gl_buffer, vbo)
         }
