@@ -94,3 +94,36 @@ impl UniformDatum for [[f32; 4]; 4] {
         UniformDatumType::Matrix4x4
     }
 }
+
+impl<T: UniformDatum> UniformData for T {
+    fn uniform_datum_type() -> UniformDatumType {
+        T::uniform_datum_type()
+    }
+
+    fn uniform_bytes(&self) -> &[u8] {
+        unsafe {
+            slice::from_raw_parts(mem::transmute(self), mem::size_of::<T>())
+        }
+    }
+
+    fn uniform_elements(&self) -> usize {
+        1
+    }
+}
+
+impl<T: UniformDatum> UniformData for [T] {
+    fn uniform_datum_type() -> UniformDatumType {
+        T::uniform_datum_type()
+    }
+
+    fn uniform_bytes(&self) -> &[u8] {
+        let size = mem::size_of::<T>() * self.len();
+        unsafe {
+            slice::from_raw_parts(mem::transmute(&self[0]), size)
+        }
+    }
+
+    fn uniform_elements(&self) -> usize {
+        self.len()
+    }
+}
