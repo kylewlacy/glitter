@@ -1,3 +1,4 @@
+use std::fmt;
 use super::gl_lib as gl;
 
 pub struct Color {
@@ -47,6 +48,31 @@ pub enum GLError {
     InvalidFramebufferOperation,
     OutOfMemory,
     Message(String)
+}
+
+impl fmt::Display for GLError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            GLError::InvalidEnum => {
+                write!(f, "Invalid enum")
+            },
+            GLError::InvalidValue => {
+                write!(f, "Invalid value")
+            },
+            GLError::InvalidOperation => {
+                write!(f, "Invalid operation")
+            },
+            GLError::InvalidFramebufferOperation => {
+                write!(f, "Invalid framebuffer operation")
+            },
+            GLError::OutOfMemory => {
+                write!(f, "Out of memory")
+            },
+            GLError::Message(ref s) => {
+                write!(f, "{}", s)
+            }
+        }
+    }
 }
 
 #[derive(Debug, Clone, Copy)]
