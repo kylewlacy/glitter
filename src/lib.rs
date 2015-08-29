@@ -1,12 +1,12 @@
 #[macro_use] extern crate bitflags;
 extern crate gl as gl_lib;
 
-#[macro_use] mod context;
+mod context;
 mod buffer;
 mod shader;
 mod program;
-#[macro_use] mod vertex_data;
-#[macro_use] mod vertex_buffer;
+mod vertex_data;
+mod vertex_buffer;
 mod uniform_data;
 mod types;
 
