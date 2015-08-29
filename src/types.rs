@@ -1,4 +1,5 @@
 use std::fmt;
+use std::error;
 use super::gl_lib as gl;
 
 pub struct Color {
@@ -71,6 +72,19 @@ impl fmt::Display for GLError {
             GLError::Message(ref s) => {
                 write!(f, "{}", s)
             }
+        }
+    }
+}
+
+impl error::Error for GLError {
+    fn description(&self) -> &str {
+        match *self {
+            GLError::InvalidEnum => "Invalid enum variant in OpenGL call.",
+            GLError::InvalidValue => "Out-of-range value in OpenGL call.",
+            GLError::InvalidOperation => "The specified OpenGL operation is not allowed in the current state.",
+            GLError::InvalidFramebufferOperation => "OpenGL command tried to read or write to an incomplete framebuffer.",
+            GLError::OutOfMemory => "There is not enough memory left to execute the specified OpenGL command.",
+            GLError::Message(ref s) => &s
         }
     }
 }
