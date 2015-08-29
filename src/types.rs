@@ -41,6 +41,11 @@ bitflags! {
 
 #[derive(Debug)]
 pub enum GLError {
+    InvalidEnum,
+    InvalidValue,
+    InvalidOperation,
+    InvalidFramebufferOperation,
+    OutOfMemory,
     Message(String)
 }
 
