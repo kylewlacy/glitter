@@ -40,8 +40,8 @@ bitflags! {
 }
 
 #[derive(Debug)]
-pub struct GLError {
-    pub message: String
+pub enum GLError {
+    Message(String)
 }
 
 #[derive(Debug, Clone, Copy)]

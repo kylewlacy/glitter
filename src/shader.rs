@@ -78,7 +78,7 @@ impl Context {
                 let msg = String::from_utf8(bytes)
                                  .unwrap_or(String::from("<Unknown error>"));
 
-                Err(GLError { message: msg })
+                Err(GLError::Message(msg))
             }
         }
     }
