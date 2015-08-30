@@ -15,3 +15,11 @@ pub trait IndexData {
 pub trait IndexDatum {
     fn index_datum_type() -> IndexDatumType;
 }
+
+impl IndexDatum for u8 {
+    fn index_datum_type() -> IndexDatumType { IndexDatumType::UnsignedByte }
+}
+
+impl IndexDatum for u16 {
+    fn index_datum_type() -> IndexDatumType { IndexDatumType::UnsignedShort }
+}
