@@ -51,13 +51,21 @@ impl Context {
 
     pub fn clear(&mut self, buffers: BufferBits) {
         unsafe {
-            gl::Clear(buffers.bits())
+            gl::Clear(buffers.bits());
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`mask` includes a bit other than an allowed value",
+                _ => "Unkown error"
+            }
         }
     }
 
     pub fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib) {
         unsafe {
             gl::EnableVertexAttribArray(attrib.gl_index);
+            dbg_gl_error! {
+                GLError::InvalidValue => "`index` is >= GL_MAX_VERTEX_ATTRIBS",
+                _ => "Unknown error"
+            }
         }
     }
 
@@ -67,6 +75,10 @@ impl Context {
                          viewport.y as GLint,
                          viewport.width as GLsizei,
                          viewport.height as GLsizei);
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`width` or `height` is negative",
+                _ => "Unknown error"
+            }
         }
     }
 

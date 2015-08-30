@@ -3,7 +3,7 @@ use std::marker::PhantomData;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
 use super::context::Context;
-use super::types::DrawingMode;
+use super::types::{DrawingMode, GLError};
 
 pub struct Buffer {
     gl_id: GLuint
@@ -27,7 +27,13 @@ impl Context {
     pub fn gen_buffer(&self) -> Buffer {
         unsafe {
             let mut id : GLuint = mem::uninitialized();
+
             gl::GenBuffers(1, &mut id as *mut GLuint);
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`n` is negative",
+                _ => "Unknown error"
+            }
+
             Buffer { gl_id: id }
         }
     }
@@ -64,7 +70,14 @@ pub trait BufferBinding {
             gl::BufferData(self.target() as GLenum,
                            size as GLsizeiptr,
                            ptr as *const GLvoid,
-                           usage as GLenum)
+                           usage as GLenum);
+            dbg_gl_error! {
+                GLError::InvalidEnum => "Invalid `target` or `usage`",
+                GLError::InvalidValue => "`size` is negative",
+                GLError::InvalidOperation => "Object 0 is bound to buffer target",
+                GLError::OutOfMemory => "Unable to create a large enough buffer",
+                _ => "Unknown error"
+            }
         }
     }
 }
@@ -97,6 +110,12 @@ impl<'a> ArrayBufferBinding<'a> {
                                 gl_normalized,
                                 stride as GLsizei,
                                 offset as *const GLvoid);
+        dbg_gl_error! {
+            GLError::InvalidEnum => "Illegal vertex attribute type",
+            GLError::InvalidValue => "`stride` is negative, `size` is not in range, or `index` is >= GL_MAX_VERTEX_ATTRIBS",
+            GLError::InvalidFramebufferOperation => "Currently bound framebuffer is not framebuffer complete",
+            _ => "Unknown error"
+        }
     }
 
     pub unsafe fn draw_arrays_range(&self,
@@ -105,6 +124,11 @@ impl<'a> ArrayBufferBinding<'a> {
                                     count: usize)
     {
         gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
+        dbg_gl_sanity_check! {
+            GLError::InvalidEnum => "`mode` is not an accepted value",
+            GLError::InvalidValue => "`count` is negative",
+            _ => "Unknown error"
+        }
     }
 }
 
@@ -128,6 +152,10 @@ impl ArrayBufferBinder {
         let binding = ArrayBufferBinding { phantom: PhantomData };
         unsafe {
             gl::BindBuffer(binding.target() as GLuint, buffer.gl_id);
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not an allowed value",
+                _ => "Unknown error"
+            }
         }
         binding
     }
@@ -141,6 +169,10 @@ impl ElementArrayBufferBinder {
         let binding = ElementArrayBufferBinding { phantom: PhantomData };
         unsafe {
             gl::BindBuffer(binding.target() as GLuint, buffer.gl_id);
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not an allowed value",
+                _ => "Unknown error"
+            }
         }
         binding
     }
