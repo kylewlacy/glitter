@@ -11,3 +11,7 @@ pub trait IndexData {
     fn index_bytes(&self) -> &[u8];
     fn index_elements(&self) -> usize;
 }
+
+pub trait IndexDatum {
+    fn index_datum_type() -> IndexDatumType;
+}

@@ -24,7 +24,7 @@ pub use uniform_data::{UniformData, UniformDatum, UniformPrimitive,
                        UniformPrimitiveType, UniformDatumType};
 pub use vertex_data::{VertexData, VertexDatum,
                       VertexBytes, VertexAttribBinder};
-pub use index_data::{IndexData, IndexDatumType};
+pub use index_data::{IndexData, IndexDatum, IndexDatumType};
 pub use vertex_buffer::{VertexBuffer, VertexBufferBinding};
 pub use types::{Color, Viewport, GLError, BufferBits,
                 DrawingMode, DataType,
