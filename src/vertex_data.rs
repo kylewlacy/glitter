@@ -1,7 +1,7 @@
 use std::mem;
 use std::slice;
-use super::gl_lib as gl;
 use super::buffer::ArrayBufferBinding;
+use super::types::DataType;
 
 pub trait VertexData: Copy {
     type Binder: VertexAttribBinder;
@@ -15,18 +15,6 @@ pub trait VertexAttribBinder {
     fn bind(&self, gl_buffer: &ArrayBufferBinding);
 }
 
-#[allow(non_camel_case_types)]
-#[derive(Debug, Clone, Copy)]
-pub enum DataType {
-    BYTE = gl::BYTE as isize,
-    UNSIGNED_BYTE = gl::UNSIGNED_BYTE as isize,
-    SHORT = gl::SHORT as isize,
-    UNSIGNED_SHORT = gl::UNSIGNED_SHORT as isize,
-    FIXED = gl::FIXED as isize,
-    FLOAT = gl::FLOAT as isize
-}
-pub use self::DataType::*;
-
 
 
 pub trait VertexPrimitive {
@@ -34,23 +22,23 @@ pub trait VertexPrimitive {
 }
 
 impl VertexPrimitive for i8 {
-    fn gl_type() -> DataType { self::BYTE }
+    fn gl_type() -> DataType { DataType::BYTE }
 }
 
 impl VertexPrimitive for u8 {
-    fn gl_type() -> DataType { self::UNSIGNED_BYTE }
+    fn gl_type() -> DataType { DataType::UNSIGNED_BYTE }
 }
 
 impl VertexPrimitive for i16 {
-    fn gl_type() -> DataType { self::SHORT }
+    fn gl_type() -> DataType { DataType::SHORT }
 }
 
 impl VertexPrimitive for u16 {
-    fn gl_type() -> DataType { self::UNSIGNED_SHORT }
+    fn gl_type() -> DataType { DataType::UNSIGNED_SHORT }
 }
 
 impl VertexPrimitive for f32 {
-    fn gl_type() -> DataType { self::FLOAT }
+    fn gl_type() -> DataType { DataType::FLOAT }
 }
 
 pub trait VertexDatum {

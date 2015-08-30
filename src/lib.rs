@@ -21,11 +21,13 @@ pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramAttrib, ProgramBinder, ProgramBinding};
 pub use uniform_data::{UniformData, UniformDatum, UniformPrimitive,
                        UniformPrimitiveType, UniformDatumType};
-pub use vertex_data::{VertexData, VertexDatum, VertexBytes, VertexAttribBinder,
-                      DataType, BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT,
-                      FIXED, FLOAT};
+pub use vertex_data::{VertexData, VertexDatum,
+                      VertexBytes, VertexAttribBinder};
 pub use vertex_buffer::{VertexBuffer, VertexBufferBinding};
-pub use types::{Color, Viewport, GLError, BufferBits, DrawingMode,
+pub use types::{Color, Viewport, GLError, BufferBits,
+                DrawingMode, DataType,
                 COLOR_BUFFER_BIT, DEPTH_BUFFER_BIT, STENCIL_BUFFER_BIT,
                 POINTS, LINE_STRIP, LINE_LOOP, LINES,
-                TRIANGLE_STRIP, TRIANGLE_FAN, TRIANGLES};
+                TRIANGLE_STRIP, TRIANGLE_FAN, TRIANGLES,
+                BYTE, UNSIGNED_BYTE, SHORT, UNSIGNED_SHORT,
+                FIXED, FLOAT};

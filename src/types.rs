@@ -101,3 +101,15 @@ pub enum DrawingMode {
     TRIANGLES = gl::TRIANGLES as isize
 }
 pub use self::DrawingMode::*;
+
+#[derive(Debug, Clone, Copy)]
+#[allow(non_camel_case_types)]
+pub enum DataType {
+    BYTE = gl::BYTE as isize,
+    UNSIGNED_BYTE = gl::UNSIGNED_BYTE as isize,
+    SHORT = gl::SHORT as isize,
+    UNSIGNED_SHORT = gl::UNSIGNED_SHORT as isize,
+    FIXED = gl::FIXED as isize,
+    FLOAT = gl::FLOAT as isize
+}
+pub use self::DataType::*;
