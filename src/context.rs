@@ -1,6 +1,6 @@
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
-use super::types::{Color, Viewport, BufferBits};
+use super::types::{Color, Viewport, BufferBits, GLError};
 use super::buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use super::program::{ProgramBinder, ProgramAttrib};
 
@@ -43,6 +43,25 @@ impl Context {
                          viewport.y as GLint,
                          viewport.width as GLsizei,
                          viewport.height as GLsizei);
+        }
+    }
+
+    pub fn get_error() -> Option<GLError> {
+        unsafe {
+            match gl::GetError() {
+                gl::INVALID_ENUM =>
+                    Some(GLError::InvalidEnum),
+                gl::INVALID_VALUE =>
+                    Some(GLError::InvalidValue),
+                gl::INVALID_OPERATION =>
+                    Some(GLError::InvalidOperation),
+                gl::INVALID_FRAMEBUFFER_OPERATION =>
+                    Some(GLError::InvalidFramebufferOperation),
+                gl::OUT_OF_MEMORY =>
+                    Some(GLError::OutOfMemory),
+                _ =>
+                    None
+            }
         }
     }
 }
