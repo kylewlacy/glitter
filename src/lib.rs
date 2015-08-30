@@ -7,6 +7,7 @@ mod shader;
 mod program;
 mod vertex_data;
 mod vertex_buffer;
+mod index_data;
 mod uniform_data;
 mod types;
 
@@ -23,6 +24,7 @@ pub use uniform_data::{UniformData, UniformDatum, UniformPrimitive,
                        UniformPrimitiveType, UniformDatumType};
 pub use vertex_data::{VertexData, VertexDatum,
                       VertexBytes, VertexAttribBinder};
+pub use index_data::{IndexData, IndexDatumType};
 pub use vertex_buffer::{VertexBuffer, VertexBufferBinding};
 pub use types::{Color, Viewport, GLError, BufferBits,
                 DrawingMode, DataType,
