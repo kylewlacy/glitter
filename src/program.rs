@@ -1,4 +1,3 @@
-use std::mem;
 use std::ptr;
 use std::marker::PhantomData;
 use std::ffi::CString;
@@ -87,13 +86,22 @@ impl Context {
             Ok(())
         }
         else {
-            unsafe {
-                let mut info_length : GLint = mem::uninitialized();
+            let msg = match self.get_program_info_log(&program) {
+                Some(s) => { s },
+                None => { String::from("[Unknown program error]") }
+            };
+            Err(GLError::Message(msg))
+        }
+    }
 
-                _get_program_iv(program,
-                                gl::INFO_LOG_LENGTH,
-                                &mut info_length as *mut GLint);
+    pub fn get_program_info_log(&self, program: &Program) -> Option<String> {
+        unsafe {
+            let mut info_length : GLint = 0;
+            _get_program_iv(program,
+                            gl::INFO_LOG_LENGTH,
+                            &mut info_length as *mut GLint);
 
+            if info_length > 0 {
                 let mut bytes = Vec::<u8>::with_capacity(info_length as usize);
 
                 gl::GetProgramInfoLog(program.gl_id(),
@@ -107,10 +115,10 @@ impl Context {
                 }
                 bytes.set_len((info_length - 1) as usize);
 
-                let msg = String::from_utf8(bytes)
-                                 .unwrap_or(String::from("<Unknown error>"));
-
-                Err(GLError::Message(msg))
+                String::from_utf8(bytes).ok()
+            }
+            else {
+                None
             }
         }
     }
