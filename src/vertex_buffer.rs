@@ -102,6 +102,16 @@ pub struct IndexBuffer<T: IndexDatum> {
     phantom: PhantomData<*const T>
 }
 
+impl<T: IndexDatum> IndexBuffer<T> {
+    pub fn buffer(&self) -> &Buffer {
+        &self.buffer
+    }
+
+    pub fn buffer_mut(&mut self) -> &mut Buffer {
+        &mut self.buffer
+    }
+}
+
 impl Context {
     pub fn new_index_buffer<T: IndexDatum>(&self) -> IndexBuffer<T> {
         IndexBuffer {
