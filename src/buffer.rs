@@ -157,6 +157,14 @@ impl<'a> ArrayBufferBinding<'a> {
             _ => "Unknown error"
         }
     }
+
+    pub unsafe fn draw_elements<I>(&self,
+                                   mode: DrawingMode,
+                                   indicies: &[I])
+        where I: IndexDatum, [I]: IndexData
+    {
+        self.draw_n_elements(mode, indicies.index_elements(), indicies);
+    }
 }
 
 pub struct ElementArrayBufferBinding<'a> {
