@@ -82,6 +82,17 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
             self.gl_buffer.draw_arrays_range(mode, 0, self.vbo.count);
         }
     }
+
+    pub fn draw_n_elements<I>(&self,
+                              mode: DrawingMode,
+                              count: usize,
+                              indicies: &[I])
+        where I: IndexDatum, [I]: IndexData
+    {
+        unsafe {
+            self.gl_buffer.draw_n_elements(mode, count, indicies);
+        }
+    }
 }
 
 impl Context {
