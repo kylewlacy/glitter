@@ -19,7 +19,8 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
                  ArrayBufferBinder, ElementArrayBufferBinder,
                  ArrayBufferBinding, ElementArrayBufferBinding};
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
-pub use program::{Program, ProgramAttrib, ProgramBinder, ProgramBinding};
+pub use program::{Program, ProgramBinder, ProgramBinding,
+                  ProgramAttrib, ProgramUniform};
 pub use uniform_data::{UniformData, UniformDatum, UniformPrimitive,
                        UniformPrimitiveType, UniformDatumType};
 pub use vertex_data::{VertexData, VertexDatum,
