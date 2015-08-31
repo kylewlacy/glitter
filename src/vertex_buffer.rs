@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use super::context::Context;
 use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
-use super::index_data::{IndexDatum};
+use super::index_data::{IndexData, IndexDatum};
 use super::buffer::{Buffer, BufferBinding,
                     ArrayBufferBinding, ElementArrayBufferBinding};
 use super::types::DrawingMode;
@@ -127,6 +127,13 @@ impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
             gl_buffer: gl_buffer,
             ibo: ibo
         }
+    }
+
+    pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
+        where [T]: IndexData
+    {
+        self.ibo.count = data.len();
+        self.gl_buffer.buffer_bytes(data.index_bytes(), usage);
     }
 }
 
