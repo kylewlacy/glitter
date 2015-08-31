@@ -83,6 +83,22 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
         }
     }
 
+    pub fn draw_n_elements_buffered<I>(&self,
+                                       gl_ibo: &IndexBufferBinding<'a, I>,
+                                       mode: DrawingMode,
+                                       length: usize)
+        where I: IndexDatum
+    {
+        debug_assert!(length <= gl_ibo.ibo.count);
+
+        unsafe {
+            self.gl_buffer.draw_n_elements_buffered(&gl_ibo.gl_buffer,
+                                                    mode,
+                                                    length,
+                                                    I::index_datum_type());
+        }
+    }
+
     pub fn draw_n_elements<I>(&self,
                               mode: DrawingMode,
                               count: usize,
