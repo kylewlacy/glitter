@@ -91,12 +91,22 @@ impl Context {
             Ok(())
         }
         else {
-            unsafe {
-                let mut info_length : GLint = 0;
-                _get_shader_iv(shader,
-                               gl::INFO_LOG_LENGTH,
-                               &mut info_length as *mut GLint);
+            let msg = match self.get_shader_info_log(&shader) {
+                Some(s) => { s },
+                None => { String::from("[Unknown shader error]") }
+            };
+            Err(GLError::Message(msg))
+        }
+    }
 
+    pub fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
+        unsafe {
+            let mut info_length : GLint = 0;
+            _get_shader_iv(shader,
+                           gl::INFO_LOG_LENGTH,
+                           &mut info_length as *mut GLint);
+                           
+            if info_length > 0 {
                 let mut bytes = Vec::<u8>::with_capacity(info_length as usize);
 
                 gl::GetShaderInfoLog(shader.gl_id(),
@@ -111,10 +121,10 @@ impl Context {
 
                 bytes.set_len((info_length - 1) as usize);
 
-                let msg = String::from_utf8(bytes)
-                                 .unwrap_or(String::from("<Unknown error>"));
-
-                Err(GLError::Message(msg))
+                String::from_utf8(bytes).ok()
+            }
+            else {
+                None
             }
         }
     }
