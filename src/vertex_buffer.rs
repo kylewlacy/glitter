@@ -169,3 +169,15 @@ macro_rules! bind_vertex_buffer {
         }
     }
 }
+
+#[macro_export]
+macro_rules! bind_index_buffer {
+    ($gl:expr, $ibo:expr) => {
+        {
+            let ibo = $ibo;
+
+            let gl_buffer = bind_element_array_buffer!($gl, ibo.buffer_mut());
+            $crate::IndexBufferBinding::new(gl_buffer, ibo)
+        }
+    }
+}
