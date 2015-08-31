@@ -192,20 +192,20 @@ impl<'a> ProgramBinding<'a> {
                 UniformDatumType::Vec3(p) => {
                     match p {
                         UniformPrimitiveType::Float => {
-                            gl::Uniform2fv(idx, count, ptr as *const GLfloat);
+                            gl::Uniform3fv(idx, count, ptr as *const GLfloat);
                         },
                         UniformPrimitiveType::Int => {
-                            gl::Uniform2iv(idx, count, ptr as *const GLint);
+                            gl::Uniform3iv(idx, count, ptr as *const GLint);
                         }
                     }
                 },
                 UniformDatumType::Vec4(p) => {
                     match p {
                         UniformPrimitiveType::Float => {
-                            gl::Uniform2fv(idx, count, ptr as *const GLfloat);
+                            gl::Uniform4fv(idx, count, ptr as *const GLfloat);
                         },
                         UniformPrimitiveType::Int => {
-                            gl::Uniform2iv(idx, count, ptr as *const GLint);
+                            gl::Uniform4iv(idx, count, ptr as *const GLint);
                         }
                     }
                 },
