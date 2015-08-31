@@ -1,6 +1,7 @@
 use std::marker::PhantomData;
 use super::context::Context;
 use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
+use super::index_data::{IndexDatum};
 use super::buffer::{Buffer, BufferBinding, ArrayBufferBinding};
 use super::types::DrawingMode;
 
@@ -92,6 +93,16 @@ impl Context {
         }
     }
 }
+
+
+
+pub struct IndexBuffer<T: IndexDatum> {
+    buffer: Buffer,
+    count: usize,
+    phantom: PhantomData<*const T>
+}
+
+
 
 #[macro_export]
 macro_rules! bind_attrib_pointers {
