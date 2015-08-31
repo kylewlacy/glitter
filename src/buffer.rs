@@ -94,6 +94,29 @@ impl<'a> BufferBinding for ArrayBufferBinding<'a> {
     }
 }
 
+
+
+unsafe fn _draw_elements(mode: DrawingMode,
+                         count: usize,
+                         index_type: IndexDatumType,
+                         indicies: *const GLvoid)
+{
+    let gl_index_type: GLenum = match index_type {
+        IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
+        IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
+    };
+    gl::DrawElements(mode as GLenum,
+                     count as GLsizei,
+                     gl_index_type,
+                     indicies);
+    dbg_gl_error! {
+        GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
+        GLError::InvalidValue => "`count` is negative",
+        GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
+        _ => "Unknown error"
+    }
+}
+
 impl<'a> ArrayBufferBinding<'a> {
     pub unsafe fn vertex_attrib_pointer(&self,
                                         attrib: super::ProgramAttrib,
@@ -139,20 +162,7 @@ impl<'a> ArrayBufferBinding<'a> {
                                            count: usize,
                                            index_type: IndexDatumType)
     {
-        let gl_index_type: GLenum = match index_type {
-            IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
-            IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
-        };
-        gl::DrawElements(mode as GLenum,
-                         count as GLsizei,
-                         gl_index_type,
-                         ptr::null());
-        dbg_gl_error! {
-            GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
-            GLError::InvalidValue => "`count` is negative",
-            GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
-            _ => "Unknown error"
-        }
+        _draw_elements(mode, count, index_type, ptr::null());
     }
 
     pub unsafe fn draw_n_elements<I>(&self,
@@ -163,21 +173,9 @@ impl<'a> ArrayBufferBinding<'a> {
     {
         debug_assert!(count <= indicies.len());
 
-        let index_type: GLenum = match I::index_datum_type() {
-            IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
-            IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
-        };
         let ptr = indicies.index_bytes().as_ptr();
-        gl::DrawElements(mode as GLenum,
-                         count as GLsizei,
-                         index_type,
-                         mem::transmute(ptr));
-        dbg_gl_error! {
-            GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
-            GLError::InvalidValue => "`count` is negative",
-            GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
-            _ => "Unknown error"
-        }
+        let index_type = I::index_datum_type();
+        _draw_elements(mode, count, index_type, mem::transmute(ptr));
     }
 
     pub unsafe fn draw_elements<I>(&self,
@@ -185,7 +183,7 @@ impl<'a> ArrayBufferBinding<'a> {
                                    indicies: &[I])
         where I: IndexDatum, [I]: IndexData
     {
-        self.draw_n_elements(mode, indicies.index_elements(), indicies);
+        self.draw_n_elements(mode, indicies.len(), indicies);
     }
 }
 
@@ -201,6 +199,14 @@ impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
 
 
 
+unsafe fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
+    gl::BindBuffer(target as GLuint, buffer.gl_id());
+    dbg_gl_sanity_check! {
+        GLError::InvalidEnum => "`target` is not an allowed value",
+        _ => "Unknown error"
+    }
+}
+
 pub struct ArrayBufferBinder;
 impl ArrayBufferBinder {
     pub fn bind<'a>(&'a mut self, buffer: &mut Buffer)
@@ -208,11 +214,7 @@ impl ArrayBufferBinder {
     {
         let binding = ArrayBufferBinding { phantom: PhantomData };
         unsafe {
-            gl::BindBuffer(binding.target() as GLuint, buffer.gl_id);
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`target` is not an allowed value",
-                _ => "Unknown error"
-            }
+            _bind_buffer(binding.target(), buffer);
         }
         binding
     }
@@ -225,11 +227,7 @@ impl ElementArrayBufferBinder {
     {
         let binding = ElementArrayBufferBinding { phantom: PhantomData };
         unsafe {
-            gl::BindBuffer(binding.target() as GLuint, buffer.gl_id);
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`target` is not an allowed value",
-                _ => "Unknown error"
-            }
+            _bind_buffer(binding.target(), buffer);
         }
         binding
     }
