@@ -2,7 +2,8 @@ use std::marker::PhantomData;
 use super::context::Context;
 use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
 use super::index_data::{IndexDatum};
-use super::buffer::{Buffer, BufferBinding, ArrayBufferBinding};
+use super::buffer::{Buffer, BufferBinding,
+                    ArrayBufferBinding, ElementArrayBufferBinding};
 use super::types::DrawingMode;
 
 pub struct VertexBuffer<T: VertexData> {
@@ -110,6 +111,11 @@ impl<T: IndexDatum> IndexBuffer<T> {
     pub fn buffer_mut(&mut self) -> &mut Buffer {
         &mut self.buffer
     }
+}
+
+pub struct IndexBufferBinding<'a, T: IndexDatum + 'a> {
+    gl_buffer: ElementArrayBufferBinding<'a>,
+    ibo: &'a mut IndexBuffer<T>
 }
 
 impl Context {
