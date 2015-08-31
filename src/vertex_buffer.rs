@@ -102,6 +102,16 @@ pub struct IndexBuffer<T: IndexDatum> {
     phantom: PhantomData<*const T>
 }
 
+impl Context {
+    pub fn new_index_buffer<T: IndexDatum>(&self) -> IndexBuffer<T> {
+        IndexBuffer {
+            buffer: self.gen_buffer(),
+            count: 0,
+            phantom: PhantomData
+        }
+    }
+}
+
 
 
 #[macro_export]
