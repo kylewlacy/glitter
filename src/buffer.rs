@@ -1,9 +1,11 @@
 use std::mem;
+use std::ptr;
 use std::marker::PhantomData;
 use super::gl_lib as gl;
 use super::gl_lib::types::*;
 use super::context::Context;
 use super::types::{DrawingMode, GLError};
+use super::index_data::{IndexData, IndexDatum, IndexDatumType};
 
 pub struct Buffer {
     gl_id: GLuint
@@ -127,6 +129,31 @@ impl<'a> ArrayBufferBinding<'a> {
         dbg_gl_sanity_check! {
             GLError::InvalidEnum => "`mode` is not an accepted value",
             GLError::InvalidValue => "`count` is negative",
+            _ => "Unknown error"
+        }
+    }
+
+    pub unsafe fn draw_n_elements<I>(&self,
+                                     mode: DrawingMode,
+                                     count: usize,
+                                     indicies: &[I])
+        where I: IndexDatum, [I]: IndexData
+    {
+        debug_assert!(count <= indicies.len());
+
+        let index_type: GLenum = match I::index_datum_type() {
+            IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
+            IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
+        };
+        let ptr = indicies.index_bytes().as_ptr();
+        gl::DrawElements(mode as GLenum,
+                         count as GLsizei,
+                         index_type,
+                         mem::transmute(ptr));
+        dbg_gl_error! {
+            GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
+            GLError::InvalidValue => "`count` is negative",
+            GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
             _ => "Unknown error"
         }
     }
