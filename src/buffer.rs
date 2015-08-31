@@ -133,6 +133,28 @@ impl<'a> ArrayBufferBinding<'a> {
         }
     }
 
+    pub unsafe fn draw_n_elements_buffered(&self,
+                                           _eab: &ElementArrayBufferBinding,
+                                           mode: DrawingMode,
+                                           count: usize,
+                                           index_type: IndexDatumType)
+    {
+        let gl_index_type: GLenum = match index_type {
+            IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
+            IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
+        };
+        gl::DrawElements(mode as GLenum,
+                         count as GLsizei,
+                         gl_index_type,
+                         ptr::null());
+        dbg_gl_error! {
+            GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
+            GLError::InvalidValue => "`count` is negative",
+            GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
+            _ => "Unknown error"
+        }
+    }
+
     pub unsafe fn draw_n_elements<I>(&self,
                                      mode: DrawingMode,
                                      count: usize,
