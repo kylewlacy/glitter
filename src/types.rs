@@ -15,6 +15,7 @@ impl Color {
     }
 }
 
+#[derive(Clone, Copy)]
 pub struct Viewport {
     pub x: u32,
     pub y: u32,
