@@ -118,6 +118,18 @@ pub struct IndexBufferBinding<'a, T: IndexDatum + 'a> {
     ibo: &'a mut IndexBuffer<T>
 }
 
+impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
+    pub fn new(gl_buffer: ElementArrayBufferBinding<'a>,
+               ibo: &'a mut IndexBuffer<T>)
+        -> Self
+    {
+        IndexBufferBinding {
+            gl_buffer: gl_buffer,
+            ibo: ibo
+        }
+    }
+}
+
 impl Context {
     pub fn new_index_buffer<T: IndexDatum>(&self) -> IndexBuffer<T> {
         IndexBuffer {
