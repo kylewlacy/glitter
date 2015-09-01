@@ -1,7 +1,8 @@
 #[macro_use] extern crate bitflags;
 extern crate gl as gl_lib;
 
-#[macro_use] mod context;
+#[macro_use] mod macros;
+mod context;
 mod buffer;
 mod shader;
 mod program;
