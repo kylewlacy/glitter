@@ -44,22 +44,24 @@ impl Context {
 
 
 #[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
 pub enum BufferDataUsage {
-    STREAM_DRAW = gl::STREAM_DRAW as isize,
-    STATIC_DRAW = gl::STATIC_DRAW as isize,
-    DYNAMIC_DRAW = gl::DYNAMIC_DRAW as isize
+    StreamDraw = gl::STREAM_DRAW as isize,
+    StaticDraw = gl::STATIC_DRAW as isize,
+    DynamicDraw = gl::DYNAMIC_DRAW as isize
 }
-pub use self::BufferDataUsage::*;
+pub const STREAM_DRAW : BufferDataUsage = BufferDataUsage::StreamDraw;
+pub const STATIC_DRAW : BufferDataUsage = BufferDataUsage::StaticDraw;
+pub const DYNAMIC_DRAW : BufferDataUsage = BufferDataUsage::DynamicDraw;
 
 #[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
 pub enum BufferBindingTarget {
-    ARRAY_BUFFER = gl::ARRAY_BUFFER as isize,
-    ELEMENT_ARRAY_BUFFER = gl::ELEMENT_ARRAY_BUFFER as isize
+    ArrayBuffer = gl::ARRAY_BUFFER as isize,
+    ElementArrayBuffer = gl::ELEMENT_ARRAY_BUFFER as isize
 }
-pub use self::BufferBindingTarget::*;
-
+pub const ARRAY_BUFFER : BufferBindingTarget =
+    BufferBindingTarget::ArrayBuffer;
+pub const ELEMENT_ARRAY_BUFFER : BufferBindingTarget =
+    BufferBindingTarget::ElementArrayBuffer;
 
 
 pub trait BufferBinding {
