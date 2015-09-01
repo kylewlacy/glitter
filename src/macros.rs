@@ -19,3 +19,17 @@ macro_rules! dbg_gl_sanity_check {
         dbg_gl_error! { $($pat => concat!("Sanity check failed: ", $msg)),* }
     }
 }
+
+macro_rules! gl_enum {
+    (
+        pub gl_enum $name:ident {
+            $($variant:ident as $const_name:ident = $value:expr),+
+        }
+    ) => {
+        #[derive(Debug, Clone, Copy)]
+        pub enum $name {
+            $($variant = $value as isize),+
+        }
+        $(pub const $const_name: $name = $name::$variant;)+
+    }
+}

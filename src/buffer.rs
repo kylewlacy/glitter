@@ -43,25 +43,21 @@ impl Context {
 
 
 
-#[derive(Debug, Clone, Copy)]
-pub enum BufferDataUsage {
-    StreamDraw = gl::STREAM_DRAW as isize,
-    StaticDraw = gl::STATIC_DRAW as isize,
-    DynamicDraw = gl::DYNAMIC_DRAW as isize
+gl_enum! {
+    pub gl_enum BufferDataUsage {
+        StreamDraw as STREAM_DRAW = gl::STREAM_DRAW,
+        StaticDraw as STATIC_DRAW = gl::STATIC_DRAW,
+        DynamicDraw as DYNAMIC_DRAW = gl::DYNAMIC_DRAW
+    }
 }
-pub const STREAM_DRAW : BufferDataUsage = BufferDataUsage::StreamDraw;
-pub const STATIC_DRAW : BufferDataUsage = BufferDataUsage::StaticDraw;
-pub const DYNAMIC_DRAW : BufferDataUsage = BufferDataUsage::DynamicDraw;
 
-#[derive(Debug, Clone, Copy)]
-pub enum BufferBindingTarget {
-    ArrayBuffer = gl::ARRAY_BUFFER as isize,
-    ElementArrayBuffer = gl::ELEMENT_ARRAY_BUFFER as isize
+gl_enum! {
+    pub gl_enum BufferBindingTarget {
+        ArrayBuffer as ARRAY_BUFFER = gl::ARRAY_BUFFER,
+        ElementArrayBuffer as ELEMENT_ARRAY_BUFFER = gl::ELEMENT_ARRAY_BUFFER
+    }
 }
-pub const ARRAY_BUFFER : BufferBindingTarget =
-    BufferBindingTarget::ArrayBuffer;
-pub const ELEMENT_ARRAY_BUFFER : BufferBindingTarget =
-    BufferBindingTarget::ElementArrayBuffer;
+
 
 
 pub trait BufferBinding {
