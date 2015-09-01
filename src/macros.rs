@@ -31,5 +31,21 @@ macro_rules! gl_enum {
             $($variant = $value as isize),+
         }
         $(pub const $const_name: $name = $name::$variant;)+
+
+        #[allow(dead_code)]
+        impl $name {
+            pub fn from_gl(gl_enum: $crate::gl::types::GLenum)
+                -> Result<Self, ()>
+            {
+                match gl_enum {
+                    $(x if x == $value => { Ok($name::$variant) },)+
+                    _ => { Err(()) }
+                }
+            }
+
+            pub fn gl_enum(&self) -> $crate::gl::types::GLenum {
+                *self as $crate::gl::types::GLenum
+            }
+        }
     }
 }
