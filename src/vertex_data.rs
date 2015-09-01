@@ -1,7 +1,7 @@
 use std::mem;
 use std::slice;
-use super::buffer::ArrayBufferBinding;
-use super::types::DataType;
+use buffer::ArrayBufferBinding;
+use types::DataType;
 
 pub trait VertexData: Copy {
     type Binder: VertexAttribBinder;

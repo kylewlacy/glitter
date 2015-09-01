@@ -1,11 +1,11 @@
 use std::mem;
 use std::ptr;
 use std::marker::PhantomData;
-use super::gl_lib as gl;
-use super::gl_lib::types::*;
-use super::context::Context;
-use super::types::{DrawingMode, GLError};
-use super::index_data::{IndexData, IndexDatum, IndexDatumType};
+use gl;
+use gl::types::*;
+use context::Context;
+use types::{DrawingMode, GLError};
+use index_data::{IndexData, IndexDatum, IndexDatumType};
 
 pub struct Buffer {
     gl_id: GLuint

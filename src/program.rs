@@ -1,12 +1,12 @@
 use std::ptr;
 use std::marker::PhantomData;
 use std::ffi::CString;
-use super::gl_lib as gl;
-use super::gl_lib::types::*;
-use super::types::GLError;
-use super::context::Context;
-use super::shader::Shader;
-use super::uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
+use gl;
+use gl::types::*;
+use types::GLError;
+use context::Context;
+use shader::Shader;
+use uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
 
 pub struct Program {
     gl_id: GLuint

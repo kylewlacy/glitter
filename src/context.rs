@@ -1,8 +1,8 @@
-use super::gl_lib as gl;
-use super::gl_lib::types::*;
-use super::types::{Color, Viewport, BufferBits, GLError};
-use super::buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
-use super::program::{ProgramBinder, ProgramAttrib};
+use gl;
+use gl::types::*;
+use types::{Color, Viewport, BufferBits, GLError};
+use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
+use program::{ProgramBinder, ProgramAttrib};
 
 // Used to specify checks that shouldn't fail (but might in unsafe)
 macro_rules! dbg_gl_error {

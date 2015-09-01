@@ -1,6 +1,6 @@
 use std::fmt;
 use std::error;
-use super::gl_lib as gl;
+use gl;
 
 pub struct Color {
     pub r: f32,
