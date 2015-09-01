@@ -22,23 +22,23 @@ pub trait VertexPrimitive {
 }
 
 impl VertexPrimitive for i8 {
-    fn gl_type() -> DataType { DataType::BYTE }
+    fn gl_type() -> DataType { DataType::Byte }
 }
 
 impl VertexPrimitive for u8 {
-    fn gl_type() -> DataType { DataType::UNSIGNED_BYTE }
+    fn gl_type() -> DataType { DataType::UnsignedByte }
 }
 
 impl VertexPrimitive for i16 {
-    fn gl_type() -> DataType { DataType::SHORT }
+    fn gl_type() -> DataType { DataType::Short }
 }
 
 impl VertexPrimitive for u16 {
-    fn gl_type() -> DataType { DataType::UNSIGNED_SHORT }
+    fn gl_type() -> DataType { DataType::UnsignedShort }
 }
 
 impl VertexPrimitive for f32 {
-    fn gl_type() -> DataType { DataType::FLOAT }
+    fn gl_type() -> DataType { DataType::Float }
 }
 
 pub trait VertexDatum {

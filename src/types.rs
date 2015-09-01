@@ -90,27 +90,25 @@ impl error::Error for GLError {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
-pub enum DrawingMode {
-    POINTS = gl::POINTS as isize,
-    LINE_STRIP = gl::LINE_STRIP as isize,
-    LINE_LOOP = gl::LINE_LOOP as isize,
-    LINES = gl::LINES as isize,
-    TRIANGLE_STRIP = gl::TRIANGLE_STRIP as isize,
-    TRIANGLE_FAN = gl::TRIANGLE_FAN as isize,
-    TRIANGLES = gl::TRIANGLES as isize
+gl_enum! {
+    pub gl_enum DrawingMode {
+        Points as POINTS = gl::POINTS,
+        LineStrip as LINE_STRIP = gl::LINE_STRIP,
+        LineLoop as LINE_LOOP = gl::LINE_LOOP,
+        Lines as LINES = gl::LINES,
+        TriangleStrip as TRIANGLE_STRIP = gl::TRIANGLE_STRIP,
+        TriangleFan as TRIANGLE_FAN = gl::TRIANGLE_FAN,
+        Triangles as TRIANGLES = gl::TRIANGLES
+    }
 }
-pub use self::DrawingMode::*;
 
-#[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
-pub enum DataType {
-    BYTE = gl::BYTE as isize,
-    UNSIGNED_BYTE = gl::UNSIGNED_BYTE as isize,
-    SHORT = gl::SHORT as isize,
-    UNSIGNED_SHORT = gl::UNSIGNED_SHORT as isize,
-    FIXED = gl::FIXED as isize,
-    FLOAT = gl::FLOAT as isize
+gl_enum! {
+    pub gl_enum DataType {
+        Byte as BYTE = gl::BYTE,
+        UnsignedByte as UNSIGNED_BYTE = gl::UNSIGNED_BYTE,
+        Short as SHORT = gl::SHORT,
+        UnsignedShort as UNSIGNED_SHORT = gl::UNSIGNED_SHORT,
+        Fixed as FIXED = gl::FIXED,
+        Float as FLOAT = gl::FLOAT
+    }
 }
-pub use self::DataType::*;

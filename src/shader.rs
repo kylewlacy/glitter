@@ -105,7 +105,7 @@ impl Context {
             _get_shader_iv(shader,
                            gl::INFO_LOG_LENGTH,
                            &mut info_length as *mut GLint);
-                           
+
             if info_length > 0 {
                 let mut bytes = Vec::<u8>::with_capacity(info_length as usize);
 
@@ -130,10 +130,9 @@ impl Context {
     }
 }
 
-#[derive(Debug, Clone, Copy)]
-#[allow(non_camel_case_types)]
-pub enum ShaderType {
-    VERTEX_SHADER = gl::VERTEX_SHADER as isize,
-    FRAGMENT_SHADER = gl::FRAGMENT_SHADER as isize
+gl_enum! {
+    pub gl_enum ShaderType {
+        VertexShader as VERTEX_SHADER = gl::VERTEX_SHADER,
+        FragmentShader as FRAGMENT_SHADER = gl::FRAGMENT_SHADER
+    }
 }
-pub use self::ShaderType::*;
