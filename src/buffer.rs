@@ -67,10 +67,10 @@ pub trait BufferBinding {
         let ptr = bytes.as_ptr();
         let size = bytes.len() * mem::size_of::<u8>();
         unsafe {
-            gl::BufferData(self.target() as GLenum,
+            gl::BufferData(self.target().gl_enum(),
                            size as GLsizeiptr,
                            ptr as *const GLvoid,
-                           usage as GLenum);
+                           usage.gl_enum());
             dbg_gl_error! {
                 GLError::InvalidEnum => "Invalid `target` or `usage`",
                 GLError::InvalidValue => "`size` is negative",
@@ -103,7 +103,7 @@ unsafe fn _draw_elements(mode: DrawingMode,
         IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
         IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
     };
-    gl::DrawElements(mode as GLenum,
+    gl::DrawElements(mode.gl_enum(),
                      count as GLsizei,
                      gl_index_type,
                      indicies);
@@ -129,7 +129,7 @@ impl<'a> ArrayBufferBinding<'a> {
         let gl_normalized = if normalized { gl::TRUE } else { gl::FALSE };
         gl::VertexAttribPointer(attrib.gl_index,
                                 components as GLint,
-                                gl_type as GLenum,
+                                gl_type.gl_enum(),
                                 gl_normalized,
                                 stride as GLsizei,
                                 offset as *const GLvoid);
@@ -146,7 +146,7 @@ impl<'a> ArrayBufferBinding<'a> {
                                     first: u32,
                                     count: usize)
     {
-        gl::DrawArrays(mode as GLenum, first as GLint, count as GLsizei);
+        gl::DrawArrays(mode.gl_enum(), first as GLint, count as GLsizei);
         dbg_gl_sanity_check! {
             GLError::InvalidEnum => "`mode` is not an accepted value",
             GLError::InvalidValue => "`count` is negative",
