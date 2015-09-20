@@ -135,3 +135,11 @@ pub struct Texture2dBinding<'a> {
 impl<'a> TextureBinding for Texture2dBinding<'a> {
     type TextureType = Tx2d;
 }
+
+pub struct TextureCubeMapBinding<'a> {
+    phantom: PhantomData<&'a mut TextureCubeMap>
+}
+
+impl<'a> TextureBinding for TextureCubeMapBinding<'a> {
+    type TextureType = TxCubeMap;
+}

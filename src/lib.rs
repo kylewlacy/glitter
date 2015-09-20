@@ -25,7 +25,7 @@ pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
 pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
-                  TextureBinding, Texture2dBinding,
+                  TextureBinding, Texture2dBinding, TextureCubeMapBinding,
                   ImageTargetType, Tx2dImageTarget, TxCubeMapImageTarget,
                   Texture2d, TextureCubeMap, TextureBindingTarget,
                   TEXTURE_2D, TEXTURE_CUBE_MAP,
