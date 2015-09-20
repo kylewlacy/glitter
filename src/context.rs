@@ -3,11 +3,14 @@ use gl::types::*;
 use types::{Color, Viewport, BufferBits, GLError};
 use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
+use texture::{Texture2dBinder, TextureCubeMapBinder};
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
     pub element_array_buffer: ElementArrayBufferBinder,
-    pub program: ProgramBinder
+    pub program: ProgramBinder,
+    pub texture_2d: Texture2dBinder,
+    pub texture_cube_map: TextureCubeMapBinder
 }
 
 impl Context {
@@ -15,7 +18,9 @@ impl Context {
         Context {
             array_buffer: ArrayBufferBinder,
             element_array_buffer: ElementArrayBufferBinder,
-            program: ProgramBinder
+            program: ProgramBinder,
+            texture_2d: Texture2dBinder,
+            texture_cube_map: TextureCubeMapBinder
         }
     }
 
