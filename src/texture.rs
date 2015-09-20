@@ -119,3 +119,11 @@ gl_enum! {
         TextureCubeMap as TEXTURE_CUBE_MAP = gl::TEXTURE_CUBE_MAP
     }
 }
+
+pub trait TextureBinding {
+    type TextureType: TextureType;
+
+    fn target() -> TextureBindingTarget {
+        Self::TextureType::target()
+    }
+}
