@@ -18,6 +18,40 @@ pub struct Pixel {
     a: u8
 }
 
+impl Pixel {
+    pub fn r_g_b_a(r: u8, g: u8, b: u8, a: u8) -> Self {
+        Pixel { r: r, g: g, b: b, a: a }
+    }
+
+    pub fn r_g_b(r: u8, g: u8, b: u8) -> Self {
+        Pixel::r_g_b_a(r, g, b, 0xFF)
+    }
+
+    pub fn rgb(rgb: u32) -> Self {
+        Pixel::rgb_a(rgb, 0xFF)
+    }
+
+    pub fn argb(argb: u32) -> Self {
+        let a = (argb & 0xFF000000) >> 24;
+        Pixel::rgb_a(argb, a as u8)
+    }
+
+    pub fn rgba(rgba: u32) -> Self {
+        let r = (rgba & 0xFF000000) >> 24;
+        let g = (rgba & 0x00FF0000) >> 16;
+        let b = (rgba & 0x0000FF00) >> 8;
+        let a =  rgba & 0x000000FF;
+        Pixel::r_g_b_a(r as u8, g as u8, b as u8, a as u8)
+    }
+
+    pub fn rgb_a(rgb: u32, a: u8) -> Self {
+        let r = (rgb & 0xFF0000) >> 16;
+        let g = (rgb & 0x00FF00) >> 8;
+        let b =  rgb & 0x0000FF;
+        Pixel::r_g_b_a(r as u8, g as u8, b as u8, a)
+    }
+}
+
 pub struct Pixels {
     width: usize,
     height: usize,
