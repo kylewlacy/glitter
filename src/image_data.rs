@@ -1,5 +1,12 @@
 use gl;
 
+pub trait Image2d {
+    fn width(&self) -> usize;
+    fn height(&self) -> usize;
+    fn format(&self) -> ImageFormat;
+    fn textel_bytes(&self) -> &[u8];
+}
+
 gl_enum! {
     pub gl_enum TextelType {
         UnsignedByte as UNSIGNED_BYTE_TEXTEL = gl::UNSIGNED_BYTE,
