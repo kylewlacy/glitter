@@ -58,6 +58,16 @@ pub struct Pixels {
     pixels: Vec<Pixel>
 }
 
+impl Pixels {
+    pub fn new(width: usize, height: usize) -> Self {
+        Pixels {
+            width: width,
+            height: height,
+            pixels: vec![Pixel::rgb(0x0000FF); width * height]
+        }
+    }
+}
+
 impl Image2d for Pixels {
     fn width(&self) -> usize {
         self.width
