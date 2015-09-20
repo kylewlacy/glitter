@@ -7,6 +7,12 @@ pub struct Texture<T: TextureType> {
     phantom: PhantomData<*mut T>
 }
 
+impl<T: TextureType> Texture<T> {
+    pub fn gl_id(&self) -> GLuint {
+        self.gl_id
+    }
+}
+
 
 
 pub trait ImageTargetType {
