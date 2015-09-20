@@ -1,3 +1,4 @@
+use std::ops;
 use std::mem;
 use std::slice;
 use gl;
@@ -65,6 +66,24 @@ impl Pixels {
             height: height,
             pixels: vec![Pixel::rgb(0x0000FF); width * height]
         }
+    }
+}
+
+impl ops::Index<usize> for Pixels {
+    type Output = [Pixel];
+
+    fn index(&self, row: usize) -> &[Pixel] {
+        debug_assert!(row < self.height);
+
+        &self.pixels[(row*self.width)..((row+1)*self.width)]
+    }
+}
+
+impl ops::IndexMut<usize> for Pixels {
+    fn index_mut(&mut self, row: usize) -> &mut [Pixel] {
+        debug_assert!(row < self.height);
+
+        &mut self.pixels[(row*self.width)..((row+1)*self.width)]
     }
 }
 
