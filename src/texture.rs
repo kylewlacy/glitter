@@ -13,6 +13,14 @@ impl<T: TextureType> Texture<T> {
     }
 }
 
+impl<T: TextureType> Drop for Texture<T> {
+    fn drop(&mut self) {
+        unsafe {
+            gl::DeleteTextures(1, &self.gl_id as *const GLuint);
+        }
+    }
+}
+
 
 
 pub trait ImageTargetType {
