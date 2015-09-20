@@ -7,6 +7,15 @@ pub trait Image2d {
     fn textel_bytes(&self) -> &[u8];
 }
 
+#[derive(Debug, Clone, Copy)]
+#[repr(C)]
+pub struct Pixel {
+    r: u8,
+    g: u8,
+    b: u8,
+    a: u8
+}
+
 gl_enum! {
     pub gl_enum TextelType {
         UnsignedByte as UNSIGNED_BYTE_TEXTEL = gl::UNSIGNED_BYTE,
