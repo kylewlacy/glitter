@@ -33,6 +33,28 @@ pub trait TextureType {
     fn target() -> TextureBindingTarget;
 }
 
+pub struct Tx2d;
+
+gl_enum! {
+    pub gl_enum Tx2dImageTarget {
+        Texture2d as TEXTURE_2D_TARGET = gl::TEXTURE_2D
+    }
+}
+
+impl ImageTargetType for Tx2dImageTarget {
+    fn gl_enum(&self) -> GLenum {
+        self.gl_enum()
+    }
+}
+
+impl TextureType for Tx2d {
+    type ImageTargetType = Tx2dImageTarget;
+
+    fn target() -> TextureBindingTarget {
+        TextureBindingTarget::Texture2d
+    }
+}
+
 
 
 gl_enum! {
