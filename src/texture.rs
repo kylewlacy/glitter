@@ -218,11 +218,58 @@ gl_enum! {
 
 
 
+unsafe fn _tex_parameter_iv(target: TextureBindingTarget,
+                            pname: GLenum,
+                            params: *const GLint)
+{
+    gl::TexParameteriv(target.gl_enum(), pname, params);
+    dbg_gl_sanity_check! {
+        GLError::InvalidEnum => "`target` or `pname` is not an accepted defined value, or `params` should have defined a symbolic constant and does not",
+        _ => "Unknown error"
+    }
+}
+
 pub trait TextureBinding {
     type TextureType: TextureType;
 
     fn target() -> TextureBindingTarget {
         Self::TextureType::target()
+    }
+
+    fn set_min_filter<F: Into<TextureMipmapFilter>>(&mut self, filter: F) {
+        let gl_int = filter.into().gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(Self::target(),
+                              gl::TEXTURE_MIN_FILTER,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_mag_filter(&mut self, filter: TextureFilter) {
+        let gl_int = filter.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(Self::target(),
+                              gl::TEXTURE_MAG_FILTER,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_wrap_s(&mut self, wrap_mode: TextureWrapMode) {
+        let gl_int = wrap_mode.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(Self::target(),
+                              gl::TEXTURE_WRAP_S,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_wrap_t(&mut self, wrap_mode: TextureWrapMode) {
+        let gl_int = wrap_mode.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(Self::target(),
+                              gl::TEXTURE_WRAP_T,
+                              &gl_int as *const GLint);
+        }
     }
 
     fn image_2d<I>(&mut self,
