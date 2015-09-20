@@ -24,7 +24,7 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
-pub use texture::{ImageTargetType, TextureBindingTarget,
+pub use texture::{TextureType, ImageTargetType, TextureBindingTarget,
                   TEXTURE_2D, TEXTURE_CUBE_MAP};
 pub use image_data::{Image2d, Pixels, Pixel, ImageFormat,
                      TextelType, TextelFormat, RGB, RGBA, ALPHA,
