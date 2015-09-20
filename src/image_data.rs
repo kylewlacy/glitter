@@ -1,3 +1,5 @@
+use std::mem;
+use std::slice;
 use gl;
 
 pub trait Image2d {
@@ -20,6 +22,27 @@ pub struct Pixels {
     width: usize,
     height: usize,
     pixels: Vec<Pixel>
+}
+
+impl Image2d for Pixels {
+    fn width(&self) -> usize {
+        self.width
+    }
+
+    fn height(&self) -> usize {
+        self.height
+    }
+
+    fn format(&self) -> ImageFormat {
+        ImageFormat::rgba8()
+    }
+
+    fn textel_bytes(&self) -> &[u8] {
+        let len = self.pixels.len() * mem::size_of::<Pixel>();
+        unsafe {
+            slice::from_raw_parts(mem::transmute(&self.pixels[0]), len)
+        }
+    }
 }
 
 gl_enum! {
