@@ -24,10 +24,13 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
-pub use texture::{Texture, TextureType, Tx2d,
-                  ImageTargetType, Tx2dImageTarget,
+pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
+                  ImageTargetType, Tx2dImageTarget, TxCubeMapImageTarget,
                   TextureBindingTarget,
                   TEXTURE_2D, TEXTURE_CUBE_MAP,
+                  TEXTURE_CUBE_MAP_POSITIVE_X, TEXTURE_CUBE_MAP_NEGATIVE_X,
+                  TEXTURE_CUBE_MAP_POSITIVE_Y, TEXTURE_CUBE_MAP_NEGATIVE_Y,
+                  TEXTURE_CUBE_MAP_POSITIVE_Z, TEXTURE_CUBE_MAP_NEGATIVE_Z,
                   TEXTURE_2D_TARGET};
 pub use image_data::{Image2d, Pixels, Pixel, ImageFormat,
                      TextelType, TextelFormat, RGB, RGBA, ALPHA,

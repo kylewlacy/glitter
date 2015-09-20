@@ -55,6 +55,39 @@ impl TextureType for Tx2d {
     }
 }
 
+pub struct TxCubeMap;
+
+gl_enum! {
+    pub gl_enum TxCubeMapImageTarget {
+        CubeMapPositiveX as TEXTURE_CUBE_MAP_POSITIVE_X =
+            gl::TEXTURE_CUBE_MAP_POSITIVE_X,
+        CubeMapNegativeX as TEXTURE_CUBE_MAP_NEGATIVE_X =
+            gl::TEXTURE_CUBE_MAP_NEGATIVE_X,
+        CubeMapPositiveY as TEXTURE_CUBE_MAP_POSITIVE_Y =
+            gl::TEXTURE_CUBE_MAP_POSITIVE_Y,
+        CubeMapNegativeY as TEXTURE_CUBE_MAP_NEGATIVE_Y =
+            gl::TEXTURE_CUBE_MAP_NEGATIVE_Y,
+        CubeMapPositiveZ as TEXTURE_CUBE_MAP_POSITIVE_Z =
+            gl::TEXTURE_CUBE_MAP_POSITIVE_Z,
+        CubeMapNegativeZ as TEXTURE_CUBE_MAP_NEGATIVE_Z =
+            gl::TEXTURE_CUBE_MAP_NEGATIVE_Z
+    }
+}
+
+impl ImageTargetType for TxCubeMapImageTarget {
+    fn gl_enum(&self) -> GLenum {
+        self.gl_enum()
+    }
+}
+
+impl TextureType for TxCubeMap {
+    type ImageTargetType = TxCubeMapImageTarget;
+
+    fn target() -> TextureBindingTarget {
+        TextureBindingTarget::TextureCubeMap
+    }
+}
+
 
 
 gl_enum! {
