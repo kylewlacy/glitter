@@ -143,3 +143,38 @@ pub struct TextureCubeMapBinding<'a> {
 impl<'a> TextureBinding for TextureCubeMapBinding<'a> {
     type TextureType = TxCubeMap;
 }
+
+
+
+unsafe fn _bind_texture<T: TextureType>(texture: &mut Texture<T>) {
+    gl::BindTexture(T::target().gl_enum(), texture.gl_id());
+    dbg_gl_error! {
+        GLError::InvalidEnum => "`target` is not one of the allowed values",
+        GLError::InvalidOperation => "`texture` was created with a target that doesn't match `target`",
+        _ => "Unknown error"
+    }
+}
+
+pub struct Texture2dBinder;
+impl Texture2dBinder {
+    pub fn bind<'a>(&'a mut self, texture: &mut Texture2d)
+        -> Texture2dBinding<'a>
+    {
+        unsafe {
+            _bind_texture(texture);
+        }
+        Texture2dBinding { phantom: PhantomData }
+    }
+}
+
+pub struct TextureCubeMapBinder;
+impl TextureCubeMapBinder {
+    pub fn bind<'a>(&'a mut self, texture: &mut TextureCubeMap)
+        -> TextureCubeMapBinding<'a>
+    {
+        unsafe {
+            _bind_texture(texture);
+        }
+        TextureCubeMapBinding { phantom: PhantomData }
+    }
+}
