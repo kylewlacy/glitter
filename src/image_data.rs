@@ -46,3 +46,12 @@ pub struct ImageFormat {
     pub textel_type: TextelType,
     pub textel_format: TextelFormat
 }
+
+impl ImageFormat {
+    fn rgba8() -> Self {
+        ImageFormat {
+            textel_type: TextelType::UnsignedByte,
+            textel_format: TextelFormat::RGBA
+        }
+    }
+}
