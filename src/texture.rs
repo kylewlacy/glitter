@@ -127,3 +127,11 @@ pub trait TextureBinding {
         Self::TextureType::target()
     }
 }
+
+pub struct Texture2dBinding<'a> {
+    phantom: PhantomData<&'a mut Texture2d>
+}
+
+impl<'a> TextureBinding for Texture2dBinding<'a> {
+    type TextureType = Tx2d;
+}
