@@ -16,6 +16,12 @@ pub struct Pixel {
     a: u8
 }
 
+pub struct Pixels {
+    width: usize,
+    height: usize,
+    pixels: Vec<Pixel>
+}
+
 gl_enum! {
     pub gl_enum TextelType {
         UnsignedByte as UNSIGNED_BYTE_TEXTEL = gl::UNSIGNED_BYTE,
