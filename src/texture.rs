@@ -1,7 +1,9 @@
+use std::mem;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
+use image_data::Image2d;
 use types::GLError;
 
 pub struct Texture<T: TextureType> {
@@ -125,6 +127,32 @@ pub trait TextureBinding {
 
     fn target() -> TextureBindingTarget {
         Self::TextureType::target()
+    }
+
+    fn image_2d<I>(&mut self,
+                   level: i32,
+                   target: <Self::TextureType as TextureType>::ImageTargetType,
+                   img: &I)
+        where I: Image2d
+    {
+        unsafe {
+            let ptr = mem::transmute(img.textel_bytes().as_ptr());
+            gl::TexImage2D(target.gl_enum(),
+                           level as GLint,
+                           img.format().textel_format.gl_enum() as GLint,
+                           img.width() as i32,
+                           img.height() as i32,
+                           0,
+                           img.format().textel_format.gl_enum(),
+                           img.format().textel_type.gl_enum(),
+                           ptr);
+            dbg_gl_error! {
+                GLError::InvalidEnum => "`target`, `format`, or `type` is not an accepted value",
+                GLError::InvalidValue => "`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value",
+                GLError::InvalidOperation => "`format` conflicts with either `internalformat` or `type`",
+                _ => "Unknown error"
+            }
+        }
     }
 }
 
