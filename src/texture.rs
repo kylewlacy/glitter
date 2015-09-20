@@ -1,5 +1,13 @@
+use std::marker::PhantomData;
 use gl;
 use gl::types::*;
+
+pub struct Texture<T: TextureType> {
+    gl_id: GLuint,
+    phantom: PhantomData<*mut T>
+}
+
+
 
 pub trait ImageTargetType {
     fn gl_enum(&self) -> GLenum;
@@ -10,6 +18,8 @@ pub trait TextureType {
 
     fn target() -> TextureBindingTarget;
 }
+
+
 
 gl_enum! {
     pub gl_enum TextureBindingTarget {
