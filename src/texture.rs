@@ -6,6 +6,8 @@ pub struct Texture<T: TextureType> {
     gl_id: GLuint,
     phantom: PhantomData<*mut T>
 }
+pub type Texture2d = Texture<Tx2d>;
+pub type TextureCubeMap = Texture<TxCubeMap>;
 
 impl<T: TextureType> Texture<T> {
     pub fn gl_id(&self) -> GLuint {

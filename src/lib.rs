@@ -26,7 +26,7 @@ pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
 pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
                   ImageTargetType, Tx2dImageTarget, TxCubeMapImageTarget,
-                  TextureBindingTarget,
+                  Texture2d, TextureCubeMap, TextureBindingTarget,
                   TEXTURE_2D, TEXTURE_CUBE_MAP,
                   TEXTURE_CUBE_MAP_POSITIVE_X, TEXTURE_CUBE_MAP_NEGATIVE_X,
                   TEXTURE_CUBE_MAP_POSITIVE_Y, TEXTURE_CUBE_MAP_NEGATIVE_Y,
