@@ -208,6 +208,16 @@ impl From<TextureFilter> for TextureMipmapFilter {
     }
 }
 
+gl_enum! {
+    pub gl_enum TextureWrapMode {
+        ClampToEdge as CLAMP_TO_EDGE = gl::CLAMP_TO_EDGE,
+        MirroredRepeat as MIRRORED_REPEAT = gl::MIRRORED_REPEAT,
+        Repeat as REPEAT = gl::REPEAT
+    }
+}
+
+
+
 pub trait TextureBinding {
     type TextureType: TextureType;
 
