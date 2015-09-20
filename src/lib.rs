@@ -6,6 +6,7 @@ mod context;
 mod buffer;
 mod shader;
 mod program;
+mod texture;
 mod image_data;
 mod vertex_data;
 mod vertex_buffer;
@@ -23,6 +24,7 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
+pub use texture::ImageTargetType;
 pub use image_data::{Image2d, Pixels, Pixel, ImageFormat,
                      TextelType, TextelFormat, RGB, RGBA, ALPHA,
                      UNSIGNED_BYTE_TEXTEL, UNSIGNED_SHORT_5_6_5,
