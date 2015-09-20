@@ -202,6 +202,12 @@ impl TextureMipmapFilter {
     }
 }
 
+impl From<TextureFilter> for TextureMipmapFilter {
+    fn from(filter: TextureFilter) -> TextureMipmapFilter {
+        TextureMipmapFilter::Filter(filter)
+    }
+}
+
 pub trait TextureBinding {
     type TextureType: TextureType;
 
