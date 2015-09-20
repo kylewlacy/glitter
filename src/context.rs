@@ -103,3 +103,10 @@ macro_rules! use_program {
         $gl.program.bind($program)
     }
 }
+
+#[macro_export]
+macro_rules! bind_texture_2d {
+    ($gl:expr, $texture:expr) => {
+        $gl.texture_2d.bind($texture)
+    }
+}
