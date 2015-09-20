@@ -122,6 +122,86 @@ gl_enum! {
     }
 }
 
+// TODO: Use type refinements someday...
+#[derive(Debug, Clone, Copy)]
+pub enum TextureFilter {
+    Nearest,
+    Linear
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum TextureMipmapFilter {
+    Filter(TextureFilter),
+    MipmapFilter { criterion: TextureFilter, mipmap: TextureFilter }
+}
+
+pub const NEAREST : TextureFilter = TextureFilter::Nearest;
+pub const LINEAR : TextureFilter = TextureFilter::Linear;
+pub const NEAREST_MIPMAP_NEAREST : TextureMipmapFilter =
+    TextureMipmapFilter::MipmapFilter {
+        criterion: TextureFilter::Nearest,
+        mipmap: TextureFilter::Nearest
+    };
+pub const LINEAR_MIPMAP_NEAREST : TextureMipmapFilter =
+    TextureMipmapFilter::MipmapFilter {
+        criterion: TextureFilter::Linear,
+        mipmap: TextureFilter::Nearest
+    };
+pub const NEAREST_MIPMAP_LINEAR : TextureMipmapFilter =
+    TextureMipmapFilter::MipmapFilter {
+        criterion: TextureFilter::Nearest,
+        mipmap: TextureFilter::Linear
+    };
+pub const LINEAR_MIPMAP_LINEAR : TextureMipmapFilter =
+    TextureMipmapFilter::MipmapFilter {
+        criterion: TextureFilter::Linear,
+        mipmap: TextureFilter::Linear
+    };
+
+#[allow(dead_code)]
+impl TextureFilter {
+    fn from_gl(gl_enum: GLenum) -> Result<Self, ()> {
+        match gl_enum {
+            gl::NEAREST => { Ok(self::NEAREST) },
+            gl::LINEAR => { Ok(self::LINEAR) },
+            _ => { Err(()) }
+        }
+    }
+
+    fn gl_enum(&self) -> GLenum {
+        match *self {
+            self::NEAREST => gl::NEAREST,
+            self::LINEAR => gl::LINEAR
+        }
+    }
+}
+
+#[allow(dead_code)]
+impl TextureMipmapFilter {
+    fn from_gl(gl_enum: GLenum) -> Result<Self, ()> {
+        match gl_enum {
+            gl::NEAREST => { Ok(TextureMipmapFilter::Filter(self::NEAREST)) },
+            gl::LINEAR => { Ok(TextureMipmapFilter::Filter(self::LINEAR)) },
+            gl::NEAREST_MIPMAP_NEAREST => { Ok(self::NEAREST_MIPMAP_NEAREST) },
+            gl::LINEAR_MIPMAP_NEAREST => { Ok(self::LINEAR_MIPMAP_NEAREST) },
+            gl::NEAREST_MIPMAP_LINEAR => { Ok(self::NEAREST_MIPMAP_LINEAR) },
+            gl::LINEAR_MIPMAP_LINEAR => { Ok(self::LINEAR_MIPMAP_LINEAR) },
+            _ => { Err(()) }
+        }
+    }
+
+    fn gl_enum(&self) -> GLenum {
+        match *self {
+            TextureMipmapFilter::Filter(self::LINEAR) => { gl::LINEAR },
+            TextureMipmapFilter::Filter(self::NEAREST) => { gl::NEAREST },
+            self::NEAREST_MIPMAP_NEAREST => { gl::NEAREST_MIPMAP_NEAREST },
+            self::LINEAR_MIPMAP_NEAREST => { gl::LINEAR_MIPMAP_NEAREST },
+            self::NEAREST_MIPMAP_LINEAR => { gl::NEAREST_MIPMAP_LINEAR },
+            self::LINEAR_MIPMAP_LINEAR => { gl::LINEAR_MIPMAP_LINEAR }
+        }
+    }
+}
+
 pub trait TextureBinding {
     type TextureType: TextureType;
 
