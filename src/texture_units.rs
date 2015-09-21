@@ -1,3 +1,5 @@
+use texture::{Texture2dBinder, TextureCubeMapBinder};
+
 pub trait TextureUnit {
     fn idx() -> u32;
 }
@@ -33,4 +35,9 @@ impl TextureUnits {
         TextureUnits(TextureUnit0, TextureUnit1, TextureUnit2, TextureUnit3,
                      TextureUnit4, TextureUnit5, TextureUnit6, TextureUnit7)
     }
+}
+
+pub struct TextureUnitBinding {
+    pub texture_2d: Texture2dBinder,
+    pub texture_cube_map: TextureCubeMapBinder
 }
