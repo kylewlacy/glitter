@@ -115,3 +115,10 @@ macro_rules! active_texture {
         _glitter_expr!($gl.tex_units.$idx.active())
     }
 }
+
+#[macro_export]
+macro_rules! active_texture_n {
+    ($gl:expr, $idx:expr) => {
+        $gl.tex_units.nth_unit($idx).active()
+    }
+}
