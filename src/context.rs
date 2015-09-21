@@ -101,3 +101,17 @@ macro_rules! use_program {
         $gl.program.bind($program)
     }
 }
+
+// HACK: Workaround for issue described here:
+// https://www.reddit.com/r/rust/comments/339yj3/tuple_indexing_in_a_macro/cqiyv4n
+#[macro_export]
+macro_rules! _glitter_expr {
+    ($x:expr) => ($x)
+}
+
+#[macro_export]
+macro_rules! active_texture {
+    ($gl:expr, $idx:tt) => {
+        _glitter_expr!($gl.tex_units.$idx.active())
+    }
+}
