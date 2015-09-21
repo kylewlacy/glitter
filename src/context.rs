@@ -95,6 +95,13 @@ macro_rules! use_program {
     }
 }
 
+#[macro_export]
+macro_rules! bind_framebuffer {
+    ($gl:expr, $fbo:expr) => {
+        $gl.framebuffer.bind($fbo)
+    }
+}
+
 // HACK: Workaround for issue described here:
 // https://www.reddit.com/r/rust/comments/339yj3/tuple_indexing_in_a_macro/cqiyv4n
 #[macro_export]
