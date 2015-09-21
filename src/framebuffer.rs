@@ -11,6 +11,10 @@ pub struct Framebuffer {
 }
 
 impl Framebuffer {
+    pub unsafe fn from_gl(id: GLuint) -> Self {
+        Framebuffer { gl_id: id }
+    }
+
     pub fn gl_id(&self) -> GLuint {
         self.gl_id
     }
