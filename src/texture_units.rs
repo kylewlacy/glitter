@@ -3,15 +3,19 @@ use gl::types::*;
 use texture::{Texture2dBinder, TextureCubeMapBinder};
 use types::GLError;
 
+unsafe fn _active_texture(idx: u32) {
+    gl::ActiveTexture(gl::TEXTURE0 + (idx as GLenum));
+    dbg_gl_error! {
+        GLError::InvalidEnum => "`texture` is out of bounds (expected to be GL_TEXTUREi, 0 <= i < GL_MAX_TEXTURE_IMAGE_UNITS)",
+        _ => "Unknown error"
+    }
+}
+
 pub trait TextureUnit {
     fn idx() -> u32;
 
     fn active(&mut self) -> TextureUnitBinding {
-        unsafe { gl::ActiveTexture(gl::TEXTURE0 + (Self::idx() as GLenum)); }
-        dbg_gl_error! {
-            GLError::InvalidEnum => "`texture` is out of bounds (expected to be GL_TEXTUREi, 0 <= i < GL_MAX_TEXTURE_IMAGE_UNITS)",
-            _ => "Unknown error"
-        }
+        unsafe { _active_texture(Self::idx()); }
         TextureUnitBinding {
             texture_2d: Texture2dBinder,
             texture_cube_map: TextureCubeMapBinder
@@ -49,6 +53,14 @@ impl TextureUnits {
     pub unsafe fn current() -> TextureUnits {
         TextureUnits(TextureUnit0, TextureUnit1, TextureUnit2, TextureUnit3,
                      TextureUnit4, TextureUnit5, TextureUnit6, TextureUnit7)
+    }
+
+    pub unsafe fn active_nth(&self, idx: u32) -> TextureUnitBinding {
+        _active_texture(idx);
+        TextureUnitBinding {
+            texture_2d: Texture2dBinder,
+            texture_cube_map: TextureCubeMapBinder
+        }
     }
 }
 
