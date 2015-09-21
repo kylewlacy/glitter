@@ -78,6 +78,10 @@ impl TextureUnitBinding {
     pub fn gl_idx(&self) -> u32 {
         self.idx
     }
+
+    pub fn sampler(&self) -> TextureSampler {
+        TextureSampler { idx: self.idx as i32 }
+    }
 }
 
 #[repr(C)]
