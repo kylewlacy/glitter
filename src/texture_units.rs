@@ -1,7 +1,22 @@
+use gl;
+use gl::types::*;
 use texture::{Texture2dBinder, TextureCubeMapBinder};
+use types::GLError;
 
 pub trait TextureUnit {
     fn idx() -> u32;
+
+    fn active(&mut self) -> TextureUnitBinding {
+        unsafe { gl::ActiveTexture(gl::TEXTURE0 + (Self::idx() as GLenum)); }
+        dbg_gl_error! {
+            GLError::InvalidEnum => "`texture` is out of bounds (expected to be GL_TEXTUREi, 0 <= i < GL_MAX_TEXTURE_IMAGE_UNITS)",
+            _ => "Unknown error"
+        }
+        TextureUnitBinding {
+            texture_2d: Texture2dBinder,
+            texture_cube_map: TextureCubeMapBinder
+        }
+    }
 }
 
 // TODO: Use a macro, or const generic parameters:
