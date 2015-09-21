@@ -40,6 +40,14 @@ impl Context {
     }
 }
 
+gl_enum! {
+    pub gl_enum FramebufferAttachment {
+        ColorAttachment0 as COLOR_ATTACHMENT0 = gl::COLOR_ATTACHMENT0,
+        DepthAttachment as DEPTH_ATTACHMENT = gl::DEPTH_ATTACHMENT,
+        StencilAttachment as STENCIL_ATTACHMENT = gl::STENCIL_ATTACHMENT
+    }
+}
+
 pub struct FramebufferBinding<'a> {
     phantom: PhantomData<&'a mut Framebuffer>
 }
