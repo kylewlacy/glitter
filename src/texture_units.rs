@@ -80,6 +80,9 @@ impl TextureUnitBinding {
     }
 }
 
+#[repr(C)]
+#[derive(Debug, Clone, Copy)]
+pub struct TextureSampler { idx: i32 }
 
 
 #[macro_export]
