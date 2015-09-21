@@ -3,6 +3,7 @@ use gl;
 use gl::types::*;
 use context::Context;
 use renderbuffer::Renderbuffer;
+use texture::{Texture, TextureType, ImageTargetType};
 use types::GLError;
 
 pub struct Framebuffer {
@@ -70,6 +71,29 @@ impl<'a> FramebufferBinding<'a> {
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
                 GLError::InvalidOperation => "Framebuffer 0 is bound, or `renderbuffer` is neither 0 nor the name of an existing renderbuffer object",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    pub fn texture2d<T: TextureType>(&mut self,
+                                     attachment: FramebufferAttachment,
+                                     tex_target: T::ImageTargetType,
+                                     texture: &mut Texture<T>,
+                                     level: i32)
+    {
+        debug_assert!(level == 0);
+
+        unsafe {
+            gl::FramebufferTexture2D(self.target(),
+                                     attachment.gl_enum(),
+                                     tex_target.gl_enum(),
+                                     texture.gl_id(),
+                                     level as GLint);
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not an accepted attachment point, or `textarget` is not an accepted texture target and texture is not 0",
+                GLError::InvalidValue => "`level` is not 0 and `texture` is not 0",
+                GLError::InvalidOperation => "Framebuffer object 0 is bound, `texture` is neither 0 nor the name of an existing texture object, or `textarget` is not a valid target for `texture`",
                 _ => "Unknown error"
             }
         }
