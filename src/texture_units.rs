@@ -61,13 +61,15 @@ impl TextureUnits {
 }
 
 pub struct TextureUnitBinding {
+    idx: u32,
     pub texture_2d: Texture2dBinder,
     pub texture_cube_map: TextureCubeMapBinder
 }
 
 impl TextureUnitBinding {
-    unsafe fn current_at_idx(_idx: u32) -> Self {
+    unsafe fn current_at_idx(idx: u32) -> Self {
         TextureUnitBinding {
+            idx: idx,
             texture_2d: Texture2dBinder,
             texture_cube_map: TextureCubeMapBinder
         }
