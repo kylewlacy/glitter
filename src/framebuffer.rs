@@ -4,7 +4,7 @@ use gl::types::*;
 use context::Context;
 use renderbuffer::Renderbuffer;
 use texture::{Texture, TextureType, ImageTargetType};
-use types::GLError;
+use types::{BufferBits, GLError};
 
 pub struct Framebuffer {
     gl_id: GLuint
