@@ -4,6 +4,7 @@ use types::{Color, Viewport, GLError};
 use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
 use framebuffer::FramebufferBinder;
+use renderbuffer::RenderbufferBinder;
 use texture_units::{TextureUnits};
 
 pub struct Context {
@@ -11,6 +12,7 @@ pub struct Context {
     pub element_array_buffer: ElementArrayBufferBinder,
     pub program: ProgramBinder,
     pub framebuffer: FramebufferBinder,
+    pub renderbuffer: RenderbufferBinder,
     pub tex_units: TextureUnits
 }
 
@@ -21,6 +23,7 @@ impl Context {
             element_array_buffer: ElementArrayBufferBinder,
             program: ProgramBinder,
             framebuffer: FramebufferBinder,
+            renderbuffer: RenderbufferBinder,
             tex_units: TextureUnits::current()
         }
     }
