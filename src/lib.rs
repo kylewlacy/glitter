@@ -7,6 +7,7 @@ mod buffer;
 mod shader;
 mod program;
 mod texture;
+mod texture_units;
 mod image_data;
 mod vertex_data;
 mod vertex_buffer;
@@ -38,6 +39,7 @@ pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
                   LINEAR_MIPMAP_NEAREST, NEAREST_MIPMAP_LINEAR,
                   NEAREST_MIPMAP_NEAREST, CLAMP_TO_EDGE,
                   REPEAT, MIRRORED_REPEAT};
+pub use texture_units::TextureUnit;
 pub use image_data::{Image2d, Pixels, Pixel, ImageFormat,
                      TextelType, TextelFormat, RGB, RGBA, ALPHA,
                      UNSIGNED_BYTE_TEXTEL, UNSIGNED_SHORT_5_6_5,
