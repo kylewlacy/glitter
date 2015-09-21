@@ -15,10 +15,9 @@ pub trait TextureUnit {
     fn idx() -> u32;
 
     fn active(&mut self) -> TextureUnitBinding {
-        unsafe { _active_texture(Self::idx()); }
-        TextureUnitBinding {
-            texture_2d: Texture2dBinder,
-            texture_cube_map: TextureCubeMapBinder
+        unsafe {
+            _active_texture(Self::idx());
+            TextureUnitBinding::current_at_idx(Self::idx())
         }
     }
 }
@@ -57,16 +56,22 @@ impl TextureUnits {
 
     pub unsafe fn active_nth(&self, idx: u32) -> TextureUnitBinding {
         _active_texture(idx);
-        TextureUnitBinding {
-            texture_2d: Texture2dBinder,
-            texture_cube_map: TextureCubeMapBinder
-        }
+        TextureUnitBinding::current_at_idx(idx)
     }
 }
 
 pub struct TextureUnitBinding {
     pub texture_2d: Texture2dBinder,
     pub texture_cube_map: TextureCubeMapBinder
+}
+
+impl TextureUnitBinding {
+    unsafe fn current_at_idx(_idx: u32) -> Self {
+        TextureUnitBinding {
+            texture_2d: Texture2dBinder,
+            texture_cube_map: TextureCubeMapBinder
+        }
+    }
 }
 
 
