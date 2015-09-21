@@ -3,12 +3,14 @@ use gl::types::*;
 use types::{Color, Viewport, GLError};
 use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
+use framebuffer::FramebufferBinder;
 use texture_units::{TextureUnits};
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
     pub element_array_buffer: ElementArrayBufferBinder,
     pub program: ProgramBinder,
+    pub framebuffer: FramebufferBinder,
     pub tex_units: TextureUnits
 }
 
@@ -18,6 +20,7 @@ impl Context {
             array_buffer: ArrayBufferBinder,
             element_array_buffer: ElementArrayBufferBinder,
             program: ProgramBinder,
+            framebuffer: FramebufferBinder,
             tex_units: TextureUnits::current()
         }
     }
