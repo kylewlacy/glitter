@@ -1,6 +1,6 @@
 use gl;
 use gl::types::*;
-use types::{Color, Viewport, BufferBits, GLError};
+use types::{Color, Viewport, GLError};
 use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
 use texture_units::{TextureUnits};
@@ -25,16 +25,6 @@ impl Context {
     pub fn clear_color(&mut self, color: Color) {
         unsafe {
             gl::ClearColor(color.r, color.g, color.b, color.a);
-        }
-    }
-
-    pub fn clear(&mut self, buffers: BufferBits) {
-        unsafe {
-            gl::Clear(buffers.bits());
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`mask` includes a bit other than an allowed value",
-                _ => "Unkown error"
-            }
         }
     }
 

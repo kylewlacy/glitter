@@ -98,6 +98,16 @@ impl<'a> FramebufferBinding<'a> {
             }
         }
     }
+
+    pub fn clear(&mut self, buffers: BufferBits) {
+        unsafe {
+            gl::Clear(buffers.bits());
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`mask` includes a bit other than an allowed value",
+                _ => "Unkown error"
+            }
+        }
+    }
 }
 
 pub struct FramebufferBinder;
