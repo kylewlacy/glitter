@@ -1,6 +1,7 @@
 use gl;
 use gl::types::*;
 use texture::{Texture2dBinder, TextureCubeMapBinder};
+use uniform_data::{UniformDatum, UniformDatumType, UniformPrimitiveType};
 use types::GLError;
 
 unsafe fn _active_texture(idx: u32) {
@@ -87,6 +88,12 @@ impl TextureUnitBinding {
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct TextureSampler { idx: i32 }
+
+impl UniformDatum for TextureSampler {
+    fn uniform_datum_type() -> UniformDatumType {
+        UniformDatumType::Vec1(UniformPrimitiveType::Int)
+    }
+}
 
 
 #[macro_export]
