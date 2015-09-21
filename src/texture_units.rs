@@ -22,3 +22,8 @@ impl TextureUnit for TextureUnit4 { fn idx() -> u32 { 4 } }
 impl TextureUnit for TextureUnit5 { fn idx() -> u32 { 5 } }
 impl TextureUnit for TextureUnit6 { fn idx() -> u32 { 6 } }
 impl TextureUnit for TextureUnit7 { fn idx() -> u32 { 7 } }
+
+// NOTE: Ensure the number of each texture unit matches its index in the tuple
+pub struct TextureUnits(pub TextureUnit0, pub TextureUnit1, pub TextureUnit2,
+                        pub TextureUnit3, pub TextureUnit4, pub TextureUnit5,
+                        pub TextureUnit6, pub TextureUnit7);
