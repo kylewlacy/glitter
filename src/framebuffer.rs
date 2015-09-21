@@ -2,6 +2,7 @@ use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
+use renderbuffer::Renderbuffer;
 use types::GLError;
 
 pub struct Framebuffer {
@@ -55,6 +56,23 @@ pub struct FramebufferBinding<'a> {
 impl<'a> FramebufferBinding<'a> {
     fn target(&self) -> GLenum {
         gl::FRAMEBUFFER
+    }
+
+    pub fn renderbuffer(&mut self,
+                        attachment: FramebufferAttachment,
+                        renderbuffer: &mut Renderbuffer)
+    {
+        unsafe {
+            gl::FramebufferRenderbuffer(self.target(),
+                                        attachment.gl_enum(),
+                                        gl::RENDERBUFFER,
+                                        renderbuffer.gl_id());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
+                GLError::InvalidOperation => "Framebuffer 0 is bound, or `renderbuffer` is neither 0 nor the name of an existing renderbuffer object",
+                _ => "Unknown error"
+            }
+        }
     }
 }
 
