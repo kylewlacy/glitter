@@ -26,7 +26,7 @@ pub use buffer::{Buffer, BufferBinding, BufferDataUsage,
 pub use shader::{Shader, ShaderType, VERTEX_SHADER, FRAGMENT_SHADER};
 pub use program::{Program, ProgramBinder, ProgramBinding,
                   ProgramAttrib, ProgramUniform};
-pub use renderbuffer::Renderbuffer;
+pub use renderbuffer::{Renderbuffer, RenderbufferBinder, RenderbufferBinding};
 pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
                   Texture2dBinder, TextureCubeMapBinder,
                   TextureBinding, Texture2dBinding, TextureCubeMapBinding,

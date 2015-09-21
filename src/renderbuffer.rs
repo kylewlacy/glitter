@@ -1,3 +1,4 @@
+use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
@@ -36,5 +37,32 @@ impl Context {
                 gl_id: id
             }
         }
+    }
+}
+
+pub struct RenderbufferBinding<'a> {
+    phantom: PhantomData<&'a mut Renderbuffer>
+}
+
+impl<'a> RenderbufferBinding<'a> {
+    fn target(&self) -> GLenum {
+        gl::RENDERBUFFER
+    }
+}
+
+pub struct RenderbufferBinder;
+impl RenderbufferBinder {
+    pub fn bind<'a>(&'a mut self, renderbuffer: &mut Renderbuffer)
+        -> RenderbufferBinding<'a>
+    {
+        let binding = RenderbufferBinding { phantom: PhantomData };
+        unsafe {
+            gl::BindRenderbuffer(binding.target(), renderbuffer.gl_id());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_RENDERBUFFER`",
+                _ => "Unknown error"
+            }
+        }
+        binding
     }
 }
