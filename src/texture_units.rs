@@ -68,3 +68,11 @@ pub struct TextureUnitBinding {
     pub texture_2d: Texture2dBinder,
     pub texture_cube_map: TextureCubeMapBinder
 }
+
+
+#[macro_export]
+macro_rules! bind_texture_2d {
+    ($gl_tex_unit:expr, $texture:expr) => {
+        $gl_tex_unit.texture_2d.bind($texture)
+    }
+}
