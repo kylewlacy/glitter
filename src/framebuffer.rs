@@ -116,6 +116,10 @@ impl<'a> FramebufferBinding<'a> {
 
 pub struct FramebufferBinder;
 impl FramebufferBinder {
+    pub unsafe fn current_binding<'a>(&'a mut self) -> FramebufferBinding<'a> {
+        FramebufferBinding { phantom: PhantomData }
+    }
+
     pub fn bind<'a>(&'a mut self, fbo: &mut Framebuffer)
         -> FramebufferBinding<'a>
     {
