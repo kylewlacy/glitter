@@ -1,3 +1,24 @@
 pub trait TextureUnit {
     fn idx() -> u32;
 }
+
+// TODO: Use a macro, or const generic parameters:
+// https://github.com/rust-lang/rfcs/issues/273
+// https://github.com/rust-lang/rfcs/issues/1038
+pub struct TextureUnit0;
+pub struct TextureUnit1;
+pub struct TextureUnit2;
+pub struct TextureUnit3;
+pub struct TextureUnit4;
+pub struct TextureUnit5;
+pub struct TextureUnit6;
+pub struct TextureUnit7;
+
+impl TextureUnit for TextureUnit0 { fn idx() -> u32 { 0 } }
+impl TextureUnit for TextureUnit1 { fn idx() -> u32 { 1 } }
+impl TextureUnit for TextureUnit2 { fn idx() -> u32 { 2 } }
+impl TextureUnit for TextureUnit3 { fn idx() -> u32 { 3 } }
+impl TextureUnit for TextureUnit4 { fn idx() -> u32 { 4 } }
+impl TextureUnit for TextureUnit5 { fn idx() -> u32 { 5 } }
+impl TextureUnit for TextureUnit6 { fn idx() -> u32 { 6 } }
+impl TextureUnit for TextureUnit7 { fn idx() -> u32 { 7 } }

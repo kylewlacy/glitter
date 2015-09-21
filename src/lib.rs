@@ -39,7 +39,9 @@ pub use texture::{Texture, TextureType, Tx2d, TxCubeMap,
                   LINEAR_MIPMAP_NEAREST, NEAREST_MIPMAP_LINEAR,
                   NEAREST_MIPMAP_NEAREST, CLAMP_TO_EDGE,
                   REPEAT, MIRRORED_REPEAT};
-pub use texture_units::TextureUnit;
+pub use texture_units::{TextureUnit,
+                        TextureUnit0, TextureUnit1, TextureUnit2, TextureUnit3,
+                        TextureUnit4, TextureUnit5, TextureUnit6, TextureUnit7};
 pub use image_data::{Image2d, Pixels, Pixel, ImageFormat,
                      TextelType, TextelFormat, RGB, RGBA, ALPHA,
                      UNSIGNED_BYTE_TEXTEL, UNSIGNED_SHORT_5_6_5,
