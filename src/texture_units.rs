@@ -27,3 +27,10 @@ impl TextureUnit for TextureUnit7 { fn idx() -> u32 { 7 } }
 pub struct TextureUnits(pub TextureUnit0, pub TextureUnit1, pub TextureUnit2,
                         pub TextureUnit3, pub TextureUnit4, pub TextureUnit5,
                         pub TextureUnit6, pub TextureUnit7);
+
+impl TextureUnits {
+    pub unsafe fn current() -> TextureUnits {
+        TextureUnits(TextureUnit0, TextureUnit1, TextureUnit2, TextureUnit3,
+                     TextureUnit4, TextureUnit5, TextureUnit6, TextureUnit7)
+    }
+}
