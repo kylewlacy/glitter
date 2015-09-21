@@ -105,6 +105,13 @@ macro_rules! bind_framebuffer {
     }
 }
 
+#[macro_export]
+macro_rules! bind_renderbuffer {
+    ($gl:expr, $renderbuffer:expr) => {
+        $gl.renderbuffer.bind($renderbuffer)
+    }
+}
+
 // HACK: Workaround for issue described here:
 // https://www.reddit.com/r/rust/comments/339yj3/tuple_indexing_in_a_macro/cqiyv4n
 #[macro_export]
