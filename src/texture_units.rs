@@ -74,6 +74,10 @@ impl TextureUnitBinding {
             texture_cube_map: TextureCubeMapBinder
         }
     }
+
+    pub fn gl_idx(&self) -> u32 {
+        self.idx
+    }
 }
 
 
