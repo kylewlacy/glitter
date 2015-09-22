@@ -106,6 +106,13 @@ macro_rules! bind_framebuffer {
 }
 
 #[macro_export]
+macro_rules! current_framebuffer_binding {
+    ($gl:expr) => {
+        $gl.framebuffer.current_binding()
+    }
+}
+
+#[macro_export]
 macro_rules! bind_renderbuffer {
     ($gl:expr, $renderbuffer:expr) => {
         $gl.renderbuffer.bind($renderbuffer)
