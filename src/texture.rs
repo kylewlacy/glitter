@@ -1,9 +1,8 @@
-use std::mem;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
-use image_data::Image2d;
+use image_data::{Image2d, TextelFormat, ImageFormat};
 use types::GLError;
 
 pub struct Texture<T: TextureType> {
@@ -229,6 +228,32 @@ unsafe fn _tex_parameter_iv(target: TextureBindingTarget,
     }
 }
 
+unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
+                                            level: u32,
+                                            internal_format: TextelFormat,
+                                            width: u32,
+                                            height: u32,
+                                            border: u32,
+                                            format: ImageFormat,
+                                            image_ptr: *const u8) {
+    debug_assert!(internal_format == format.textel_format);
+    gl::TexImage2D(target.gl_enum(),
+                   level as GLint,
+                   internal_format.gl_enum() as GLint,
+                   width as GLint,
+                   height as GLint,
+                   border as GLint,
+                   format.textel_format.gl_enum(),
+                   format.textel_type.gl_enum(),
+                   image_ptr as *const GLvoid);
+    dbg_gl_error! {
+        GLError::InvalidEnum => "`target`, `format`, or `type` is not an accepted value",
+        GLError::InvalidValue => "`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value",
+        GLError::InvalidOperation => "`format` conflicts with either `internalformat` or `type`",
+        _ => "Unknown error"
+    }
+}
+
 pub trait TextureBinding {
     type TextureType: TextureType;
 
@@ -279,22 +304,14 @@ pub trait TextureBinding {
         where I: Image2d
     {
         unsafe {
-            let ptr = mem::transmute(img.textel_bytes().as_ptr());
-            gl::TexImage2D(target.gl_enum(),
-                           level as GLint,
-                           img.format().textel_format.gl_enum() as GLint,
-                           img.width() as i32,
-                           img.height() as i32,
-                           0,
-                           img.format().textel_format.gl_enum(),
-                           img.format().textel_type.gl_enum(),
-                           ptr);
-            dbg_gl_error! {
-                GLError::InvalidEnum => "`target`, `format`, or `type` is not an accepted value",
-                GLError::InvalidValue => "`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value",
-                GLError::InvalidOperation => "`format` conflicts with either `internalformat` or `type`",
-                _ => "Unknown error"
-            }
+            _tex_image_2d(target,
+                          level,
+                          img.format().textel_format,
+                          img.width() as u32,
+                          img.height() as u32,
+                          0,
+                          img.format(),
+                          img.textel_bytes().as_ptr());
         }
     }
 }
