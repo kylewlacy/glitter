@@ -273,8 +273,8 @@ pub trait TextureBinding {
     }
 
     fn image_2d<I>(&mut self,
-                   level: i32,
                    target: <Self::TextureType as TextureType>::ImageTargetType,
+                   level: u32,
                    img: &I)
         where I: Image2d
     {
