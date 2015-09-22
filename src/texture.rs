@@ -1,3 +1,4 @@
+use std::ptr;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
@@ -312,6 +313,25 @@ pub trait TextureBinding {
                           0,
                           img.format(),
                           img.textel_bytes().as_ptr());
+        }
+    }
+
+    fn image_2d_empty<T: ImageTargetType>(&mut self,
+                                          target: T,
+                                          level: u32,
+                                          format: ImageFormat,
+                                          width: u32,
+                                          height: u32)
+    {
+        unsafe {
+            _tex_image_2d(target,
+                          level,
+                          format.textel_format,
+                          width,
+                          height,
+                          0,
+                          format,
+                          ptr::null());
         }
     }
 }
