@@ -4,6 +4,7 @@ use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
+use framebuffer::FramebufferBinding;
 use types::{DrawingMode, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
 
@@ -140,8 +141,11 @@ impl<'a> ArrayBufferBinding<'a> {
             _ => "Unknown error"
         }
     }
+}
 
-    pub unsafe fn draw_arrays_range(&self,
+impl<'a> FramebufferBinding<'a> {
+    pub unsafe fn draw_arrays_range(&mut self,
+                                    _ab: &ArrayBufferBinding,
                                     mode: DrawingMode,
                                     first: u32,
                                     count: usize)
@@ -154,7 +158,8 @@ impl<'a> ArrayBufferBinding<'a> {
         }
     }
 
-    pub unsafe fn draw_n_elements_buffered(&self,
+    pub unsafe fn draw_n_elements_buffered(&mut self,
+                                           _ab: &ArrayBufferBinding,
                                            _eab: &ElementArrayBufferBinding,
                                            mode: DrawingMode,
                                            count: usize,
@@ -163,7 +168,8 @@ impl<'a> ArrayBufferBinding<'a> {
         _draw_elements(mode, count, index_type, ptr::null());
     }
 
-    pub unsafe fn draw_n_elements<I>(&self,
+    pub unsafe fn draw_n_elements<I>(&mut self,
+                                     _ab: &ArrayBufferBinding,
                                      mode: DrawingMode,
                                      count: usize,
                                      indicies: &[I])
@@ -176,12 +182,13 @@ impl<'a> ArrayBufferBinding<'a> {
         _draw_elements(mode, count, index_type, mem::transmute(ptr));
     }
 
-    pub unsafe fn draw_elements<I>(&self,
+    pub unsafe fn draw_elements<I>(&mut self,
+                                   _ab: &ArrayBufferBinding,
                                    mode: DrawingMode,
                                    indicies: &[I])
         where I: IndexDatum, [I]: IndexData
     {
-        self.draw_n_elements(mode, indicies.len(), indicies);
+        self.draw_n_elements(_ab, mode, indicies.len(), indicies);
     }
 }
 

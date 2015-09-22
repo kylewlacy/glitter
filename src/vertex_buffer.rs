@@ -1,10 +1,11 @@
 use std::marker::PhantomData;
-use super::context::Context;
-use super::vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
-use super::index_data::{IndexData, IndexDatum};
-use super::buffer::{Buffer, BufferBinding,
-                    ArrayBufferBinding, ElementArrayBufferBinding};
-use super::types::DrawingMode;
+use context::Context;
+use framebuffer::FramebufferBinding;
+use vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
+use index_data::{IndexData, IndexDatum};
+use buffer::{Buffer, BufferBinding,
+             ArrayBufferBinding, ElementArrayBufferBinding};
+use types::DrawingMode;
 
 pub struct VertexBuffer<T: VertexData> {
     pub attrib_binder: Option<T::Binder>,
@@ -64,72 +65,89 @@ impl<'a, T: VertexData> VertexBufferBinding<'a, T>
         self.vbo.count = data.len();
         self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
     }
+}
 
-    pub fn draw_arrays_range(&self,
-                             mode: DrawingMode,
-                             start: u32,
-                             length: usize)
+impl<'a> FramebufferBinding<'a> {
+    pub fn draw_arrays_range_vbo<T>(&mut self,
+                                    gl_vbo: &VertexBufferBinding<T>,
+                                    mode: DrawingMode,
+                                    start: u32,
+                                    length: usize)
+        where T: VertexData
     {
-        debug_assert!((start as usize) + length <= self.vbo.count);
+        debug_assert!((start as usize) + length <= gl_vbo.vbo.count);
 
         unsafe {
-            self.gl_buffer.draw_arrays_range(mode, start, length);
+            self.draw_arrays_range(&gl_vbo.gl_buffer, mode, start, length);
         }
     }
 
-    pub fn draw_arrays(&self, mode: DrawingMode) {
+    pub fn draw_arrays_vbo<T>(&mut self,
+                              gl_vbo: &VertexBufferBinding<T>,
+                              mode: DrawingMode)
+        where T: VertexData
+    {
         unsafe {
-            self.gl_buffer.draw_arrays_range(mode, 0, self.vbo.count);
+            self.draw_arrays_range(&gl_vbo.gl_buffer,
+                                   mode,
+                                   0,
+                                   gl_vbo.vbo.count);
         }
     }
 
-    pub fn draw_n_elements_buffered<I>(&self,
-                                       gl_ibo: &IndexBufferBinding<'a, I>,
-                                       mode: DrawingMode,
-                                       length: usize)
-        where I: IndexDatum
+    pub fn draw_n_elements_buffered_vbo<T, I>(&mut self,
+                                              gl_vbo: &VertexBufferBinding<T>,
+                                              gl_ibo: &IndexBufferBinding<I>,
+                                              mode: DrawingMode,
+                                              length: usize)
+        where T: VertexData, I: IndexDatum
     {
         debug_assert!(length <= gl_ibo.ibo.count);
 
         unsafe {
-            self.gl_buffer.draw_n_elements_buffered(&gl_ibo.gl_buffer,
-                                                    mode,
-                                                    length,
-                                                    I::index_datum_type());
+            self.draw_n_elements_buffered(&gl_vbo.gl_buffer,
+                                          &gl_ibo.gl_buffer,
+                                          mode,
+                                          length,
+                                          I::index_datum_type());
         }
     }
 
-    pub fn draw_elements_buffered<I>(&self,
-                                     gl_ibo: &IndexBufferBinding<'a, I>,
-                                     mode: DrawingMode)
-        where I: IndexDatum
+    pub fn draw_elements_buffered_vbo<T, I>(&mut self,
+                                            gl_vbo: &VertexBufferBinding<T>,
+                                            gl_ibo: &IndexBufferBinding<I>,
+                                            mode: DrawingMode)
+        where T: VertexData, I: IndexDatum
     {
         unsafe {
-            self.gl_buffer.draw_n_elements_buffered(&gl_ibo.gl_buffer,
-                                                    mode,
-                                                    gl_ibo.ibo.count,
-                                                    I::index_datum_type());
+            self.draw_n_elements_buffered(&gl_vbo.gl_buffer,
+                                          &gl_ibo.gl_buffer,
+                                          mode,
+                                          gl_ibo.ibo.count,
+                                          I::index_datum_type());
         }
     }
 
-    pub fn draw_n_elements<I>(&self,
-                              mode: DrawingMode,
-                              count: usize,
-                              indicies: &[I])
-        where I: IndexDatum, [I]: IndexData
+    pub fn draw_n_elements_vbo<T, I>(&mut self,
+                                     gl_vbo: &VertexBufferBinding<'a, T>,
+                                     mode: DrawingMode,
+                                     count: usize,
+                                     indicies: &[I])
+        where T: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
-            self.gl_buffer.draw_n_elements(mode, count, indicies);
+            self.draw_n_elements(&gl_vbo.gl_buffer, mode, count, indicies);
         }
     }
 
-    pub fn draw_elements<I>(&self,
-                            mode: DrawingMode,
-                            indicies: &[I])
-        where I: IndexDatum, [I]: IndexData
+    pub fn draw_elements_vbo<T, I>(&mut self,
+                                   gl_vbo: &VertexBufferBinding<'a, T>,
+                                   mode: DrawingMode,
+                                   indicies: &[I])
+        where T: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
-            self.gl_buffer.draw_elements(mode, indicies);
+            self.draw_elements(&gl_vbo.gl_buffer, mode, indicies);
         }
     }
 }
