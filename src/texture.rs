@@ -245,7 +245,7 @@ unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
                    format.textel_format.gl_enum(),
                    format.textel_type.gl_enum(),
                    image_ptr as *const GLvoid);
-    dbg_gl_error! {
+    dbg_gl_sanity_check! {
         GLError::InvalidEnum => "`target`, `format`, or `type` is not an accepted value",
         GLError::InvalidValue => "`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value",
         GLError::InvalidOperation => "`format` conflicts with either `internalformat` or `type`",
