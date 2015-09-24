@@ -65,13 +65,13 @@ pub struct FramebufferBinding<'a> {
 }
 
 impl<'a> FramebufferBinding<'a> {
-    fn target(&self) -> GLenum {
-        gl::FRAMEBUFFER
+    fn target(&self) -> FramebufferTarget {
+        FramebufferTarget::Framebuffer
     }
 
     pub fn check_framebuffer_status(&self) -> Option<GLFramebufferError> {
         unsafe {
-            match gl::CheckFramebufferStatus(self.target()) {
+            match gl::CheckFramebufferStatus(self.target().gl_enum()) {
                 gl::FRAMEBUFFER_INCOMPLETE_ATTACHMENT => {
                     Some(GLFramebufferError::IncompleteAttachment)
                 },
@@ -95,7 +95,7 @@ impl<'a> FramebufferBinding<'a> {
     {
         let renderbuffer_target = RenderbufferTarget::Renderbuffer;
         unsafe {
-            gl::FramebufferRenderbuffer(self.target(),
+            gl::FramebufferRenderbuffer(self.target().gl_enum(),
                                         attachment.gl_enum(),
                                         renderbuffer_target.gl_enum(),
                                         renderbuffer.gl_id());
@@ -116,7 +116,7 @@ impl<'a> FramebufferBinding<'a> {
         debug_assert!(level == 0);
 
         unsafe {
-            gl::FramebufferTexture2D(self.target(),
+            gl::FramebufferTexture2D(self.target().gl_enum(),
                                      attachment.gl_enum(),
                                      tex_target.gl_enum(),
                                      texture.gl_id(),
@@ -152,7 +152,7 @@ impl FramebufferBinder {
     {
         let binding = FramebufferBinding { phantom: PhantomData };
         unsafe {
-            gl::BindFramebuffer(binding.target(), fbo.gl_id());
+            gl::BindFramebuffer(binding.target().gl_enum(), fbo.gl_id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`",
                 _ => "Unknown error"
