@@ -12,15 +12,15 @@ pub trait IndexData {
     fn index_elements(&self) -> usize;
 }
 
-pub trait IndexDatum {
+pub unsafe trait IndexDatum {
     fn index_datum_type() -> IndexDatumType;
 }
 
-impl IndexDatum for u8 {
+unsafe impl IndexDatum for u8 {
     fn index_datum_type() -> IndexDatumType { IndexDatumType::UnsignedByte }
 }
 
-impl IndexDatum for u16 {
+unsafe impl IndexDatum for u16 {
     fn index_datum_type() -> IndexDatumType { IndexDatumType::UnsignedShort }
 }
 
