@@ -53,8 +53,8 @@ pub struct RenderbufferBinding<'a> {
 }
 
 impl<'a> RenderbufferBinding<'a> {
-    fn target(&self) -> GLenum {
-        gl::RENDERBUFFER
+    fn target(&self) -> RenderbufferTarget {
+        RenderbufferTarget::Renderbuffer
     }
 }
 
@@ -65,7 +65,8 @@ impl RenderbufferBinder {
     {
         let binding = RenderbufferBinding { phantom: PhantomData };
         unsafe {
-            gl::BindRenderbuffer(binding.target(), renderbuffer.gl_id());
+            gl::BindRenderbuffer(binding.target().gl_enum(),
+                                 renderbuffer.gl_id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_RENDERBUFFER`",
                 _ => "Unknown error"
