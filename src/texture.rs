@@ -58,15 +58,14 @@ pub trait TextureType {
 
 pub struct Tx2d;
 
-gl_enum! {
-    pub gl_enum Tx2dImageTarget {
-        Texture2d as TEXTURE_2D_TARGET = gl::TEXTURE_2D
-    }
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Tx2dImageTarget {
+    Texture2d = gl::TEXTURE_2D as isize
 }
 
 impl ImageTargetType for Tx2dImageTarget {
     fn gl_enum(&self) -> GLenum {
-        self.gl_enum()
+        *self as GLenum
     }
 }
 
