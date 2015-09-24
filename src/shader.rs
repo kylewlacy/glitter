@@ -70,7 +70,7 @@ impl<'a> ShaderBuilder<'a> {
 
 impl Context {
     pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
-        -> ShaderBuilder
+        -> ShaderBuilder<'a>
     {
         ShaderBuilder::new(self, ty, source)
     }

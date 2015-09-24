@@ -41,7 +41,46 @@ unsafe fn _get_program_iv(program: &Program,
     }
 }
 
+pub struct ProgramBuilder<'a> {
+    gl: &'a Context,
+    shaders: &'a [Shader]
+}
+
+impl<'a> ProgramBuilder<'a> {
+    fn new(gl: &'a Context, shaders: &'a [Shader]) -> Self {
+        ProgramBuilder { gl: gl, shaders: shaders }
+    }
+
+    pub fn try_unwrap(self) -> Result<Program, GLError> {
+        unsafe {
+            let mut program = try! {
+                self.gl.create_program().or_else(|_| {
+                    let msg = "Error creating OpenGL program";
+                    Err(GLError::Message(msg.to_owned()))
+                })
+            };
+
+            for shader in self.shaders {
+                self.gl.attach_shader(&mut program, shader);
+            }
+
+            try!(self.gl.link_program(&mut program));
+            Ok(program)
+        }
+    }
+
+    pub fn unwrap(self) -> Program {
+        self.try_unwrap().unwrap()
+    }
+}
+
 impl Context {
+    pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
+        -> ProgramBuilder<'a>
+    {
+        ProgramBuilder::new(self, shaders)
+    }
+
     pub unsafe fn create_program(&self) -> Result<Program, ()> {
         let id = gl::CreateProgram();
         if id > 0 {
