@@ -42,6 +42,8 @@ bitflags! {
     }
 }
 
+
+
 #[derive(Debug)]
 pub enum GLError {
     InvalidEnum,
@@ -141,6 +143,14 @@ impl error::Error for GLFramebufferError {
         }
     }
 }
+
+impl From<GLFramebufferError> for GLError {
+    fn from(e: GLFramebufferError) -> GLError {
+        GLError::FramebufferError(e)
+    }
+}
+
+
 
 gl_enum! {
     pub gl_enum DrawingMode {
