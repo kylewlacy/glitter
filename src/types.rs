@@ -95,6 +95,13 @@ impl error::Error for GLError {
             GLError::Message(ref s) => &s
         }
     }
+
+    fn cause(&self) -> Option<&error::Error> {
+        match *self {
+            GLError::FramebufferError(ref e) => { Some(e) },
+            _ => { None }
+        }
+    }
 }
 
 #[derive(Debug)]
