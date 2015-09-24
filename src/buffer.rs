@@ -204,11 +204,13 @@ impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
 
 
 
-unsafe fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
-    gl::BindBuffer(target as GLuint, buffer.gl_id());
-    dbg_gl_sanity_check! {
-        GLError::InvalidEnum => "`target` is not an allowed value",
-        _ => "Unknown error"
+fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
+    unsafe {
+        gl::BindBuffer(target as GLuint, buffer.gl_id());
+        dbg_gl_sanity_check! {
+            GLError::InvalidEnum => "`target` is not an allowed value",
+            _ => "Unknown error"
+        }
     }
 }
 
@@ -218,9 +220,7 @@ impl ArrayBufferBinder {
         -> ArrayBufferBinding<'a>
     {
         let binding = ArrayBufferBinding { phantom: PhantomData };
-        unsafe {
-            _bind_buffer(binding.target(), buffer);
-        }
+        _bind_buffer(binding.target(), buffer);
         binding
     }
 }
@@ -231,9 +231,7 @@ impl ElementArrayBufferBinder {
         -> ElementArrayBufferBinding<'a>
     {
         let binding = ElementArrayBufferBinding { phantom: PhantomData };
-        unsafe {
-            _bind_buffer(binding.target(), buffer);
-        }
+        _bind_buffer(binding.target(), buffer);
         binding
     }
 }
