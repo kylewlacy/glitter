@@ -1,8 +1,8 @@
 use std::ptr;
-use super::gl_lib as gl;
-use super::gl_lib::types::*;
-use super::context::Context;
-use super::types::GLError;
+use gl;
+use gl::types::*;
+use context::Context;
+use types::GLError;
 
 pub struct Shader {
     gl_id: GLuint

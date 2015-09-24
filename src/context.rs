@@ -5,7 +5,7 @@ use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
 use framebuffer::FramebufferBinder;
 use renderbuffer::RenderbufferBinder;
-use texture_units::{TextureUnits};
+use texture_units::TextureUnits;
 
 pub struct Context {
     pub array_buffer: ArrayBufferBinder,
