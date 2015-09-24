@@ -49,6 +49,7 @@ pub enum GLError {
     InvalidOperation,
     InvalidFramebufferOperation,
     OutOfMemory,
+    FramebufferError(GLFramebufferError),
     Message(String)
 }
 
@@ -70,6 +71,9 @@ impl fmt::Display for GLError {
             GLError::OutOfMemory => {
                 write!(f, "Out of memory")
             },
+            GLError::FramebufferError(ref e) => {
+                write!(f, "{:?}", e)
+            },
             GLError::Message(ref s) => {
                 write!(f, "{}", s)
             }
@@ -85,6 +89,9 @@ impl error::Error for GLError {
             GLError::InvalidOperation => "The specified OpenGL operation is not allowed in the current state.",
             GLError::InvalidFramebufferOperation => "OpenGL command tried to read or write to an incomplete framebuffer.",
             GLError::OutOfMemory => "There is not enough memory left to execute the specified OpenGL command.",
+            GLError::FramebufferError(ref e) => {
+                error::Error::description(e)
+            },
             GLError::Message(ref s) => &s
         }
     }
