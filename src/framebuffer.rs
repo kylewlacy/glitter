@@ -44,6 +44,14 @@ impl Context {
     }
 }
 
+
+
+gl_enum! {
+    pub gl_enum FramebufferTarget {
+        Framebuffer as FRAMEBUFFER = gl::FRAMEBUFFER
+    }
+}
+
 gl_enum! {
     pub gl_enum FramebufferAttachment {
         ColorAttachment0 as COLOR_ATTACHMENT0 = gl::COLOR_ATTACHMENT0,
