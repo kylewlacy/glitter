@@ -28,20 +28,18 @@ impl<T: TextureType> Drop for Texture<T> {
 }
 
 impl Context {
-    pub fn gen_texture<T: TextureType>(&self) -> Texture<T> {
-        unsafe {
-            let mut id : GLuint =  0;
+    pub unsafe fn gen_texture<T: TextureType>(&self) -> Texture<T> {
+        let mut id : GLuint =  0;
 
-            gl::GenTextures(1, &mut id as *mut GLuint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`n` is negative",
-                _ => "Unknown error"
-            }
+        gl::GenTextures(1, &mut id as *mut GLuint);
+        dbg_gl_sanity_check! {
+            GLError::InvalidValue => "`n` is negative",
+            _ => "Unknown error"
+        }
 
-            Texture {
-                gl_id: id,
-                phantom: PhantomData
-            }
+        Texture {
+            gl_id: id,
+            phantom: PhantomData
         }
     }
 }
