@@ -24,22 +24,22 @@ pub trait UniformData {
 
 
 
-pub trait UniformDatum {
+pub unsafe trait UniformDatum {
     fn uniform_datum_type() -> UniformDatumType;
 }
 
 
-pub trait UniformPrimitive {
+pub unsafe trait UniformPrimitive {
     fn uniform_primitive_type() -> UniformPrimitiveType;
 }
 
-impl UniformPrimitive for f32 {
+unsafe impl UniformPrimitive for f32 {
     fn uniform_primitive_type() -> UniformPrimitiveType {
         UniformPrimitiveType::Float
     }
 }
 
-impl UniformPrimitive for i32 {
+unsafe impl UniformPrimitive for i32 {
     fn uniform_primitive_type() -> UniformPrimitiveType {
         UniformPrimitiveType::Int
     }
@@ -47,49 +47,49 @@ impl UniformPrimitive for i32 {
 
 
 
-impl<T: UniformPrimitive> UniformDatum for T {
+unsafe impl<T: UniformPrimitive> UniformDatum for T {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(T::uniform_primitive_type())
     }
 }
 
-impl<T: UniformPrimitive> UniformDatum for [T; 1] {
+unsafe impl<T: UniformPrimitive> UniformDatum for [T; 1] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(T::uniform_primitive_type())
     }
 }
 
-impl<T: UniformPrimitive> UniformDatum for [T; 2] {
+unsafe impl<T: UniformPrimitive> UniformDatum for [T; 2] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(T::uniform_primitive_type())
     }
 }
 
-impl<T: UniformPrimitive> UniformDatum for [T; 3] {
+unsafe impl<T: UniformPrimitive> UniformDatum for [T; 3] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(T::uniform_primitive_type())
     }
 }
 
-impl<T> UniformDatum for [T; 4] where T: UniformPrimitive {
+unsafe impl<T> UniformDatum for [T; 4] where T: UniformPrimitive {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(T::uniform_primitive_type())
     }
 }
 
-impl UniformDatum for [[f32; 2]; 2] {
+unsafe impl UniformDatum for [[f32; 2]; 2] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Matrix2x2
     }
 }
 
-impl UniformDatum for [[f32; 3]; 3] {
+unsafe impl UniformDatum for [[f32; 3]; 3] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Matrix3x3
     }
 }
 
-impl UniformDatum for [[f32; 4]; 4] {
+unsafe impl UniformDatum for [[f32; 4]; 4] {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Matrix4x4
     }

@@ -89,7 +89,7 @@ impl TextureUnitBinding {
 #[derive(Debug, Clone, Copy)]
 pub struct TextureSampler { idx: i32 }
 
-impl UniformDatum for TextureSampler {
+unsafe impl UniformDatum for TextureSampler {
     fn uniform_datum_type() -> UniformDatumType {
         UniformDatumType::Vec1(UniformPrimitiveType::Int)
     }
