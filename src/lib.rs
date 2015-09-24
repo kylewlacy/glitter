@@ -33,3 +33,9 @@ pub use vertex_buffer::*;
 pub use index_data::*;
 pub use uniform_data::*;
 pub use types::*;
+
+pub mod prelude {
+    pub use buffer::BufferBinding;
+    pub use texture_units::TextureUnit;
+    pub use texture::TextureBinding;
+}
