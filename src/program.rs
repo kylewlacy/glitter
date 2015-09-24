@@ -42,15 +42,13 @@ unsafe fn _get_program_iv(program: &Program,
 }
 
 impl Context {
-    pub fn create_program(&self) -> Result<Program, ()> {
-        unsafe {
-            let id = gl::CreateProgram();
-            if id > 0 {
-                Ok(Program { gl_id: id })
-            }
-            else {
-                Err(())
-            }
+    pub unsafe fn create_program(&self) -> Result<Program, ()> {
+        let id = gl::CreateProgram();
+        if id > 0 {
+            Ok(Program { gl_id: id })
+        }
+        else {
+            Err(())
         }
     }
 

@@ -38,19 +38,19 @@ unsafe fn _get_shader_iv(shader: &Shader,
 }
 
 impl Context {
-    pub fn create_shader(&self, shader_type: ShaderType) -> Result<Shader, ()> {
-        unsafe {
-            let id = gl::CreateShader(shader_type.gl_enum());
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`shaderType` is not an accepted value",
-                _ => "Unknown error"
-            }
-            if id > 0 {
-                Ok(Shader { gl_id: id })
-            }
-            else {
-                Err(())
-            }
+    pub unsafe fn create_shader(&self, shader_type: ShaderType)
+        -> Result<Shader, ()>
+    {
+        let id = gl::CreateShader(shader_type.gl_enum());
+        dbg_gl_sanity_check! {
+            GLError::InvalidEnum => "`shaderType` is not an accepted value",
+            _ => "Unknown error"
+        }
+        if id > 0 {
+            Ok(Shader { gl_id: id })
+        }
+        else {
+            Err(())
         }
     }
 
