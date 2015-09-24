@@ -363,9 +363,7 @@ unsafe fn _bind_texture<T: TextureType>(texture: &mut Texture<T>) {
 
 pub struct Texture2dBinder;
 impl Texture2dBinder {
-    pub fn bind<'a>(&'a mut self, texture: &mut Texture2d)
-        -> Texture2dBinding<'a>
-    {
+    pub fn bind(&mut self, texture: &mut Texture2d) -> Texture2dBinding {
         unsafe {
             _bind_texture(texture);
         }
@@ -375,8 +373,8 @@ impl Texture2dBinder {
 
 pub struct TextureCubeMapBinder;
 impl TextureCubeMapBinder {
-    pub fn bind<'a>(&'a mut self, texture: &mut TextureCubeMap)
-        -> TextureCubeMapBinding<'a>
+    pub fn bind(&mut self, texture: &mut TextureCubeMap)
+        -> TextureCubeMapBinding
     {
         unsafe {
             _bind_texture(texture);

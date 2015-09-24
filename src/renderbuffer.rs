@@ -60,8 +60,8 @@ impl<'a> RenderbufferBinding<'a> {
 
 pub struct RenderbufferBinder;
 impl RenderbufferBinder {
-    pub fn bind<'a>(&'a mut self, renderbuffer: &mut Renderbuffer)
-        -> RenderbufferBinding<'a>
+    pub fn bind(&mut self, renderbuffer: &mut Renderbuffer)
+        -> RenderbufferBinding
     {
         let binding = RenderbufferBinding { phantom: PhantomData };
         unsafe {

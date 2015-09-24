@@ -216,9 +216,7 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
 
 pub struct ArrayBufferBinder;
 impl ArrayBufferBinder {
-    pub fn bind<'a>(&'a mut self, buffer: &mut Buffer)
-        -> ArrayBufferBinding<'a>
-    {
+    pub fn bind(&mut self, buffer: &mut Buffer) -> ArrayBufferBinding {
         let binding = ArrayBufferBinding { phantom: PhantomData };
         _bind_buffer(binding.target(), buffer);
         binding
@@ -227,9 +225,7 @@ impl ArrayBufferBinder {
 
 pub struct ElementArrayBufferBinder;
 impl ElementArrayBufferBinder {
-    pub fn bind<'a>(&'a mut self, buffer: &mut Buffer)
-        -> ElementArrayBufferBinding<'a>
-    {
+    pub fn bind(&mut self, buffer: &mut Buffer) -> ElementArrayBufferBinding {
         let binding = ElementArrayBufferBinding { phantom: PhantomData };
         _bind_buffer(binding.target(), buffer);
         binding

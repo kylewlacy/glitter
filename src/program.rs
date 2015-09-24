@@ -252,8 +252,7 @@ impl<'a> ProgramBinding<'a> {
 
 pub struct ProgramBinder;
 impl ProgramBinder {
-    pub fn bind<'a>(&'a mut self, program: &mut Program)
-        -> ProgramBinding<'a>
+    pub fn bind(&mut self, program: &mut Program) -> ProgramBinding
     {
         let binding = ProgramBinding { phantom: PhantomData };
         unsafe {
