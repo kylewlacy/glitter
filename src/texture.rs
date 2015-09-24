@@ -328,14 +328,15 @@ pub trait TextureBinding {
         }
     }
 
-    fn image_2d<I>(&mut self,
-                   target: <Self::TextureType as TextureType>::ImageTargetType,
-                   level: u32,
-                   img: &I)
-        where I: Image2d
+    fn image_2d<T, I>(&mut self,
+                      target: T,
+                      level: u32,
+                      img: &I)
+        where T: Into<<Self::TextureType as TextureType>::ImageTargetType>,
+              I: Image2d
     {
         unsafe {
-            _tex_image_2d(target,
+            _tex_image_2d(target.into(),
                           level,
                           img.format().textel_format,
                           img.width() as u32,

@@ -107,18 +107,19 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn texture_2d<T: TextureType>(&mut self,
-                                      attachment: FramebufferAttachment,
-                                      tex_target: T::ImageTargetType,
-                                      texture: &mut Texture<T>,
-                                      level: i32)
+    pub fn texture_2d<T, I>(&mut self,
+                            attachment: FramebufferAttachment,
+                            tex_target: I,
+                            texture: &mut Texture<T>,
+                            level: i32)
+        where T: TextureType, I: Into<T::ImageTargetType>
     {
         debug_assert!(level == 0);
 
         unsafe {
             gl::FramebufferTexture2D(self.target().gl_enum(),
                                      attachment.gl_enum(),
-                                     tex_target.gl_enum(),
+                                     tex_target.into().gl_enum(),
                                      texture.gl_id(),
                                      level as GLint);
             dbg_gl_sanity_check! {
