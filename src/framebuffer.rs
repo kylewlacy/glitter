@@ -29,19 +29,17 @@ impl Drop for Framebuffer {
 }
 
 impl Context {
-    pub fn gen_framebuffer(&self) -> Framebuffer {
-        unsafe {
-            let mut id : GLuint = 0;
+    pub unsafe fn gen_framebuffer(&self) -> Framebuffer {
+        let mut id : GLuint = 0;
 
-            gl::GenFramebuffers(1, &mut id as *mut GLuint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`n` is negative",
-                _ => "Unknown error"
-            }
+        gl::GenFramebuffers(1, &mut id as *mut GLuint);
+        dbg_gl_sanity_check! {
+            GLError::InvalidValue => "`n` is negative",
+            _ => "Unknown error"
+        }
 
-            Framebuffer {
-                gl_id: id
-            }
+        Framebuffer {
+            gl_id: id
         }
     }
 }
