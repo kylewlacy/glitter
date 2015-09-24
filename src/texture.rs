@@ -112,10 +112,15 @@ impl TextureType for TxCubeMap {
 
 
 
-gl_enum! {
-    pub gl_enum TextureBindingTarget {
-        Texture2d as TEXTURE_2D = gl::TEXTURE_2D,
-        TextureCubeMap as TEXTURE_CUBE_MAP = gl::TEXTURE_CUBE_MAP
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TextureBindingTarget {
+    Texture2d = gl::TEXTURE_2D as isize,
+    TextureCubeMap = gl::TEXTURE_CUBE_MAP as isize
+}
+
+impl TextureBindingTarget {
+    pub fn gl_enum(&self) -> GLenum {
+        *self as GLenum
     }
 }
 
