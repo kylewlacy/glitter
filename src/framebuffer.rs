@@ -80,11 +80,11 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn texture2d<T: TextureType>(&mut self,
-                                     attachment: FramebufferAttachment,
-                                     tex_target: T::ImageTargetType,
-                                     texture: &mut Texture<T>,
-                                     level: i32)
+    pub fn texture_2d<T: TextureType>(&mut self,
+                                      attachment: FramebufferAttachment,
+                                      tex_target: T::ImageTargetType,
+                                      texture: &mut Texture<T>,
+                                      level: i32)
     {
         debug_assert!(level == 0);
 
