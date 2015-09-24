@@ -40,6 +40,14 @@ impl Context {
     }
 }
 
+
+
+gl_enum! {
+    pub gl_enum RenderbufferTarget {
+        Renderbuffer as RENDERBUFFER = gl::RENDERBUFFER
+    }
+}
+
 pub struct RenderbufferBinding<'a> {
     phantom: PhantomData<&'a mut Renderbuffer>
 }
