@@ -117,6 +117,17 @@ impl fmt::Display for GLFramebufferError {
     }
 }
 
+impl error::Error for GLFramebufferError {
+    fn description(&self) -> &str {
+        match *self {
+            GLFramebufferError::IncompleteAttachment => "One or more framebuffer attachments are not complete",
+            GLFramebufferError::IncompleteDimensions => "Not all images attached to the framebuffer have the same width and height",
+            GLFramebufferError::IncompleteMissingAttachment => "The framebuffer has no images attached",
+            GLFramebufferError::Unsupported => "The framebuffer contains an unsupported combination of attachments",
+        }
+    }
+}
+
 gl_enum! {
     pub gl_enum DrawingMode {
         Points as POINTS = gl::POINTS,
