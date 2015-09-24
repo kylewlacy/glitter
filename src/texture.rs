@@ -124,6 +124,30 @@ impl TextureBindingTarget {
     }
 }
 
+// HACK: Done to allow glitter::TEXTURE_2D as both a
+//       TextureBindingTarget and Tx2dImageTarget
+pub struct VariantTexture2d;
+
+impl From<VariantTexture2d> for TextureBindingTarget {
+    fn from(_: VariantTexture2d) -> TextureBindingTarget {
+        TextureBindingTarget::Texture2d
+    }
+}
+
+impl From<VariantTexture2d> for Tx2dImageTarget {
+    fn from(_: VariantTexture2d) -> Tx2dImageTarget {
+        Tx2dImageTarget::Texture2d
+    }
+}
+
+impl ImageTargetType for VariantTexture2d {
+    fn gl_enum(&self) -> GLenum {
+        gl::TEXTURE_2D
+    }
+}
+
+
+
 // TODO: Use type refinements someday...
 #[derive(Debug, Clone, Copy)]
 pub enum TextureFilter {
