@@ -37,7 +37,44 @@ unsafe fn _get_shader_iv(shader: &Shader,
     }
 }
 
+pub struct ShaderBuilder<'a> {
+    gl: &'a Context,
+    ty: ShaderType,
+    source: &'a str
+}
+
+impl<'a> ShaderBuilder<'a> {
+    fn new(gl: &'a Context, ty: ShaderType, source: &'a str) -> Self {
+        ShaderBuilder { gl: gl, ty: ty, source: source }
+    }
+
+    pub fn try_unwrap(self) -> Result<Shader, GLError> {
+        unsafe {
+            let mut shader = try! {
+                self.gl.create_shader(self.ty).or_else(|_| {
+                    let msg = "Error creating OpenGL shader";
+                    Err(GLError::Message(msg.to_owned()))
+                })
+            };
+
+            self.gl.shader_source(&mut shader, self.source);
+            try!(self.gl.compile_shader(&mut shader));
+            Ok(shader)
+        }
+    }
+
+    pub fn unwrap(self) -> Shader {
+        self.try_unwrap().unwrap()
+    }
+}
+
 impl Context {
+    pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
+        -> ShaderBuilder
+    {
+        ShaderBuilder::new(self, ty, source)
+    }
+
     pub unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
