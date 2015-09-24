@@ -90,6 +90,14 @@ impl error::Error for GLError {
     }
 }
 
+#[derive(Debug)]
+pub enum GLFramebufferError {
+    IncompleteAttachment,
+    IncompleteDimensions,
+    IncompleteMissingAttachment,
+    Unsupported
+}
+
 gl_enum! {
     pub gl_enum DrawingMode {
         Points as POINTS = gl::POINTS,
