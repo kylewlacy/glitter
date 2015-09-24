@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::Context;
-use renderbuffer::Renderbuffer;
+use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use texture::{Texture, TextureType, ImageTargetType};
 use types::{BufferBits, GLError};
 
@@ -65,10 +65,11 @@ impl<'a> FramebufferBinding<'a> {
                         attachment: FramebufferAttachment,
                         renderbuffer: &mut Renderbuffer)
     {
+        let renderbuffer_target = RenderbufferTarget::Renderbuffer;
         unsafe {
             gl::FramebufferRenderbuffer(self.target(),
                                         attachment.gl_enum(),
-                                        gl::RENDERBUFFER,
+                                        renderbuffer_target.gl_enum(),
                                         renderbuffer.gl_id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
