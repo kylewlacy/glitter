@@ -146,6 +146,10 @@ impl ImageTargetType for VariantTexture2d {
     }
 }
 
+pub const TEXTURE_CUBE_MAP : TextureBindingTarget =
+    TextureBindingTarget::TextureCubeMap;
+pub const TEXTURE_2D : VariantTexture2d = VariantTexture2d;
+
 
 
 // TODO: Use type refinements someday...
