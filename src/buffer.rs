@@ -29,7 +29,7 @@ impl Drop for Buffer {
 impl Context {
     pub fn gen_buffer(&self) -> Buffer {
         unsafe {
-            let mut id : GLuint = mem::uninitialized();
+            let mut id : GLuint = 0;
 
             gl::GenBuffers(1, &mut id as *mut GLuint);
             dbg_gl_sanity_check! {
