@@ -98,6 +98,25 @@ pub enum GLFramebufferError {
     Unsupported
 }
 
+impl fmt::Display for GLFramebufferError {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            GLFramebufferError::IncompleteAttachment => {
+                write!(f, "Incomplete attachment")
+            },
+            GLFramebufferError::IncompleteDimensions => {
+                write!(f, "Incomplete dimensions")
+            },
+            GLFramebufferError::IncompleteMissingAttachment => {
+                write!(f, "Missing attachments")
+            },
+            GLFramebufferError::Unsupported => {
+                write!(f, "Unsupported")
+            }
+        }
+    }
+}
+
 gl_enum! {
     pub gl_enum DrawingMode {
         Points as POINTS = gl::POINTS,
