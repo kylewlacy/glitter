@@ -4,7 +4,7 @@ use gl::types::*;
 use context::Context;
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use texture::{Texture, TextureType, ImageTargetType};
-use types::{BufferBits, GLError};
+use types::{BufferBits, GLError, GLFramebufferError};
 
 pub struct Framebuffer {
     gl_id: GLuint
@@ -59,6 +59,26 @@ pub struct FramebufferBinding<'a> {
 impl<'a> FramebufferBinding<'a> {
     fn target(&self) -> GLenum {
         gl::FRAMEBUFFER
+    }
+
+    pub fn check_framebuffer_status(&self) -> Option<GLFramebufferError> {
+        unsafe {
+            match gl::CheckFramebufferStatus(self.target()) {
+                gl::FRAMEBUFFER_INCOMPLETE_ATTACHMENT => {
+                    Some(GLFramebufferError::IncompleteAttachment)
+                },
+                // gl::FRAMEBUFFER_INCOMPLETE_DIMENSIONS => {
+                //     Some(GLFramebufferError::IncompleteDimensions)
+                // },
+                gl::FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT => {
+                    Some(GLFramebufferError::IncompleteMissingAttachment)
+                },
+                gl::FRAMEBUFFER_UNSUPPORTED => {
+                    Some(GLFramebufferError::Unsupported)
+                },
+                _ => { None }
+            }
+        }
     }
 
     pub fn renderbuffer(&mut self,
