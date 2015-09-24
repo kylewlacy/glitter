@@ -3,7 +3,7 @@ use std::slice;
 use buffer::ArrayBufferBinding;
 use types::DataType;
 
-pub trait VertexData: Copy {
+pub unsafe trait VertexData: Copy {
     type Binder: VertexAttribBinder;
 
     fn build_attrib_binder() -> <Self::Binder as VertexAttribBinder>::Builder;
@@ -17,57 +17,57 @@ pub trait VertexAttribBinder {
 
 
 
-pub trait VertexPrimitive {
+pub unsafe trait VertexPrimitive {
     fn gl_type() -> DataType;
 }
 
-impl VertexPrimitive for i8 {
+unsafe impl VertexPrimitive for i8 {
     fn gl_type() -> DataType { DataType::Byte }
 }
 
-impl VertexPrimitive for u8 {
+unsafe impl VertexPrimitive for u8 {
     fn gl_type() -> DataType { DataType::UnsignedByte }
 }
 
-impl VertexPrimitive for i16 {
+unsafe impl VertexPrimitive for i16 {
     fn gl_type() -> DataType { DataType::Short }
 }
 
-impl VertexPrimitive for u16 {
+unsafe impl VertexPrimitive for u16 {
     fn gl_type() -> DataType { DataType::UnsignedShort }
 }
 
-impl VertexPrimitive for f32 {
+unsafe impl VertexPrimitive for f32 {
     fn gl_type() -> DataType { DataType::Float }
 }
 
-pub trait VertexDatum {
+pub unsafe trait VertexDatum {
     fn gl_type() -> DataType;
     fn components() -> i8;
     fn normalized() -> bool { false }
 }
 
-impl<T> VertexDatum for T where T: VertexPrimitive {
+unsafe impl<T> VertexDatum for T where T: VertexPrimitive {
     fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
     fn components() -> i8 { 1 }
 }
 
-impl<T> VertexDatum for [T; 1] where T: VertexPrimitive {
+unsafe impl<T> VertexDatum for [T; 1] where T: VertexPrimitive {
     fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
     fn components() -> i8 { 1 }
 }
 
-impl<T> VertexDatum for [T; 2] where T: VertexPrimitive {
+unsafe impl<T> VertexDatum for [T; 2] where T: VertexPrimitive {
     fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
     fn components() -> i8 { 2 }
 }
 
-impl<T> VertexDatum for [T; 3] where T: VertexPrimitive {
+unsafe impl<T> VertexDatum for [T; 3] where T: VertexPrimitive {
     fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
     fn components() -> i8 { 3 }
 }
 
-impl<T> VertexDatum for [T; 4] where T: VertexPrimitive {
+unsafe impl<T> VertexDatum for [T; 4] where T: VertexPrimitive {
     fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
     fn components() -> i8 { 4 }
 }
@@ -130,7 +130,7 @@ macro_rules! vertex_data {
                     $(pub $field_name: $field_type),*
                 }
 
-                impl $crate::VertexData for $name {
+                unsafe impl $crate::VertexData for $name {
                     type Binder = Binder;
 
                     fn build_attrib_binder() -> BinderBuilder {
