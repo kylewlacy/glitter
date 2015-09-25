@@ -1,9 +1,11 @@
 use std::marker::PhantomData;
+use std::collections::hash_map::{HashMap, Entry};
 use gl;
 use gl::types::*;
 use context::Context;
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
-use texture::{Texture, TextureType, ImageTargetType};
+use texture::{Texture, TextureType, ImageTargetType,
+              Texture2d, Tx2dImageTarget};
 use types::{BufferBits, GLError, GLFramebufferError};
 
 pub struct Framebuffer {
@@ -25,6 +27,84 @@ impl Drop for Framebuffer {
         unsafe {
             gl::DeleteFramebuffers(1, &self.gl_id as *const GLuint);
         }
+    }
+}
+
+enum BuilderAttachment<'a> {
+    Texture2d(&'a mut Texture2d, i32),
+    Renderbuffer(&'a mut Renderbuffer)
+}
+
+pub struct FramebufferBuilder<'a> {
+    gl: &'a mut Context,
+    attachments: HashMap<FramebufferAttachment, BuilderAttachment<'a>>
+}
+
+impl<'a> FramebufferBuilder<'a> {
+    fn new(gl: &'a mut Context) -> Self {
+        FramebufferBuilder {
+            gl: gl,
+            attachments: HashMap::new()
+        }
+    }
+
+    pub fn texture_2d(mut self,
+                      attachment: FramebufferAttachment,
+                      texture: &'a mut Texture2d,
+                      level: i32)
+        -> Self
+    {
+        let attached = BuilderAttachment::Texture2d(texture, level);
+        match self.attachments.entry(attachment) {
+            Entry::Occupied(mut e) => { e.insert(attached); },
+            Entry::Vacant(e) => { e.insert(attached); }
+        };
+
+        self
+    }
+
+    pub fn renderbuffer(mut self,
+                        attachment: FramebufferAttachment,
+                        renderbuffer: &'a mut Renderbuffer)
+        -> Self
+    {
+        let attached = BuilderAttachment::Renderbuffer(renderbuffer);
+        match self.attachments.entry(attachment) {
+            Entry::Occupied(mut e) => { e.insert(attached); },
+            Entry::Vacant(e) => { e.insert(attached); }
+        };
+
+        self
+    }
+
+    pub fn try_unwrap(self) -> Result<Framebuffer, GLError> {
+        let mut fbo = unsafe { self.gl.gen_framebuffer() };
+
+        // TODO: Use `bind_framebuffer!` macro here
+        let mut gl_fbo = self.gl.framebuffer.bind(&mut fbo);
+
+        for (attachment, attached) in self.attachments.into_iter() {
+            match attached {
+                BuilderAttachment::Texture2d(texture, level) => {
+                    gl_fbo.texture_2d(attachment,
+                                      Tx2dImageTarget::Texture2d,
+                                      texture,
+                                      level);
+                },
+                BuilderAttachment::Renderbuffer(renderbuffer) => {
+                    gl_fbo.renderbuffer(attachment, renderbuffer);
+                }
+            }
+        }
+
+        match gl_fbo.check_framebuffer_status() {
+            Some(err) => { Err(err.into()) },
+            None => { Ok(fbo) }
+        }
+    }
+
+    pub fn unwrap(self) -> Framebuffer {
+        self.try_unwrap().unwrap()
     }
 }
 
