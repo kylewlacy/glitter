@@ -26,7 +26,7 @@ macro_rules! gl_enum {
             $($variant:ident as $const_name:ident = $value:expr),+
         }
     ) => {
-        #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+        #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
         pub enum $name {
             $($variant = $value as isize),+
         }
