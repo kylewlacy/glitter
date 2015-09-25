@@ -2,6 +2,7 @@ use std::ptr;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
+use prelude::*;
 use context::Context;
 use image_data::{Image2d, TextelFormat, ImageFormat};
 use types::GLError;
@@ -24,6 +25,110 @@ impl<T: TextureType> Drop for Texture<T> {
         unsafe {
             gl::DeleteTextures(1, &self.gl_id as *const GLuint);
         }
+    }
+}
+
+
+
+pub struct Texture2dBuilder<'a> {
+    gl: &'a mut Context,
+    min_filter: Option<TextureMipmapFilter>,
+    mag_filter: Option<TextureFilter>,
+    wrap_s: Option<TextureWrapMode>,
+    wrap_t: Option<TextureWrapMode>,
+    image: Option<&'a Image2d>,
+    empty_params: Option<(ImageFormat, u32, u32)>
+}
+
+impl<'a> Texture2dBuilder<'a> {
+    fn new(gl: &'a mut Context) -> Self {
+        Texture2dBuilder {
+            gl: gl,
+            min_filter: None,
+            mag_filter: None,
+            wrap_s: None,
+            wrap_t: None,
+            image: None,
+            empty_params: None
+        }
+    }
+
+    pub fn image_2d(mut self, image: &'a Image2d) -> Self {
+        self.image = Some(image);
+        self
+    }
+
+    pub fn empty(mut self, format: ImageFormat, width: u32, height: u32)
+        -> Self
+    {
+        self.empty_params = Some((format, width, height));
+        self
+    }
+
+    pub fn min_filter<F>(mut self, filter: F) -> Self
+        where F: Into<TextureMipmapFilter>
+    {
+        self.min_filter = Some(filter.into());
+        self
+    }
+
+    pub fn mag_filter(mut self, filter: TextureFilter) -> Self {
+        self.mag_filter = Some(filter);
+        self
+    }
+
+    pub fn wrap_s(mut self, wrap: TextureWrapMode) -> Self {
+        self.wrap_s = Some(wrap);
+        self
+    }
+
+    pub fn wrap_t(mut self, wrap: TextureWrapMode) -> Self {
+        self.wrap_t = Some(wrap);
+        self
+    }
+
+    pub fn try_unwrap(self) -> Result<Texture2d, GLError> {
+        let mut texture = unsafe { self.gl.gen_texture() };
+
+        // TODO: Use macros here
+        let mut gl_tex_unit = self.gl.tex_units.0.active();
+        let mut gl_tex = gl_tex_unit.texture_2d.bind(&mut texture);
+
+        if let Some(min_filter) = self.min_filter {
+            gl_tex.set_min_filter(min_filter);
+        }
+        if let Some(mag_filter) = self.mag_filter {
+            gl_tex.set_mag_filter(mag_filter);
+        }
+        if let Some(wrap_s) = self.wrap_s {
+            gl_tex.set_wrap_s(wrap_s);
+        }
+        if let Some(wrap_t) = self.wrap_t {
+            gl_tex.set_wrap_t(wrap_t);
+        }
+
+        if let Some(image) = self.image {
+            gl_tex.image_2d(Tx2dImageTarget::Texture2d, 0, image);
+
+            Ok(texture)
+        }
+        else if let Some((format, width, height)) = self.empty_params {
+            gl_tex.image_2d_empty(Tx2dImageTarget::Texture2d,
+                                  0,
+                                  format,
+                                  width,
+                                  height);
+
+            Ok(texture)
+        }
+        else {
+            let msg = "Error building texture: neither an image nor a format were provided";
+            Err(GLError::Message(msg.to_owned()))
+        }
+    }
+
+    pub fn unwrap(self) -> Texture2d {
+        self.try_unwrap().unwrap()
     }
 }
 
