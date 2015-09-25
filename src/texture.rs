@@ -107,6 +107,8 @@ impl<'a> Texture2dBuilder<'a> {
             gl_tex.set_wrap_t(wrap_t);
         }
 
+        // TODO: Find out what conditions lead to a non-complete texture
+        //       (e.g. if either width or height are 0)
         if let Some(image) = self.image {
             gl_tex.image_2d(Tx2dImageTarget::Texture2d, 0, image);
 
@@ -119,7 +121,13 @@ impl<'a> Texture2dBuilder<'a> {
                                   width,
                                   height);
 
-            Ok(texture)
+            if width > 0 && height > 0 {
+                Ok(texture)
+            }
+            else {
+                let msg = "Error building texture: texture must have positive dimensions";
+                Err(GLError::Message(msg.to_owned()))
+            }
         }
         else {
             let msg = "Error building texture: neither an image nor a format were provided";
