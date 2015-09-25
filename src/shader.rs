@@ -75,6 +75,18 @@ impl Context {
         ShaderBuilder::new(self, ty, source)
     }
 
+    pub fn build_fragment_shader<'a>(&'a self, source: &'a str)
+        -> ShaderBuilder<'a>
+    {
+        ShaderBuilder::new(self, ShaderType::FragmentShader, source)
+    }
+
+    pub fn build_vertex_shader<'a>(&'a self, source: &'a str)
+        -> ShaderBuilder<'a>
+    {
+        ShaderBuilder::new(self, ShaderType::VertexShader, source)
+    }
+
     pub unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
