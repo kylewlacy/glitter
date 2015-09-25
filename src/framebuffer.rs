@@ -109,6 +109,10 @@ impl<'a> FramebufferBuilder<'a> {
 }
 
 impl Context {
+    pub fn build_framebuffer(&mut self) -> FramebufferBuilder {
+        FramebufferBuilder::new(self)
+    }
+
     pub unsafe fn gen_framebuffer(&self) -> Framebuffer {
         let mut id : GLuint = 0;
 
