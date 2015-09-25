@@ -133,6 +133,10 @@ impl<'a> Texture2dBuilder<'a> {
 }
 
 impl Context {
+    pub fn build_texture_2d(&mut self) -> Texture2dBuilder {
+        Texture2dBuilder::new(self)
+    }
+
     pub unsafe fn gen_texture<T: TextureType>(&self) -> Texture<T> {
         let mut id : GLuint =  0;
 
