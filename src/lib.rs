@@ -1,5 +1,6 @@
 #[macro_use] extern crate bitflags;
 extern crate gl as gl_lib;
+#[cfg(feature = "cgmath")] extern crate cgmath as cgmath_lib;
 
 #[macro_use] mod macros;
 mod context;
@@ -18,6 +19,7 @@ mod uniform_data;
 mod types;
 
 pub use gl_lib as gl;
+#[cfg(feature = "cgmath")] pub use cgmath_lib as cgmath;
 
 pub use context::*;
 pub use buffer::*;
