@@ -445,6 +445,12 @@ pub trait TextureBinding {
         }
     }
 
+    fn generate_mipmap(&mut self) {
+        unsafe {
+            gl::GenerateMipmap(Self::target().gl_enum())
+        }
+    }
+
     fn image_2d<T, I: ?Sized>(&mut self,
                               target: T,
                               level: u32,
