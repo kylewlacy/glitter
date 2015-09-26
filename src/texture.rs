@@ -95,6 +95,8 @@ impl<'a> Texture2dBuilder<'a> {
     }
 
     pub fn try_unwrap(self) -> Result<Texture2d, GLError> {
+        use TextureMipmapFilter::MipmapFilter;
+
         let mut texture = unsafe { self.gl.gen_texture() };
 
         // TODO: Use macros here
@@ -138,6 +140,10 @@ impl<'a> Texture2dBuilder<'a> {
 
         if self.gen_mipmap {
             gl_tex.generate_mipmap();
+        }
+        else if let Some(MipmapFilter {..}) = self.min_filter {
+                let msg = "Error building texture: texture uses a mipmap filter but does not have a mipmap";
+                return Err(GLError::Message(msg.to_owned()));
         }
 
         Ok(texture)
