@@ -36,6 +36,7 @@ pub struct Texture2dBuilder<'a> {
     mag_filter: Option<TextureFilter>,
     wrap_s: Option<TextureWrapMode>,
     wrap_t: Option<TextureWrapMode>,
+    gen_mipmap: bool,
     image: Option<&'a Image2d>,
     empty_params: Option<(ImageFormat, u32, u32)>
 }
@@ -48,6 +49,7 @@ impl<'a> Texture2dBuilder<'a> {
             mag_filter: None,
             wrap_s: None,
             wrap_t: None,
+            gen_mipmap: false,
             image: None,
             empty_params: None
         }
@@ -62,6 +64,11 @@ impl<'a> Texture2dBuilder<'a> {
         -> Self
     {
         self.empty_params = Some((format, width, height));
+        self
+    }
+
+    pub fn generate_mipmap(mut self) -> Self {
+        self.gen_mipmap = true;
         self
     }
 
@@ -111,8 +118,6 @@ impl<'a> Texture2dBuilder<'a> {
         //       (e.g. if either width or height are 0)
         if let Some(image) = self.image {
             gl_tex.image_2d(Tx2dImageTarget::Texture2d, 0, image);
-
-            Ok(texture)
         }
         else if let Some((format, width, height)) = self.empty_params {
             gl_tex.image_2d_empty(Tx2dImageTarget::Texture2d,
@@ -121,18 +126,21 @@ impl<'a> Texture2dBuilder<'a> {
                                   width,
                                   height);
 
-            if width > 0 && height > 0 {
-                Ok(texture)
-            }
-            else {
+            if !(width > 0 && height > 0) {
                 let msg = "Error building texture: texture must have positive dimensions";
-                Err(GLError::Message(msg.to_owned()))
+                return Err(GLError::Message(msg.to_owned()))
             }
         }
         else {
             let msg = "Error building texture: neither an image nor a format were provided";
-            Err(GLError::Message(msg.to_owned()))
+            return Err(GLError::Message(msg.to_owned()))
         }
+
+        if self.gen_mipmap {
+            gl_tex.generate_mipmap();
+        }
+
+        Ok(texture)
     }
 
     pub fn unwrap(self) -> Texture2d {
