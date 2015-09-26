@@ -18,6 +18,10 @@ mod index_data;
 mod uniform_data;
 mod types;
 
+#[cfg(feature = "cgmath")] mod cgmath_features;
+
+
+
 pub use gl_lib as gl;
 #[cfg(feature = "cgmath")] pub use cgmath_lib as cgmath;
 
