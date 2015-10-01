@@ -42,6 +42,29 @@ bitflags! {
     }
 }
 
+gl_enum! {
+    pub gl_enum Capability {
+        Blend as BLEND
+            = gl::BLEND,
+        CullFace as CULL_FACE
+            = gl::CULL_FACE,
+        DepthTest as DEPTH_TEST
+            = gl::DEPTH_TEST,
+        Dither as DITHER
+            = gl::DITHER,
+        PolygonOffsetFill as POLYGON_OFFSET_FILL
+            = gl::POLYGON_OFFSET_FILL,
+        SampleAlphaToCoverage as SAMPLE_ALPHA_TO_COVERAGE =
+            gl::SAMPLE_ALPHA_TO_COVERAGE,
+        SampleCoverage as SAMPLE_COVERAGE =
+            gl::SAMPLE_COVERAGE,
+        ScisscorTest as SCISSCOR_TEST =
+            gl::SCISSOR_TEST,
+        StencilTest as STENCIL_TEST =
+            gl::STENCIL_TEST
+    }
+}
+
 
 
 #[derive(Debug)]
