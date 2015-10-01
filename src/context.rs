@@ -1,6 +1,6 @@
 use gl;
 use gl::types::*;
-use types::{Color, Viewport, GLError};
+use types::{Color, Viewport, Capability, GLError};
 use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
 use program::{ProgramBinder, ProgramAttrib};
 use framebuffer::FramebufferBinder;
@@ -31,6 +31,26 @@ impl Context {
     pub fn clear_color(&mut self, color: Color) {
         unsafe {
             gl::ClearColor(color.r, color.g, color.b, color.a);
+        }
+    }
+
+    pub fn enable(&mut self, cap: Capability) {
+        unsafe {
+            gl::Enable(cap.gl_enum());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    pub fn disable(&mut self, cap: Capability) {
+        unsafe {
+            gl::Disable(cap.gl_enum());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
+                _ => "Unknown error"
+            }
         }
     }
 
