@@ -162,10 +162,16 @@ impl Context {
         }
     }
 
-    pub fn get_attrib_location(&self, program: &Program, name: &str)
-        -> Result<ProgramAttrib, ()>
+    pub fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
+        -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>
     {
-        let c_str = try!(CString::new(name).or(Err(())));
+        let err = Err(UnknownProgramAttrib { name: name });
+
+        let c_str = match CString::new(name) {
+            Ok(s) => { s },
+            Err(_) => { return err }
+        };
+        // let c_str = try!(CString::new(name).or(Err(e)));
         let str_ptr = c_str.as_ptr() as *const GLchar;
         unsafe {
             let index = gl::GetAttribLocation(program.gl_id(), str_ptr);
@@ -178,7 +184,7 @@ impl Context {
                 Ok(ProgramAttrib { gl_index: index as GLuint })
             }
             else {
-                Err(())
+                err
             }
         }
     }
