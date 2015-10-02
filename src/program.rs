@@ -189,10 +189,16 @@ impl Context {
         }
     }
 
-    pub fn get_uniform_location(&self, program: &Program, name: &str)
-        -> Result<ProgramUniform, ()>
+    pub fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
+        -> Result<ProgramUniform, UnknownProgramUniform<'a>>
     {
-        let c_str = try!(CString::new(name).or(Err(())));
+        let err = Err(UnknownProgramUniform { name: name });
+
+        let c_str = match CString::new(name) {
+            Ok(s) => { s },
+            Err(_) => { return err; }
+        };
+        // let c_str = try!(CString::new(name).or(Err(e)));
         let str_ptr = c_str.as_ptr() as *const GLchar;
         unsafe {
             let index = gl::GetUniformLocation(program.gl_id(), str_ptr);
@@ -206,7 +212,7 @@ impl Context {
                 Ok(ProgramUniform { gl_index: index as GLuint })
             }
             else {
-                Err(())
+                err
             }
         }
     }
