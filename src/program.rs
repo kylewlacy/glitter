@@ -1,6 +1,8 @@
 use std::ptr;
 use std::marker::PhantomData;
 use std::ffi::CString;
+use std::error;
+use std::fmt;
 use gl;
 use gl::types::*;
 use types::GLError;
@@ -314,4 +316,42 @@ pub struct ProgramAttrib {
 #[derive(Debug, Clone, Copy)]
 pub struct ProgramUniform {
     pub gl_index: GLuint
+}
+
+
+
+#[derive(Debug)]
+pub struct UnknownProgramAttrib<'a> {
+    name: &'a str
+}
+
+impl<'a> fmt::Display for UnknownProgramAttrib<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Unknown program attribute: {:?}", self.name)
+    }
+}
+
+impl<'a> error::Error for UnknownProgramAttrib<'a> {
+    fn description(&self) -> &str {
+        "The desired program attribute was not found"
+    }
+}
+
+
+
+#[derive(Debug)]
+pub struct UnknownProgramUniform<'a> {
+    name: &'a str
+}
+
+impl<'a> fmt::Display for UnknownProgramUniform<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "Unknown program uniform: {:?}", self.name)
+    }
+}
+
+impl<'a> error::Error for UnknownProgramUniform<'a> {
+    fn description(&self) -> &str {
+        "The desired program uniform was not found"
+    }
 }
