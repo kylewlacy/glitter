@@ -8,7 +8,7 @@ use buffer::{Buffer, BufferBinding,
 use types::DrawingMode;
 
 pub struct VertexBuffer<T: VertexData> {
-    pub attrib_binder: Option<T::Binder>,
+    attrib_binder: Option<T::Binder>,
     buffer: Buffer,
     count: usize,
     phantom: PhantomData<*const T>
