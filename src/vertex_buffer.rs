@@ -222,6 +222,17 @@ impl Context {
 
 
 #[macro_export]
+macro_rules! attrib_pointers {
+    ($gl:expr, $vbo:expr, {
+        $($field_name:ident => $field_attrib:expr),*
+    }) => {
+        $vbo.build_attrib_binder()
+            $(.$field_name($field_attrib))*
+            .unwrap($gl);
+    }
+}
+
+#[macro_export]
 macro_rules! bind_attrib_pointers {
     ($gl:expr, $vbo:expr, {
         $($field_name:ident => $field_attrib:expr),*
