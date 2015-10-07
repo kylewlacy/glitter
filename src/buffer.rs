@@ -98,7 +98,7 @@ impl<'a> BufferBinding for ArrayBufferBinding<'a> {
 unsafe fn _draw_elements(mode: DrawingMode,
                          count: usize,
                          index_type: IndexDatumType,
-                         indicies: *const GLvoid)
+                         indices: *const GLvoid)
 {
     let gl_index_type: GLenum = match index_type {
         IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
@@ -107,7 +107,7 @@ unsafe fn _draw_elements(mode: DrawingMode,
     gl::DrawElements(mode.gl_enum(),
                      count as GLsizei,
                      gl_index_type,
-                     indicies);
+                     indices);
     dbg_gl_error! {
         GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
         GLError::InvalidValue => "`count` is negative",
@@ -172,12 +172,12 @@ impl<'a> FramebufferBinding<'a> {
                                      _ab: &ArrayBufferBinding,
                                      mode: DrawingMode,
                                      count: usize,
-                                     indicies: &[I])
+                                     indices: &[I])
         where I: IndexDatum, [I]: IndexData
     {
-        debug_assert!(count <= indicies.len());
+        debug_assert!(count <= indices.len());
 
-        let ptr = indicies.index_bytes().as_ptr();
+        let ptr = indices.index_bytes().as_ptr();
         let index_type = I::index_datum_type();
         _draw_elements(mode, count, index_type, mem::transmute(ptr));
     }
@@ -185,10 +185,10 @@ impl<'a> FramebufferBinding<'a> {
     pub unsafe fn draw_elements<I>(&mut self,
                                    _ab: &ArrayBufferBinding,
                                    mode: DrawingMode,
-                                   indicies: &[I])
+                                   indices: &[I])
         where I: IndexDatum, [I]: IndexData
     {
-        self.draw_n_elements(_ab, mode, indicies.len(), indicies);
+        self.draw_n_elements(_ab, mode, indices.len(), indices);
     }
 }
 

@@ -136,22 +136,22 @@ impl<'a> FramebufferBinding<'a> {
                                      gl_vbo: &VertexBufferBinding<'a, T>,
                                      mode: DrawingMode,
                                      count: usize,
-                                     indicies: &[I])
+                                     indices: &[I])
         where T: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
-            self.draw_n_elements(&gl_vbo.gl_buffer, mode, count, indicies);
+            self.draw_n_elements(&gl_vbo.gl_buffer, mode, count, indices);
         }
     }
 
     pub fn draw_elements_vbo<T, I>(&mut self,
                                    gl_vbo: &VertexBufferBinding<'a, T>,
                                    mode: DrawingMode,
-                                   indicies: &[I])
+                                   indices: &[I])
         where T: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
-            self.draw_elements(&gl_vbo.gl_buffer, mode, indicies);
+            self.draw_elements(&gl_vbo.gl_buffer, mode, indices);
         }
     }
 }
