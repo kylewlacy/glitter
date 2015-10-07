@@ -21,6 +21,10 @@ impl<T: VertexData> VertexBuffer<T> {
         T::build_attrib_binder()
     }
 
+    pub fn bind_attrib_pointers(&mut self, binder: T::Binder) {
+        self.attrib_binder = Some(binder);
+    }
+
     pub fn bind(&self, gl_buffer: &ArrayBufferBinding) -> Result<(), ()> {
         match self.attrib_binder {
             Some(ref binder) => {
