@@ -239,10 +239,12 @@ macro_rules! bind_attrib_pointers {
     }) => {
         {
             let vbo = $vbo;
-            let binder = vbo.build_attrib_binder()
-                            $(.$field_name($field_attrib))*
-                            .unwrap($gl);
-            vbo.attrib_binder = Some(binder)
+            let binder = {
+                attrib_pointers!($gl, vbo, {
+                    $($field_name => $field_attrib),*
+                })
+            };
+            vbo.bind_attrib_pointers(binder);
         }
     }
 }
