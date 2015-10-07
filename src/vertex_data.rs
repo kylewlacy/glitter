@@ -113,19 +113,69 @@ macro_rules! offset_of {
 }
 
 
-#[macro_use(offset_of)]
+
+#[macro_export]
+macro_rules! _glitter_vertex_data_reexport {
+    ({ }, $name:ident) => {
+        #[allow(unused_imports)]
+        use self::_glitter_vertex_data::$name::$name;
+    };
+    ({ pub }, $name:ident) => {
+        #[allow(unused_imports)]
+        pub use self::_glitter_vertex_data::$name::$name;
+    }
+}
+
+#[macro_use(offset_of, _glitter_vertex_data_reexport)]
 #[macro_export]
 macro_rules! vertex_data {
-    ($(
-        struct $name:ident {
-            $($field_name:ident: $field_type:ty),*
+    (
+        $(
+            $(#[$($attrs:tt)*])*
+            struct $name:ident {
+                $($field_name:ident: $field_type:ty),*
+            }
+        )+
+    ) => {
+        vertex_data! {
+            $(
+                $(#[$($attrs)*])*,
+                { },
+                @struct $name { $($field_name: $field_type),* }
+            )+,
         }
-    )+) => {
+    };
+    (
+        $(
+            $(#[$($attrs:tt)*])*
+            pub struct $name:ident {
+                $($field_name:ident: $field_type:ty),*
+            }
+        )+
+    ) => {
+        vertex_data! {
+            $(
+                $(#[$($attrs)*])*,
+                { pub },
+                @struct $name { $($field_name: $field_type),* }
+            )+,
+        }
+    };
+    (
+        $(
+            $(#[$($attrs:tt)*])*,
+            { $($modifiers:tt)* },
+            @struct $name:ident {
+                $($field_name:ident: $field_type:ty),*
+            }
+        )+,
+    ) => {
         mod _glitter_vertex_data {$(
             #[allow(non_snake_case)]
             pub mod $name {
                 #[repr(C)]
                 #[derive(Debug, Clone, Copy)]
+                $(#[$($attrs)*])*
                 pub struct $name {
                     $(pub $field_name: $field_type),*
                 }
@@ -212,10 +262,8 @@ macro_rules! vertex_data {
             })+
         }
 
-
         $(
-            #[allow(unused_imports)]
-            use self::_glitter_vertex_data::$name::$name;
+            _glitter_vertex_data_reexport!({ $($modifiers)* }, $name);
         )+
     }
 }
