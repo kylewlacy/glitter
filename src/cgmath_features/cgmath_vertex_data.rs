@@ -1,18 +1,32 @@
 use cgmath;
-use types::DataType;
-use vertex_data::{VertexDatum, VertexPrimitive};
+use vertex_data::{VertexAttributeType, VertexDatum, VertexPrimitive};
 
 unsafe impl<T: VertexPrimitive> VertexDatum for cgmath::Vector2<T> {
-    fn gl_type() -> DataType { T::gl_type() }
-    fn components() -> i8 { 2 }
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 2,
+            normalize: false
+        }
+    }
 }
 
 unsafe impl<T: VertexPrimitive> VertexDatum for cgmath::Vector3<T> {
-    fn gl_type() -> DataType { T::gl_type() }
-    fn components() -> i8 { 3 }
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 3,
+            normalize: false
+        }
+    }
 }
 
 unsafe impl<T: VertexPrimitive> VertexDatum for cgmath::Vector4<T> {
-    fn gl_type() -> DataType { T::gl_type() }
-    fn components() -> i8 { 4 }
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 4,
+            normalize: false
+        }
+    }
 }

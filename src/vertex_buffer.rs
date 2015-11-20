@@ -1,34 +1,133 @@
 use std::marker::PhantomData;
+use std::collections::{HashMap, HashSet};
 use context::Context;
 use framebuffer::FramebufferBinding;
-use vertex_data::{VertexData, VertexBytes, VertexAttribBinder};
+use program::ProgramAttrib;
+use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
 use buffer::{Buffer, BufferBinding,
              ArrayBufferBinding, ElementArrayBufferBinding};
 use types::DrawingMode;
 
+#[derive(Debug)]
+pub enum AttribAddError {
+    DuplicateAttrib(String)
+}
+
+#[derive(Debug)]
+pub struct AttribError {
+    missing_attribs: Vec<String>,
+    unknown_attribs: Vec<String>
+}
+
+pub struct AttribBinder {
+    attribs: HashMap<String, ProgramAttrib>
+}
+
+impl AttribBinder {
+    pub fn new() -> Self {
+        AttribBinder {
+            attribs: HashMap::new()
+        }
+    }
+
+    pub fn add(&mut self, name: &str, attrib: ProgramAttrib)
+        -> Result<(), AttribAddError>
+    {
+        match self.attribs.insert(name.into(), attrib) {
+            None => Ok(()),
+            Some(_) => Err(AttribAddError::DuplicateAttrib(name.into()))
+        }
+    }
+
+    fn for_each<T, F>(&self, mut f: F) -> Result<(), AttribError>
+        where T: VertexData, F: FnMut(VertexAttribute, ProgramAttrib)
+    {
+        // TODO: Avoid heap allocations
+        // TODO: Avoid redundant calls to T::visit_attributes
+        let mut attribs =
+            HashMap::<String, (VertexAttribute, ProgramAttrib)>::new();
+        let mut missing = Vec::<String>::new();
+
+        T::visit_attributes(|vertex_attrib| {
+            match self.attribs.get(&vertex_attrib.name) {
+                Some(program_attrib) => {
+                    let pair = (vertex_attrib.clone(), *program_attrib);
+                    attribs.insert(vertex_attrib.name, pair);
+                },
+                None => {
+                    missing.push(vertex_attrib.name);
+                }
+            }
+        });
+
+        let unknown: Vec<_> = {
+            let expected: HashSet<_> = self.attribs.keys().collect();
+            let actual: HashSet<_> = attribs.keys().collect();
+            expected.difference(&actual).cloned().cloned().collect()
+        };
+
+        if missing.is_empty() && unknown.is_empty() {
+            for (_, (vertex_attrib, program_attrib)) in attribs.into_iter() {
+                f(vertex_attrib, program_attrib);
+            }
+            Ok(())
+        }
+        else {
+            Err(AttribError {
+                missing_attribs: missing,
+                unknown_attribs: unknown
+            })
+        }
+    }
+
+
+    pub fn enable<T: VertexData>(&self, gl: &Context)
+        -> Result<(), AttribError>
+    {
+        self.for_each::<T, _>(|_, program_attrib| {
+            gl.enable_vertex_attrib_array(program_attrib)
+        })
+    }
+
+    pub fn bind<T: VertexData>(&self, gl_buffer: &ArrayBufferBinding)
+        -> Result<(), AttribError>
+    {
+        self.for_each::<T, _>(|vertex_attrib, program_attrib| {
+            unsafe {
+                gl_buffer.vertex_attrib_pointer(
+                    program_attrib,
+                    vertex_attrib.ty.components,
+                    vertex_attrib.ty.data,
+                    vertex_attrib.ty.normalize,
+                    vertex_attrib.stride,
+                    vertex_attrib.offset
+                );
+            }
+        })
+    }
+}
+
+
+
 pub struct VertexBuffer<T: VertexData> {
-    attrib_binder: Option<T::Binder>,
+    attrib_binder: Option<AttribBinder>,
     buffer: Buffer,
     count: usize,
     phantom: PhantomData<*const T>
 }
 
 impl<T: VertexData> VertexBuffer<T> {
-    pub fn build_attrib_binder(&self)
-        -> <T::Binder as VertexAttribBinder>::Builder
-    {
-        T::build_attrib_binder()
-    }
-
-    pub fn bind_attrib_pointers(&mut self, binder: T::Binder) {
+    pub fn bind_attrib_pointers(&mut self, binder: AttribBinder) {
         self.attrib_binder = Some(binder);
     }
 
     pub fn bind(&self, gl_buffer: &ArrayBufferBinding) -> Result<(), ()> {
         match self.attrib_binder {
             Some(ref binder) => {
-                binder.bind(gl_buffer);
+                let mut gl = unsafe { Context::current_context() };
+                try!(binder.enable::<T>(&mut gl).or(Err(())));
+                try!(binder.bind::<T>(gl_buffer).or(Err(())));
                 Ok(())
             },
             None => { Err(()) }
@@ -44,16 +143,12 @@ impl<T: VertexData> VertexBuffer<T> {
     }
 }
 
-pub struct VertexBufferBinding<'a, T: VertexData>
-    where T: 'a, T::Binder: 'a
-{
+pub struct VertexBufferBinding<'a, T: VertexData + 'a> {
     gl_buffer: ArrayBufferBinding<'a>,
     vbo: &'a mut VertexBuffer<T>
 }
 
-impl<'a, T: VertexData> VertexBufferBinding<'a, T>
-    where T: 'a, T::Binder: 'a
-{
+impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
     pub fn new(gl_buffer: ArrayBufferBinding<'a>, vbo: &'a mut VertexBuffer<T>)
         -> Self
     {
@@ -226,9 +321,11 @@ macro_rules! attrib_pointers {
     ($gl:expr, $vbo:expr, {
         $($field_name:ident => $field_attrib:expr),*
     }) => {
-        $vbo.build_attrib_binder()
-            $(.$field_name($field_attrib))*
-            .unwrap($gl);
+        {
+            let mut binder = $crate::AttribBinder::new();
+            $(binder.add(stringify!($field_name), $field_attrib).unwrap());*;
+            binder
+        }
     }
 }
 

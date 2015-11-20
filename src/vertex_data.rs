@@ -1,75 +1,104 @@
 use std::mem;
 use std::slice;
-use buffer::ArrayBufferBinding;
 use types::DataType;
 
 pub unsafe trait VertexData: Copy {
-    type Binder: VertexAttribBinder;
-
-    fn build_attrib_binder() -> <Self::Binder as VertexAttribBinder>::Builder;
+    fn visit_attributes<F>(&f: F) where F: FnMut(VertexAttribute);
 }
 
-pub trait VertexAttribBinder {
-    type Builder;
+pub unsafe trait VertexDatum: Copy {
+    fn attrib_type() -> VertexAttributeType;
+}
 
-    fn bind(&self, gl_buffer: &ArrayBufferBinding);
+pub unsafe trait VertexPrimitive: Copy {
+    fn data_type() -> DataType;
+}
+
+#[derive(Clone)]
+pub struct VertexAttribute {
+    pub ty: VertexAttributeType,
+    pub name: String,
+    pub offset: usize,
+    pub stride: usize
+}
+
+#[derive(Clone)]
+pub struct VertexAttributeType {
+    pub data: DataType,
+    pub components: i8,
+    pub normalize: bool
 }
 
 
-
-pub unsafe trait VertexPrimitive {
-    fn gl_type() -> DataType;
-}
 
 unsafe impl VertexPrimitive for i8 {
-    fn gl_type() -> DataType { DataType::Byte }
+    fn data_type() -> DataType { DataType::Byte }
 }
 
 unsafe impl VertexPrimitive for u8 {
-    fn gl_type() -> DataType { DataType::UnsignedByte }
+    fn data_type() -> DataType { DataType::UnsignedByte }
 }
 
 unsafe impl VertexPrimitive for i16 {
-    fn gl_type() -> DataType { DataType::Short }
+    fn data_type() -> DataType { DataType::Short }
 }
 
 unsafe impl VertexPrimitive for u16 {
-    fn gl_type() -> DataType { DataType::UnsignedShort }
+    fn data_type() -> DataType { DataType::UnsignedShort }
 }
 
 unsafe impl VertexPrimitive for f32 {
-    fn gl_type() -> DataType { DataType::Float }
+    fn data_type() -> DataType { DataType::Float }
 }
 
-pub unsafe trait VertexDatum {
-    fn gl_type() -> DataType;
-    fn components() -> i8;
-    fn normalized() -> bool { false }
+unsafe impl<T: VertexPrimitive> VertexDatum for T {
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 1,
+            normalize: false
+        }
+    }
 }
 
-unsafe impl<T> VertexDatum for T where T: VertexPrimitive {
-    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
-    fn components() -> i8 { 1 }
+unsafe impl<T: VertexPrimitive> VertexDatum for [T; 1] {
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 1,
+            normalize: false
+        }
+    }
 }
 
-unsafe impl<T> VertexDatum for [T; 1] where T: VertexPrimitive {
-    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
-    fn components() -> i8 { 1 }
+unsafe impl<T: VertexPrimitive> VertexDatum for [T; 2] {
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 2,
+            normalize: false
+        }
+    }
 }
 
-unsafe impl<T> VertexDatum for [T; 2] where T: VertexPrimitive {
-    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
-    fn components() -> i8 { 2 }
+unsafe impl<T: VertexPrimitive> VertexDatum for [T; 3] {
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 3,
+            normalize: false
+        }
+    }
 }
 
-unsafe impl<T> VertexDatum for [T; 3] where T: VertexPrimitive {
-    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
-    fn components() -> i8 { 3 }
-}
-
-unsafe impl<T> VertexDatum for [T; 4] where T: VertexPrimitive {
-    fn gl_type() -> DataType { <T as VertexPrimitive>::gl_type() }
-    fn components() -> i8 { 4 }
+unsafe impl<T: VertexPrimitive> VertexDatum for [T; 4] {
+    fn attrib_type() -> VertexAttributeType {
+        VertexAttributeType {
+            data: T::data_type(),
+            components: 4,
+            normalize: false
+        }
+    }
 }
 
 
@@ -112,158 +141,29 @@ macro_rules! offset_of {
     }
 }
 
-
-
 #[macro_export]
-macro_rules! _glitter_vertex_data_reexport {
-    ({ }, $name:ident) => {
-        #[allow(unused_imports)]
-        use self::_glitter_vertex_data::$name::$name;
-    };
-    ({ pub }, $name:ident) => {
-        #[allow(unused_imports)]
-        pub use self::_glitter_vertex_data::$name::$name;
-    }
-}
-
-#[macro_use(offset_of, _glitter_vertex_data_reexport)]
-#[macro_export]
-macro_rules! vertex_data {
-    (
-        $(
-            $(#[$($attrs:tt)*])*
-            struct $name:ident {
-                $($field_name:ident: $field_type:ty),*
+macro_rules! impl_vertex_data {
+    ($name:ty, $($field_name:ident),*) => {
+        unsafe impl $crate::VertexData for $name {
+            fn visit_attributes<F>(mut f: F)
+                where F: FnMut($crate::VertexAttribute)
+            {
+                // TODO: A better way of iterating over field types
+                let _data: $name = unsafe { ::std::mem::uninitialized() };
+                fn get_attribute_type<T: $crate::VertexDatum>(_: &T)
+                    -> $crate::VertexAttributeType
+                {
+                    T::attrib_type()
+                }
+                $(
+                    f($crate::VertexAttribute {
+                        ty: get_attribute_type(&_data.$field_name),
+                        name: stringify!($field_name).into(),
+                        stride: ::std::mem::size_of::<$name>(),
+                        offset: offset_of!($name, $field_name)
+                    });
+                )*
             }
-        )+
-    ) => {
-        vertex_data! {
-            $(
-                $(#[$($attrs)*])*,
-                { },
-                @struct $name { $($field_name: $field_type),* }
-            )+,
         }
     };
-    (
-        $(
-            $(#[$($attrs:tt)*])*
-            pub struct $name:ident {
-                $($field_name:ident: $field_type:ty),*
-            }
-        )+
-    ) => {
-        vertex_data! {
-            $(
-                $(#[$($attrs)*])*,
-                { pub },
-                @struct $name { $($field_name: $field_type),* }
-            )+,
-        }
-    };
-    (
-        $(
-            $(#[$($attrs:tt)*])*,
-            { $($modifiers:tt)* },
-            @struct $name:ident {
-                $($field_name:ident: $field_type:ty),*
-            }
-        )+,
-    ) => {
-        mod _glitter_vertex_data {$(
-            #[allow(non_snake_case)]
-            pub mod $name {
-                #[repr(C)]
-                #[derive(Debug, Clone, Copy)]
-                $(#[$($attrs)*])*
-                pub struct $name {
-                    $(pub $field_name: $field_type),*
-                }
-
-                unsafe impl $crate::VertexData for $name {
-                    type Binder = Binder;
-
-                    fn build_attrib_binder() -> BinderBuilder {
-                        BinderBuilder::new()
-                    }
-                }
-
-                #[allow(dead_code)]
-                pub struct Binder {
-                    $($field_name: $crate::ProgramAttrib),*
-                }
-
-                impl $crate::VertexAttribBinder for Binder {
-                    type Builder = BinderBuilder;
-
-                    fn bind(&self, gl_buffer: &$crate::ArrayBufferBinding) {
-                        use std::mem;
-                        use $crate::VertexDatum as Datum;
-
-                        $({
-                            let components =
-                                <$field_type as Datum>::components();
-                            let gl_type =
-                              <$field_type as Datum>::gl_type();
-                            let normalized =
-                                <$field_type as Datum>::normalized();
-                            let stride = mem::size_of::<$name>();
-                            let offset = offset_of!($name, $field_name);
-
-                            unsafe {
-                                gl_buffer.vertex_attrib_pointer(
-                                    self.$field_name,
-                                    components,
-                                    gl_type,
-                                    normalized,
-                                    stride,
-                                    offset);
-                            }
-                        };)*
-                    }
-                }
-
-                #[allow(dead_code)]
-                pub struct BinderBuilder {
-                    $($field_name: Option<$crate::ProgramAttrib>),*
-                }
-
-                #[allow(dead_code)]
-                impl BinderBuilder {
-                    pub fn new() -> Self {
-                        BinderBuilder {
-                            $($field_name: None),*
-                        }
-                    }
-
-                    pub fn unwrap(self, gl: &$crate::Context) -> self::Binder {
-                        let binder = self::Binder {
-                            $($field_name: self.$field_name.expect(
-                                concat!("No attribute provided for ",
-                                        stringify!($field_name))
-                            )),*
-                        };
-
-                        $(gl.enable_vertex_attrib_array(binder.$field_name);)*
-
-                        binder
-                    }
-
-                    $(
-                        pub fn $field_name(mut self,
-                                           attrib: $crate::ProgramAttrib)
-                        -> Self
-                        {
-                            self.$field_name = Some(attrib);
-                            self
-                        }
-                    )*
-                }
-            })+
-        }
-
-        $(
-            _glitter_vertex_data_reexport!({ $($modifiers)* }, $name);
-        )+
-    }
 }
