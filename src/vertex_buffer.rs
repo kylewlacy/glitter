@@ -110,6 +110,18 @@ impl AttribBinder {
 
 
 
+#[derive(Debug)]
+pub enum VertexBindError {
+    BindingError(AttribError),
+    NoAttributeBindings
+}
+
+impl From<AttribError> for VertexBindError {
+    fn from(attrib_error: AttribError) -> VertexBindError {
+        VertexBindError::BindingError(attrib_error)
+    }
+}
+
 pub struct VertexBuffer<T: VertexData> {
     attrib_binder: Option<AttribBinder>,
     buffer: Buffer,
@@ -122,15 +134,17 @@ impl<T: VertexData> VertexBuffer<T> {
         self.attrib_binder = Some(binder);
     }
 
-    pub fn bind(&self, gl_buffer: &ArrayBufferBinding) -> Result<(), ()> {
+    pub fn bind(&self, gl_buffer: &ArrayBufferBinding)
+        -> Result<(), VertexBindError>
+    {
         match self.attrib_binder {
             Some(ref binder) => {
                 let mut gl = unsafe { Context::current_context() };
-                try!(binder.enable::<T>(&mut gl).or(Err(())));
-                try!(binder.bind::<T>(gl_buffer).or(Err(())));
+                try!(binder.enable::<T>(&mut gl));
+                try!(binder.bind::<T>(gl_buffer));
                 Ok(())
             },
-            None => { Err(()) }
+            None => { Err(VertexBindError::NoAttributeBindings) }
         }
     }
 
