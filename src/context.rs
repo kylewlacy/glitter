@@ -7,13 +7,20 @@ use framebuffer::FramebufferBinder;
 use renderbuffer::RenderbufferBinder;
 use texture_units::TextureUnits;
 
-pub struct Context {
-    pub array_buffer: ArrayBufferBinder,
-    pub element_array_buffer: ElementArrayBufferBinder,
-    pub program: ProgramBinder,
-    pub framebuffer: FramebufferBinder,
-    pub renderbuffer: RenderbufferBinder,
-    pub tex_units: TextureUnits
+pub type Context = ContextOf<ArrayBufferBinder,
+                             ElementArrayBufferBinder,
+                             ProgramBinder,
+                             FramebufferBinder,
+                             RenderbufferBinder,
+                             TextureUnits>;
+
+pub struct ContextOf<AB, EAB, P, FB, RB, TU> {
+    pub array_buffer: AB,
+    pub element_array_buffer: EAB,
+    pub program: P,
+    pub framebuffer: FB,
+    pub renderbuffer: RB,
+    pub tex_units: TU
 }
 
 impl Context {
