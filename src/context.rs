@@ -1,3 +1,4 @@
+use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
@@ -23,8 +24,8 @@ pub struct ContextOf<AB, EAB, P, FB, RB, TU> {
     pub tex_units: TU
 }
 
-impl Context {
-    pub unsafe fn current_context() -> Self {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+    pub unsafe fn current_context() -> Context {
         Context {
             array_buffer: ArrayBufferBinder,
             element_array_buffer: ElementArrayBufferBinder,
@@ -101,6 +102,276 @@ impl Context {
                     None
             }
         }
+    }
+
+    pub fn split_array_buffer<'a>(&'a self)
+        -> (
+            &'a ArrayBufferBinder,
+            ContextOf<(), &'a EAB, &'a P, &'a FB, &'a RB, &'a TU>
+        )
+        where AB: Borrow<ArrayBufferBinder>
+    {
+        (
+            self.array_buffer.borrow(),
+            ContextOf {
+                array_buffer: (),
+                element_array_buffer: &self.element_array_buffer,
+                program: &self.program,
+                framebuffer: &self.framebuffer,
+                renderbuffer: &self.renderbuffer,
+                tex_units: &self.tex_units
+            }
+        )
+    }
+
+    pub fn split_array_buffer_mut<'a>(&'a mut self)
+        -> (
+            &'a mut ArrayBufferBinder,
+            ContextOf<(),
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where AB: BorrowMut<ArrayBufferBinder>
+    {
+        (
+            self.array_buffer.borrow_mut(),
+            ContextOf {
+                array_buffer: (),
+                element_array_buffer: &mut self.element_array_buffer,
+                program: &mut self.program,
+                framebuffer: &mut self.framebuffer,
+                renderbuffer: &mut self.renderbuffer,
+                tex_units: &mut self.tex_units
+            }
+        )
+    }
+
+    pub fn split_element_array_buffer<'a>(&'a self)
+        -> (
+            &'a ElementArrayBufferBinder,
+            ContextOf<&'a AB, (), &'a P, &'a FB, &'a RB, &'a TU>
+        )
+        where EAB: Borrow<ElementArrayBufferBinder>
+    {
+        (
+            self.element_array_buffer.borrow(),
+            ContextOf {
+                array_buffer: &self.array_buffer,
+                element_array_buffer: (),
+                program: &self.program,
+                framebuffer: &self.framebuffer,
+                renderbuffer: &self.renderbuffer,
+                tex_units: &self.tex_units
+            }
+        )
+    }
+
+    pub fn split_element_array_buffer_mut<'a>(&'a mut self)
+        -> (
+            &'a mut ElementArrayBufferBinder,
+            ContextOf<&'a mut AB,
+                      (),
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where EAB: BorrowMut<ElementArrayBufferBinder>
+    {
+        (
+            self.element_array_buffer.borrow_mut(),
+            ContextOf {
+                array_buffer: &mut self.array_buffer,
+                element_array_buffer: (),
+                program: &mut self.program,
+                framebuffer: &mut self.framebuffer,
+                renderbuffer: &mut self.renderbuffer,
+                tex_units: &mut self.tex_units
+            }
+        )
+    }
+
+    pub fn split_program<'a>(&'a self)
+        -> (
+            &'a ProgramBinder,
+            ContextOf<&'a AB, &'a EAB, (), &'a FB, &'a RB, &'a TU>
+        )
+        where P: Borrow<ProgramBinder>
+    {
+        (
+            self.program.borrow(),
+            ContextOf {
+                array_buffer: &self.array_buffer,
+                element_array_buffer: &self.element_array_buffer,
+                program: (),
+                framebuffer: &self.framebuffer,
+                renderbuffer: &self.renderbuffer,
+                tex_units: &self.tex_units
+            }
+        )
+    }
+
+    pub fn split_program_mut<'a>(&'a mut self)
+        -> (
+            &'a mut ProgramBinder,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      (),
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where P: BorrowMut<ProgramBinder>
+    {
+        (
+            self.program.borrow_mut(),
+            ContextOf {
+                array_buffer: &mut self.array_buffer,
+                element_array_buffer: &mut self.element_array_buffer,
+                program: (),
+                framebuffer: &mut self.framebuffer,
+                renderbuffer: &mut self.renderbuffer,
+                tex_units: &mut self.tex_units
+            }
+        )
+    }
+
+    pub fn split_framebuffer<'a>(&'a self)
+        -> (
+            &'a FramebufferBinder,
+            ContextOf<&'a AB, &'a EAB, &'a P, (), &'a RB, &'a TU>
+        )
+        where FB: Borrow<FramebufferBinder>
+    {
+        (
+            self.framebuffer.borrow(),
+            ContextOf {
+                array_buffer: &self.array_buffer,
+                element_array_buffer: &self.element_array_buffer,
+                program: &self.program,
+                framebuffer: (),
+                renderbuffer: &self.renderbuffer,
+                tex_units: &self.tex_units
+            }
+        )
+    }
+
+    pub fn split_framebuffer_mut<'a>(&'a mut self)
+        -> (
+            &'a mut FramebufferBinder,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      &'a mut P,
+                      (),
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where FB: BorrowMut<FramebufferBinder>
+    {
+        (
+            self.framebuffer.borrow_mut(),
+            ContextOf {
+                array_buffer: &mut self.array_buffer,
+                element_array_buffer: &mut self.element_array_buffer,
+                program: &mut self.program,
+                framebuffer: (),
+                renderbuffer: &mut self.renderbuffer,
+                tex_units: &mut self.tex_units
+            }
+        )
+    }
+
+    pub fn split_renderbuffer<'a>(&'a self)
+        -> (
+            &'a RenderbufferBinder,
+            ContextOf<&'a AB, &'a EAB, &'a P, &'a FB, (), &'a TU>
+        )
+        where RB: Borrow<RenderbufferBinder>
+    {
+        (
+            self.renderbuffer.borrow(),
+            ContextOf {
+                array_buffer: &self.array_buffer,
+                element_array_buffer: &self.element_array_buffer,
+                program: &self.program,
+                framebuffer: &self.framebuffer,
+                renderbuffer: (),
+                tex_units: &self.tex_units
+            }
+        )
+    }
+
+    pub fn split_renderbuffer_mut<'a>(&'a mut self)
+        -> (
+            &'a mut RenderbufferBinder,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      (),
+                      &'a mut TU>
+        )
+        where RB: BorrowMut<RenderbufferBinder>
+    {
+        (
+            self.renderbuffer.borrow_mut(),
+            ContextOf {
+                array_buffer: &mut self.array_buffer,
+                element_array_buffer: &mut self.element_array_buffer,
+                program: &mut self.program,
+                framebuffer: &mut self.framebuffer,
+                renderbuffer: (),
+                tex_units: &mut self.tex_units
+            }
+        )
+    }
+
+    pub fn split_tex_units<'a>(&'a self)
+        -> (
+            &'a TextureUnits,
+            ContextOf<&'a AB, &'a EAB, &'a P, &'a FB, &'a RB, ()>
+        )
+        where TU: Borrow<TextureUnits>
+    {
+        (
+            self.tex_units.borrow(),
+            ContextOf {
+                array_buffer: &self.array_buffer,
+                element_array_buffer: &self.element_array_buffer,
+                program: &self.program,
+                framebuffer: &self.framebuffer,
+                renderbuffer: &self.renderbuffer,
+                tex_units: ()
+            }
+        )
+    }
+
+    pub fn split_tex_units_mut<'a>(&'a mut self)
+        -> (
+            &'a mut TextureUnits,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      ()>
+        )
+        where TU: BorrowMut<TextureUnits>
+    {
+        (
+            self.tex_units.borrow_mut(),
+            ContextOf {
+                array_buffer: &mut self.array_buffer,
+                element_array_buffer: &mut self.element_array_buffer,
+                program: &mut self.program,
+                framebuffer: &mut self.framebuffer,
+                renderbuffer: &mut self.renderbuffer,
+                tex_units: ()
+            }
+        )
     }
 }
 
