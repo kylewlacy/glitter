@@ -1,8 +1,9 @@
 use std::ptr;
-use std::marker::PhantomData;
-use std::ffi::CString;
 use std::error;
 use std::fmt;
+use std::borrow::BorrowMut;
+use std::marker::PhantomData;
+use std::ffi::CString;
 use gl;
 use gl::types::*;
 use types::GLError;
@@ -221,6 +222,22 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
                 err
             }
         }
+    }
+
+    pub fn use_program<'a>(&'a mut self, program: &mut Program)
+        -> (
+            ProgramBinding<'a>,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      (),
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where P: BorrowMut<ProgramBinder>
+    {
+        let (program_binder, gl) = self.split_program_mut();
+        (program_binder.bind(program), gl)
     }
 }
 

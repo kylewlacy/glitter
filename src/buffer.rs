@@ -1,6 +1,7 @@
 use std::mem;
 use std::ptr;
 use std::marker::PhantomData;
+use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
 use context::ContextOf;
@@ -39,6 +40,38 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
 
             Buffer { gl_id: id }
         }
+    }
+
+    pub fn bind_array_buffer<'a>(&'a mut self, buffer: &mut Buffer)
+        -> (
+            ArrayBufferBinding<'a>,
+            ContextOf<(),
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where AB: BorrowMut<ArrayBufferBinder>
+    {
+        let (array_buffer, gl) = self.split_array_buffer_mut();
+        (array_buffer.bind(buffer), gl)
+    }
+
+    pub fn bind_element_array_buffer<'a>(&'a mut self, buffer: &mut Buffer)
+        -> (
+            ElementArrayBufferBinding<'a>,
+            ContextOf<&'a mut AB,
+                      (),
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where EAB: BorrowMut<ElementArrayBufferBinder>
+    {
+        let (element_array_buffer, gl) = self.split_element_array_buffer_mut();
+        (element_array_buffer.bind(buffer), gl)
     }
 }
 

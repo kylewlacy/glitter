@@ -1,4 +1,5 @@
 use std::marker::PhantomData;
+use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
 use context::ContextOf;
@@ -37,6 +38,22 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
                 gl_id: id
             }
         }
+    }
+
+    pub fn bind_renderbuffer<'a>(&'a mut self, renderbuffer: &mut Renderbuffer)
+        -> (
+            RenderbufferBinding<'a>,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      (),
+                      &'a mut TU>
+        )
+        where RB: BorrowMut<RenderbufferBinder>
+    {
+        let (renderbuffer_binder, gl) = self.split_renderbuffer_mut();
+        (renderbuffer_binder.bind(renderbuffer), gl)
     }
 }
 

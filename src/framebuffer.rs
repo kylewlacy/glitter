@@ -94,8 +94,7 @@ impl<'a, AB, EAB, P, FB, RB, TU> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
 
     pub fn try_unwrap(self) -> Result<Framebuffer, GLError> {
         let mut fbo = unsafe { self.gl.gen_framebuffer() };
-        let (mut fbo_binder, _) = self.gl.split_framebuffer_mut();
-        let mut gl_fbo = fbo_binder.bind(&mut fbo);
+        let (mut gl_fbo, _) = self.gl.bind_framebuffer(&mut fbo);
 
         for (attachment, attached) in self.attachments.into_iter() {
             match attached {
@@ -147,6 +146,22 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         Framebuffer {
             gl_id: id
         }
+    }
+
+    pub fn bind_framebuffer<'a>(&'a mut self, framebuffer: &mut Framebuffer)
+        -> (
+            FramebufferBinding<'a>,
+            ContextOf<&'a mut AB,
+                      &'a mut EAB,
+                      &'a mut P,
+                      (),
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where FB: BorrowMut<FramebufferBinder>
+    {
+        let (framebuffer_binder, gl) = self.split_framebuffer_mut();
+        (framebuffer_binder.bind(framebuffer), gl)
     }
 }
 
