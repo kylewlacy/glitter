@@ -26,7 +26,7 @@ pub struct ContextOf<AB, EAB, P, FB, RB, TU> {
 
 impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub unsafe fn current_context() -> Context {
-        Context {
+        ContextOf {
             array_buffer: ArrayBufferBinder,
             element_array_buffer: ElementArrayBufferBinder,
             program: ProgramBinder,

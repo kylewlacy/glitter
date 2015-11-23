@@ -1,8 +1,9 @@
 use std::marker::PhantomData;
 use std::collections::hash_map::{HashMap, Entry};
+use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::Context;
+use context::ContextOf;
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use texture::{Texture, TextureType, ImageTargetType,
               Texture2d, Tx2dImageTarget};
@@ -35,13 +36,27 @@ enum BuilderAttachment<'a> {
     Renderbuffer(&'a mut Renderbuffer)
 }
 
-pub struct FramebufferBuilder<'a> {
-    gl: &'a mut Context,
+pub struct FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a + BorrowMut<FramebufferBinder>,
+           RB: 'a,
+           TU: 'a
+{
+    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
     attachments: HashMap<FramebufferAttachment, BuilderAttachment<'a>>
 }
 
-impl<'a> FramebufferBuilder<'a> {
-    fn new(gl: &'a mut Context) -> Self {
+impl<'a, AB, EAB, P, FB, RB, TU> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a + BorrowMut<FramebufferBinder>,
+           RB: 'a,
+           TU: 'a
+{
+    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
         FramebufferBuilder {
             gl: gl,
             attachments: HashMap::new()
@@ -79,9 +94,8 @@ impl<'a> FramebufferBuilder<'a> {
 
     pub fn try_unwrap(self) -> Result<Framebuffer, GLError> {
         let mut fbo = unsafe { self.gl.gen_framebuffer() };
-
-        // TODO: Use `bind_framebuffer!` macro here
-        let mut gl_fbo = self.gl.framebuffer.bind(&mut fbo);
+        let (mut fbo_binder, _) = self.gl.split_framebuffer_mut();
+        let mut gl_fbo = fbo_binder.bind(&mut fbo);
 
         for (attachment, attached) in self.attachments.into_iter() {
             match attached {
@@ -108,8 +122,16 @@ impl<'a> FramebufferBuilder<'a> {
     }
 }
 
-impl Context {
-    pub fn build_framebuffer(&mut self) -> FramebufferBuilder {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+    pub fn build_framebuffer<'a>(&'a mut self)
+        -> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+        where  AB: 'a,
+              EAB: 'a,
+                P: 'a,
+               FB: 'a + BorrowMut<FramebufferBinder>,
+               RB: 'a,
+               TU: 'a
+    {
         FramebufferBuilder::new(self)
     }
 

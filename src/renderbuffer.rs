@@ -1,7 +1,7 @@
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
-use context::Context;
+use context::ContextOf;
 use types::GLError;
 
 pub struct Renderbuffer {
@@ -22,7 +22,7 @@ impl Drop for Renderbuffer {
     }
 }
 
-impl Context {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn gen_renderbuffer(&self) -> Renderbuffer {
         unsafe {
             let mut id : GLuint = 0;

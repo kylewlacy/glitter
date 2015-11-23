@@ -1,9 +1,11 @@
 use std::ptr;
+use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use prelude::*;
-use context::Context;
+use context::ContextOf;
+use texture_units::TextureUnits;
 use image_data::{Image2d, TextelFormat, ImageFormat};
 use types::GLError;
 
@@ -30,8 +32,15 @@ impl<T: TextureType> Drop for Texture<T> {
 
 
 
-pub struct Texture2dBuilder<'a> {
-    gl: &'a mut Context,
+pub struct Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a,
+           RB: 'a,
+           TU: 'a + BorrowMut<TextureUnits>
+{
+    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
     min_filter: Option<TextureMipmapFilter>,
     mag_filter: Option<TextureFilter>,
     wrap_s: Option<TextureWrapMode>,
@@ -41,8 +50,15 @@ pub struct Texture2dBuilder<'a> {
     empty_params: Option<(ImageFormat, u32, u32)>
 }
 
-impl<'a> Texture2dBuilder<'a> {
-    fn new(gl: &'a mut Context) -> Self {
+impl<'a, AB, EAB, P, FB, RB, TU> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a,
+           RB: 'a,
+           TU: 'a + BorrowMut<TextureUnits>
+{
+    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
         Texture2dBuilder {
             gl: gl,
             min_filter: None,
@@ -100,7 +116,7 @@ impl<'a> Texture2dBuilder<'a> {
         let mut texture = unsafe { self.gl.gen_texture() };
 
         // TODO: Use macros here
-        let mut gl_tex_unit = self.gl.tex_units.0.active();
+        let mut gl_tex_unit = self.gl.tex_units.borrow_mut().0.active();
         let mut gl_tex = gl_tex_unit.texture_2d.bind(&mut texture);
 
         if let Some(min_filter) = self.min_filter {
@@ -154,8 +170,11 @@ impl<'a> Texture2dBuilder<'a> {
     }
 }
 
-impl Context {
-    pub fn build_texture_2d(&mut self) -> Texture2dBuilder {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+    pub fn build_texture_2d<'a>(&'a mut self)
+        -> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
+        where TU: BorrowMut<TextureUnits>
+    {
         Texture2dBuilder::new(self)
     }
 

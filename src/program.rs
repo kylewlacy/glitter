@@ -6,7 +6,7 @@ use std::fmt;
 use gl;
 use gl::types::*;
 use types::GLError;
-use context::Context;
+use context::ContextOf;
 use shader::Shader;
 use uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
 
@@ -43,13 +43,19 @@ unsafe fn _get_program_iv(program: &Program,
     }
 }
 
-pub struct ProgramBuilder<'a> {
-    gl: &'a Context,
+pub struct ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where AB: 'a, EAB: 'a, P: 'a, FB: 'a, RB: 'a, TU: 'a
+{
+    gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>,
     shaders: &'a [Shader]
 }
 
-impl<'a> ProgramBuilder<'a> {
-    fn new(gl: &'a Context, shaders: &'a [Shader]) -> Self {
+impl<'a, AB, EAB, P, FB, RB, TU> ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where AB: 'a, EAB: 'a, P: 'a, FB: 'a, RB: 'a, TU: 'a
+{
+    pub fn new(gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>, shaders: &'a [Shader])
+        -> Self
+    {
         ProgramBuilder { gl: gl, shaders: shaders }
     }
 
@@ -76,9 +82,9 @@ impl<'a> ProgramBuilder<'a> {
     }
 }
 
-impl Context {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a>
+        -> ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
     {
         ProgramBuilder::new(self, shaders)
     }

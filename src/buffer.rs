@@ -3,7 +3,7 @@ use std::ptr;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
-use context::Context;
+use context::ContextOf;
 use framebuffer::FramebufferBinding;
 use types::{DrawingMode, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
@@ -26,7 +26,7 @@ impl Drop for Buffer {
     }
 }
 
-impl Context {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn gen_buffer(&self) -> Buffer {
         unsafe {
             let mut id : GLuint = 0;
