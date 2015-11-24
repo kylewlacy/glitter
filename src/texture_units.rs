@@ -45,14 +45,43 @@ impl TextureUnit for TextureUnit6 { fn idx() -> u32 { 6 } }
 impl TextureUnit for TextureUnit7 { fn idx() -> u32 { 7 } }
 
 // NOTE: Ensure the number of each texture unit matches its index in the tuple
-pub struct TextureUnits(pub TextureUnit0, pub TextureUnit1, pub TextureUnit2,
-                        pub TextureUnit3, pub TextureUnit4, pub TextureUnit5,
-                        pub TextureUnit6, pub TextureUnit7);
+// TODO: Use macros + integer-level types to refactor this
+pub struct TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>(pub T0,
+                                                          pub T1,
+                                                          pub T2,
+                                                          pub T3,
+                                                          pub T4,
+                                                          pub T5,
+                                                          pub T6,
+                                                          pub T7);
 
-impl TextureUnits {
+pub type TextureUnits = TextureUnitsOf<TextureUnit0,
+                                       TextureUnit1,
+                                       TextureUnit2,
+                                       TextureUnit3,
+                                       TextureUnit4,
+                                       TextureUnit5,
+                                       TextureUnit6,
+                                       TextureUnit7>;
+
+impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
+                                                    T1,
+                                                    T2,
+                                                    T3,
+                                                    T4,
+                                                    T5,
+                                                    T6,
+                                                    T7>
+{
     pub unsafe fn current() -> TextureUnits {
-        TextureUnits(TextureUnit0, TextureUnit1, TextureUnit2, TextureUnit3,
-                     TextureUnit4, TextureUnit5, TextureUnit6, TextureUnit7)
+        TextureUnitsOf(TextureUnit0,
+                       TextureUnit1,
+                       TextureUnit2,
+                       TextureUnit3,
+                       TextureUnit4,
+                       TextureUnit5,
+                       TextureUnit6,
+                       TextureUnit7)
     }
 
     pub unsafe fn active_nth(&self, idx: u32) -> TextureUnitBinding {
