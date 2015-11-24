@@ -1,11 +1,13 @@
+use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
-use context::Context;
+use context::ContextOf;
 use framebuffer::FramebufferBinding;
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
 use buffer::{Buffer, BufferBinding,
+             ArrayBufferBinder, ElementArrayBufferBinder,
              ArrayBufferBinding, ElementArrayBufferBinding};
 use types::DrawingMode;
 
@@ -82,11 +84,18 @@ impl AttribBinder {
     }
 
 
-    pub fn enable<T: VertexData>(&self, gl: &Context)
+    pub fn enable<T, AB, EAB, P, FB, RB, TU>(&self,
+                                             gl: &ContextOf<AB,
+                                                            EAB,
+                                                            P,
+                                                            FB,
+                                                            RB,
+                                                            TU>)
         -> Result<(), AttribError>
+        where T: VertexData
     {
         self.for_each::<T, _>(|_, program_attrib| {
-            gl.enable_vertex_attrib_array(program_attrib)
+            gl.enable_vertex_attrib_array(program_attrib);
         })
     }
 
@@ -134,14 +143,22 @@ impl<T: VertexData> VertexBuffer<T> {
         self.attrib_binder = Some(binder);
     }
 
-    pub fn bind(&self, gl_buffer: &ArrayBufferBinding)
+    pub fn bind<AB, EAB, P, FB, RB, TU>(&mut self,
+                                        gl: &mut ContextOf<AB,
+                                                           EAB,
+                                                           P,
+                                                           FB,
+                                                           RB,
+                                                           TU>)
         -> Result<(), VertexBindError>
+        where AB: BorrowMut<ArrayBufferBinder>
     {
         match self.attrib_binder {
             Some(ref binder) => {
-                let mut gl = unsafe { Context::current_context() };
-                try!(binder.enable::<T>(&mut gl));
-                try!(binder.bind::<T>(gl_buffer));
+                let (mut buffer_binder, mut gl) = gl.split_array_buffer_mut();
+                let gl_buffer = buffer_binder.bind(&mut self.buffer);
+                try!(binder.enable::<T, _, _, _, _, _, _>(&mut gl));
+                try!(binder.bind::<T>(&gl_buffer));
                 Ok(())
             },
             None => { Err(VertexBindError::NoAttributeBindings) }
@@ -265,7 +282,7 @@ impl<'a> FramebufferBinding<'a> {
     }
 }
 
-impl Context {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn new_vertex_buffer<T: VertexData>(&self) -> VertexBuffer<T> {
         VertexBuffer {
             attrib_binder: None,
@@ -273,6 +290,41 @@ impl Context {
             count: 0,
             phantom: PhantomData
         }
+    }
+
+    pub fn bind_vertex_buffer<'a, T>(&'a mut self, vbo: &'a mut VertexBuffer<T>)
+        -> (
+            VertexBufferBinding<T>,
+            ContextOf<(),
+                      &'a mut EAB,
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where T: VertexData, AB: BorrowMut<ArrayBufferBinder>
+    {
+        vbo.bind(self).unwrap();
+        let (mut array_buffer, gl) = self.split_array_buffer_mut();
+        let gl_array_buffer = array_buffer.bind(vbo.buffer_mut());
+        (VertexBufferBinding::new(gl_array_buffer, vbo), gl)
+    }
+
+    pub fn bind_index_buffer<'a, T>(&'a mut self, ibo: &'a mut IndexBuffer<T>)
+        -> (
+            IndexBufferBinding<T>,
+            ContextOf<&'a mut AB,
+                      (),
+                      &'a mut P,
+                      &'a mut FB,
+                      &'a mut RB,
+                      &'a mut TU>
+        )
+        where T: IndexDatum, EAB: BorrowMut<ElementArrayBufferBinder>
+    {
+        let (mut eab, gl) = self.split_element_array_buffer_mut();
+        let gl_eab = eab.bind(ibo.buffer_mut());
+        (IndexBufferBinding::new(gl_eab, ibo), gl)
     }
 }
 
@@ -318,7 +370,7 @@ impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
     }
 }
 
-impl Context {
+impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn new_index_buffer<T: IndexDatum>(&self) -> IndexBuffer<T> {
         IndexBuffer {
             buffer: self.gen_buffer(),
@@ -364,11 +416,11 @@ macro_rules! bind_attrib_pointers {
 macro_rules! bind_vertex_buffer {
     ($gl:expr, $vbo:expr) => {
         {
-            let vbo = $vbo;
+            use std::borrow::BorrowMut;
+            let mut vbo = $vbo;
 
-            let gl_buffer = bind_array_buffer!($gl, vbo.buffer_mut());
-            vbo.bind(&gl_buffer).unwrap();
-            $crate::VertexBufferBinding::new(gl_buffer, vbo)
+            let (gl_vbo, _) = $gl.bind_vertex_buffer(vbo.borrow_mut());
+            gl_vbo
         }
     }
 }
@@ -377,10 +429,11 @@ macro_rules! bind_vertex_buffer {
 macro_rules! bind_index_buffer {
     ($gl:expr, $ibo:expr) => {
         {
-            let ibo = $ibo;
+            use std::borrow::BorrowMut;
+            let mut ibo = $ibo;
 
-            let gl_buffer = bind_element_array_buffer!($gl, ibo.buffer_mut());
-            $crate::IndexBufferBinding::new(gl_buffer, ibo)
+            let (gl_ibo, _) = $gl.bind_index_buffer(ibo.borrow_mut());
+            gl_ibo
         }
     }
 }
