@@ -163,6 +163,12 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         let (framebuffer_binder, gl) = self.split_framebuffer_mut();
         (framebuffer_binder.bind(framebuffer), gl)
     }
+
+    pub unsafe fn current_framebuffer_binding(&mut self) -> FramebufferBinding
+        where FB: BorrowMut<FramebufferBinder>
+    {
+        self.framebuffer.borrow_mut().current_binding()
+    }
 }
 
 
