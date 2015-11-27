@@ -42,36 +42,26 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn bind_array_buffer<'a>(&'a mut self, buffer: &mut Buffer)
+    pub fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (
             ArrayBufferBinding<'a>,
-            ContextOf<(),
-                      &'a mut EAB,
-                      &'a mut P,
-                      &'a mut FB,
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<(), EAB, P, FB, RB, TU>
         )
         where AB: BorrowMut<ArrayBufferBinder>
     {
-        let (array_buffer, gl) = self.split_array_buffer_mut();
-        (array_buffer.bind(buffer), gl)
+        let (mut array_buffer, gl) = self.split_array_buffer();
+        (array_buffer.borrow_mut().bind(buffer), gl)
     }
 
-    pub fn bind_element_array_buffer<'a>(&'a mut self, buffer: &mut Buffer)
+    pub fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (
             ElementArrayBufferBinding<'a>,
-            ContextOf<&'a mut AB,
-                      (),
-                      &'a mut P,
-                      &'a mut FB,
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<AB, (), P, FB, RB, TU>
         )
         where EAB: BorrowMut<ElementArrayBufferBinder>
     {
-        let (element_array_buffer, gl) = self.split_element_array_buffer_mut();
-        (element_array_buffer.bind(buffer), gl)
+        let (mut element_array_buffer, gl) = self.split_element_array_buffer();
+        (element_array_buffer.borrow_mut().bind(buffer), gl)
     }
 }
 
@@ -249,7 +239,8 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
 
 pub struct ArrayBufferBinder;
 impl ArrayBufferBinder {
-    pub fn bind(&mut self, buffer: &mut Buffer) -> ArrayBufferBinding {
+    pub fn bind<'a>(&mut self, buffer: &'a mut Buffer) -> ArrayBufferBinding<'a>
+    {
         let binding = ArrayBufferBinding { phantom: PhantomData };
         _bind_buffer(binding.target(), buffer);
         binding
@@ -258,7 +249,9 @@ impl ArrayBufferBinder {
 
 pub struct ElementArrayBufferBinder;
 impl ElementArrayBufferBinder {
-    pub fn bind(&mut self, buffer: &mut Buffer) -> ElementArrayBufferBinding {
+    pub fn bind<'a>(&mut self, buffer: &'a mut Buffer)
+        -> ElementArrayBufferBinding<'a>
+    {
         let binding = ElementArrayBufferBinding { phantom: PhantomData };
         _bind_buffer(binding.target(), buffer);
         binding

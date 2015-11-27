@@ -40,20 +40,15 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn bind_renderbuffer<'a>(&'a mut self, renderbuffer: &mut Renderbuffer)
+    pub fn bind_renderbuffer<'a>(self, renderbuffer: &'a mut Renderbuffer)
         -> (
             RenderbufferBinding<'a>,
-            ContextOf<&'a mut AB,
-                      &'a mut EAB,
-                      &'a mut P,
-                      &'a mut FB,
-                      (),
-                      &'a mut TU>
+            ContextOf<AB, EAB, P, FB, (), TU>
         )
         where RB: BorrowMut<RenderbufferBinder>
     {
-        let (renderbuffer_binder, gl) = self.split_renderbuffer_mut();
-        (renderbuffer_binder.bind(renderbuffer), gl)
+        let (mut renderbuffer_binder, gl) = self.split_renderbuffer();
+        (renderbuffer_binder.borrow_mut().bind(renderbuffer), gl)
     }
 }
 
@@ -77,8 +72,8 @@ impl<'a> RenderbufferBinding<'a> {
 
 pub struct RenderbufferBinder;
 impl RenderbufferBinder {
-    pub fn bind(&mut self, renderbuffer: &mut Renderbuffer)
-        -> RenderbufferBinding
+    pub fn bind<'a>(&mut self, renderbuffer: &'a mut Renderbuffer)
+        -> RenderbufferBinding<'a>
     {
         let binding = RenderbufferBinding { phantom: PhantomData };
         unsafe {

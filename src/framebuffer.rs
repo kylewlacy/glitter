@@ -94,23 +94,28 @@ impl<'a, AB, EAB, P, FB, RB, TU> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
 
     pub fn try_unwrap(self) -> Result<Framebuffer, GLError> {
         let mut fbo = unsafe { self.gl.gen_framebuffer() };
-        let (mut gl_fbo, _) = self.gl.bind_framebuffer(&mut fbo);
+        let fbo_status = {
+            let gl = self.gl.borrowed_mut();
+            let (mut gl_fbo, _) = gl.bind_framebuffer(&mut fbo);
 
-        for (attachment, attached) in self.attachments.into_iter() {
-            match attached {
-                BuilderAttachment::Texture2d(texture, level) => {
-                    gl_fbo.texture_2d(attachment,
-                                      Tx2dImageTarget::Texture2d,
-                                      texture,
-                                      level);
-                },
-                BuilderAttachment::Renderbuffer(renderbuffer) => {
-                    gl_fbo.renderbuffer(attachment, renderbuffer);
+            for (attachment, attached) in self.attachments.into_iter() {
+                match attached {
+                    BuilderAttachment::Texture2d(texture, level) => {
+                        gl_fbo.texture_2d(attachment,
+                                          Tx2dImageTarget::Texture2d,
+                                          texture,
+                                          level);
+                    },
+                    BuilderAttachment::Renderbuffer(renderbuffer) => {
+                        gl_fbo.renderbuffer(attachment, renderbuffer);
+                    }
                 }
             }
-        }
 
-        match gl_fbo.check_framebuffer_status() {
+            gl_fbo.check_framebuffer_status()
+        };
+
+        match fbo_status {
             Some(err) => { Err(err.into()) },
             None => { Ok(fbo) }
         }
@@ -148,20 +153,15 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn bind_framebuffer<'a>(&'a mut self, framebuffer: &mut Framebuffer)
+    pub fn bind_framebuffer<'a>(self, framebuffer: &'a mut Framebuffer)
         -> (
             FramebufferBinding<'a>,
-            ContextOf<&'a mut AB,
-                      &'a mut EAB,
-                      &'a mut P,
-                      (),
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<AB, EAB, P, (), RB, TU>
         )
-        where FB: BorrowMut<FramebufferBinder>
+        where FB: BorrowMut<FramebufferBinder> + 'a
     {
-        let (framebuffer_binder, gl) = self.split_framebuffer_mut();
-        (framebuffer_binder.bind(framebuffer), gl)
+        let (mut framebuffer_binder, gl) = self.split_framebuffer();
+        (framebuffer_binder.borrow_mut().bind(framebuffer), gl)
     }
 
     pub unsafe fn current_framebuffer_binding(&mut self) -> FramebufferBinding
@@ -275,7 +275,9 @@ impl FramebufferBinder {
         FramebufferBinding { phantom: PhantomData }
     }
 
-    pub fn bind(&mut self, fbo: &mut Framebuffer) -> FramebufferBinding {
+    pub fn bind<'a>(&mut self, fbo: &'a mut Framebuffer)
+        -> FramebufferBinding<'a>
+    {
         let binding = FramebufferBinding { phantom: PhantomData };
         unsafe {
             gl::BindFramebuffer(binding.target().gl_enum(), fbo.gl_id());

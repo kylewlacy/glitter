@@ -224,20 +224,15 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn use_program<'a>(&'a mut self, program: &mut Program)
+    pub fn use_program<'a>(self, program: &'a mut Program)
         -> (
             ProgramBinding<'a>,
-            ContextOf<&'a mut AB,
-                      &'a mut EAB,
-                      (),
-                      &'a mut FB,
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<AB, EAB, (), FB, RB, TU>
         )
-        where P: BorrowMut<ProgramBinder>
+        where P: BorrowMut<ProgramBinder> + 'a
     {
-        let (program_binder, gl) = self.split_program_mut();
-        (program_binder.bind(program), gl)
+        let (mut program_binder, gl) = self.split_program();
+        (program_binder.borrow_mut().bind(program), gl)
     }
 }
 
@@ -326,7 +321,7 @@ impl<'a> ProgramBinding<'a> {
 
 pub struct ProgramBinder;
 impl ProgramBinder {
-    pub fn bind(&mut self, program: &mut Program) -> ProgramBinding
+    pub fn bind<'a>(&mut self, program: &'a mut Program) -> ProgramBinding<'a>
     {
         let binding = ProgramBinding { phantom: PhantomData };
         unsafe {

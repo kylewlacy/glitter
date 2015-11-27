@@ -1,3 +1,4 @@
+use std::mem;
 use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
@@ -144,18 +145,14 @@ impl<T: VertexData> VertexBuffer<T> {
     }
 
     pub fn bind<AB, EAB, P, FB, RB, TU>(&mut self,
-                                        gl: &mut ContextOf<AB,
-                                                           EAB,
-                                                           P,
-                                                           FB,
-                                                           RB,
-                                                           TU>)
+                                        gl: ContextOf<AB, EAB, P, FB, RB, TU>)
         -> Result<(), VertexBindError>
         where AB: BorrowMut<ArrayBufferBinder>
     {
         match self.attrib_binder {
             Some(ref binder) => {
-                let (mut buffer_binder, mut gl) = gl.split_array_buffer_mut();
+                let (mut buffer_binder, mut gl) = gl.split_array_buffer();
+                let mut buffer_binder = buffer_binder.borrow_mut();
                 let gl_buffer = buffer_binder.bind(&mut self.buffer);
                 try!(binder.enable::<T, _, _, _, _, _, _>(&mut gl));
                 try!(binder.bind::<T>(&gl_buffer));
@@ -292,38 +289,42 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn bind_vertex_buffer<'a, T>(&'a mut self, vbo: &'a mut VertexBuffer<T>)
+    // TODO: Refactor to work with less restrictive generic params
+    pub fn bind_vertex_buffer<'a, T>(mut self, vbo: &'a mut VertexBuffer<T>)
         -> (
             VertexBufferBinding<T>,
-            ContextOf<(),
-                      &'a mut EAB,
-                      &'a mut P,
-                      &'a mut FB,
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<(), EAB, P, FB, RB, TU>
         )
-        where T: VertexData, AB: BorrowMut<ArrayBufferBinder>
+        where T: VertexData, AB: BorrowMut<ArrayBufferBinder> + 'a
     {
-        vbo.bind(self).unwrap();
-        let (mut array_buffer, gl) = self.split_array_buffer_mut();
-        let gl_array_buffer = array_buffer.bind(vbo.buffer_mut());
+        // NOTE: The mem::transmute here unsafely extends the borrow of
+        //       ibo.buffer_mut()
+        // TODO: Find a safe(r) way to do this
+        {
+            let gl = self.borrowed_mut();
+            vbo.bind(gl).unwrap();
+        }
+        let (mut array_buffer, gl) = self.split_array_buffer();
+        let mut array_buffer = array_buffer.borrow_mut();
+        let buffer = unsafe { mem::transmute(vbo.buffer_mut() as *mut Buffer) };
+        let gl_array_buffer = array_buffer.bind(buffer);
         (VertexBufferBinding::new(gl_array_buffer, vbo), gl)
     }
 
-    pub fn bind_index_buffer<'a, T>(&'a mut self, ibo: &'a mut IndexBuffer<T>)
+    pub fn bind_index_buffer<'a, T>(self, ibo: &'a mut IndexBuffer<T>)
         -> (
             IndexBufferBinding<T>,
-            ContextOf<&'a mut AB,
-                      (),
-                      &'a mut P,
-                      &'a mut FB,
-                      &'a mut RB,
-                      &'a mut TU>
+            ContextOf<AB, (), P, FB, RB, TU>
         )
-        where T: IndexDatum, EAB: BorrowMut<ElementArrayBufferBinder>
+        where T: IndexDatum + 'a, EAB: BorrowMut<ElementArrayBufferBinder> + 'a
     {
-        let (mut eab, gl) = self.split_element_array_buffer_mut();
-        let gl_eab = eab.bind(ibo.buffer_mut());
+        // NOTE: The mem::transmute here unsafely extends the borrow of
+        //       ibo.buffer_mut()
+        // TODO: Find a safe(r) way to do this
+        let (mut eab, gl) = self.split_element_array_buffer();
+        let eab = eab.borrow_mut();
+        let buffer = unsafe { mem::transmute(ibo.buffer_mut() as *mut Buffer) };
+        let gl_eab = eab.bind(buffer);
         (IndexBufferBinding::new(gl_eab, ibo), gl)
     }
 }
