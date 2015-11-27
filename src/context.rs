@@ -15,6 +15,20 @@ pub type Context = ContextOf<ArrayBufferBinder,
                              RenderbufferBinder,
                              TextureUnits>;
 
+pub type ContextRef<'a> = ContextOf<&'a ArrayBufferBinder,
+                                    &'a ElementArrayBufferBinder,
+                                    &'a ProgramBinder,
+                                    &'a FramebufferBinder,
+                                    &'a RenderbufferBinder,
+                                    &'a TextureUnits>;
+
+pub type ContextMut<'a> = ContextOf<&'a mut ArrayBufferBinder,
+                                    &'a mut ElementArrayBufferBinder,
+                                    &'a mut ProgramBinder,
+                                    &'a mut FramebufferBinder,
+                                    &'a mut RenderbufferBinder,
+                                    &'a mut TextureUnits>;
+
 pub struct ContextOf<AB, EAB, P, FB, RB, TU> {
     pub array_buffer: AB,
     pub element_array_buffer: EAB,
