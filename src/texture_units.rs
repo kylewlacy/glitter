@@ -65,6 +65,24 @@ pub type TextureUnits = TextureUnitsOf<TextureUnit0,
                                        TextureUnit6,
                                        TextureUnit7>;
 
+pub type TextureUnitsRef<'a> = TextureUnitsOf<&'a TextureUnit0,
+                                              &'a TextureUnit1,
+                                              &'a TextureUnit2,
+                                              &'a TextureUnit3,
+                                              &'a TextureUnit4,
+                                              &'a TextureUnit5,
+                                              &'a TextureUnit6,
+                                              &'a TextureUnit7>;
+
+pub type TextureUnitsMut<'a> = TextureUnitsOf<&'a mut TextureUnit0,
+                                              &'a mut TextureUnit1,
+                                              &'a mut TextureUnit2,
+                                              &'a mut TextureUnit3,
+                                              &'a mut TextureUnit4,
+                                              &'a mut TextureUnit5,
+                                              &'a mut TextureUnit6,
+                                              &'a mut TextureUnit7>;
+
 impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                                                     T1,
                                                     T2,
@@ -85,434 +103,206 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        TextureUnit7)
     }
 
-    pub fn split_at_0<'a>(&'a self)
-        -> (
-            &'a TextureUnit0,
-            TextureUnitsOf<(),
-                           &'a T1,
-                           &'a T2,
-                           &'a T3,
-                           &'a T4,
-                           &'a T5,
-                           &'a T6,
-                           &'a T7>
-        )
-        where T0: Borrow<TextureUnit0>
+    pub fn borrowed<'a,
+                    B0 = T0,
+                    B1 = T1,
+                    B2 = T2,
+                    B3 = T3,
+                    B4 = T4,
+                    B5 = T5,
+                    B6 = T6,
+                    B7 = T7>
+                   (&'a self)
+        -> TextureUnitsOf<&'a B0,
+                          &'a B1,
+                          &'a B2,
+                          &'a B3,
+                          &'a B4,
+                          &'a B5,
+                          &'a B6,
+                          &'a B7>
+        where T0: Borrow<B0>,
+              T1: Borrow<B1>,
+              T2: Borrow<B2>,
+              T3: Borrow<B3>,
+              T4: Borrow<B4>,
+              T5: Borrow<B5>,
+              T6: Borrow<B6>,
+              T7: Borrow<B7>
+    {
+        TextureUnitsOf(self.0.borrow(),
+                       self.1.borrow(),
+                       self.2.borrow(),
+                       self.3.borrow(),
+                       self.4.borrow(),
+                       self.5.borrow(),
+                       self.6.borrow(),
+                       self.7.borrow())
+    }
+
+    pub fn borrowed_mut<'a,
+                        B0 = T0,
+                        B1 = T1,
+                        B2 = T2,
+                        B3 = T3,
+                        B4 = T4,
+                        B5 = T5,
+                        B6 = T6,
+                        B7 = T7>
+                       (&'a mut self)
+        -> TextureUnitsOf<&'a mut B0,
+                          &'a mut B1,
+                          &'a mut B2,
+                          &'a mut B3,
+                          &'a mut B4,
+                          &'a mut B5,
+                          &'a mut B6,
+                          &'a mut B7>
+        where T0: BorrowMut<B0>,
+              T1: BorrowMut<B1>,
+              T2: BorrowMut<B2>,
+              T3: BorrowMut<B3>,
+              T4: BorrowMut<B4>,
+              T5: BorrowMut<B5>,
+              T6: BorrowMut<B6>,
+              T7: BorrowMut<B7>
+    {
+        TextureUnitsOf(self.0.borrow_mut(),
+                       self.1.borrow_mut(),
+                       self.2.borrow_mut(),
+                       self.3.borrow_mut(),
+                       self.4.borrow_mut(),
+                       self.5.borrow_mut(),
+                       self.6.borrow_mut(),
+                       self.7.borrow_mut())
+    }
+
+    pub fn split_0(self)
+        -> (T0, TextureUnitsOf<(), T1, T2, T3, T4, T5, T6, T7>)
     {
         (
-            self.0.borrow(),
+            self.0,
             TextureUnitsOf((),
-                           &self.1,
-                           &self.2,
-                           &self.3,
-                           &self.4,
-                           &self.5,
-                           &self.6,
-                           &self.7)
+                           self.1,
+                           self.2,
+                           self.3,
+                           self.4,
+                           self.5,
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_0_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit0,
-            TextureUnitsOf<(),
-                           &'a mut T1,
-                           &'a mut T2,
-                           &'a mut T3,
-                           &'a mut T4,
-                           &'a mut T5,
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T0: BorrowMut<TextureUnit0>
+
+
+    pub fn split_1(self)
+        -> (T1, TextureUnitsOf<T0, (), T2, T3, T4, T5, T6, T7>)
     {
         (
-            self.0.borrow_mut(),
-            TextureUnitsOf((),
-                           &mut self.1,
-                           &mut self.2,
-                           &mut self.3,
-                           &mut self.4,
-                           &mut self.5,
-                           &mut self.6,
-                           &mut self.7)
+            self.1,
+            TextureUnitsOf(self.0,
+                           (),
+                           self.2,
+                           self.3,
+                           self.4,
+                           self.5,
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_1<'a>(&'a self)
-        -> (
-            &'a TextureUnit1,
-            TextureUnitsOf<&'a T0,
-                           (),
-                           &'a T2,
-                           &'a T3,
-                           &'a T4,
-                           &'a T5,
-                           &'a T6,
-                           &'a T7>
-        )
-        where T1: Borrow<TextureUnit1>
+    pub fn split_2(self)
+        -> (T2, TextureUnitsOf<T0, T1, (), T3, T4, T5, T6, T7>)
     {
         (
-            self.1.borrow(),
-            TextureUnitsOf(&self.0,
+            self.2,
+            TextureUnitsOf(self.0,
+                           self.1,
                            (),
-                           &self.2,
-                           &self.3,
-                           &self.4,
-                           &self.5,
-                           &self.6,
-                           &self.7)
+                           self.3,
+                           self.4,
+                           self.5,
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_1_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit1,
-            TextureUnitsOf<&'a mut T0,
-                           (),
-                           &'a mut T2,
-                           &'a mut T3,
-                           &'a mut T4,
-                           &'a mut T5,
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T1: BorrowMut<TextureUnit1>
+    pub fn split_3(self)
+        -> (T3, TextureUnitsOf<T0, T1, T2, (), T4, T5, T6, T7>)
     {
         (
-            self.1.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
+            self.3,
+            TextureUnitsOf(self.0,
+                           self.1,
+                           self.2,
                            (),
-                           &mut self.2,
-                           &mut self.3,
-                           &mut self.4,
-                           &mut self.5,
-                           &mut self.6,
-                           &mut self.7)
+                           self.4,
+                           self.5,
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_2<'a>(&'a self)
-        -> (
-            &'a TextureUnit2,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           (),
-                           &'a T3,
-                           &'a T4,
-                           &'a T5,
-                           &'a T6,
-                           &'a T7>
-        )
-        where T2: Borrow<TextureUnit2>
+    pub fn split_4(self)
+        -> (T4, TextureUnitsOf<T0, T1, T2, T3, (), T5, T6, T7>)
     {
         (
-            self.2.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
+            self.4,
+            TextureUnitsOf(self.0,
+                           self.1,
+                           self.2,
+                           self.3,
                            (),
-                           &self.3,
-                           &self.4,
-                           &self.5,
-                           &self.6,
-                           &self.7)
+                           self.5,
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_2_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit2,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           (),
-                           &'a mut T3,
-                           &'a mut T4,
-                           &'a mut T5,
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T2: BorrowMut<TextureUnit2>
+    pub fn split_5(self)
+        -> (T5, TextureUnitsOf<T0, T1, T2, T3, T4, (), T6, T7>)
     {
         (
-            self.2.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
+            self.5,
+            TextureUnitsOf(self.0,
+                           self.1,
+                           self.2,
+                           self.3,
+                           self.4,
                            (),
-                           &mut self.3,
-                           &mut self.4,
-                           &mut self.5,
-                           &mut self.6,
-                           &mut self.7)
+                           self.6,
+                           self.7)
         )
     }
 
-    pub fn split_at_3<'a>(&'a self)
-        -> (
-            &'a TextureUnit3,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           &'a T2,
-                           (),
-                           &'a T4,
-                           &'a T5,
-                           &'a T6,
-                           &'a T7>
-        )
-        where T3: Borrow<TextureUnit3>
+    pub fn split_6(self)
+        -> (T6, TextureUnitsOf<T0, T1, T2, T3, T4, T5, (), T7>)
     {
         (
-            self.3.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
-                           &self.2,
+            self.6,
+            TextureUnitsOf(self.0,
+                           self.1,
+                           self.2,
+                           self.3,
+                           self.4,
+                           self.5,
                            (),
-                           &self.4,
-                           &self.5,
-                           &self.6,
-                           &self.7)
+                           self.7)
         )
     }
 
-    pub fn split_at_3_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit3,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           &'a mut T2,
-                           (),
-                           &'a mut T4,
-                           &'a mut T5,
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T3: BorrowMut<TextureUnit3>
+    pub fn split_7(self)
+        -> (T7, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, ()>)
     {
         (
-            self.3.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
-                           &mut self.2,
-                           (),
-                           &mut self.4,
-                           &mut self.5,
-                           &mut self.6,
-                           &mut self.7)
-        )
-    }
-
-    pub fn split_at_4<'a>(&'a self)
-        -> (
-            &'a TextureUnit4,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           &'a T2,
-                           &'a T3,
-                           (),
-                           &'a T5,
-                           &'a T6,
-                           &'a T7>
-        )
-        where T4: Borrow<TextureUnit4>
-    {
-        (
-            self.4.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
-                           &self.2,
-                           &self.3,
-                           (),
-                           &self.5,
-                           &self.6,
-                           &self.7)
-        )
-    }
-
-    pub fn split_at_4_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit4,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           &'a mut T2,
-                           &'a mut T3,
-                           (),
-                           &'a mut T5,
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T4: BorrowMut<TextureUnit4>
-    {
-        (
-            self.4.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
-                           &mut self.2,
-                           &mut self.3,
-                           (),
-                           &mut self.5,
-                           &mut self.6,
-                           &mut self.7)
-        )
-    }
-
-    pub fn split_at_5<'a>(&'a self)
-        -> (
-            &'a TextureUnit5,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           &'a T2,
-                           &'a T3,
-                           &'a T4,
-                           (),
-                           &'a T6,
-                           &'a T7>
-        )
-        where T5: Borrow<TextureUnit5>
-    {
-        (
-            self.5.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
-                           &self.2,
-                           &self.3,
-                           &self.4,
-                           (),
-                           &self.6,
-                           &self.7)
-        )
-    }
-
-    pub fn split_at_5_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit5,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           &'a mut T2,
-                           &'a mut T3,
-                           &'a mut T4,
-                           (),
-                           &'a mut T6,
-                           &'a mut T7>
-        )
-        where T5: BorrowMut<TextureUnit5>
-    {
-        (
-            self.5.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
-                           &mut self.2,
-                           &mut self.3,
-                           &mut self.4,
-                           (),
-                           &mut self.6,
-                           &mut self.7)
-        )
-    }
-
-    pub fn split_at_6<'a>(&'a self)
-        -> (
-            &'a TextureUnit6,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           &'a T2,
-                           &'a T3,
-                           &'a T4,
-                           &'a T5,
-                           (),
-                           &'a T7>
-        )
-        where T6: Borrow<TextureUnit6>
-    {
-        (
-            self.6.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
-                           &self.2,
-                           &self.3,
-                           &self.4,
-                           &self.5,
-                           (),
-                           &self.7)
-        )
-    }
-
-    pub fn split_at_6_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit6,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           &'a mut T2,
-                           &'a mut T3,
-                           &'a mut T4,
-                           &'a mut T5,
-                           (),
-                           &'a mut T7>
-        )
-        where T6: BorrowMut<TextureUnit6>
-    {
-        (
-            self.6.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
-                           &mut self.2,
-                           &mut self.3,
-                           &mut self.4,
-                           &mut self.5,
-                           (),
-                           &mut self.7)
-        )
-    }
-
-    pub fn split_at_7<'a>(&'a self)
-        -> (
-            &'a TextureUnit7,
-            TextureUnitsOf<&'a T0,
-                           &'a T1,
-                           &'a T2,
-                           &'a T3,
-                           &'a T4,
-                           &'a T5,
-                           &'a T6,
-                           ()>
-        )
-        where T7: Borrow<TextureUnit7>
-    {
-        (
-            self.7.borrow(),
-            TextureUnitsOf(&self.0,
-                           &self.1,
-                           &self.2,
-                           &self.3,
-                           &self.4,
-                           &self.5,
-                           &self.6,
-                           ())
-        )
-    }
-
-    pub fn split_at_7_mut<'a>(&'a mut self)
-        -> (
-            &'a mut TextureUnit7,
-            TextureUnitsOf<&'a mut T0,
-                           &'a mut T1,
-                           &'a mut T2,
-                           &'a mut T3,
-                           &'a mut T4,
-                           &'a mut T5,
-                           &'a mut T6,
-                           ()>
-        )
-        where T7: BorrowMut<TextureUnit7>
-    {
-        (
-            self.7.borrow_mut(),
-            TextureUnitsOf(&mut self.0,
-                           &mut self.1,
-                           &mut self.2,
-                           &mut self.3,
-                           &mut self.4,
-                           &mut self.5,
-                           &mut self.6,
+            self.7,
+            TextureUnitsOf(self.0,
+                           self.1,
+                           self.2,
+                           self.3,
+                           self.4,
+                           self.5,
+                           self.6,
                            ())
         )
     }
