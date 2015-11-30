@@ -65,7 +65,7 @@ impl<'a, AB, EAB, P, FB, RB, TU> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
 
     pub fn try_unwrap(self) -> Result<Renderbuffer, GLError> {
         let gl = self.gl.borrowed_mut();
-        let mut rbo = gl.gen_renderbuffer();
+        let mut rbo = unsafe { gl.gen_renderbuffer() };
 
         match self.storage_params {
             Some((format, width, height)) => {
@@ -96,19 +96,17 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         RenderbufferBuilder::new(self)
     }
 
-    pub fn gen_renderbuffer(&self) -> Renderbuffer {
-        unsafe {
-            let mut id : GLuint = 0;
+    pub unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
+        let mut id : GLuint = 0;
 
-            gl::GenRenderbuffers(1, &mut id as *mut GLuint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`n` is negative",
-                _ => "Unknown error"
-            }
+        gl::GenRenderbuffers(1, &mut id as *mut GLuint);
+        dbg_gl_sanity_check! {
+            GLError::InvalidValue => "`n` is negative",
+            _ => "Unknown error"
+        }
 
-            Renderbuffer {
-                gl_id: id
-            }
+        Renderbuffer {
+            gl_id: id
         }
     }
 
