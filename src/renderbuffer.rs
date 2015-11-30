@@ -24,7 +24,78 @@ impl Drop for Renderbuffer {
     }
 }
 
+
+
+pub struct RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a,
+           RB: 'a + BorrowMut<RenderbufferBinder>,
+           TU: 'a
+{
+    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
+    storage_params: Option<(RenderbufferFormat, u32, u32)>
+}
+
+impl<'a, AB, EAB, P, FB, RB, TU> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+    where  AB: 'a,
+          EAB: 'a,
+            P: 'a,
+           FB: 'a,
+           RB: 'a + BorrowMut<RenderbufferBinder>,
+           TU: 'a
+{
+    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
+        RenderbufferBuilder {
+            gl: gl,
+            storage_params: None
+        }
+    }
+
+    pub fn storage(mut self,
+                   format: RenderbufferFormat,
+                   width: u32,
+                   height: u32)
+        -> Self
+    {
+        self.storage_params = Some((format, width, height));
+        self
+    }
+
+    pub fn try_unwrap(self) -> Result<Renderbuffer, GLError> {
+        let gl = self.gl.borrowed_mut();
+        let mut rbo = gl.gen_renderbuffer();
+
+        match self.storage_params {
+            Some((format, width, height)) => {
+                {
+                    let (mut gl_rbo, _) = gl.bind_renderbuffer(&mut rbo);
+                    gl_rbo.storage(format, width, height);
+                }
+
+                Ok(rbo)
+            },
+            None => {
+                let msg = "Error building renderbuffer: no format or dimensions provided";
+                Err(GLError::Message(msg.to_owned()))
+            }
+        }
+    }
+
+    pub fn unwrap(self) -> Renderbuffer {
+        self.try_unwrap().unwrap()
+    }
+}
+
 impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+    pub fn build_renderbuffer<'a>(&'a mut self)
+        -> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
+        where RB: BorrowMut<RenderbufferBinder>
+    {
+        RenderbufferBuilder::new(self)
+    }
+
     pub fn gen_renderbuffer(&self) -> Renderbuffer {
         unsafe {
             let mut id : GLuint = 0;
