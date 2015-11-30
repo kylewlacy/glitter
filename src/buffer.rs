@@ -280,6 +280,26 @@ impl<A, E> BufferBinderOf<A, E> {
             element_array: self.element_array.borrow_mut()
         }
     }
+
+    pub fn split_array(self) -> (A, BufferBinderOf<(), E>) {
+        (
+            self.array,
+            BufferBinderOf {
+                array: (),
+                element_array: self.element_array
+            }
+        )
+    }
+
+    pub fn split_element_array(self) -> (E, BufferBinderOf<A, ()>) {
+        (
+            self.element_array,
+            BufferBinderOf {
+                array: self.array,
+                element_array: ()
+            }
+        )
+    }
 }
 
 
