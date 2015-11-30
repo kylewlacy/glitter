@@ -127,6 +127,16 @@ gl_enum! {
     }
 }
 
+gl_enum! {
+    pub gl_enum RenderbufferFormat {
+        RGBA4 as RGBA4 = gl::RGBA4,
+        RGB565 as RGB565 = gl::RGB565,
+        RGB5_A1 as RGB5_A1 = gl::RGB5_A1,
+        DepthComponent16 as DEPTH_COMPONENT16 = gl::DEPTH_COMPONENT16,
+        StencilIndex8 as STENCIL_INDEX8 = gl::STENCIL_INDEX8
+    }
+}
+
 #[derive(Debug, Clone, Copy)]
 pub struct ImageFormat {
     pub textel_type: TextelType,
