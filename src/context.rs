@@ -2,49 +2,44 @@ use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
-use buffer::{ArrayBufferBinder, ElementArrayBufferBinder};
+use buffer::BufferBinder;
 use program::{ProgramBinder, ProgramAttrib};
 use framebuffer::FramebufferBinder;
 use renderbuffer::RenderbufferBinder;
 use texture_units::TextureUnits;
 
-pub type Context = ContextOf<ArrayBufferBinder,
-                             ElementArrayBufferBinder,
-                             ProgramBinder,
+pub type Context = ContextOf<BufferBinder,
                              FramebufferBinder,
+                             ProgramBinder,
                              RenderbufferBinder,
                              TextureUnits>;
 
-pub type ContextRef<'a> = ContextOf<&'a ArrayBufferBinder,
-                                    &'a ElementArrayBufferBinder,
-                                    &'a ProgramBinder,
+pub type ContextRef<'a> = ContextOf<&'a BufferBinder,
                                     &'a FramebufferBinder,
+                                    &'a ProgramBinder,
                                     &'a RenderbufferBinder,
                                     &'a TextureUnits>;
 
-pub type ContextMut<'a> = ContextOf<&'a mut ArrayBufferBinder,
-                                    &'a mut ElementArrayBufferBinder,
-                                    &'a mut ProgramBinder,
+pub type ContextMut<'a> = ContextOf<&'a mut BufferBinder,
                                     &'a mut FramebufferBinder,
+                                    &'a mut ProgramBinder,
                                     &'a mut RenderbufferBinder,
                                     &'a mut TextureUnits>;
 
-pub struct ContextOf<AB, EAB, P, FB, RB, TU> {
-    pub array_buffer: AB,
-    pub element_array_buffer: EAB,
+pub struct ContextOf<B, F, P, R, T> {
+    pub buffers: B,
+    pub framebuffer: F,
     pub program: P,
-    pub framebuffer: FB,
-    pub renderbuffer: RB,
-    pub tex_units: TU
+    pub renderbuffer: R,
+    pub tex_units: T
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub unsafe fn current_context() -> Context {
         ContextOf {
-            array_buffer: ArrayBufferBinder,
-            element_array_buffer: ElementArrayBufferBinder,
-            program: ProgramBinder,
+            buffers: BufferBinder::current(),
             framebuffer: FramebufferBinder,
+            program: ProgramBinder,
             renderbuffer: RenderbufferBinder,
             tex_units: TextureUnits::current()
         }
@@ -118,94 +113,81 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
         }
     }
 
-    pub fn borrowed<'a,
-                    BAB = AB,
-                    BEAB = EAB,
-                    BP = P,
-                    BFB = FB,
-                    BRB = RB,
-                    BTU = TU>
-                   (&'a self)
-        -> ContextOf<&'a BAB,
-                     &'a BEAB,
-                     &'a BP,
-                     &'a BFB,
-                     &'a BRB,
-                     &'a BTU>
-        where  AB: Borrow<BAB>,
-              EAB: Borrow<BEAB>,
-                P: Borrow<BP>,
-               FB: Borrow<BFB>,
-               RB: Borrow<BRB>,
-               TU: Borrow<BTU>
+    pub fn borrowed<'a, BB = B, BF = F, BP = P, BR = R, BT = T>(&'a self)
+        -> ContextOf<&'a BB, &'a BF, &'a BP, &'a BR, &'a BT>
+        where B: Borrow<BB>,
+              F: Borrow<BF>,
+              P: Borrow<BP>,
+              R: Borrow<BR>,
+              T: Borrow<BT>
     {
         ContextOf {
-            array_buffer: self.array_buffer.borrow(),
-            element_array_buffer: self.element_array_buffer.borrow(),
-            program: self.program.borrow(),
+            buffers: self.buffers.borrow(),
             framebuffer: self.framebuffer.borrow(),
+            program: self.program.borrow(),
             renderbuffer: self.renderbuffer.borrow(),
             tex_units: self.tex_units.borrow()
         }
     }
 
-    pub fn borrowed_mut<'a,
-                        BAB = AB,
-                        BEAB = EAB,
-                        BP = P,
-                        BFB = FB,
-                        BRB = RB,
-                        BTU = TU>
+    pub fn borrowed_mut<'a, BB = B, BF = F, BP = P, BR = R, BT = T>
                        (&'a mut self)
-        -> ContextOf<&'a mut BAB,
-                     &'a mut BEAB,
+        -> ContextOf<&'a mut BB,
+                     &'a mut BF,
                      &'a mut BP,
-                     &'a mut BFB,
-                     &'a mut BRB,
-                     &'a mut BTU>
-        where  AB: BorrowMut<BAB>,
-              EAB: BorrowMut<BEAB>,
-                P: BorrowMut<BP>,
-               FB: BorrowMut<BFB>,
-               RB: BorrowMut<BRB>,
-               TU: BorrowMut<BTU>
+                     &'a mut BR,
+                     &'a mut BT>
+        where B: BorrowMut<BB>,
+              F: BorrowMut<BF>,
+              P: BorrowMut<BP>,
+              R: BorrowMut<BR>,
+              T: BorrowMut<BT>
     {
         ContextOf {
-            array_buffer: self.array_buffer.borrow_mut(),
-            element_array_buffer: self.element_array_buffer.borrow_mut(),
-            program: self.program.borrow_mut(),
+            buffers: self.buffers.borrow_mut(),
             framebuffer: self.framebuffer.borrow_mut(),
+            program: self.program.borrow_mut(),
             renderbuffer: self.renderbuffer.borrow_mut(),
             tex_units: self.tex_units.borrow_mut()
         }
     }
 
-    pub fn split_array_buffer(self)
-        -> (AB, ContextOf<(), EAB, P, FB, RB, TU>)
+    pub fn split_buffers(self)
+        -> (B, ContextOf<(), F, P, R, T>)
     {
         (
-            self.array_buffer,
+            self.buffers,
             ContextOf {
-                array_buffer: (),
-                element_array_buffer: self.element_array_buffer,
-                program: self.program,
+                buffers: (),
                 framebuffer: self.framebuffer,
+                program: self.program,
                 renderbuffer: self.renderbuffer,
                 tex_units: self.tex_units
             }
         )
     }
 
-    pub fn split_element_array_buffer(self)
-        -> (EAB, ContextOf<AB, (), P, FB, RB, TU>)
+    pub fn join_buffers<JB>(self, buffers: JB)
+        -> ContextOf<JB, F, P, R, T>
+    {
+        ContextOf {
+            buffers: buffers,
+            framebuffer: self.framebuffer,
+            program: self.program,
+            renderbuffer: self.renderbuffer,
+            tex_units: self.tex_units
+        }
+    }
+
+    pub fn split_framebuffer(self)
+        -> (F, ContextOf<B, (), P, R, T>)
     {
         (
-            self.element_array_buffer,
+            self.framebuffer,
             ContextOf {
-                array_buffer: self.array_buffer,
-                element_array_buffer: (),
+                buffers: self.buffers,
+                framebuffer: (),
                 program: self.program,
-                framebuffer: self.framebuffer,
                 renderbuffer: self.renderbuffer,
                 tex_units: self.tex_units
             }
@@ -213,31 +195,14 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     }
 
     pub fn split_program(self)
-        -> (P, ContextOf<AB, EAB, (), FB, RB, TU>)
+        -> (P, ContextOf<B, F, (), R, T>)
     {
         (
             self.program,
             ContextOf {
-                array_buffer: self.array_buffer,
-                element_array_buffer: self.element_array_buffer,
-                program: (),
+                buffers: self.buffers,
                 framebuffer: self.framebuffer,
-                renderbuffer: self.renderbuffer,
-                tex_units: self.tex_units
-            }
-        )
-    }
-
-    pub fn split_framebuffer(self)
-        -> (FB, ContextOf<AB, EAB, P, (), RB, TU>)
-    {
-        (
-            self.framebuffer,
-            ContextOf {
-                array_buffer: self.array_buffer,
-                element_array_buffer: self.element_array_buffer,
-                program: self.program,
-                framebuffer: (),
+                program: (),
                 renderbuffer: self.renderbuffer,
                 tex_units: self.tex_units
             }
@@ -245,15 +210,14 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     }
 
     pub fn split_renderbuffer(self)
-        -> (RB, ContextOf<AB, EAB, P, FB, (), TU>)
+        -> (R, ContextOf<B, F, P, (), T>)
     {
         (
             self.renderbuffer,
             ContextOf {
-                array_buffer: self.array_buffer,
-                element_array_buffer: self.element_array_buffer,
-                program: self.program,
+                buffers: self.buffers,
                 framebuffer: self.framebuffer,
+                program: self.program,
                 renderbuffer: (),
                 tex_units: self.tex_units
             }
@@ -261,15 +225,14 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     }
 
     pub fn split_tex_units(self)
-        -> (TU, ContextOf<AB, EAB, P, FB, RB, ()>)
+        -> (T, ContextOf<B, F, P, R, ()>)
     {
         (
             self.tex_units,
             ContextOf {
-                array_buffer: self.array_buffer,
-                element_array_buffer: self.element_array_buffer,
-                program: self.program,
+                buffers: self.buffers,
                 framebuffer: self.framebuffer,
+                program: self.program,
                 renderbuffer: self.renderbuffer,
                 tex_units: ()
             }

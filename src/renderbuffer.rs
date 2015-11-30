@@ -26,27 +26,25 @@ impl Drop for Renderbuffer {
 
 
 
-pub struct RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a,
-           RB: 'a + BorrowMut<RenderbufferBinder>,
-           TU: 'a
+pub struct RenderbufferBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a + BorrowMut<RenderbufferBinder>,
+          T: 'a
 {
-    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
+    gl: &'a mut ContextOf<B, F, P, R, T>,
     storage_params: Option<(RenderbufferFormat, u32, u32)>
 }
 
-impl<'a, AB, EAB, P, FB, RB, TU> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a,
-           RB: 'a + BorrowMut<RenderbufferBinder>,
-           TU: 'a
+impl<'a, B, F, P, R, T> RenderbufferBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a + BorrowMut<RenderbufferBinder>,
+          T: 'a
 {
-    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
+    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
         RenderbufferBuilder {
             gl: gl,
             storage_params: None
@@ -88,10 +86,10 @@ impl<'a, AB, EAB, P, FB, RB, TU> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn build_renderbuffer<'a>(&'a mut self)
-        -> RenderbufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-        where RB: BorrowMut<RenderbufferBinder>
+        -> RenderbufferBuilder<'a, B, F, P, R, T>
+        where R: BorrowMut<RenderbufferBinder>
     {
         RenderbufferBuilder::new(self)
     }
@@ -113,9 +111,9 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn bind_renderbuffer<'a>(self, renderbuffer: &'a mut Renderbuffer)
         -> (
             RenderbufferBinding<'a>,
-            ContextOf<AB, EAB, P, FB, (), TU>
+            ContextOf<B, F, P, (), T>
         )
-        where RB: BorrowMut<RenderbufferBinder>
+        where R: BorrowMut<RenderbufferBinder>
     {
         let (mut renderbuffer_binder, gl) = self.split_renderbuffer();
         (renderbuffer_binder.borrow_mut().bind(renderbuffer), gl)

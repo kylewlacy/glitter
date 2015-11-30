@@ -37,21 +37,20 @@ unsafe fn _get_shader_iv(shader: &Shader,
     }
 }
 
-pub struct ShaderBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a,
-           RB: 'a,
-           TU: 'a
+pub struct ShaderBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a,
+          T: 'a
 {
-    gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>,
+    gl: &'a ContextOf<B, F, P, R, T>,
     ty: ShaderType,
     source: &'a str
 }
 
-impl<'a, AB, EAB, P, FB, RB, TU> ShaderBuilder<'a, AB, EAB, P, FB, RB, TU> {
-    fn new(gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>,
+impl<'a, B, F, P, R, T> ShaderBuilder<'a, B, F, P, R, T> {
+    fn new(gl: &'a ContextOf<B, F, P, R, T>,
            ty: ShaderType,
            source: &'a str)
         -> Self
@@ -79,21 +78,21 @@ impl<'a, AB, EAB, P, FB, RB, TU> ShaderBuilder<'a, AB, EAB, P, FB, RB, TU> {
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
-        -> ShaderBuilder<'a, AB, EAB, P, FB, RB, TU>
+        -> ShaderBuilder<'a, B, F, P, R, T>
     {
         ShaderBuilder::new(self, ty, source)
     }
 
     pub fn build_fragment_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, AB, EAB, P, FB, RB, TU>
+        -> ShaderBuilder<'a, B, F, P, R, T>
     {
         ShaderBuilder::new(self, ShaderType::FragmentShader, source)
     }
 
     pub fn build_vertex_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, AB, EAB, P, FB, RB, TU>
+        -> ShaderBuilder<'a, B, F, P, R, T>
     {
         ShaderBuilder::new(self, ShaderType::VertexShader, source)
     }

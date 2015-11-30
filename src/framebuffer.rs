@@ -36,27 +36,25 @@ enum BuilderAttachment<'a> {
     Renderbuffer(&'a mut Renderbuffer)
 }
 
-pub struct FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
+pub struct FramebufferBuilder<'a, B, F, P, R, T>
+    where   B: 'a,
+            F: 'a + BorrowMut<FramebufferBinder>,
             P: 'a,
-           FB: 'a + BorrowMut<FramebufferBinder>,
-           RB: 'a,
-           TU: 'a
+            R: 'a,
+            T: 'a
 {
-    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
+    gl: &'a mut ContextOf<B, F, P, R, T>,
     attachments: HashMap<FramebufferAttachment, BuilderAttachment<'a>>
 }
 
-impl<'a, AB, EAB, P, FB, RB, TU> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a + BorrowMut<FramebufferBinder>,
-           RB: 'a,
-           TU: 'a
+impl<'a, B, F, P, R, T> FramebufferBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a + BorrowMut<FramebufferBinder>,
+          P: 'a,
+          R: 'a,
+          T: 'a
 {
-    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
+    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
         FramebufferBuilder {
             gl: gl,
             attachments: HashMap::new()
@@ -126,15 +124,14 @@ impl<'a, AB, EAB, P, FB, RB, TU> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn build_framebuffer<'a>(&'a mut self)
-        -> FramebufferBuilder<'a, AB, EAB, P, FB, RB, TU>
-        where  AB: 'a,
-              EAB: 'a,
-                P: 'a,
-               FB: 'a + BorrowMut<FramebufferBinder>,
-               RB: 'a,
-               TU: 'a
+        -> FramebufferBuilder<'a, B, F, P, R, T>
+        where B: 'a,
+              F: 'a + BorrowMut<FramebufferBinder>,
+              P: 'a,
+              R: 'a,
+              T: 'a
     {
         FramebufferBuilder::new(self)
     }
@@ -156,16 +153,16 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn bind_framebuffer<'a>(self, framebuffer: &'a mut Framebuffer)
         -> (
             FramebufferBinding<'a>,
-            ContextOf<AB, EAB, P, (), RB, TU>
+            ContextOf<B, (), P, R, T>
         )
-        where FB: BorrowMut<FramebufferBinder> + 'a
+        where F: BorrowMut<FramebufferBinder> + 'a
     {
         let (mut framebuffer_binder, gl) = self.split_framebuffer();
         (framebuffer_binder.borrow_mut().bind(framebuffer), gl)
     }
 
     pub unsafe fn current_framebuffer_binding(&mut self) -> FramebufferBinding
-        where FB: BorrowMut<FramebufferBinder>
+        where F: BorrowMut<FramebufferBinder>
     {
         self.framebuffer.borrow_mut().current_binding()
     }

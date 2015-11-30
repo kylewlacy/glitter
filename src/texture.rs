@@ -32,15 +32,14 @@ impl<T: TextureType> Drop for Texture<T> {
 
 
 
-pub struct Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a,
-           RB: 'a,
-           TU: 'a + BorrowMut<TextureUnits>
+pub struct Texture2dBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a,
+          T: 'a + BorrowMut<TextureUnits>
 {
-    gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>,
+    gl: &'a mut ContextOf<B, F, P, R, T>,
     min_filter: Option<TextureMipmapFilter>,
     mag_filter: Option<TextureFilter>,
     wrap_s: Option<TextureWrapMode>,
@@ -50,15 +49,14 @@ pub struct Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
     empty_params: Option<(ImageFormat, u32, u32)>
 }
 
-impl<'a, AB, EAB, P, FB, RB, TU> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where  AB: 'a,
-          EAB: 'a,
-            P: 'a,
-           FB: 'a,
-           RB: 'a,
-           TU: 'a + BorrowMut<TextureUnits>
+impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a,
+          T: 'a + BorrowMut<TextureUnits>
 {
-    fn new(gl: &'a mut ContextOf<AB, EAB, P, FB, RB, TU>) -> Self {
+    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
         Texture2dBuilder {
             gl: gl,
             min_filter: None,
@@ -88,8 +86,8 @@ impl<'a, AB, EAB, P, FB, RB, TU> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
         self
     }
 
-    pub fn min_filter<F>(mut self, filter: F) -> Self
-        where F: Into<TextureMipmapFilter>
+    pub fn min_filter<I>(mut self, filter: I) -> Self
+        where I: Into<TextureMipmapFilter>
     {
         self.min_filter = Some(filter.into());
         self
@@ -170,15 +168,15 @@ impl<'a, AB, EAB, P, FB, RB, TU> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn build_texture_2d<'a>(&'a mut self)
-        -> Texture2dBuilder<'a, AB, EAB, P, FB, RB, TU>
-        where TU: BorrowMut<TextureUnits>
+        -> Texture2dBuilder<'a, B, F, P, R, T>
+        where T: BorrowMut<TextureUnits>
     {
         Texture2dBuilder::new(self)
     }
 
-    pub unsafe fn gen_texture<T: TextureType>(&self) -> Texture<T> {
+    pub unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
         let mut id : GLuint =  0;
 
         gl::GenTextures(1, &mut id as *mut GLuint);

@@ -44,17 +44,25 @@ unsafe fn _get_program_iv(program: &Program,
     }
 }
 
-pub struct ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where AB: 'a, EAB: 'a, P: 'a, FB: 'a, RB: 'a, TU: 'a
+pub struct ProgramBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a,
+          T: 'a
 {
-    gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>,
+    gl: &'a ContextOf<B, F, P, R, T>,
     shaders: &'a [Shader]
 }
 
-impl<'a, AB, EAB, P, FB, RB, TU> ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
-    where AB: 'a, EAB: 'a, P: 'a, FB: 'a, RB: 'a, TU: 'a
+impl<'a, B, F, P, R, T> ProgramBuilder<'a, B, F, P, R, T>
+    where B: 'a,
+          F: 'a,
+          P: 'a,
+          R: 'a,
+          T: 'a
 {
-    pub fn new(gl: &'a ContextOf<AB, EAB, P, FB, RB, TU>, shaders: &'a [Shader])
+    pub fn new(gl: &'a ContextOf<B, F, P, R, T>, shaders: &'a [Shader])
         -> Self
     {
         ProgramBuilder { gl: gl, shaders: shaders }
@@ -83,9 +91,9 @@ impl<'a, AB, EAB, P, FB, RB, TU> ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a, AB, EAB, P, FB, RB, TU>
+        -> ProgramBuilder<'a, B, F, P, R, T>
     {
         ProgramBuilder::new(self, shaders)
     }
@@ -227,7 +235,7 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
     pub fn use_program<'a>(self, program: &'a mut Program)
         -> (
             ProgramBinding<'a>,
-            ContextOf<AB, EAB, (), FB, RB, TU>
+            ContextOf<B, F, (), R, T>
         )
         where P: BorrowMut<ProgramBinder> + 'a
     {

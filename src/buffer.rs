@@ -27,7 +27,7 @@ impl Drop for Buffer {
     }
 }
 
-impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
+impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub fn gen_buffer(&self) -> Buffer {
         unsafe {
             let mut id : GLuint = 0;
@@ -41,27 +41,33 @@ impl<AB, EAB, P, FB, RB, TU> ContextOf<AB, EAB, P, FB, RB, TU> {
             Buffer { gl_id: id }
         }
     }
+}
 
+impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
     pub fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (
             ArrayBufferBinding<'a>,
-            ContextOf<(), EAB, P, FB, RB, TU>
+            ContextOf<BufferBinderOf<(), BE>, F, P, R, T>
         )
-        where AB: BorrowMut<ArrayBufferBinder>
+        where BA: BorrowMut<ArrayBufferBinder>
     {
-        let (mut array_buffer, gl) = self.split_array_buffer();
-        (array_buffer.borrow_mut().bind(buffer), gl)
+        let (mut buffers, gl) = self.split_buffers();
+        let (mut ba_binder, buf) = buffers.split_array();
+        let gl = gl.join_buffers(buf);
+        (ba_binder.borrow_mut().bind(buffer), gl)
     }
 
     pub fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (
             ElementArrayBufferBinding<'a>,
-            ContextOf<AB, (), P, FB, RB, TU>
+            ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>
         )
-        where EAB: BorrowMut<ElementArrayBufferBinder>
+        where BE: BorrowMut<ElementArrayBufferBinder>
     {
-        let (mut element_array_buffer, gl) = self.split_element_array_buffer();
-        (element_array_buffer.borrow_mut().bind(buffer), gl)
+        let (mut buffers, gl) = self.split_buffers();
+        let (mut be_binder, buf) = buffers.split_element_array();
+        let gl = gl.join_buffers(buf);
+        (be_binder.borrow_mut().bind(buffer), gl)
     }
 }
 
