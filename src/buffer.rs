@@ -237,6 +237,13 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
     }
 }
 
+pub struct BufferBinderOf<A, E> {
+    array: A,
+    element_array: E
+}
+
+
+
 pub struct ArrayBufferBinder;
 impl ArrayBufferBinder {
     pub fn bind<'a>(&mut self, buffer: &'a mut Buffer) -> ArrayBufferBinding<'a>
