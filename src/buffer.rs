@@ -242,6 +242,15 @@ pub struct BufferBinderOf<A, E> {
     element_array: E
 }
 
+pub type BufferBinder = BufferBinderOf<ArrayBufferBinder,
+                                       ElementArrayBufferBinder>;
+
+pub type BufferBinderRef<'a> = BufferBinderOf<&'a ArrayBufferBinder,
+                                              &'a ElementArrayBufferBinder>;
+
+pub type BufferBinderMut<'a> = BufferBinderOf<&'a mut ArrayBufferBinder,
+                                              &'a mut ElementArrayBufferBinder>;
+
 
 
 pub struct ArrayBufferBinder;
