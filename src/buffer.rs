@@ -1,7 +1,7 @@
 use std::mem;
 use std::ptr;
 use std::marker::PhantomData;
-use std::borrow::BorrowMut;
+use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use context::ContextOf;
@@ -256,6 +256,28 @@ impl<A, E> BufferBinderOf<A, E> {
         BufferBinderOf {
             array: ArrayBufferBinder,
             element_array: ElementArrayBufferBinder
+        }
+    }
+
+    pub fn borrowed<'a, BA = A, BE = E>(&'a self)
+        -> BufferBinderOf<&'a BA, &'a BE>
+        where A: Borrow<BA>,
+              E: Borrow<BE>
+    {
+        BufferBinderOf {
+            array: self.array.borrow(),
+            element_array: self.element_array.borrow()
+        }
+    }
+
+    pub fn borrowed_mut<'a, BA = A, BE = E>(&'a mut self)
+        -> BufferBinderOf<&'a mut BA, &'a mut BE>
+        where A: BorrowMut<BA>,
+              E: BorrowMut<BE>
+    {
+        BufferBinderOf {
+            array: self.array.borrow_mut(),
+            element_array: self.element_array.borrow_mut()
         }
     }
 }
