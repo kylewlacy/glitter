@@ -251,6 +251,15 @@ pub type BufferBinderRef<'a> = BufferBinderOf<&'a ArrayBufferBinder,
 pub type BufferBinderMut<'a> = BufferBinderOf<&'a mut ArrayBufferBinder,
                                               &'a mut ElementArrayBufferBinder>;
 
+impl<A, E> BufferBinderOf<A, E> {
+    pub unsafe fn current() -> BufferBinder {
+        BufferBinderOf {
+            array: ArrayBufferBinder,
+            element_array: ElementArrayBufferBinder
+        }
+    }
+}
+
 
 
 pub struct ArrayBufferBinder;
