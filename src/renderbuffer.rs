@@ -3,6 +3,7 @@ use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
 use context::ContextOf;
+use image_data::{RenderbufferFormat};
 use types::GLError;
 
 pub struct Renderbuffer {
@@ -67,6 +68,26 @@ pub struct RenderbufferBinding<'a> {
 impl<'a> RenderbufferBinding<'a> {
     fn target(&self) -> RenderbufferTarget {
         RenderbufferTarget::Renderbuffer
+    }
+
+    pub fn storage(&mut self,
+                   format: RenderbufferFormat,
+                   width: u32,
+                   height: u32)
+    {
+        unsafe {
+            gl::RenderbufferStorage(self.target().gl_enum(),
+                                    format.gl_enum(),
+                                    width as GLint,
+                                    height as GLint);
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_RENDERBUFFER` or `internalformat` is not an accepted format",
+                GLError::InvalidValue => "`width` or `height` is less than zero or greater than `GL_MAX_RENDERBUFFER_SIZE`",
+                GLError::OutOfMemory => "Unable to allocate enough memory for requested size",
+                GLError::InvalidOperation => "Renderbuffer object 0 is bound",
+                _ => "Unknown error"
+            }
+        }
     }
 }
 
