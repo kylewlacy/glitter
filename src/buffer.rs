@@ -44,6 +44,23 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
 }
 
 impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
+    pub fn split_array_buffer(self)
+        -> (BA, ContextOf<BufferBinderOf<(), BE>, F, P, R, T>)
+    {
+        let (buffers, gl) = self.split_buffers();
+        let (ba_binder, rest_buffers) = buffers.split_array();
+
+        (ba_binder, gl.join_buffers(rest_buffers))
+    }
+
+    pub fn split_element_array_buffer(self)
+        -> (BE, ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>)
+    {
+        let (buffers, gl) = self.split_buffers();
+        let (be_binder, rest_buffers) = buffers.split_element_array();
+        (be_binder, gl.join_buffers(rest_buffers))
+    }
+
     pub fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (
             ArrayBufferBinding<'a>,
@@ -51,9 +68,7 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         )
         where BA: BorrowMut<ArrayBufferBinder>
     {
-        let (mut buffers, gl) = self.split_buffers();
-        let (mut ba_binder, buf) = buffers.split_array();
-        let gl = gl.join_buffers(buf);
+        let (mut ba_binder, gl) = self.split_array_buffer();
         (ba_binder.borrow_mut().bind(buffer), gl)
     }
 
@@ -64,9 +79,7 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         )
         where BE: BorrowMut<ElementArrayBufferBinder>
     {
-        let (mut buffers, gl) = self.split_buffers();
-        let (mut be_binder, buf) = buffers.split_element_array();
-        let gl = gl.join_buffers(buf);
+        let (mut be_binder, gl) = self.split_element_array_buffer();
         (be_binder.borrow_mut().bind(buffer), gl)
     }
 }
