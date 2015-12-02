@@ -149,10 +149,8 @@ impl<V: VertexData> VertexBuffer<V> {
     {
         match self.attrib_binder {
             Some(ref binder) => {
-                let (mut buffers, mut gl) = gl.split_buffers();
-                let (mut ba_binder, buf) = buffers.split_array();
+                let (mut ba_binder, mut gl) = gl.split_array_buffer();
                 let mut ba_binder = ba_binder.borrow_mut();
-                let mut gl = gl.join_buffers(buf);
                 let gl_buffer = ba_binder.bind(&mut self.buffer);
                 try!(binder.enable::<V, _, _, _, _, _>(&mut gl));
                 try!(binder.bind::<V>(&gl_buffer));
@@ -309,10 +307,8 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
             let gl = gl.join_buffers(buffers.borrowed_mut());
             vbo.bind(gl).unwrap();
         }
-        let (buffers, gl) = self.split_buffers();
-        let (mut ba_binder, rest_buffers) = buffers.split_array();
+        let (mut ba_binder, gl) = self.split_array_buffer();
         let mut ba_binder = ba_binder.borrow_mut();
-        let gl = gl.join_buffers(rest_buffers);
         let buffer = unsafe { mem::transmute(vbo.buffer_mut() as *mut Buffer) };
         let gl_array_buffer = ba_binder.bind(buffer);
         (VertexBufferBinding::new(gl_array_buffer, vbo), gl)
@@ -329,9 +325,7 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         // NOTE: The mem::transmute here unsafely extends the borrow of
         //       ibo.buffer_mut()
         // TODO: Find a safe(r) way to do this
-        let (mut buffers, gl) = self.split_buffers();
-        let (mut be_binder, rest_buffers) = buffers.split_element_array();
-        let gl = gl.join_buffers(rest_buffers);
+        let (mut be_binder, gl) = self.split_element_array_buffer();
         let be_binder = be_binder.borrow_mut();
         let buffer = unsafe { mem::transmute(ibo.buffer_mut() as *mut Buffer) };
         let gl_be = be_binder.bind(buffer);
