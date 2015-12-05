@@ -3,6 +3,8 @@ extern crate gl as gl_lib;
 #[cfg(feature = "cgmath")] extern crate cgmath as cgmath_lib;
 #[cfg(feature = "image")] extern crate image as image_lib;
 
+mod ref_into;
+
 #[macro_use] mod macros;
 mod context;
 mod buffer;
