@@ -1,6 +1,7 @@
 use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
+use ref_into::{RefInto, MutInto};
 use types::{Color, Viewport, Capability, GLError};
 use buffer::BufferBinder;
 use program::{ProgramBinder, ProgramAttrib};
@@ -237,6 +238,111 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 tex_units: ()
             }
         )
+    }
+}
+
+impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
+    RefInto<'a, ContextOf<BI, FI, PI, RI, TI>>
+    for ContextOf<B, F, P, R, T>
+    where B: RefInto<'a, BI>,
+          F: RefInto<'a, FI>,
+          P: RefInto<'a, PI>,
+          R: RefInto<'a, RI>,
+          T: RefInto<'a, TI>,
+          BI: 'a, FI: 'a, PI: 'a, RI: 'a, TI: 'a
+{
+    fn ref_into(&'a self) -> ContextOf<BI, FI, PI, RI, TI> {
+        ContextOf {
+            buffers: self.buffers.ref_into(),
+            framebuffer: self.framebuffer.ref_into(),
+            program: self.program.ref_into(),
+            renderbuffer: self.renderbuffer.ref_into(),
+            tex_units: self.tex_units.ref_into()
+        }
+    }
+}
+
+impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
+    RefInto<'a, ContextOf<BI, FI, PI, RI, TI>>
+    for &'a ContextOf<B, F, P, R, T>
+    where B: RefInto<'a, BI>,
+          F: RefInto<'a, FI>,
+          P: RefInto<'a, PI>,
+          R: RefInto<'a, RI>,
+          T: RefInto<'a, TI>,
+          BI: 'a, FI: 'a, PI: 'a, RI: 'a, TI: 'a
+{
+    fn ref_into(&'a self) -> ContextOf<BI, FI, PI, RI, TI> {
+        ContextOf {
+            buffers: self.buffers.ref_into(),
+            framebuffer: self.framebuffer.ref_into(),
+            program: self.program.ref_into(),
+            renderbuffer: self.renderbuffer.ref_into(),
+            tex_units: self.tex_units.ref_into()
+        }
+    }
+}
+
+impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
+    MutInto<'a, ContextOf<BI, FI, PI, RI, TI>>
+    for ContextOf<B, F, P, R, T>
+    where B: MutInto<'a, BI>,
+          F: MutInto<'a, FI>,
+          P: MutInto<'a, PI>,
+          R: MutInto<'a, RI>,
+          T: MutInto<'a, TI>,
+          BI: 'a, FI: 'a, PI: 'a, RI: 'a, TI: 'a
+{
+    fn mut_into(&'a mut self) -> ContextOf<BI, FI, PI, RI, TI> {
+        ContextOf {
+            buffers: self.buffers.mut_into(),
+            framebuffer: self.framebuffer.mut_into(),
+            program: self.program.mut_into(),
+            renderbuffer: self.renderbuffer.mut_into(),
+            tex_units: self.tex_units.mut_into()
+        }
+    }
+}
+
+impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
+    MutInto<'a, ContextOf<BI, FI, PI, RI, TI>>
+    for &'a ContextOf<B, F, P, R, T>
+    where B: RefInto<'a, BI>,
+          F: RefInto<'a, FI>,
+          P: RefInto<'a, PI>,
+          R: RefInto<'a, RI>,
+          T: RefInto<'a, TI>,
+          BI: 'a, FI: 'a, PI: 'a, RI: 'a, TI: 'a
+{
+    fn mut_into(&'a mut self) -> ContextOf<BI, FI, PI, RI, TI> {
+        ContextOf {
+            buffers: self.buffers.ref_into(),
+            framebuffer: self.framebuffer.ref_into(),
+            program: self.program.ref_into(),
+            renderbuffer: self.renderbuffer.ref_into(),
+            tex_units: self.tex_units.ref_into()
+        }
+    }
+}
+
+impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
+    MutInto<'a, ContextOf<BI, FI, PI, RI, TI>>
+    for &'a mut ContextOf<B, F, P, R, T>
+    where B: MutInto<'a, BI>,
+          F: MutInto<'a, FI>,
+          P: MutInto<'a, PI>,
+          R: MutInto<'a, RI>,
+          T: MutInto<'a, TI>,
+          BI: 'a, FI: 'a, PI: 'a, RI: 'a, TI: 'a
+{
+    fn mut_into(&'a mut self) -> ContextOf<BI, FI, PI, RI, TI> {
+        ContextOf {
+            buffers: self.buffers.mut_into(),
+            framebuffer: self.framebuffer.mut_into(),
+            program: self.program.mut_into(),
+            renderbuffer: self.renderbuffer.mut_into(),
+            tex_units: self.tex_units.mut_into()
+        }
     }
 }
 
