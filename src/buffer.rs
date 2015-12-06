@@ -4,6 +4,7 @@ use std::marker::PhantomData;
 use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
+use ref_into::{RefInto, MutInto};
 use context::ContextOf;
 use framebuffer::FramebufferBinding;
 use types::{DrawingMode, GLError};
@@ -318,6 +319,76 @@ impl<A, E> BufferBinderOf<A, E> {
                 element_array: ()
             }
         )
+    }
+}
+
+impl<'a, A, E, AI, EI> RefInto<'a, BufferBinderOf<AI, EI>>
+    for BufferBinderOf<A, E>
+    where A: RefInto<'a, AI>,
+          E: RefInto<'a, EI>,
+          AI: 'a, EI: 'a
+{
+    fn ref_into(&'a self) -> BufferBinderOf<AI, EI> {
+        BufferBinderOf {
+            array: self.array.ref_into(),
+            element_array: self.element_array.ref_into()
+        }
+    }
+}
+
+impl<'a, A, E, AI, EI> RefInto<'a, BufferBinderOf<AI, EI>>
+    for &'a BufferBinderOf<A, E>
+    where A: RefInto<'a, AI>,
+          E: RefInto<'a, EI>,
+          AI: 'a, EI: 'a
+{
+    fn ref_into(&'a self) -> BufferBinderOf<AI, EI> {
+        BufferBinderOf {
+            array: self.array.ref_into(),
+            element_array: self.element_array.ref_into()
+        }
+    }
+}
+
+impl<'a, A, E, AI, EI> MutInto<'a, BufferBinderOf<AI, EI>>
+    for BufferBinderOf<A, E>
+    where A: MutInto<'a, AI>,
+          E: MutInto<'a, EI>,
+          AI: 'a, EI: 'a
+{
+    fn mut_into(&'a mut self) -> BufferBinderOf<AI, EI> {
+        BufferBinderOf {
+            array: self.array.mut_into(),
+            element_array: self.element_array.mut_into()
+        }
+    }
+}
+
+impl<'a, A, E, AI, EI> MutInto<'a, BufferBinderOf<AI, EI>>
+    for &'a BufferBinderOf<A, E>
+    where A: RefInto<'a, AI>,
+          E: RefInto<'a, EI>,
+          AI: 'a, EI: 'a
+{
+    fn mut_into(&'a mut self) -> BufferBinderOf<AI, EI> {
+        BufferBinderOf {
+            array: self.array.ref_into(),
+            element_array: self.element_array.ref_into()
+        }
+    }
+}
+
+impl<'a, A, E, AI, EI> MutInto<'a, BufferBinderOf<AI, EI>>
+    for &'a mut BufferBinderOf<A, E>
+    where A: MutInto<'a, AI>,
+          E: MutInto<'a, EI>,
+          AI: 'a, EI: 'a
+{
+    fn mut_into(&'a mut self) -> BufferBinderOf<AI, EI> {
+        BufferBinderOf {
+            array: self.array.mut_into(),
+            element_array: self.element_array.mut_into()
+        }
     }
 }
 
