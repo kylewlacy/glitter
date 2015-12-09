@@ -180,6 +180,18 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
+    pub fn map_buffers<FN, BO>(self, f: FN) -> ContextOf<BO, F, P, R, T>
+        where FN: FnOnce(B) -> BO
+    {
+        ContextOf {
+            buffers: f(self.buffers),
+            framebuffer: self.framebuffer,
+            program: self.program,
+            renderbuffer: self.renderbuffer,
+            tex_units: self.tex_units
+        }
+    }
+
     pub fn split_framebuffer(self)
         -> (F, ContextOf<B, (), P, R, T>)
     {
