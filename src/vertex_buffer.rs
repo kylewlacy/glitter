@@ -1,4 +1,3 @@
-use std::mem;
 use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
@@ -219,7 +218,7 @@ impl<'a> FramebufferBinding<'a> {
                                               length: usize)
         where V: VertexData, I: IndexDatum
     {
-        debug_assert!(length <= gl_ibo.ibo.count);
+        debug_assert!(length <= *gl_ibo.count);
 
         unsafe {
             self.draw_n_elements_buffered(&gl_vbo.gl_buffer,
@@ -240,7 +239,7 @@ impl<'a> FramebufferBinding<'a> {
             self.draw_n_elements_buffered(&gl_vbo.gl_buffer,
                                           &gl_ibo.gl_buffer,
                                           mode,
-                                          gl_ibo.ibo.count,
+                                          *gl_ibo.count,
                                           I::index_datum_type());
         }
     }
@@ -316,17 +315,14 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         where I: IndexDatum + 'a,
               BE: BorrowMut<ElementArrayBufferBinder> + 'a
     {
-        // NOTE: The mem::transmute here unsafely extends the borrow of
-        //       ibo.buffer_mut()
-        // TODO: Find a safe(r) way to do this
         let (mut be_binder, gl) = self.split_element_array_buffer();
         let be_binder = be_binder.borrow_mut();
-        let buffer = unsafe { mem::transmute(ibo.buffer_mut() as *mut Buffer) };
-        let gl_be = be_binder.bind(buffer);
+        let gl_be = be_binder.bind(&mut ibo.buffer);
         (
             IndexBufferBinding {
                 gl_buffer: gl_be,
-                ibo: ibo
+                count: &mut ibo.count,
+                _phantom: PhantomData
             },
             gl
         )
@@ -353,14 +349,15 @@ impl<T: IndexDatum> IndexBuffer<T> {
 
 pub struct IndexBufferBinding<'a, T: IndexDatum + 'a> {
     gl_buffer: ElementArrayBufferBinding<'a>,
-    ibo: &'a mut IndexBuffer<T>
+    count: &'a mut usize,
+    _phantom: PhantomData<*const IndexBuffer<T>>
 }
 
 impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
     pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
         where [T]: IndexData
     {
-        self.ibo.count = data.len();
+        *self.count = data.len();
         self.gl_buffer.buffer_bytes(data.index_bytes(), usage);
     }
 }
