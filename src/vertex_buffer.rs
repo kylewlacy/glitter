@@ -359,16 +359,6 @@ pub struct IndexBufferBinding<'a, T: IndexDatum + 'a> {
 }
 
 impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
-    pub fn new(gl_buffer: ElementArrayBufferBinding<'a>,
-               ibo: &'a mut IndexBuffer<T>)
-        -> Self
-    {
-        IndexBufferBinding {
-            gl_buffer: gl_buffer,
-            ibo: ibo
-        }
-    }
-
     pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
         where [T]: IndexData
     {
