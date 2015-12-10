@@ -325,7 +325,13 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         let be_binder = be_binder.borrow_mut();
         let buffer = unsafe { mem::transmute(ibo.buffer_mut() as *mut Buffer) };
         let gl_be = be_binder.bind(buffer);
-        (IndexBufferBinding::new(gl_be, ibo), gl)
+        (
+            IndexBufferBinding {
+                gl_buffer: gl_be,
+                ibo: ibo
+            },
+            gl
+        )
     }
 }
 
