@@ -175,15 +175,6 @@ pub struct VertexBufferBinding<'a, T: VertexData + 'a> {
 }
 
 impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
-    pub fn new(gl_buffer: ArrayBufferBinding<'a>, vbo: &'a mut VertexBuffer<T>)
-        -> Self
-    {
-        VertexBufferBinding {
-            gl_buffer: gl_buffer,
-            vbo: vbo
-        }
-    }
-
     pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
         where [T]: VertexBytes
     {
