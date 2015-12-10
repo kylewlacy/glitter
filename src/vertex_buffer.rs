@@ -171,14 +171,15 @@ impl<V: VertexData> VertexBuffer<V> {
 
 pub struct VertexBufferBinding<'a, T: VertexData + 'a> {
     gl_buffer: ArrayBufferBinding<'a>,
-    vbo: &'a mut VertexBuffer<T>
+    count: &'a mut usize,
+    _phantom: PhantomData<*const VertexBuffer<T>>
 }
 
 impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
     pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
         where [T]: VertexBytes
     {
-        self.vbo.count = data.len();
+        *self.count = data.len();
         self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
     }
 }
@@ -191,7 +192,7 @@ impl<'a> FramebufferBinding<'a> {
                                     length: usize)
         where V: VertexData
     {
-        debug_assert!((start as usize) + length <= gl_vbo.vbo.count);
+        debug_assert!((start as usize) + length <= *gl_vbo.count);
 
         unsafe {
             self.draw_arrays_range(&gl_vbo.gl_buffer, mode, start, length);
@@ -207,7 +208,7 @@ impl<'a> FramebufferBinding<'a> {
             self.draw_arrays_range(&gl_vbo.gl_buffer,
                                    mode,
                                    0,
-                                   gl_vbo.vbo.count);
+                                   *gl_vbo.count);
         }
     }
 
@@ -289,9 +290,6 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         where V: VertexData,
               BA: BorrowMut<ArrayBufferBinder>
     {
-        // NOTE: The mem::transmute here unsafely extends the borrow of
-        //       ibo.buffer_mut()
-        // TODO: Find a safe(r) way to do this
         {
             let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
 
@@ -299,12 +297,12 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         }
         let (mut ba_binder, gl) = self.split_array_buffer();
         let mut ba_binder = ba_binder.borrow_mut();
-        let buffer = unsafe { mem::transmute(vbo.buffer_mut() as *mut Buffer) };
-        let gl_array_buffer = ba_binder.bind(buffer);
+        let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
         (
             VertexBufferBinding {
                 gl_buffer: gl_array_buffer,
-                vbo: vbo
+                count: &mut vbo.count,
+                _phantom: PhantomData
             },
             gl
         )
