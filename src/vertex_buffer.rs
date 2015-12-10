@@ -302,9 +302,8 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         //       ibo.buffer_mut()
         // TODO: Find a safe(r) way to do this
         {
-            let gl = self.borrowed_mut();
-            let (buffers, gl) = gl.split_buffers();
-            let gl = gl.join_buffers(buffers.borrowed_mut());
+            let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
+
             vbo.bind(gl).unwrap();
         }
         let (mut ba_binder, gl) = self.split_array_buffer();
