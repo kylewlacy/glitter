@@ -310,7 +310,13 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         let mut ba_binder = ba_binder.borrow_mut();
         let buffer = unsafe { mem::transmute(vbo.buffer_mut() as *mut Buffer) };
         let gl_array_buffer = ba_binder.bind(buffer);
-        (VertexBufferBinding::new(gl_array_buffer, vbo), gl)
+        (
+            VertexBufferBinding {
+                gl_buffer: gl_array_buffer,
+                vbo: vbo
+            },
+            gl
+        )
     }
 
     pub fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
