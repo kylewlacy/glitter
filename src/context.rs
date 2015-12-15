@@ -165,6 +165,52 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
+    pub fn ref_into<'a,
+                    BI = &'a B,
+                    FI = &'a F,
+                    PI = &'a P,
+                    RI = &'a R,
+                    TI = &'a T>
+                   (&'a self)
+        -> ContextOf<BI, FI, PI, RI, TI>
+        where B: RefInto<'a, BI>,
+              F: RefInto<'a, FI>,
+              P: RefInto<'a, PI>,
+              R: RefInto<'a, RI>,
+              T: RefInto<'a, TI>
+    {
+        ContextOf {
+            buffers: self.buffers.ref_into(),
+            framebuffer: self.framebuffer.ref_into(),
+            program: self.program.ref_into(),
+            renderbuffer: self.renderbuffer.ref_into(),
+            tex_units: self.tex_units.ref_into()
+        }
+    }
+
+    pub fn mut_into<'a,
+                    BI = &'a mut B,
+                    FI = &'a mut F,
+                    PI = &'a mut P,
+                    RI = &'a mut R,
+                    TI = &'a mut T>
+                   (&'a mut self)
+        -> ContextOf<BI, FI, PI, RI, TI>
+        where B: MutInto<'a, BI>,
+              F: MutInto<'a, FI>,
+              P: MutInto<'a, PI>,
+              R: MutInto<'a, RI>,
+              T: MutInto<'a, TI>
+    {
+        ContextOf {
+            buffers: self.buffers.mut_into(),
+            framebuffer: self.framebuffer.mut_into(),
+            program: self.program.mut_into(),
+            renderbuffer: self.renderbuffer.mut_into(),
+            tex_units: self.tex_units.mut_into()
+        }
+    }
+
     pub fn split_buffers(self)
         -> (B, ContextOf<(), F, P, R, T>)
     {
