@@ -3,7 +3,7 @@ use gl;
 use gl::types::*;
 use ref_into::{RefInto, MutInto};
 use types::{Color, Viewport, Capability, GLError};
-use buffer::BufferBinder;
+use buffer::{BufferBinder, BufferBinderRef, BufferBinderMut};
 use program::{ProgramBinder, ProgramAttrib};
 use framebuffer::FramebufferBinder;
 use renderbuffer::RenderbufferBinder;
@@ -26,6 +26,18 @@ pub type ContextMut<'a> = ContextOf<&'a mut BufferBinder,
                                     &'a mut ProgramBinder,
                                     &'a mut RenderbufferBinder,
                                     &'a mut TextureUnits>;
+
+pub type ContextSubRef<'a> = ContextOf<BufferBinderRef<'a>,
+                                       &'a FramebufferBinder,
+                                       &'a ProgramBinder,
+                                       &'a RenderbufferBinder,
+                                       &'a TextureUnits>;
+
+pub type ContextSubMut<'a> = ContextOf<BufferBinderMut<'a>,
+                                       &'a mut FramebufferBinder,
+                                       &'a mut ProgramBinder,
+                                       &'a mut RenderbufferBinder,
+                                       &'a mut TextureUnits>;
 
 pub struct ContextOf<B, F, P, R, T> {
     pub buffers: B,
