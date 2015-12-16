@@ -61,27 +61,47 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         let (be_binder, rest_buffers) = buffers.split_element_array();
         (be_binder, gl.join_buffers(rest_buffers))
     }
+}
 
-    pub fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (
-            ArrayBufferBinding<'a>,
-            ContextOf<BufferBinderOf<(), BE>, F, P, R, T>
-        )
-        where BA: BorrowMut<ArrayBufferBinder>
+pub trait ArrayBufferContext {
+    type Rest;
+
+    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ArrayBufferBinding<'a>, Self::Rest);
+}
+
+pub trait ElementArrayBufferContext {
+    type Rest;
+
+    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ElementArrayBufferBinding<'a>, Self::Rest);
+}
+
+impl<BA, BE, F, P, R, T> ArrayBufferContext
+    for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<(), BE>, F, P, R, T>;
+
+    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ArrayBufferBinding<'a>, Self::Rest)
     {
-        let (mut ba_binder, gl) = self.split_array_buffer();
-        (ba_binder.borrow_mut().bind(buffer), gl)
+        let (mut ba_binder, rest) = self.split_array_buffer();
+        (ba_binder.borrow_mut().bind(buffer), rest)
     }
+}
 
-    pub fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (
-            ElementArrayBufferBinding<'a>,
-            ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>
-        )
-        where BE: BorrowMut<ElementArrayBufferBinder>
+impl<BA, BE, F, P, R, T> ElementArrayBufferContext
+    for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BE: BorrowMut<ElementArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>;
+
+    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ElementArrayBufferBinding<'a>, Self::Rest)
     {
-        let (mut be_binder, gl) = self.split_element_array_buffer();
-        (be_binder.borrow_mut().bind(buffer), gl)
+        let (mut be_binder, rest) = self.split_element_array_buffer();
+        (be_binder.borrow_mut().bind(buffer), rest)
     }
 }
 
