@@ -7,8 +7,8 @@ use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
 use buffer::{Buffer, BufferBinderOf, BufferBinding,
-             ArrayBufferBinder, ElementArrayBufferBinder,
-             ArrayBufferBinding, ElementArrayBufferBinding};
+             ArrayBufferBinder, ArrayBufferBinding,
+             ElementArrayBufferBinding, ElementArrayBufferContext};
 use types::DrawingMode;
 
 #[derive(Debug)]
@@ -279,22 +279,31 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
+pub trait VertexBufferContext {
+    type Rest;
+
+    fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
+        -> (VertexBufferBinding<V>, Self::Rest)
+        where V: VertexData;
+}
+
 // TODO: Refactor to work with less restrictive generic params
-impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
-    pub fn bind_vertex_buffer<'a, V>(mut self, vbo: &'a mut VertexBuffer<V>)
-        -> (
-            VertexBufferBinding<V>,
-            ContextOf<BufferBinderOf<(), BE>, F, P, R, T>
-        )
-        where V: VertexData,
-              BA: BorrowMut<ArrayBufferBinder>
+impl<BA, BE, F, P, R, T> VertexBufferContext
+    for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<(), BE>, F, P, R, T>;
+
+    fn bind_vertex_buffer<'a, V>(mut self, vbo: &'a mut VertexBuffer<V>)
+        -> (VertexBufferBinding<V>, Self::Rest)
+        where V: VertexData
     {
         {
             let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
 
             vbo.bind(gl).unwrap();
         }
-        let (mut ba_binder, gl) = self.split_array_buffer();
+        let (mut ba_binder, rest) = self.split_array_buffer();
         let mut ba_binder = ba_binder.borrow_mut();
         let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
         (
@@ -303,28 +312,36 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
                 count: &mut vbo.count,
                 _phantom: PhantomData
             },
-            gl
+            rest
         )
     }
+}
 
-    pub fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
-        -> (
-            IndexBufferBinding<I>,
-            ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>
-        )
-        where I: IndexDatum + 'a,
-              BE: BorrowMut<ElementArrayBufferBinder> + 'a
+pub trait IndexBufferContext {
+    type Rest;
+
+    fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
+        -> (IndexBufferBinding<I>, Self::Rest)
+        where I: IndexDatum;
+}
+
+impl<C> IndexBufferContext for C
+    where C: ElementArrayBufferContext
+{
+    type Rest = C::Rest;
+
+    fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
+        -> (IndexBufferBinding<I>, Self::Rest)
+        where I: IndexDatum
     {
-        let (mut be_binder, gl) = self.split_element_array_buffer();
-        let be_binder = be_binder.borrow_mut();
-        let gl_be = be_binder.bind(&mut ibo.buffer);
+        let (gl_be, rest) = self.bind_element_array_buffer(&mut ibo.buffer);
         (
             IndexBufferBinding {
                 gl_buffer: gl_be,
                 count: &mut ibo.count,
                 _phantom: PhantomData
             },
-            gl
+            rest
         )
     }
 }
