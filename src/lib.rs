@@ -50,4 +50,5 @@ pub mod prelude {
                      ArrayBufferContext, ElementArrayBufferContext};
     pub use texture_units::TextureUnit;
     pub use texture::TextureBinding;
+    pub use vertex_buffer::{VertexBufferContext, IndexBufferContext};
 }
