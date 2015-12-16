@@ -105,6 +105,18 @@ impl<BA, BE, F, P, R, T> ElementArrayBufferContext
     }
 }
 
+pub trait BufferContext: ArrayBufferContext + ElementArrayBufferContext {
+
+}
+
+impl<BA, BE, F, P, R, T> BufferContext
+    for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>,
+          BE: BorrowMut<ElementArrayBufferBinder>
+{
+
+}
+
 
 
 gl_enum! {
