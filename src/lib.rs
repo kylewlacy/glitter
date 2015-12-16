@@ -46,7 +46,8 @@ pub use uniform_data::*;
 pub use types::*;
 
 pub mod prelude {
-    pub use buffer::BufferBinding;
+    pub use buffer::{BufferBinding, BufferContext,
+                     ArrayBufferContext, ElementArrayBufferContext};
     pub use texture_units::TextureUnit;
     pub use texture::TextureBinding;
 }
