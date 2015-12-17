@@ -91,6 +91,25 @@ impl<BA, BE, F, P, R, T> ArrayBufferContext
     }
 }
 
+impl<'b, BA, BE, F, P, R, T> ArrayBufferContext
+    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<(), &'b mut BE>,
+                          &'b mut F,
+                          &'b mut P,
+                          &'b mut R,
+                          &'b mut T>;
+
+    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ArrayBufferBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (ba_binder, rest): (&mut BA, _) = gl.split_array_buffer();
+        (ba_binder.borrow_mut().bind(buffer), rest)
+    }
+}
+
 impl<BA, BE, F, P, R, T> ElementArrayBufferContext
     for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BE: BorrowMut<ElementArrayBufferBinder>
@@ -105,12 +124,39 @@ impl<BA, BE, F, P, R, T> ElementArrayBufferContext
     }
 }
 
+impl<'b, BA, BE, F, P, R, T> ElementArrayBufferContext
+    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BE: BorrowMut<ElementArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<&'b mut BA, ()>,
+                          &'b mut F,
+                          &'b mut P,
+                          &'b mut R,
+                          &'b mut T>;
+
+    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
+        -> (ElementArrayBufferBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (be_binder, rest): (&mut BE, _) = gl.split_element_array_buffer();
+        (be_binder.borrow_mut().bind(buffer), rest)
+    }
+}
+
 pub trait BufferContext: ArrayBufferContext + ElementArrayBufferContext {
 
 }
 
 impl<BA, BE, F, P, R, T> BufferContext
     for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>,
+          BE: BorrowMut<ElementArrayBufferBinder>
+{
+
+}
+
+impl<'a, BA, BE, F, P, R, T> BufferContext
+    for &'a mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BA: BorrowMut<ArrayBufferBinder>,
           BE: BorrowMut<ElementArrayBufferBinder>
 {
