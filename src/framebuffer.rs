@@ -150,17 +150,6 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn bind_framebuffer<'a>(self, framebuffer: &'a mut Framebuffer)
-        -> (
-            FramebufferBinding<'a>,
-            ContextOf<B, (), P, R, T>
-        )
-        where F: BorrowMut<FramebufferBinder> + 'a
-    {
-        let (mut framebuffer_binder, gl) = self.split_framebuffer();
-        (framebuffer_binder.borrow_mut().bind(framebuffer), gl)
-    }
-
     pub unsafe fn current_framebuffer_binding(&mut self) -> FramebufferBinding
         where F: BorrowMut<FramebufferBinder>
     {
@@ -183,6 +172,42 @@ gl_enum! {
         StencilAttachment as STENCIL_ATTACHMENT = gl::STENCIL_ATTACHMENT
     }
 }
+
+pub trait FramebufferContext {
+    type Rest;
+
+    fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
+        -> (FramebufferBinding<'a>, Self::Rest);
+}
+
+impl<B, F, P, R, T> FramebufferContext for ContextOf<B, F, P, R, T>
+    where F: BorrowMut<FramebufferBinder>
+{
+    type Rest = ContextOf<B, (), P, R, T>;
+
+    fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
+        -> (FramebufferBinding<'a>, Self::Rest)
+    {
+        let (mut fbo_binder, rest) = self.split_framebuffer();
+        (fbo_binder.borrow_mut().bind(fbo), rest)
+    }
+}
+
+impl<'b, B, F, P, R, T> FramebufferContext for &'b mut ContextOf<B, F, P, R, T>
+    where F: BorrowMut<FramebufferBinder>
+{
+    type Rest = ContextOf<&'b mut B, (), &'b mut P, &'b mut R, &'b mut T>;
+
+    fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
+        -> (FramebufferBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (framebuffer_binder, rest): (&mut F, _) = gl.split_framebuffer();
+        (framebuffer_binder.borrow_mut().bind(fbo), rest)
+    }
+}
+
+
 
 pub struct FramebufferBinding<'a> {
     phantom: PhantomData<&'a mut Framebuffer>
