@@ -49,6 +49,7 @@ pub mod prelude {
     pub use buffer::{BufferBinding, BufferContext,
                      ArrayBufferContext, ElementArrayBufferContext};
     pub use framebuffer::FramebufferContext;
+    pub use program::ProgramContext;
     pub use renderbuffer::RenderbufferContext;
     pub use texture_units::TextureUnit;
     pub use texture::TextureBinding;
