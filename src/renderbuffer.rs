@@ -107,16 +107,40 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
             gl_id: id
         }
     }
+}
 
-    pub fn bind_renderbuffer<'a>(self, renderbuffer: &'a mut Renderbuffer)
-        -> (
-            RenderbufferBinding<'a>,
-            ContextOf<B, F, P, (), T>
-        )
-        where R: BorrowMut<RenderbufferBinder>
+pub trait RenderbufferContext {
+    type Rest;
+
+    fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
+        -> (RenderbufferBinding<'a>, Self::Rest);
+}
+
+impl<B, F, P, R, T> RenderbufferContext for ContextOf<B, F, P, R, T>
+    where R: BorrowMut<RenderbufferBinder>
+{
+    type Rest = ContextOf<B, F, P, (), T>;
+
+    fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
+        -> (RenderbufferBinding<'a>, Self::Rest)
     {
-        let (mut renderbuffer_binder, gl) = self.split_renderbuffer();
-        (renderbuffer_binder.borrow_mut().bind(renderbuffer), gl)
+        let (mut rbo_binder, rest) = self.split_renderbuffer();
+        (rbo_binder.borrow_mut().bind(rbo), rest)
+    }
+}
+
+impl<'b, B, F, P, R, T> RenderbufferContext
+    for &'b mut ContextOf<B, F, P, R, T>
+    where R: BorrowMut<RenderbufferBinder>
+{
+    type Rest = ContextOf<&'b mut B, &'b mut F, &'b mut P, (), &'b mut T>;
+
+    fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
+        -> (RenderbufferBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (rbo_binder, rest): (&mut R, _) = gl.split_renderbuffer();
+        (rbo_binder.borrow_mut().bind(rbo), rest)
     }
 }
 
