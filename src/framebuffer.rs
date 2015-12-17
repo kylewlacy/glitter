@@ -149,12 +149,6 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
             gl_id: id
         }
     }
-
-    pub unsafe fn current_framebuffer_binding(&mut self) -> FramebufferBinding
-        where F: BorrowMut<FramebufferBinder>
-    {
-        self.framebuffer.borrow_mut().current_binding()
-    }
 }
 
 
