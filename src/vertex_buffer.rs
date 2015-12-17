@@ -287,7 +287,6 @@ pub trait VertexBufferContext {
         where V: VertexData;
 }
 
-// TODO: Refactor to work with less restrictive generic params
 impl<BA, BE, F, P, R, T> VertexBufferContext
     for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BA: BorrowMut<ArrayBufferBinder>
@@ -304,6 +303,40 @@ impl<BA, BE, F, P, R, T> VertexBufferContext
             vbo.bind(gl).unwrap();
         }
         let (mut ba_binder, rest) = self.split_array_buffer();
+        let mut ba_binder = ba_binder.borrow_mut();
+        let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
+        (
+            VertexBufferBinding {
+                gl_buffer: gl_array_buffer,
+                count: &mut vbo.count,
+                _phantom: PhantomData
+            },
+            rest
+        )
+    }
+}
+
+impl<'b, BA, BE, F, P, R, T> VertexBufferContext
+    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+    where BA: BorrowMut<ArrayBufferBinder>
+{
+    type Rest = ContextOf<BufferBinderOf<(), &'b mut BE>,
+                          &'b mut F,
+                          &'b mut P,
+                          &'b mut R,
+                          &'b mut T>;
+
+    fn bind_vertex_buffer<'a, V>(mut self, vbo: &'a mut VertexBuffer<V>)
+        -> (VertexBufferBinding<V>, Self::Rest)
+        where V: VertexData
+    {
+        {
+            let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
+
+            vbo.bind(gl).unwrap();
+        }
+        let gl: ContextOf<BufferBinderOf<&mut BA, &mut BE>, _, _, _, _> = self.mut_into();
+        let (mut ba_binder, rest): (&mut BA, _) = gl.split_array_buffer();
         let mut ba_binder = ba_binder.borrow_mut();
         let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
         (
