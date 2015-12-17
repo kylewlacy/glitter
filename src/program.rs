@@ -244,6 +244,41 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
+pub trait ProgramContext {
+    type Rest;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest);
+}
+
+impl<B, F, P, R, T> ProgramContext for ContextOf<B, F, P, R, T>
+    where P: BorrowMut<ProgramBinder>
+{
+    type Rest = ContextOf<B, F, (), R, T>;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest)
+    {
+        let (mut program_binder, rest) = self.split_program();
+        (program_binder.borrow_mut().bind(program), rest)
+    }
+}
+
+impl<'b, B, F, P, R, T> ProgramContext for &'b mut ContextOf<B, F, P, R, T>
+    where P: BorrowMut<ProgramBinder>
+{
+    type Rest = ContextOf<&'b mut B, &'b mut F, (), &'b mut R, &'b mut T>;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (program_binder, rest): (&mut P, _) = gl.split_program();
+        (program_binder.borrow_mut().bind(program), rest)
+    }
+}
+
+
 
 pub struct ProgramBinding<'a> {
     phantom: PhantomData<&'a mut Program>
