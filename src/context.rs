@@ -58,55 +58,6 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn clear_color(&mut self, color: Color) {
-        unsafe {
-            gl::ClearColor(color.r, color.g, color.b, color.a);
-        }
-    }
-
-    pub fn enable(&mut self, cap: Capability) {
-        unsafe {
-            gl::Enable(cap.gl_enum());
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
-                _ => "Unknown error"
-            }
-        }
-    }
-
-    pub fn disable(&mut self, cap: Capability) {
-        unsafe {
-            gl::Disable(cap.gl_enum());
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
-                _ => "Unknown error"
-            }
-        }
-    }
-
-    pub fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib) {
-        unsafe {
-            gl::EnableVertexAttribArray(attrib.gl_index);
-            dbg_gl_error! {
-                GLError::InvalidValue => "`index` is >= GL_MAX_VERTEX_ATTRIBS",
-                _ => "Unknown error"
-            }
-        }
-    }
-
-    pub fn viewport(&self, viewport: Viewport) {
-        unsafe {
-            gl::Viewport(viewport.x as GLint,
-                         viewport.y as GLint,
-                         viewport.width as GLsizei,
-                         viewport.height as GLsizei);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`width` or `height` is negative",
-                _ => "Unknown error"
-            }
-        }
-    }
-
     pub fn get_error() -> Option<GLError> {
         unsafe {
             match gl::GetError() {
@@ -310,6 +261,66 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         )
     }
 }
+
+pub trait AContext {
+    fn clear_color(&mut self, color: Color);
+    fn enable(&mut self, cap: Capability);
+    fn disable(&mut self, cap: Capability);
+    fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib);
+    fn viewport(&self, viewport: Viewport);
+}
+
+impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
+    fn clear_color(&mut self, color: Color) {
+        unsafe {
+            gl::ClearColor(color.r, color.g, color.b, color.a);
+        }
+    }
+
+    fn enable(&mut self, cap: Capability) {
+        unsafe {
+            gl::Enable(cap.gl_enum());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    fn disable(&mut self, cap: Capability) {
+        unsafe {
+            gl::Disable(cap.gl_enum());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`cap` is not a valid OpenGL capability",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib) {
+        unsafe {
+            gl::EnableVertexAttribArray(attrib.gl_index);
+            dbg_gl_error! {
+                GLError::InvalidValue => "`index` is >= GL_MAX_VERTEX_ATTRIBS",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    fn viewport(&self, viewport: Viewport) {
+        unsafe {
+            gl::Viewport(viewport.x as GLint,
+                         viewport.y as GLint,
+                         viewport.width as GLsizei,
+                         viewport.height as GLsizei);
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`width` or `height` is negative",
+                _ => "Unknown error"
+            }
+        }
+    }
+}
+
 
 impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
     RefInto<'a, ContextOf<BI, FI, PI, RI, TI>>

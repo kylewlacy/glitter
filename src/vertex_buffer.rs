@@ -1,6 +1,6 @@
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
-use context::{Context, ContextOf};
+use context::{ContextOf, AContext};
 use framebuffer::FramebufferBinding;
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
