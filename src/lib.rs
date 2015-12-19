@@ -46,6 +46,7 @@ pub use uniform_data::*;
 pub use types::*;
 
 pub mod prelude {
+    pub use context::AContext;
     pub use buffer::{BufferBinding, BufferContext,
                      ArrayBufferContext, ElementArrayBufferContext};
     pub use framebuffer::FramebufferContext;
