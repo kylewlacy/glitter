@@ -175,8 +175,14 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     {
         Texture2dBuilder::new(self)
     }
+}
 
-    pub unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
+pub trait ContextTextureExt {
+    unsafe fn gen_texture<T: TextureType>(&self) -> Texture<T>;
+}
+
+impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
+    unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
         let mut id : GLuint =  0;
 
         gl::GenTextures(1, &mut id as *mut GLuint);

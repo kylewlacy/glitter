@@ -79,6 +79,7 @@ impl<'a, B, F, P, R, T> ShaderBuilder<'a, B, F, P, R, T> {
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
+    // TODO: Move these methods into `ContextShaderExt`
     pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
         -> ShaderBuilder<'a, B, F, P, R, T>
     {
@@ -96,8 +97,18 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     {
         ShaderBuilder::new(self, ShaderType::VertexShader, source)
     }
+}
 
-    pub unsafe fn create_shader(&self, shader_type: ShaderType)
+pub trait ContextShaderExt {
+    unsafe fn create_shader(&self, shader_type: ShaderType)
+        -> Result<Shader, ()>;
+    fn shader_source(&self, shader: &mut Shader, source: &str);
+    fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError>;
+    fn get_shader_info_log(&self, shader: &Shader) -> Option<String>;
+}
+
+impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
+    unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
         let id = gl::CreateShader(shader_type.gl_enum());
@@ -113,7 +124,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn shader_source(&self, shader: &mut Shader, source: &str) {
+    fn shader_source(&self, shader: &mut Shader, source: &str) {
         unsafe {
             let source_ptr = source.as_ptr() as *const GLchar;
             let source_len = source.len() as GLint;
@@ -129,7 +140,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
+    fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
         let success = unsafe {
             gl::CompileShader(shader.gl_id());
             dbg_gl_error! {
@@ -158,7 +169,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
+    fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
         unsafe {
             let mut info_length : GLint = 0;
             _get_shader_iv(shader,

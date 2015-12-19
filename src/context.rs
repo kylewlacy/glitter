@@ -3,10 +3,12 @@ use gl;
 use gl::types::*;
 use ref_into::{RefInto, MutInto};
 use types::{Color, Viewport, Capability, GLError};
-use buffer::{BufferBinder, BufferBinderRef, BufferBinderMut};
-use program::{ProgramBinder, ProgramAttrib};
-use framebuffer::FramebufferBinder;
-use renderbuffer::RenderbufferBinder;
+use buffer::{BufferBinder, ContextBufferExt, BufferBinderRef, BufferBinderMut};
+use framebuffer::{FramebufferBinder, ContextFramebufferExt};
+use program::{ProgramBinder, ContextProgramExt, ProgramAttrib};
+use renderbuffer::{RenderbufferBinder, ContextRenderbufferExt};
+use shader::ContextShaderExt;
+use texture::ContextTextureExt;
 use texture_units::TextureUnits;
 
 pub type Context = ContextOf<BufferBinder,
@@ -323,14 +325,33 @@ impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
 
 pub mod ext {
     pub use ContextExt;
+    pub use ContextBufferExt;
+    pub use ContextFramebufferExt;
+    pub use ContextProgramExt;
+    pub use ContextRenderbufferExt;
+    pub use ContextShaderExt;
+    pub use ContextTextureExt;
 }
 
-pub trait AContext: ContextExt {
+pub trait AContext: ContextExt +
+                    ContextBufferExt +
+                    ContextFramebufferExt +
+                    ContextProgramExt +
+                    ContextRenderbufferExt +
+                    ContextShaderExt +
+                    ContextTextureExt
+{
 
 }
 
 impl<C> AContext for C
-    where C: ContextExt
+    where C: ContextExt +
+             ContextBufferExt +
+             ContextFramebufferExt +
+             ContextProgramExt +
+             ContextRenderbufferExt +
+             ContextShaderExt +
+             ContextTextureExt
 {
 
 }

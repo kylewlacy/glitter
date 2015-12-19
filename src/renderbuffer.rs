@@ -87,14 +87,21 @@ impl<'a, B, F, P, R, T> RenderbufferBuilder<'a, B, F, P, R, T>
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
+    // TODO: Move this method into `ContextRenderbufferExt`
     pub fn build_renderbuffer<'a>(&'a mut self)
         -> RenderbufferBuilder<'a, B, F, P, R, T>
         where R: BorrowMut<RenderbufferBinder>
     {
         RenderbufferBuilder::new(self)
     }
+}
 
-    pub unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
+pub trait ContextRenderbufferExt {
+    unsafe fn gen_renderbuffer(&self) -> Renderbuffer;
+}
+
+impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
+    unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
         let mut id : GLuint = 0;
 
         gl::GenRenderbuffers(1, &mut id as *mut GLuint);

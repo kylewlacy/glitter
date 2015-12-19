@@ -92,13 +92,27 @@ impl<'a, B, F, P, R, T> ProgramBuilder<'a, B, F, P, R, T>
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
+    // TODO: Move this method into `ContextProgramExt`
     pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
         -> ProgramBuilder<'a, B, F, P, R, T>
     {
         ProgramBuilder::new(self, shaders)
     }
+}
 
-    pub unsafe fn create_program(&self) -> Result<Program, ()> {
+pub trait ContextProgramExt {
+    unsafe fn create_program(&self) -> Result<Program, ()>;
+    fn attach_shader(&self, program: &mut Program, shader: &Shader);
+    fn link_program(&self, program: &mut Program) -> Result<(), GLError>;
+    fn get_program_info_log(&self, program: &Program) -> Option<String>;
+    fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
+        -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>;
+    fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
+        -> Result<ProgramUniform, UnknownProgramUniform<'a>>;
+}
+
+impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
+    unsafe fn create_program(&self) -> Result<Program, ()> {
         let id = gl::CreateProgram();
         if id > 0 {
             Ok(Program { gl_id: id })
@@ -108,7 +122,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn attach_shader(&self, program: &mut Program, shader: &Shader) {
+    fn attach_shader(&self, program: &mut Program, shader: &Shader) {
         unsafe {
             gl::AttachShader(program.gl_id(), shader.gl_id());
             dbg_gl_error! {
@@ -119,7 +133,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn link_program(&self, program: &mut Program) -> Result<(), GLError> {
+    fn link_program(&self, program: &mut Program) -> Result<(), GLError> {
         let success = unsafe {
             gl::LinkProgram(program.gl_id());
             dbg_gl_error! {
@@ -148,7 +162,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn get_program_info_log(&self, program: &Program) -> Option<String> {
+    fn get_program_info_log(&self, program: &Program) -> Option<String> {
         unsafe {
             let mut info_length : GLint = 0;
             _get_program_iv(program,
@@ -177,7 +191,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
+    fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
         -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>
     {
         let err = Err(UnknownProgramAttrib { name: name });
@@ -204,7 +218,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
+    fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
         -> Result<ProgramUniform, UnknownProgramUniform<'a>>
     {
         let err = Err(UnknownProgramUniform { name: name });
@@ -230,17 +244,6 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 err
             }
         }
-    }
-
-    pub fn use_program<'a>(self, program: &'a mut Program)
-        -> (
-            ProgramBinding<'a>,
-            ContextOf<B, F, (), R, T>
-        )
-        where P: BorrowMut<ProgramBinder> + 'a
-    {
-        let (mut program_binder, gl) = self.split_program();
-        (program_binder.borrow_mut().bind(program), gl)
     }
 }
 

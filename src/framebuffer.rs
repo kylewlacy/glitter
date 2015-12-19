@@ -125,6 +125,7 @@ impl<'a, B, F, P, R, T> FramebufferBuilder<'a, B, F, P, R, T>
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
+    // TODO: Move this method into `ContextFramebufferExt`
     pub fn build_framebuffer<'a>(&'a mut self)
         -> FramebufferBuilder<'a, B, F, P, R, T>
         where B: 'a,
@@ -135,8 +136,14 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     {
         FramebufferBuilder::new(self)
     }
+}
 
-    pub unsafe fn gen_framebuffer(&self) -> Framebuffer {
+pub trait ContextFramebufferExt {
+    unsafe fn gen_framebuffer(&self) -> Framebuffer;
+}
+
+impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
+    unsafe fn gen_framebuffer(&self) -> Framebuffer {
         let mut id : GLuint = 0;
 
         gl::GenFramebuffers(1, &mut id as *mut GLuint);

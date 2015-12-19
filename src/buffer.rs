@@ -28,22 +28,6 @@ impl Drop for Buffer {
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    pub fn gen_buffer(&self) -> Buffer {
-        unsafe {
-            let mut id : GLuint = 0;
-
-            gl::GenBuffers(1, &mut id as *mut GLuint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`n` is negative",
-                _ => "Unknown error"
-            }
-
-            Buffer { gl_id: id }
-        }
-    }
-}
-
 impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
     pub fn split_array_buffer(self)
         -> (BA, ContextOf<BufferBinderOf<(), BE>, F, P, R, T>)
@@ -60,6 +44,26 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
         let (buffers, gl) = self.split_buffers();
         let (be_binder, rest_buffers) = buffers.split_element_array();
         (be_binder, gl.join_buffers(rest_buffers))
+    }
+}
+
+pub trait ContextBufferExt {
+    fn gen_buffer(&self) -> Buffer;
+}
+
+impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
+    fn gen_buffer(&self) -> Buffer {
+        unsafe {
+            let mut id : GLuint = 0;
+
+            gl::GenBuffers(1, &mut id as *mut GLuint);
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`n` is negative",
+                _ => "Unknown error"
+            }
+
+            Buffer { gl_id: id }
+        }
     }
 }
 

@@ -5,7 +5,7 @@ use framebuffer::FramebufferBinding;
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
-use buffer::{Buffer, BufferBinding,
+use buffer::{Buffer, BufferBinding, ContextBufferExt,
              ArrayBufferBinding, ArrayBufferContext,
              ElementArrayBufferBinding, ElementArrayBufferContext};
 use types::DrawingMode;
