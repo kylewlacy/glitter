@@ -255,7 +255,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
 }
 
 pub trait VertexBufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
         -> (VertexBufferBinding<V>, Self::Rest)
@@ -298,7 +298,7 @@ impl<C> VertexBufferContext for C
 }
 
 pub trait IndexBufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
         -> (IndexBufferBinding<I>, Self::Rest)

@@ -3,7 +3,7 @@ use std::collections::hash_map::{HashMap, Entry};
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::ContextOf;
+use context::{AContext, ContextOf};
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use texture::{Texture, TextureType, ImageTargetType,
               Texture2d, Tx2dImageTarget};
@@ -168,7 +168,7 @@ gl_enum! {
 }
 
 pub trait FramebufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
         -> (FramebufferBinding<'a>, Self::Rest);

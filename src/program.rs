@@ -7,7 +7,7 @@ use std::ffi::CString;
 use gl;
 use gl::types::*;
 use types::GLError;
-use context::ContextOf;
+use context::{AContext, ContextOf};
 use shader::Shader;
 use uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
 
@@ -245,7 +245,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
 }
 
 pub trait ProgramContext {
-    type Rest;
+    type Rest: AContext;
 
     fn use_program<'a>(self, program: &'a mut Program)
         -> (ProgramBinding<'a>, Self::Rest);

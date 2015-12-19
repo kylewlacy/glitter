@@ -5,7 +5,7 @@ use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use ref_into::{RefInto, MutInto};
-use context::ContextOf;
+use context::{AContext, ContextOf};
 use framebuffer::FramebufferBinding;
 use types::{DrawingMode, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
@@ -64,14 +64,14 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
 }
 
 pub trait ArrayBufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (ArrayBufferBinding<'a>, Self::Rest);
 }
 
 pub trait ElementArrayBufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (ElementArrayBufferBinding<'a>, Self::Rest);
@@ -206,7 +206,7 @@ impl<'a, BA, BE, F, P, R, T> BufferContext
     where BA: BorrowMut<ArrayBufferBinder>,
           BE: BorrowMut<ElementArrayBufferBinder>
 {
-    
+
 }
 
 

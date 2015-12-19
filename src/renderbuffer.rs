@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::ContextOf;
+use context::{AContext, ContextOf};
 use image_data::{RenderbufferFormat};
 use types::GLError;
 
@@ -110,7 +110,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
 }
 
 pub trait RenderbufferContext {
-    type Rest;
+    type Rest: AContext;
 
     fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
         -> (RenderbufferBinding<'a>, Self::Rest);
