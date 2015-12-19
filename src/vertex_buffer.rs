@@ -82,11 +82,9 @@ impl AttribBinder {
         }
     }
 
-    // TODO: Implement this safely (take a generic `C` that has a trait bound)
-    pub unsafe fn enable<V>(&self) -> Result<(), AttribError>
-        where V: VertexData
+    pub fn enable<V, C>(&self, gl: &mut C) -> Result<(), AttribError>
+        where V: VertexData, C: AContext
     {
-        let gl = Context::current_context();
         self.for_each::<V, _>(|_, program_attrib| {
             gl.enable_vertex_attrib_array(program_attrib);
         })
@@ -265,7 +263,8 @@ pub trait VertexBufferContext {
 }
 
 impl<C> VertexBufferContext for C
-    where C: ArrayBufferContext
+    where C: ArrayBufferContext,
+          C::Rest: AContext
 {
     type Rest = C::Rest;
 
@@ -277,8 +276,8 @@ impl<C> VertexBufferContext for C
         let (gl_array_buffer, rest) = match vbo.attrib_binder {
             Some(ref binder) => {
                 let buf = &mut vbo.buffer;
-                let (gl_buffer, rest) = self.bind_array_buffer(buf);
-                unsafe { binder.enable::<V>().unwrap() };
+                let (gl_buffer, mut rest) = self.bind_array_buffer(buf);
+                binder.enable::<V, _>(&mut rest).unwrap();
                 binder.bind::<V>(&gl_buffer).unwrap();
                 (gl_buffer, rest)
             },
