@@ -263,8 +263,7 @@ pub trait VertexBufferContext {
 }
 
 impl<C> VertexBufferContext for C
-    where C: ArrayBufferContext,
-          C::Rest: AContext
+    where C: ArrayBufferContext
 {
     type Rest = C::Rest;
 
