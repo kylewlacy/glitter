@@ -321,6 +321,10 @@ impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+pub mod ext {
+    pub use ContextExt;
+}
+
 pub trait AContext: ContextExt {
 
 }
