@@ -1,13 +1,12 @@
-use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
-use context::ContextOf;
+use context::{Context, ContextOf};
 use framebuffer::FramebufferBinding;
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
-use buffer::{Buffer, BufferBinderOf, BufferBinding,
-             ArrayBufferBinder, ArrayBufferBinding,
+use buffer::{Buffer, BufferBinding,
+             ArrayBufferBinding, ArrayBufferContext,
              ElementArrayBufferBinding, ElementArrayBufferContext};
 use types::DrawingMode;
 
@@ -83,11 +82,11 @@ impl AttribBinder {
         }
     }
 
-
-    pub fn enable<V, B, F, P, R, T>(&self, gl: &ContextOf<B, F, P, R, T>)
-        -> Result<(), AttribError>
+    // TODO: Implement this safely (take a generic `C` that has a trait bound)
+    pub unsafe fn enable<V>(&self) -> Result<(), AttribError>
         where V: VertexData
     {
+        let gl = Context::current_context();
         self.for_each::<V, _>(|_, program_attrib| {
             gl.enable_vertex_attrib_array(program_attrib);
         })
@@ -135,28 +134,6 @@ pub struct VertexBuffer<T: VertexData> {
 impl<V: VertexData> VertexBuffer<V> {
     pub fn bind_attrib_pointers(&mut self, binder: AttribBinder) {
         self.attrib_binder = Some(binder);
-    }
-
-    pub fn bind<BA, BE, F, P, R, T>(&mut self,
-                                    gl: ContextOf<BufferBinderOf<BA, BE>,
-                                                  F,
-                                                  P,
-                                                  R,
-                                                  T>)
-        -> Result<(), VertexBindError>
-        where BA: BorrowMut<ArrayBufferBinder>
-    {
-        match self.attrib_binder {
-            Some(ref binder) => {
-                let (mut ba_binder, mut gl) = gl.split_array_buffer();
-                let mut ba_binder = ba_binder.borrow_mut();
-                let gl_buffer = ba_binder.bind(&mut self.buffer);
-                try!(binder.enable::<V, _, _, _, _, _>(&mut gl));
-                try!(binder.bind::<V>(&gl_buffer));
-                Ok(())
-            },
-            None => { Err(VertexBindError::NoAttributeBindings) }
-        }
     }
 
     pub fn buffer(&self) -> &Buffer {
@@ -287,58 +264,29 @@ pub trait VertexBufferContext {
         where V: VertexData;
 }
 
-impl<BA, BE, F, P, R, T> VertexBufferContext
-    for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
-    where BA: BorrowMut<ArrayBufferBinder>
+impl<C> VertexBufferContext for C
+    where C: ArrayBufferContext
 {
-    type Rest = ContextOf<BufferBinderOf<(), BE>, F, P, R, T>;
+    type Rest = C::Rest;
 
-    fn bind_vertex_buffer<'a, V>(mut self, vbo: &'a mut VertexBuffer<V>)
+    fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
         -> (VertexBufferBinding<V>, Self::Rest)
         where V: VertexData
     {
-        {
-            let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
-
-            vbo.bind(gl).unwrap();
-        }
-        let (mut ba_binder, rest) = self.split_array_buffer();
-        let mut ba_binder = ba_binder.borrow_mut();
-        let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
-        (
-            VertexBufferBinding {
-                gl_buffer: gl_array_buffer,
-                count: &mut vbo.count,
-                _phantom: PhantomData
+        // TODO: Cleanup error handling
+        let (gl_array_buffer, rest) = match vbo.attrib_binder {
+            Some(ref binder) => {
+                let buf = &mut vbo.buffer;
+                let (gl_buffer, rest) = self.bind_array_buffer(buf);
+                unsafe { binder.enable::<V>().unwrap() };
+                binder.bind::<V>(&gl_buffer).unwrap();
+                (gl_buffer, rest)
             },
-            rest
-        )
-    }
-}
+            None => {
+                panic!("No attribute bindings provided for vertex buffer");
+            }
+        };
 
-impl<'b, BA, BE, F, P, R, T> VertexBufferContext
-    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
-    where BA: BorrowMut<ArrayBufferBinder>
-{
-    type Rest = ContextOf<BufferBinderOf<(), &'b mut BE>,
-                          &'b mut F,
-                          &'b mut P,
-                          &'b mut R,
-                          &'b mut T>;
-
-    fn bind_vertex_buffer<'a, V>(mut self, vbo: &'a mut VertexBuffer<V>)
-        -> (VertexBufferBinding<V>, Self::Rest)
-        where V: VertexData
-    {
-        {
-            let gl = self.borrowed_mut().map_buffers(|b| b.borrowed_mut());
-
-            vbo.bind(gl).unwrap();
-        }
-        let gl: ContextOf<BufferBinderOf<&mut BA, &mut BE>, _, _, _, _> = self.mut_into();
-        let (mut ba_binder, rest): (&mut BA, _) = gl.split_array_buffer();
-        let mut ba_binder = ba_binder.borrow_mut();
-        let gl_array_buffer = ba_binder.bind(&mut vbo.buffer);
         (
             VertexBufferBinding {
                 gl_buffer: gl_array_buffer,
