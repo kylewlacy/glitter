@@ -262,7 +262,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
-pub trait AContext {
+pub trait ContextExt {
     fn clear_color(&mut self, color: Color);
     fn enable(&mut self, cap: Capability);
     fn disable(&mut self, cap: Capability);
@@ -270,7 +270,7 @@ pub trait AContext {
     fn viewport(&self, viewport: Viewport);
 }
 
-impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
+impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
     fn clear_color(&mut self, color: Color) {
         unsafe {
             gl::ClearColor(color.r, color.g, color.b, color.a);
@@ -320,6 +320,17 @@ impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
         }
     }
 }
+
+pub trait AContext: ContextExt {
+
+}
+
+impl<C> AContext for C
+    where C: ContextExt
+{
+
+}
+
 
 
 impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
