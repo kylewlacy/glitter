@@ -371,6 +371,10 @@ impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
 
 }
 
+impl<'a, B, F, P, R, T> AContext for &'a mut ContextOf<B, F, P, R, T> {
+
+}
+
 
 
 impl<'a, B, F, P, R, T, BI, FI, PI, RI, TI>
