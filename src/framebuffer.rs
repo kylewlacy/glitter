@@ -184,7 +184,7 @@ gl_enum! {
     }
 }
 
-pub trait FramebufferContext {
+pub trait FramebufferContext: AContext {
     type Rest: AContext;
 
     fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)

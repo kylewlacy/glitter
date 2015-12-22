@@ -280,7 +280,7 @@ impl<'b, B, F, P, R, T> ContextProgramExt for &'b mut ContextOf<B, F, P, R, T> {
 
 
 
-pub trait ProgramContext {
+pub trait ProgramContext: AContext {
     type Rest: AContext;
 
     fn use_program<'a>(self, program: &'a mut Program)

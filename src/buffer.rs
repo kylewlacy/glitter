@@ -74,14 +74,14 @@ impl<'a, B, F, P, R, T> ContextBufferExt for &'a mut ContextOf<B, F, P, R, T> {
     }
 }
 
-pub trait ArrayBufferContext {
+pub trait ArrayBufferContext: AContext {
     type Rest: AContext;
 
     fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
         -> (ArrayBufferBinding<'a>, Self::Rest);
 }
 
-pub trait ElementArrayBufferContext {
+pub trait ElementArrayBufferContext: AContext {
     type Rest: AContext;
 
     fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)

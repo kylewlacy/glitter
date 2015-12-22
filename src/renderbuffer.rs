@@ -128,7 +128,7 @@ impl<'a, B, F, P, R, T> ContextRenderbufferExt
 
 
 
-pub trait RenderbufferContext {
+pub trait RenderbufferContext: AContext {
     type Rest: AContext;
 
     fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
