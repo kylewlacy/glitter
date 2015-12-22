@@ -344,15 +344,7 @@ pub trait AContext: ContextExt +
 
 }
 
-impl<C> AContext for C
-    where C: ContextExt +
-             ContextBufferExt +
-             ContextFramebufferExt +
-             ContextProgramExt +
-             ContextRenderbufferExt +
-             ContextShaderExt +
-             ContextTextureExt
-{
+impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
 
 }
 
