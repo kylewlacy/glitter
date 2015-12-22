@@ -200,6 +200,27 @@ impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+// TODO: Add a macro to reduce this boilerplate
+impl<'a, B, F, P, R, T> ContextShaderExt for &'a mut ContextOf<B, F, P, R, T> {
+    unsafe fn create_shader(&self, shader_type: ShaderType)
+        -> Result<Shader, ()>
+    {
+        (**self).create_shader(shader_type)
+    }
+
+    fn shader_source(&self, shader: &mut Shader, source: &str) {
+        (**self).shader_source(shader, source);
+    }
+
+    fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
+        (**self).compile_shader(shader)
+    }
+
+    fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
+        (**self).get_shader_info_log(shader)
+    }
+}
+
 gl_enum! {
     pub gl_enum ShaderType {
         VertexShader as VERTEX_SHADER = gl::VERTEX_SHADER,

@@ -158,6 +158,16 @@ impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+// TODO: Add a macro to reduce this boilerplate
+impl<'a, B, F, P, R, T> ContextFramebufferExt
+    for &'a mut ContextOf<B, F, P, R, T>
+{
+    unsafe fn gen_framebuffer(&self) -> Framebuffer {
+        (**self).gen_framebuffer()
+    }
+}
+
+
 
 
 gl_enum! {

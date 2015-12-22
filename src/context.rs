@@ -323,6 +323,29 @@ impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+// TODO: Add a macro to reduce this boilerplate
+impl<'a, B, F, P, R, T> ContextExt for &'a mut ContextOf<B, F, P, R, T> {
+    fn clear_color(&mut self, color: Color) {
+        (**self).clear_color(color);
+    }
+
+    fn enable(&mut self, cap: Capability) {
+        (**self).enable(cap);
+    }
+
+    fn disable(&mut self, cap: Capability) {
+        (**self).disable(cap);
+    }
+
+    fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib) {
+        (**self).enable_vertex_attrib_array(attrib);
+    }
+
+    fn viewport(&self, viewport: Viewport) {
+        (**self).viewport(viewport);
+    }
+}
+
 pub mod ext {
     pub use ContextExt;
     pub use ContextBufferExt;

@@ -116,6 +116,18 @@ impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+// TODO: Add a macro to reduce this boilerplate
+impl<'a, B, F, P, R, T> ContextRenderbufferExt
+    for &'a mut ContextOf<B, F, P, R, T>
+{
+    unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
+        (**self).gen_renderbuffer()
+    }
+}
+
+
+
+
 pub trait RenderbufferContext {
     type Rest: AContext;
 

@@ -67,6 +67,13 @@ impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
     }
 }
 
+// TODO: Add a macro to reduce this boilerplate
+impl<'a, B, F, P, R, T> ContextBufferExt for &'a mut ContextOf<B, F, P, R, T> {
+    fn gen_buffer(&self) -> Buffer {
+        (**self).gen_buffer()
+    }
+}
+
 pub trait ArrayBufferContext {
     type Rest: AContext;
 
