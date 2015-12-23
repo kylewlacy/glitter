@@ -158,6 +158,15 @@ impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
 }
 
 pub trait ContextVertexBufferExt: AContext {
+    fn new_vertex_buffer<V: VertexData>(&self) -> VertexBuffer<V> {
+        VertexBuffer {
+            attrib_binder: None,
+            buffer: self.gen_buffer(),
+            count: 0,
+            phantom: PhantomData
+        }
+    }
+
     fn draw_arrays_range_vbo<V>(&self,
                                 gl_vbo: &VertexBufferBinding<V>,
                                 mode: DrawingMode,
@@ -246,16 +255,7 @@ impl<C: AContext> ContextVertexBufferExt for C {
 
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    pub fn new_vertex_buffer<V: VertexData>(&self) -> VertexBuffer<V> {
-        VertexBuffer {
-            attrib_binder: None,
-            buffer: self.gen_buffer(),
-            count: 0,
-            phantom: PhantomData
-        }
-    }
-}
+
 
 pub trait VertexBufferContext: ArrayBufferContext + Sized {
     fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
