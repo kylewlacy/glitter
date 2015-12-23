@@ -171,6 +171,16 @@ pub trait ContextVertexBufferExt: AContext {
                           usage);
     }
 
+    fn buffer_indices<T>(&self,
+                         gl_ibo: &mut IndexBufferBinding<T>,
+                         indices: &[T],
+                         usage: super::BufferDataUsage)
+        where T: IndexDatum, [T]: IndexData
+    {
+        *gl_ibo.count = indices.len();
+        self.buffer_bytes(&mut gl_ibo.gl_buffer, indices.index_bytes(), usage);
+    }
+
     fn draw_arrays_range_vbo<V>(&self,
                                 gl_vbo: &VertexBufferBinding<V>,
                                 mode: DrawingMode,
@@ -338,15 +348,6 @@ pub struct IndexBufferBinding<'a, T: IndexDatum + 'a> {
     gl_buffer: ElementArrayBufferBinding<'a>,
     count: &'a mut usize,
     _phantom: PhantomData<*const IndexBuffer<T>>
-}
-
-impl<'a, T: IndexDatum + 'a> IndexBufferBinding<'a, T> {
-    pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
-        where [T]: IndexData
-    {
-        *self.count = data.len();
-        self.gl_buffer.buffer_bytes(data.index_bytes(), usage);
-    }
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
