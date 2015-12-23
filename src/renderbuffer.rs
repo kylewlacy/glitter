@@ -26,25 +26,17 @@ impl Drop for Renderbuffer {
 
 
 
-pub struct RenderbufferBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a + BorrowMut<RenderbufferBinder>,
-          T: 'a
+pub struct RenderbufferBuilder<C>
+    where C: RenderbufferContext
 {
-    gl: &'a mut ContextOf<B, F, P, R, T>,
+    gl: C,
     storage_params: Option<(RenderbufferFormat, u32, u32)>
 }
 
-impl<'a, B, F, P, R, T> RenderbufferBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a + BorrowMut<RenderbufferBinder>,
-          T: 'a
+impl<C> RenderbufferBuilder<C>
+    where C: RenderbufferContext
 {
-    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
+    fn new(gl: C) -> Self {
         RenderbufferBuilder {
             gl: gl,
             storage_params: None
@@ -62,7 +54,7 @@ impl<'a, B, F, P, R, T> RenderbufferBuilder<'a, B, F, P, R, T>
     }
 
     pub fn try_unwrap(self) -> Result<Renderbuffer, GLError> {
-        let gl = self.gl.borrowed_mut();
+        let gl = self.gl;
         let mut rbo = unsafe { gl.gen_renderbuffer() };
 
         match self.storage_params {
@@ -89,7 +81,7 @@ impl<'a, B, F, P, R, T> RenderbufferBuilder<'a, B, F, P, R, T>
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     // TODO: Move this method into `ContextRenderbufferExt`
     pub fn build_renderbuffer<'a>(&'a mut self)
-        -> RenderbufferBuilder<'a, B, F, P, R, T>
+        -> RenderbufferBuilder<&'a mut Self>
         where R: BorrowMut<RenderbufferBinder>
     {
         RenderbufferBuilder::new(self)
