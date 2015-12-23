@@ -27,6 +27,41 @@ impl Drop for Buffer {
     }
 }
 
+
+
+unsafe fn _draw_elements(mode: DrawingMode,
+                         count: usize,
+                         index_type: IndexDatumType,
+                         indices: *const GLvoid)
+{
+    let gl_index_type: GLenum = match index_type {
+        IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
+        IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
+    };
+    gl::DrawElements(mode.gl_enum(),
+                     count as GLsizei,
+                     gl_index_type,
+                     indices);
+    dbg_gl_error! {
+        GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
+        GLError::InvalidValue => "`count` is negative",
+        GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
+        _ => "Unknown error"
+    }
+}
+
+fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
+    unsafe {
+        gl::BindBuffer(target as GLuint, buffer.gl_id());
+        dbg_gl_sanity_check! {
+            GLError::InvalidEnum => "`target` is not an allowed value",
+            _ => "Unknown error"
+        }
+    }
+}
+
+
+
 impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
     pub fn split_array_buffer(self)
         -> (BA, ContextOf<BufferBinderOf<(), BE>, F, P, R, T>)
@@ -167,6 +202,8 @@ unsafe impl<'a, B, F, P, R, T> ContextBufferExt
 
 }
 
+
+
 pub trait ArrayBufferContext: AContext {
     type Rest: AContext;
 
@@ -285,6 +322,8 @@ impl<'b, BA, BE, F, P, R, T> ElementArrayBufferContext
     }
 }
 
+
+
 pub trait BufferContext: ArrayBufferContext + ElementArrayBufferContext {
 
 }
@@ -346,29 +385,6 @@ impl<'a> BufferBinding for ArrayBufferBinding<'a> {
     }
 }
 
-
-
-unsafe fn _draw_elements(mode: DrawingMode,
-                         count: usize,
-                         index_type: IndexDatumType,
-                         indices: *const GLvoid)
-{
-    let gl_index_type: GLenum = match index_type {
-        IndexDatumType::UnsignedByte => gl::UNSIGNED_BYTE,
-        IndexDatumType::UnsignedShort => gl::UNSIGNED_SHORT
-    };
-    gl::DrawElements(mode.gl_enum(),
-                     count as GLsizei,
-                     gl_index_type,
-                     indices);
-    dbg_gl_error! {
-        GLError::InvalidEnum => "`mode` or `type` is not an accepted value",
-        GLError::InvalidValue => "`count` is negative",
-        GLError::InvalidFramebufferOperation => "The current framebuffer is not framebuffer-complete",
-        _ => "Unknown error"
-    }
-}
-
 pub struct ElementArrayBufferBinding<'a> {
     phantom: PhantomData<&'a mut Buffer>
 }
@@ -380,16 +396,6 @@ impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
 }
 
 
-
-fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
-    unsafe {
-        gl::BindBuffer(target as GLuint, buffer.gl_id());
-        dbg_gl_sanity_check! {
-            GLError::InvalidEnum => "`target` is not an allowed value",
-            _ => "Unknown error"
-        }
-    }
-}
 
 pub struct BufferBinderOf<A, E> {
     array: A,
