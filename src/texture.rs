@@ -449,9 +449,7 @@ unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
 pub trait TextureBinding {
     type TextureType: TextureType;
 
-    fn target(&self) -> TextureBindingTarget {
-        Self::TextureType::target()
-    }
+    fn target(&self) -> TextureBindingTarget;
 
     fn set_min_filter<F: Into<TextureMipmapFilter>>(&mut self, filter: F) {
         let gl_int = filter.into().gl_enum() as GLint;
@@ -540,6 +538,10 @@ pub struct Texture2dBinding<'a> {
 
 impl<'a> TextureBinding for Texture2dBinding<'a> {
     type TextureType = Tx2d;
+
+    fn target(&self) -> TextureBindingTarget {
+        Tx2d::target()
+    }
 }
 
 pub struct TextureCubeMapBinding<'a> {
@@ -548,6 +550,10 @@ pub struct TextureCubeMapBinding<'a> {
 
 impl<'a> TextureBinding for TextureCubeMapBinding<'a> {
     type TextureType = TxCubeMap;
+
+    fn target(&self) -> TextureBindingTarget {
+        TxCubeMap::target()
+    }
 }
 
 
