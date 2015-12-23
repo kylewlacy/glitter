@@ -61,6 +61,28 @@ pub unsafe trait ContextBufferExt {
         Buffer { gl_id: id }
     }
 
+    fn buffer_bytes<B>(&self,
+                       gl_buffer: &mut B,
+                       bytes: &[u8],
+                       usage: BufferDataUsage)
+        where B: BufferBinding
+    {
+        let ptr = bytes.as_ptr();
+        let size = bytes.len() * mem::size_of::<u8>();
+        unsafe {
+            gl::BufferData(gl_buffer.target().gl_enum(),
+                           size as GLsizeiptr,
+                           ptr as *const GLvoid,
+                           usage.gl_enum());
+            dbg_gl_error! {
+                GLError::InvalidEnum => "Invalid `target` or `usage`",
+                GLError::InvalidValue => "`size` is negative",
+                GLError::InvalidOperation => "Object 0 is bound to buffer target",
+                GLError::OutOfMemory => "Unable to create a large enough buffer",
+                _ => "Unknown error"
+            }
+        }
+    }
     unsafe fn draw_arrays_range(&self,
                                 _ab: &ArrayBufferBinding,
                                 mode: DrawingMode,
