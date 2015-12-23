@@ -1,7 +1,7 @@
 use std::ptr;
 use gl;
 use gl::types::*;
-use context::ContextOf;
+use context::{AContext, ContextOf};
 use types::GLError;
 
 pub struct Shader {
@@ -37,22 +37,18 @@ unsafe fn _get_shader_iv(shader: &Shader,
     }
 }
 
-pub struct ShaderBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a,
-          T: 'a
+pub struct ShaderBuilder<'a, C: 'a>
+    where C: AContext
 {
-    gl: &'a ContextOf<B, F, P, R, T>,
+    gl: &'a C,
     ty: ShaderType,
     source: &'a str
 }
 
-impl<'a, B, F, P, R, T> ShaderBuilder<'a, B, F, P, R, T> {
-    fn new(gl: &'a ContextOf<B, F, P, R, T>,
-           ty: ShaderType,
-           source: &'a str)
+impl<'a, C: 'a> ShaderBuilder<'a, C>
+    where C: AContext
+{
+    fn new(gl: &'a C, ty: ShaderType, source: &'a str)
         -> Self
     {
         ShaderBuilder { gl: gl, ty: ty, source: source }
@@ -81,19 +77,19 @@ impl<'a, B, F, P, R, T> ShaderBuilder<'a, B, F, P, R, T> {
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     // TODO: Move these methods into `ContextShaderExt`
     pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
-        -> ShaderBuilder<'a, B, F, P, R, T>
+        -> ShaderBuilder<'a, Self>
     {
         ShaderBuilder::new(self, ty, source)
     }
 
     pub fn build_fragment_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, B, F, P, R, T>
+        -> ShaderBuilder<'a, Self>
     {
         ShaderBuilder::new(self, ShaderType::FragmentShader, source)
     }
 
     pub fn build_vertex_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, B, F, P, R, T>
+        -> ShaderBuilder<'a, Self>
     {
         ShaderBuilder::new(self, ShaderType::VertexShader, source)
     }
