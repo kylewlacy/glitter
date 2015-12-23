@@ -78,12 +78,14 @@ impl<C> RenderbufferBuilder<C>
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    // TODO: Move this method into `ContextRenderbufferExt`
-    pub fn build_renderbuffer<'a>(&'a mut self)
-        -> RenderbufferBuilder<&'a mut Self>
-        where R: BorrowMut<RenderbufferBinder>
-    {
+pub trait ContextRenderbufferBuilderExt: RenderbufferContext + Sized {
+    fn build_renderbuffer(self) -> RenderbufferBuilder<Self>;
+}
+
+impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
+    where &'a mut C: RenderbufferContext
+{
+    fn build_renderbuffer(self) -> RenderbufferBuilder<&'a mut C> {
         RenderbufferBuilder::new(self)
     }
 }
