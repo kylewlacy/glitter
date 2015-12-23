@@ -177,11 +177,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
-pub trait ContextTextureExt {
-    unsafe fn gen_texture<T: TextureType>(&self) -> Texture<T>;
-}
-
-impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextTextureExt {
     unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
         let mut id : GLuint =  0;
 
@@ -198,11 +194,14 @@ impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextTextureExt for &'a mut ContextOf<B, F, P, R, T> {
-    unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
-        (**self).gen_texture()
-    }
+unsafe impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
+
+}
+
+unsafe impl<'a, B, F, P, R, T> ContextTextureExt
+    for &'a mut ContextOf<B, F, P, R, T>
+{
+
 }
 
 

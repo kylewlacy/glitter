@@ -90,11 +90,7 @@ impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
     }
 }
 
-pub trait ContextRenderbufferExt {
-    unsafe fn gen_renderbuffer(&self) -> Renderbuffer;
-}
-
-impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextRenderbufferExt {
     unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
         let mut id : GLuint = 0;
 
@@ -110,13 +106,14 @@ impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextRenderbufferExt
+unsafe impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
+    
+}
+
+unsafe impl<'a, B, F, P, R, T> ContextRenderbufferExt
     for &'a mut ContextOf<B, F, P, R, T>
 {
-    unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
-        (**self).gen_renderbuffer()
-    }
+
 }
 
 

@@ -47,31 +47,30 @@ impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
     }
 }
 
-pub trait ContextBufferExt {
-    fn gen_buffer(&self) -> Buffer;
-}
-
-impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextBufferExt {
     fn gen_buffer(&self) -> Buffer {
+        let mut id : GLuint = 0;
+
         unsafe {
-            let mut id : GLuint = 0;
-
             gl::GenBuffers(1, &mut id as *mut GLuint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`n` is negative",
-                _ => "Unknown error"
-            }
-
-            Buffer { gl_id: id }
         }
+        dbg_gl_sanity_check! {
+            GLError::InvalidValue => "`n` is negative",
+            _ => "Unknown error"
+        }
+
+        Buffer { gl_id: id }
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextBufferExt for &'a mut ContextOf<B, F, P, R, T> {
-    fn gen_buffer(&self) -> Buffer {
-        (**self).gen_buffer()
-    }
+unsafe impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
+    
+}
+
+unsafe impl<'a, B, F, P, R, T> ContextBufferExt
+    for &'a mut ContextOf<B, F, P, R, T>
+{
+
 }
 
 pub trait ArrayBufferContext: AContext {

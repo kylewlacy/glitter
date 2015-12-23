@@ -96,18 +96,7 @@ impl<C: AContext> ContextProgramBuilderExt for C {
     }
 }
 
-pub trait ContextProgramExt {
-    unsafe fn create_program(&self) -> Result<Program, ()>;
-    fn attach_shader(&self, program: &mut Program, shader: &Shader);
-    fn link_program(&self, program: &mut Program) -> Result<(), GLError>;
-    fn get_program_info_log(&self, program: &Program) -> Option<String>;
-    fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
-        -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>;
-    fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
-        -> Result<ProgramUniform, UnknownProgramUniform<'a>>;
-}
-
-impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextProgramExt {
     unsafe fn create_program(&self) -> Result<Program, ()> {
         let id = gl::CreateProgram();
         if id > 0 {
@@ -196,7 +185,7 @@ impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
             Ok(s) => { s },
             Err(_) => { return err }
         };
-        // let c_str = try!(CString::new(name).or(Err(e)));
+
         let str_ptr = c_str.as_ptr() as *const GLchar;
         unsafe {
             let index = gl::GetAttribLocation(program.gl_id(), str_ptr);
@@ -223,7 +212,7 @@ impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
             Ok(s) => { s },
             Err(_) => { return err; }
         };
-        // let c_str = try!(CString::new(name).or(Err(e)));
+        
         let str_ptr = c_str.as_ptr() as *const GLchar;
         unsafe {
             let index = gl::GetUniformLocation(program.gl_id(), str_ptr);
@@ -243,35 +232,14 @@ impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'b, B, F, P, R, T> ContextProgramExt for &'b mut ContextOf<B, F, P, R, T> {
-    unsafe fn create_program(&self) -> Result<Program, ()> {
-        (**self).create_program()
-    }
+unsafe impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
 
-    fn attach_shader(&self, program: &mut Program, shader: &Shader) {
-        (**self).attach_shader(program, shader);
-    }
+}
 
-    fn link_program(&self, program: &mut Program) -> Result<(), GLError> {
-        (**self).link_program(program)
-    }
+unsafe impl<'b, B, F, P, R, T> ContextProgramExt
+    for &'b mut ContextOf<B, F, P, R, T>
+{
 
-    fn get_program_info_log(&self, program: &Program) -> Option<String> {
-        (**self).get_program_info_log(program)
-    }
-
-    fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
-        -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>
-    {
-        (**self).get_attrib_location(program, name)
-    }
-
-    fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
-        -> Result<ProgramUniform, UnknownProgramUniform<'a>>
-    {
-        (**self).get_uniform_location(program, name)
-    }
 }
 
 

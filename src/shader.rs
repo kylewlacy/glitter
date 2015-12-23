@@ -99,15 +99,7 @@ impl<C: AContext> ContextShaderBuilderExt for C {
     }
 }
 
-pub trait ContextShaderExt {
-    unsafe fn create_shader(&self, shader_type: ShaderType)
-        -> Result<Shader, ()>;
-    fn shader_source(&self, shader: &mut Shader, source: &str);
-    fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError>;
-    fn get_shader_info_log(&self, shader: &Shader) -> Option<String>;
-}
-
-impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextShaderExt {
     unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
@@ -200,25 +192,13 @@ impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextShaderExt for &'a mut ContextOf<B, F, P, R, T> {
-    unsafe fn create_shader(&self, shader_type: ShaderType)
-        -> Result<Shader, ()>
-    {
-        (**self).create_shader(shader_type)
-    }
+unsafe impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
 
-    fn shader_source(&self, shader: &mut Shader, source: &str) {
-        (**self).shader_source(shader, source);
-    }
+}
 
-    fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
-        (**self).compile_shader(shader)
-    }
+unsafe impl<'a, B, F, P, R, T> ContextShaderExt
+    for &'a mut ContextOf<B, F, P, R, T> {
 
-    fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
-        (**self).get_shader_info_log(shader)
-    }
 }
 
 gl_enum! {

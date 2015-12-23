@@ -128,11 +128,7 @@ impl<'b, C: 'b> ContextFramebufferBuilderExt for &'b mut C
     }
 }
 
-pub trait ContextFramebufferExt {
-    unsafe fn gen_framebuffer(&self) -> Framebuffer;
-}
-
-impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextFramebufferExt {
     unsafe fn gen_framebuffer(&self) -> Framebuffer {
         let mut id : GLuint = 0;
 
@@ -148,13 +144,14 @@ impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextFramebufferExt
+unsafe impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
+
+}
+
+unsafe impl<'a, B, F, P, R, T> ContextFramebufferExt
     for &'a mut ContextOf<B, F, P, R, T>
 {
-    unsafe fn gen_framebuffer(&self) -> Framebuffer {
-        (**self).gen_framebuffer()
-    }
+
 }
 
 

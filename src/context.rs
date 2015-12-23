@@ -252,15 +252,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
-pub trait ContextExt {
-    fn clear_color(&mut self, color: Color);
-    fn enable(&mut self, cap: Capability);
-    fn disable(&mut self, cap: Capability);
-    fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib);
-    fn viewport(&self, viewport: Viewport);
-}
-
-impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
+pub unsafe trait ContextExt {
     fn clear_color(&mut self, color: Color) {
         unsafe {
             gl::ClearColor(color.r, color.g, color.b, color.a);
@@ -311,27 +303,12 @@ impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
     }
 }
 
-// TODO: Add a macro to reduce this boilerplate
-impl<'a, B, F, P, R, T> ContextExt for &'a mut ContextOf<B, F, P, R, T> {
-    fn clear_color(&mut self, color: Color) {
-        (**self).clear_color(color);
-    }
+unsafe impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
 
-    fn enable(&mut self, cap: Capability) {
-        (**self).enable(cap);
-    }
+}
 
-    fn disable(&mut self, cap: Capability) {
-        (**self).disable(cap);
-    }
+unsafe impl<'a, B, F, P, R, T> ContextExt for &'a mut ContextOf<B, F, P, R, T> {
 
-    fn enable_vertex_attrib_array(&self, attrib: ProgramAttrib) {
-        (**self).enable_vertex_attrib_array(attrib);
-    }
-
-    fn viewport(&self, viewport: Viewport) {
-        (**self).viewport(viewport);
-    }
 }
 
 pub mod ext {
