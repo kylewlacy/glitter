@@ -6,7 +6,6 @@ use gl;
 use gl::types::*;
 use ref_into::{RefInto, MutInto};
 use context::{AContext, ContextOf};
-use framebuffer::FramebufferBinding;
 use types::{DrawingMode, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
 
@@ -61,10 +60,57 @@ pub unsafe trait ContextBufferExt {
 
         Buffer { gl_id: id }
     }
+
+    unsafe fn draw_arrays_range(&self,
+                                _ab: &ArrayBufferBinding,
+                                mode: DrawingMode,
+                                first: u32,
+                                count: usize)
+    {
+        gl::DrawArrays(mode.gl_enum(), first as GLint, count as GLsizei);
+        dbg_gl_sanity_check! {
+            GLError::InvalidEnum => "`mode` is not an accepted value",
+            GLError::InvalidValue => "`count` is negative",
+            _ => "Unknown error"
+        }
+    }
+
+    unsafe fn draw_n_elements_buffered(&self,
+                                       _ab: &ArrayBufferBinding,
+                                       _eab: &ElementArrayBufferBinding,
+                                       mode: DrawingMode,
+                                       count: usize,
+                                       index_type: IndexDatumType)
+    {
+        _draw_elements(mode, count, index_type, ptr::null());
+    }
+
+    unsafe fn draw_n_elements<I>(&self,
+                                 _ab: &ArrayBufferBinding,
+                                 mode: DrawingMode,
+                                 count: usize,
+                                 indices: &[I])
+        where I: IndexDatum, [I]: IndexData
+    {
+        debug_assert!(count <= indices.len());
+
+        let ptr = indices.index_bytes().as_ptr();
+        let index_type = I::index_datum_type();
+        _draw_elements(mode, count, index_type, mem::transmute(ptr));
+    }
+
+    unsafe fn draw_elements<I>(&self,
+                               _ab: &ArrayBufferBinding,
+                               mode: DrawingMode,
+                               indices: &[I])
+        where I: IndexDatum, [I]: IndexData
+    {
+        self.draw_n_elements(_ab, mode, indices.len(), indices);
+    }
 }
 
 unsafe impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
-    
+
 }
 
 unsafe impl<'a, B, F, P, R, T> ContextBufferExt
@@ -317,55 +363,6 @@ impl<'a> ArrayBufferBinding<'a> {
             GLError::InvalidFramebufferOperation => "Currently bound framebuffer is not framebuffer complete",
             _ => "Unknown error"
         }
-    }
-}
-
-impl<'a> FramebufferBinding<'a> {
-    pub unsafe fn draw_arrays_range(&mut self,
-                                    _ab: &ArrayBufferBinding,
-                                    mode: DrawingMode,
-                                    first: u32,
-                                    count: usize)
-    {
-        gl::DrawArrays(mode.gl_enum(), first as GLint, count as GLsizei);
-        dbg_gl_sanity_check! {
-            GLError::InvalidEnum => "`mode` is not an accepted value",
-            GLError::InvalidValue => "`count` is negative",
-            _ => "Unknown error"
-        }
-    }
-
-    pub unsafe fn draw_n_elements_buffered(&mut self,
-                                           _ab: &ArrayBufferBinding,
-                                           _eab: &ElementArrayBufferBinding,
-                                           mode: DrawingMode,
-                                           count: usize,
-                                           index_type: IndexDatumType)
-    {
-        _draw_elements(mode, count, index_type, ptr::null());
-    }
-
-    pub unsafe fn draw_n_elements<I>(&mut self,
-                                     _ab: &ArrayBufferBinding,
-                                     mode: DrawingMode,
-                                     count: usize,
-                                     indices: &[I])
-        where I: IndexDatum, [I]: IndexData
-    {
-        debug_assert!(count <= indices.len());
-
-        let ptr = indices.index_bytes().as_ptr();
-        let index_type = I::index_datum_type();
-        _draw_elements(mode, count, index_type, mem::transmute(ptr));
-    }
-
-    pub unsafe fn draw_elements<I>(&mut self,
-                                   _ab: &ArrayBufferBinding,
-                                   mode: DrawingMode,
-                                   indices: &[I])
-        where I: IndexDatum, [I]: IndexData
-    {
-        self.draw_n_elements(_ab, mode, indices.len(), indices);
     }
 }
 

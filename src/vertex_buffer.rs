@@ -1,7 +1,6 @@
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
 use context::{ContextOf, AContext};
-use framebuffer::FramebufferBinding;
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
@@ -158,12 +157,12 @@ impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
     }
 }
 
-impl<'a> FramebufferBinding<'a> {
-    pub fn draw_arrays_range_vbo<V>(&mut self,
-                                    gl_vbo: &VertexBufferBinding<V>,
-                                    mode: DrawingMode,
-                                    start: u32,
-                                    length: usize)
+pub trait ContextVertexBufferExt: AContext {
+    fn draw_arrays_range_vbo<V>(&self,
+                                gl_vbo: &VertexBufferBinding<V>,
+                                mode: DrawingMode,
+                                start: u32,
+                                length: usize)
         where V: VertexData
     {
         debug_assert!((start as usize) + length <= *gl_vbo.count);
@@ -173,9 +172,9 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn draw_arrays_vbo<V>(&mut self,
-                              gl_vbo: &VertexBufferBinding<V>,
-                              mode: DrawingMode)
+    fn draw_arrays_vbo<V>(&self,
+                          gl_vbo: &VertexBufferBinding<V>,
+                          mode: DrawingMode)
         where V: VertexData
     {
         unsafe {
@@ -186,11 +185,11 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn draw_n_elements_buffered_vbo<V, I>(&mut self,
-                                              gl_vbo: &VertexBufferBinding<V>,
-                                              gl_ibo: &IndexBufferBinding<I>,
-                                              mode: DrawingMode,
-                                              length: usize)
+    fn draw_n_elements_buffered_vbo<V, I>(&self,
+                                          gl_vbo: &VertexBufferBinding<V>,
+                                          gl_ibo: &IndexBufferBinding<I>,
+                                          mode: DrawingMode,
+                                          length: usize)
         where V: VertexData, I: IndexDatum
     {
         debug_assert!(length <= *gl_ibo.count);
@@ -204,10 +203,10 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn draw_elements_buffered_vbo<V, I>(&mut self,
-                                            gl_vbo: &VertexBufferBinding<V>,
-                                            gl_ibo: &IndexBufferBinding<I>,
-                                            mode: DrawingMode)
+    fn draw_elements_buffered_vbo<V, I>(&self,
+                                        gl_vbo: &VertexBufferBinding<V>,
+                                        gl_ibo: &IndexBufferBinding<I>,
+                                        mode: DrawingMode)
         where V: VertexData, I: IndexDatum
     {
         unsafe {
@@ -219,11 +218,11 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn draw_n_elements_vbo<V, I>(&mut self,
-                                     gl_vbo: &VertexBufferBinding<'a, V>,
-                                     mode: DrawingMode,
-                                     count: usize,
-                                     indices: &[I])
+    fn draw_n_elements_vbo<V, I>(&self,
+                                 gl_vbo: &VertexBufferBinding<V>,
+                                 mode: DrawingMode,
+                                 count: usize,
+                                 indices: &[I])
         where V: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
@@ -231,16 +230,20 @@ impl<'a> FramebufferBinding<'a> {
         }
     }
 
-    pub fn draw_elements_vbo<V, I>(&mut self,
-                                   gl_vbo: &VertexBufferBinding<'a, V>,
-                                   mode: DrawingMode,
-                                   indices: &[I])
+    fn draw_elements_vbo<V, I>(&mut self,
+                               gl_vbo: &VertexBufferBinding<V>,
+                               mode: DrawingMode,
+                               indices: &[I])
         where V: VertexData, I: IndexDatum, [I]: IndexData
     {
         unsafe {
             self.draw_elements(&gl_vbo.gl_buffer, mode, indices);
         }
     }
+}
+
+impl<C: AContext> ContextVertexBufferExt for C {
+
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
