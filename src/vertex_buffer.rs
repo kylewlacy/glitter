@@ -4,7 +4,7 @@ use context::{ContextOf, AContext};
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
-use buffer::{Buffer, BufferBinding, ContextBufferExt,
+use buffer::{Buffer, ContextBufferExt,
              ArrayBufferBinding, ArrayBufferContext,
              ElementArrayBufferBinding, ElementArrayBufferContext};
 use types::DrawingMode;
@@ -89,19 +89,19 @@ impl AttribBinder {
         })
     }
 
-    pub fn bind<V: VertexData>(&self, gl_buffer: &ArrayBufferBinding)
-        -> Result<(), AttribError>
+    pub fn bind<V, C>(&self, gl: &C) -> Result<(), AttribError>
+        where V: VertexData, C: AContext
     {
         self.for_each::<V, _>(|vertex_attrib, program_attrib| {
             unsafe {
-                gl_buffer.vertex_attrib_pointer(
-                    program_attrib,
-                    vertex_attrib.ty.components,
-                    vertex_attrib.ty.data,
-                    vertex_attrib.ty.normalize,
-                    vertex_attrib.stride,
-                    vertex_attrib.offset
-                );
+                // TODO: Refactor!
+                // (Make vertex_attrib_pointer take vertex_attrib)
+                gl.vertex_attrib_pointer(program_attrib,
+                                         vertex_attrib.ty.components,
+                                         vertex_attrib.ty.data,
+                                         vertex_attrib.ty.normalize,
+                                         vertex_attrib.stride,
+                                         vertex_attrib.offset);
             }
         })
     }
@@ -282,7 +282,7 @@ pub trait VertexBufferContext: ArrayBufferContext + Sized {
                 let buf = &mut vbo.buffer;
                 let (gl_buffer, mut rest) = self.bind_array_buffer(buf);
                 binder.enable::<V, _>(&mut rest).unwrap();
-                binder.bind::<V>(&gl_buffer).unwrap();
+                binder.bind::<V, _>(&rest).unwrap();
                 (gl_buffer, rest)
             },
             None => {
