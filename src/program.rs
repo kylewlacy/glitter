@@ -44,25 +44,17 @@ unsafe fn _get_program_iv(program: &Program,
     }
 }
 
-pub struct ProgramBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a,
-          T: 'a
+pub struct ProgramBuilder<'a, C>
+    where C: AContext + 'a
 {
-    gl: &'a ContextOf<B, F, P, R, T>,
+    gl: &'a C,
     shaders: &'a [Shader]
 }
 
-impl<'a, B, F, P, R, T> ProgramBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a,
-          T: 'a
+impl<'a, C> ProgramBuilder<'a, C>
+    where C: AContext
 {
-    pub fn new(gl: &'a ContextOf<B, F, P, R, T>, shaders: &'a [Shader])
+    pub fn new(gl: &'a C, shaders: &'a [Shader])
         -> Self
     {
         ProgramBuilder { gl: gl, shaders: shaders }
@@ -94,7 +86,7 @@ impl<'a, B, F, P, R, T> ProgramBuilder<'a, B, F, P, R, T>
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     // TODO: Move this method into `ContextProgramExt`
     pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a, B, F, P, R, T>
+        -> ProgramBuilder<'a, Self>
     {
         ProgramBuilder::new(self, shaders)
     }
