@@ -449,14 +449,14 @@ unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
 pub trait TextureBinding {
     type TextureType: TextureType;
 
-    fn target() -> TextureBindingTarget {
+    fn target(&self) -> TextureBindingTarget {
         Self::TextureType::target()
     }
 
     fn set_min_filter<F: Into<TextureMipmapFilter>>(&mut self, filter: F) {
         let gl_int = filter.into().gl_enum() as GLint;
         unsafe {
-            _tex_parameter_iv(Self::target(),
+            _tex_parameter_iv(self.target(),
                               gl::TEXTURE_MIN_FILTER,
                               &gl_int as *const GLint);
         }
@@ -465,7 +465,7 @@ pub trait TextureBinding {
     fn set_mag_filter(&mut self, filter: TextureFilter) {
         let gl_int = filter.gl_enum() as GLint;
         unsafe {
-            _tex_parameter_iv(Self::target(),
+            _tex_parameter_iv(self.target(),
                               gl::TEXTURE_MAG_FILTER,
                               &gl_int as *const GLint);
         }
@@ -474,7 +474,7 @@ pub trait TextureBinding {
     fn set_wrap_s(&mut self, wrap_mode: TextureWrapMode) {
         let gl_int = wrap_mode.gl_enum() as GLint;
         unsafe {
-            _tex_parameter_iv(Self::target(),
+            _tex_parameter_iv(self.target(),
                               gl::TEXTURE_WRAP_S,
                               &gl_int as *const GLint);
         }
@@ -483,7 +483,7 @@ pub trait TextureBinding {
     fn set_wrap_t(&mut self, wrap_mode: TextureWrapMode) {
         let gl_int = wrap_mode.gl_enum() as GLint;
         unsafe {
-            _tex_parameter_iv(Self::target(),
+            _tex_parameter_iv(self.target(),
                               gl::TEXTURE_WRAP_T,
                               &gl_int as *const GLint);
         }
@@ -491,7 +491,7 @@ pub trait TextureBinding {
 
     fn generate_mipmap(&mut self) {
         unsafe {
-            gl::GenerateMipmap(Self::target().gl_enum())
+            gl::GenerateMipmap(self.target().gl_enum())
         }
     }
 
