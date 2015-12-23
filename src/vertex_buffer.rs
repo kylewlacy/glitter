@@ -257,19 +257,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 }
 
-pub trait VertexBufferContext {
-    type Rest: AContext;
-
-    fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
-        -> (VertexBufferBinding<V>, Self::Rest)
-        where V: VertexData;
-}
-
-impl<C> VertexBufferContext for C
-    where C: ArrayBufferContext
-{
-    type Rest = C::Rest;
-
+pub trait VertexBufferContext: ArrayBufferContext + Sized {
     fn bind_vertex_buffer<'a, V>(self, vbo: &'a mut VertexBuffer<V>)
         -> (VertexBufferBinding<V>, Self::Rest)
         where V: VertexData
@@ -299,19 +287,11 @@ impl<C> VertexBufferContext for C
     }
 }
 
-pub trait IndexBufferContext {
-    type Rest: AContext;
+impl<C: ArrayBufferContext> VertexBufferContext for C {
 
-    fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
-        -> (IndexBufferBinding<I>, Self::Rest)
-        where I: IndexDatum;
 }
 
-impl<C> IndexBufferContext for C
-    where C: ElementArrayBufferContext
-{
-    type Rest = C::Rest;
-
+pub trait IndexBufferContext: ElementArrayBufferContext + Sized {
     fn bind_index_buffer<'a, I>(self, ibo: &'a mut IndexBuffer<I>)
         -> (IndexBufferBinding<I>, Self::Rest)
         where I: IndexDatum
@@ -326,6 +306,10 @@ impl<C> IndexBufferContext for C
             rest
         )
     }
+}
+
+impl<C: ElementArrayBufferContext> IndexBufferContext for C {
+
 }
 
 
