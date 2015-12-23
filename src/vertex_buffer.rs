@@ -148,15 +148,6 @@ pub struct VertexBufferBinding<'a, T: VertexData + 'a> {
     _phantom: PhantomData<*const VertexBuffer<T>>
 }
 
-impl<'a, T: VertexData + 'a> VertexBufferBinding<'a, T> {
-    pub fn buffer_data(&mut self, data: &[T], usage: super::BufferDataUsage)
-        where [T]: VertexBytes
-    {
-        *self.count = data.len();
-        self.gl_buffer.buffer_bytes(data.vertex_bytes(), usage);
-    }
-}
-
 pub trait ContextVertexBufferExt: AContext {
     fn new_vertex_buffer<V: VertexData>(&self) -> VertexBuffer<V> {
         VertexBuffer {
@@ -165,6 +156,19 @@ pub trait ContextVertexBufferExt: AContext {
             count: 0,
             phantom: PhantomData
         }
+    }
+
+    fn buffer_vertices<T>(&self,
+                          gl_vbo: &mut VertexBufferBinding<T>,
+                          vertices: &[T],
+                          usage: super::BufferDataUsage)
+        where T: VertexData, [T]: VertexBytes
+    {
+
+        *gl_vbo.count = vertices.len();
+        self.buffer_bytes(&mut gl_vbo.gl_buffer,
+                          vertices.vertex_bytes(),
+                          usage);
     }
 
     fn draw_arrays_range_vbo<V>(&self,
