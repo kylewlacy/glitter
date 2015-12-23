@@ -36,25 +36,17 @@ enum BuilderAttachment<'a> {
     Renderbuffer(&'a mut Renderbuffer)
 }
 
-pub struct FramebufferBuilder<'a, B, F, P, R, T>
-    where   B: 'a,
-            F: 'a + BorrowMut<FramebufferBinder>,
-            P: 'a,
-            R: 'a,
-            T: 'a
+pub struct FramebufferBuilder<'a, C>
+    where C: FramebufferContext
 {
-    gl: &'a mut ContextOf<B, F, P, R, T>,
+    gl: C,
     attachments: HashMap<FramebufferAttachment, BuilderAttachment<'a>>
 }
 
-impl<'a, B, F, P, R, T> FramebufferBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a + BorrowMut<FramebufferBinder>,
-          P: 'a,
-          R: 'a,
-          T: 'a
+impl<'a, C> FramebufferBuilder<'a, C>
+    where C: FramebufferContext
 {
-    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
+    fn new(gl: C) -> Self {
         FramebufferBuilder {
             gl: gl,
             attachments: HashMap::new()
@@ -91,9 +83,9 @@ impl<'a, B, F, P, R, T> FramebufferBuilder<'a, B, F, P, R, T>
     }
 
     pub fn try_unwrap(self) -> Result<Framebuffer, GLError> {
-        let mut fbo = unsafe { self.gl.gen_framebuffer() };
+        let gl = self.gl;
+        let mut fbo = unsafe { gl.gen_framebuffer() };
         let fbo_status = {
-            let gl = self.gl.borrowed_mut();
             let (mut gl_fbo, _) = gl.bind_framebuffer(&mut fbo);
 
             for (attachment, attached) in self.attachments.into_iter() {
@@ -127,7 +119,7 @@ impl<'a, B, F, P, R, T> FramebufferBuilder<'a, B, F, P, R, T>
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     // TODO: Move this method into `ContextFramebufferExt`
     pub fn build_framebuffer<'a>(&'a mut self)
-        -> FramebufferBuilder<'a, B, F, P, R, T>
+        -> FramebufferBuilder<'a, &'a mut Self>
         where B: 'a,
               F: 'a + BorrowMut<FramebufferBinder>,
               P: 'a,
