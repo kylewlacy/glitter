@@ -86,23 +86,26 @@ impl<'a, C> FramebufferBuilder<'a, C>
         let gl = self.gl;
         let mut fbo = unsafe { gl.gen_framebuffer() };
         let fbo_status = {
-            let (mut gl_fbo, _) = gl.bind_framebuffer(&mut fbo);
+            let (mut gl_fbo, gl) = gl.bind_framebuffer(&mut fbo);
 
             for (attachment, attached) in self.attachments.into_iter() {
                 match attached {
                     BuilderAttachment::Texture2d(texture, level) => {
-                        gl_fbo.texture_2d(attachment,
-                                          Tx2dImageTarget::Texture2d,
-                                          texture,
-                                          level);
+                        gl.framebuffer_texture2d(&mut gl_fbo,
+                                                 attachment,
+                                                 Tx2dImageTarget::Texture2d,
+                                                 texture,
+                                                 level);
                     },
                     BuilderAttachment::Renderbuffer(renderbuffer) => {
-                        gl_fbo.renderbuffer(attachment, renderbuffer);
+                        gl.framebuffer_renderbuffer(&mut gl_fbo,
+                                                    attachment,
+                                                    renderbuffer);
                     }
                 }
             }
 
-            gl_fbo.check_framebuffer_status()
+            gl.check_framebuffer_status(&mut gl_fbo)
         };
 
         match fbo_status {
@@ -140,6 +143,86 @@ pub unsafe trait ContextFramebufferExt {
 
         Framebuffer {
             gl_id: id
+        }
+    }
+
+    fn check_framebuffer_status(&self, gl_fbo: &FramebufferBinding)
+        -> Option<GLFramebufferError>
+    {
+        unsafe {
+            match gl::CheckFramebufferStatus(gl_fbo.target().gl_enum()) {
+                gl::FRAMEBUFFER_INCOMPLETE_ATTACHMENT => {
+                    Some(GLFramebufferError::IncompleteAttachment)
+                },
+                // gl::FRAMEBUFFER_INCOMPLETE_DIMENSIONS => {
+                //     Some(GLFramebufferError::IncompleteDimensions)
+                // },
+                gl::FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT => {
+                    Some(GLFramebufferError::IncompleteMissingAttachment)
+                },
+                gl::FRAMEBUFFER_UNSUPPORTED => {
+                    Some(GLFramebufferError::Unsupported)
+                },
+                _ => { None }
+            }
+        }
+    }
+
+    fn framebuffer_renderbuffer(&self,
+                                gl_fbo: &mut FramebufferBinding,
+                                attachment: FramebufferAttachment,
+                                renderbuffer: &mut Renderbuffer)
+    {
+        let renderbuffer_target = RenderbufferTarget::Renderbuffer;
+        unsafe {
+            gl::FramebufferRenderbuffer(gl_fbo.target().gl_enum(),
+                                        attachment.gl_enum(),
+                                        renderbuffer_target.gl_enum(),
+                                        renderbuffer.gl_id());
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
+                GLError::InvalidOperation => "Framebuffer 0 is bound, or `renderbuffer` is neither 0 nor the name of an existing renderbuffer object",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    fn framebuffer_texture2d<I, T>(&self,
+                                   gl_fbo: &mut FramebufferBinding,
+                                   attachment: FramebufferAttachment,
+                                   tex_target: I,
+                                   texture: &mut Texture<T>,
+                                   level: i32)
+        where I: Into<T::ImageTargetType>,
+              T: TextureType,
+    {
+        debug_assert!(level == 0);
+
+        unsafe {
+            gl::FramebufferTexture2D(gl_fbo.target().gl_enum(),
+                                     attachment.gl_enum(),
+                                     tex_target.into().gl_enum(),
+                                     texture.gl_id(),
+                                     level as GLint);
+            dbg_gl_sanity_check! {
+                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not an accepted attachment point, or `textarget` is not an accepted texture target and texture is not 0",
+                GLError::InvalidValue => "`level` is not 0 and `texture` is not 0",
+                GLError::InvalidOperation => "Framebuffer object 0 is bound, `texture` is neither 0 nor the name of an existing texture object, or `textarget` is not a valid target for `texture`",
+                _ => "Unknown error"
+            }
+        }
+    }
+
+    // TODO: Think about this function signature harder.
+    // Should this require a &mut FramebufferBinding, to prevent a
+    // no-op glClear()?
+    fn clear(&self, buffers: BufferBits) {
+        unsafe {
+            gl::Clear(buffers.bits());
+            dbg_gl_sanity_check! {
+                GLError::InvalidValue => "`mask` includes a bit other than an allowed value",
+                _ => "Unkown error"
+            }
         }
     }
 }
@@ -214,78 +297,6 @@ pub struct FramebufferBinding<'a> {
 impl<'a> FramebufferBinding<'a> {
     fn target(&self) -> FramebufferTarget {
         FramebufferTarget::Framebuffer
-    }
-
-    pub fn check_framebuffer_status(&self) -> Option<GLFramebufferError> {
-        unsafe {
-            match gl::CheckFramebufferStatus(self.target().gl_enum()) {
-                gl::FRAMEBUFFER_INCOMPLETE_ATTACHMENT => {
-                    Some(GLFramebufferError::IncompleteAttachment)
-                },
-                // gl::FRAMEBUFFER_INCOMPLETE_DIMENSIONS => {
-                //     Some(GLFramebufferError::IncompleteDimensions)
-                // },
-                gl::FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT => {
-                    Some(GLFramebufferError::IncompleteMissingAttachment)
-                },
-                gl::FRAMEBUFFER_UNSUPPORTED => {
-                    Some(GLFramebufferError::Unsupported)
-                },
-                _ => { None }
-            }
-        }
-    }
-
-    pub fn renderbuffer(&mut self,
-                        attachment: FramebufferAttachment,
-                        renderbuffer: &mut Renderbuffer)
-    {
-        let renderbuffer_target = RenderbufferTarget::Renderbuffer;
-        unsafe {
-            gl::FramebufferRenderbuffer(self.target().gl_enum(),
-                                        attachment.gl_enum(),
-                                        renderbuffer_target.gl_enum(),
-                                        renderbuffer.gl_id());
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
-                GLError::InvalidOperation => "Framebuffer 0 is bound, or `renderbuffer` is neither 0 nor the name of an existing renderbuffer object",
-                _ => "Unknown error"
-            }
-        }
-    }
-
-    pub fn texture_2d<T, I>(&mut self,
-                            attachment: FramebufferAttachment,
-                            tex_target: I,
-                            texture: &mut Texture<T>,
-                            level: i32)
-        where T: TextureType, I: Into<T::ImageTargetType>
-    {
-        debug_assert!(level == 0);
-
-        unsafe {
-            gl::FramebufferTexture2D(self.target().gl_enum(),
-                                     attachment.gl_enum(),
-                                     tex_target.into().gl_enum(),
-                                     texture.gl_id(),
-                                     level as GLint);
-            dbg_gl_sanity_check! {
-                GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not an accepted attachment point, or `textarget` is not an accepted texture target and texture is not 0",
-                GLError::InvalidValue => "`level` is not 0 and `texture` is not 0",
-                GLError::InvalidOperation => "Framebuffer object 0 is bound, `texture` is neither 0 nor the name of an existing texture object, or `textarget` is not a valid target for `texture`",
-                _ => "Unknown error"
-            }
-        }
-    }
-
-    pub fn clear(&mut self, buffers: BufferBits) {
-        unsafe {
-            gl::Clear(buffers.bits());
-            dbg_gl_sanity_check! {
-                GLError::InvalidValue => "`mask` includes a bit other than an allowed value",
-                _ => "Unkown error"
-            }
-        }
     }
 }
 
