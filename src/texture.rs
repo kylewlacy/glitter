@@ -111,36 +111,38 @@ impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
     pub fn try_unwrap(self) -> Result<Texture2d, GLError> {
         use TextureMipmapFilter::MipmapFilter;
 
-        let mut texture = unsafe { self.gl.gen_texture() };
+        let gl = self.gl;
+        let mut texture = unsafe { gl.gen_texture() };
 
         // TODO: Use macros here
-        let mut gl_tex_unit = self.gl.tex_units.borrow_mut().0.active();
+        let mut gl_tex_unit = gl.tex_units.borrow_mut().0.active();
         let mut gl_tex = gl_tex_unit.texture_2d.bind(&mut texture);
 
         if let Some(min_filter) = self.min_filter {
-            gl_tex.set_min_filter(min_filter);
+            gl.set_min_filter(&mut gl_tex, min_filter);
         }
         if let Some(mag_filter) = self.mag_filter {
-            gl_tex.set_mag_filter(mag_filter);
+            gl.set_mag_filter(&mut gl_tex, mag_filter);
         }
         if let Some(wrap_s) = self.wrap_s {
-            gl_tex.set_wrap_s(wrap_s);
+            gl.set_wrap_s(&mut gl_tex, wrap_s);
         }
         if let Some(wrap_t) = self.wrap_t {
-            gl_tex.set_wrap_t(wrap_t);
+            gl.set_wrap_t(&mut gl_tex, wrap_t);
         }
 
         // TODO: Find out what conditions lead to a non-complete texture
         //       (e.g. if either width or height are 0)
         if let Some(image) = self.image {
-            gl_tex.image_2d(Tx2dImageTarget::Texture2d, 0, image);
+            gl.image_2d(&mut gl_tex, Tx2dImageTarget::Texture2d, 0, image);
         }
         else if let Some((format, width, height)) = self.empty_params {
-            gl_tex.image_2d_empty(Tx2dImageTarget::Texture2d,
-                                  0,
-                                  format,
-                                  width,
-                                  height);
+            gl.image_2d_empty(&mut gl_tex,
+                              Tx2dImageTarget::Texture2d,
+                              0,
+                              format,
+                              width,
+                              height);
 
             if !(width > 0 && height > 0) {
                 let msg = "Error building texture: texture must have positive dimensions";
@@ -153,7 +155,7 @@ impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
         }
 
         if self.gen_mipmap {
-            gl_tex.generate_mipmap();
+            gl.generate_mipmap(&mut gl_tex);
         }
         else if let Some(MipmapFilter {..}) = self.min_filter {
                 let msg = "Error building texture: texture uses a mipmap filter but does not have a mipmap";
@@ -192,6 +194,100 @@ pub unsafe trait ContextTextureExt {
             phantom: PhantomData
         }
     }
+
+    fn set_min_filter<T, F>(&self, gl_texture: &mut T, filter: F)
+        where T: TextureBinding, F: Into<TextureMipmapFilter>
+    {
+        let gl_int = filter.into().gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(gl_texture.target(),
+                              gl::TEXTURE_MIN_FILTER,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_mag_filter<T>(&self, gl_texture: &mut T, filter: TextureFilter)
+        where T: TextureBinding
+    {
+        let gl_int = filter.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(gl_texture.target(),
+                              gl::TEXTURE_MAG_FILTER,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_wrap_s<T>(&self, gl_texture: &mut T, wrap_mode: TextureWrapMode)
+        where T: TextureBinding
+    {
+        let gl_int = wrap_mode.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(gl_texture.target(),
+                              gl::TEXTURE_WRAP_S,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn set_wrap_t<T>(&self, gl_texture: &mut T, wrap_mode: TextureWrapMode)
+        where T: TextureBinding
+    {
+        let gl_int = wrap_mode.gl_enum() as GLint;
+        unsafe {
+            _tex_parameter_iv(gl_texture.target(),
+                              gl::TEXTURE_WRAP_T,
+                              &gl_int as *const GLint);
+        }
+    }
+
+    fn generate_mipmap<T>(&self, gl_texture: &mut T)
+        where T: TextureBinding
+    {
+        unsafe {
+            gl::GenerateMipmap(gl_texture.target().gl_enum())
+        }
+    }
+
+    fn image_2d<T, U, I: ?Sized>(&self,
+                                 _gl_texture: &mut T,
+                                 target: U,
+                                 level: u32,
+                                 img: &I)
+        where T: TextureBinding,
+              U: Into<<T::TextureType as TextureType>::ImageTargetType>,
+              I: Image2d
+    {
+        unsafe {
+            _tex_image_2d(target.into(),
+                          level,
+                          img.format().textel_format,
+                          img.width() as u32,
+                          img.height() as u32,
+                          0,
+                          img.format(),
+                          img.textel_bytes().as_ptr());
+        }
+    }
+
+    fn image_2d_empty<T, I>(&self,
+                            _gl_texture: &mut T,
+                            target: I,
+                            level: u32,
+                            format: ImageFormat,
+                            width: u32,
+                            height: u32)
+        where T: TextureBinding, I: ImageTargetType
+    {
+        unsafe {
+            _tex_image_2d(target,
+                          level,
+                          format.textel_format,
+                          width,
+                          height,
+                          0,
+                          format,
+                          ptr::null());
+        }
+    }
 }
 
 unsafe impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
@@ -203,7 +299,6 @@ unsafe impl<'a, B, F, P, R, T> ContextTextureExt
 {
 
 }
-
 
 
 
@@ -450,86 +545,6 @@ pub trait TextureBinding {
     type TextureType: TextureType;
 
     fn target(&self) -> TextureBindingTarget;
-
-    fn set_min_filter<F: Into<TextureMipmapFilter>>(&mut self, filter: F) {
-        let gl_int = filter.into().gl_enum() as GLint;
-        unsafe {
-            _tex_parameter_iv(self.target(),
-                              gl::TEXTURE_MIN_FILTER,
-                              &gl_int as *const GLint);
-        }
-    }
-
-    fn set_mag_filter(&mut self, filter: TextureFilter) {
-        let gl_int = filter.gl_enum() as GLint;
-        unsafe {
-            _tex_parameter_iv(self.target(),
-                              gl::TEXTURE_MAG_FILTER,
-                              &gl_int as *const GLint);
-        }
-    }
-
-    fn set_wrap_s(&mut self, wrap_mode: TextureWrapMode) {
-        let gl_int = wrap_mode.gl_enum() as GLint;
-        unsafe {
-            _tex_parameter_iv(self.target(),
-                              gl::TEXTURE_WRAP_S,
-                              &gl_int as *const GLint);
-        }
-    }
-
-    fn set_wrap_t(&mut self, wrap_mode: TextureWrapMode) {
-        let gl_int = wrap_mode.gl_enum() as GLint;
-        unsafe {
-            _tex_parameter_iv(self.target(),
-                              gl::TEXTURE_WRAP_T,
-                              &gl_int as *const GLint);
-        }
-    }
-
-    fn generate_mipmap(&mut self) {
-        unsafe {
-            gl::GenerateMipmap(self.target().gl_enum())
-        }
-    }
-
-    fn image_2d<T, I: ?Sized>(&mut self,
-                              target: T,
-                              level: u32,
-                              img: &I)
-        where T: Into<<Self::TextureType as TextureType>::ImageTargetType>,
-              I: Image2d
-    {
-        unsafe {
-            _tex_image_2d(target.into(),
-                          level,
-                          img.format().textel_format,
-                          img.width() as u32,
-                          img.height() as u32,
-                          0,
-                          img.format(),
-                          img.textel_bytes().as_ptr());
-        }
-    }
-
-    fn image_2d_empty<T: ImageTargetType>(&mut self,
-                                          target: T,
-                                          level: u32,
-                                          format: ImageFormat,
-                                          width: u32,
-                                          height: u32)
-    {
-        unsafe {
-            _tex_image_2d(target,
-                          level,
-                          format.textel_format,
-                          width,
-                          height,
-                          0,
-                          format,
-                          ptr::null());
-        }
-    }
 }
 
 pub struct Texture2dBinding<'a> {
