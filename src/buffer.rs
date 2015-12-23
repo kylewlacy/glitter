@@ -334,24 +334,6 @@ gl_enum! {
 
 pub trait BufferBinding {
     fn target(&self) -> BufferBindingTarget;
-
-    fn buffer_bytes(&mut self, bytes: &[u8], usage: BufferDataUsage) {
-        let ptr = bytes.as_ptr();
-        let size = bytes.len() * mem::size_of::<u8>();
-        unsafe {
-            gl::BufferData(self.target().gl_enum(),
-                           size as GLsizeiptr,
-                           ptr as *const GLvoid,
-                           usage.gl_enum());
-            dbg_gl_error! {
-                GLError::InvalidEnum => "Invalid `target` or `usage`",
-                GLError::InvalidValue => "`size` is negative",
-                GLError::InvalidOperation => "Object 0 is bound to buffer target",
-                GLError::OutOfMemory => "Unable to create a large enough buffer",
-                _ => "Unknown error"
-            }
-        }
-    }
 }
 
 pub struct ArrayBufferBinding<'a> {
