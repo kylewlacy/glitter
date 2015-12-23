@@ -83,10 +83,14 @@ impl<'a, C> ProgramBuilder<'a, C>
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    // TODO: Move this method into `ContextProgramExt`
-    pub fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a, Self>
+pub trait ContextProgramBuilderExt: AContext + Sized {
+    fn build_program<'a>(&'a self, shaders: &'a [Shader])
+        -> ProgramBuilder<'a, Self>;
+}
+
+impl<C: AContext> ContextProgramBuilderExt for C {
+    fn build_program<'a>(&'a self, shaders: &'a [Shader])
+        -> ProgramBuilder<'a, C>
     {
         ProgramBuilder::new(self, shaders)
     }
