@@ -116,16 +116,14 @@ impl<'a, C> FramebufferBuilder<'a, C>
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    // TODO: Move this method into `ContextFramebufferExt`
-    pub fn build_framebuffer<'a>(&'a mut self)
-        -> FramebufferBuilder<'a, &'a mut Self>
-        where B: 'a,
-              F: 'a + BorrowMut<FramebufferBinder>,
-              P: 'a,
-              R: 'a,
-              T: 'a
-    {
+pub trait ContextFramebufferBuilderExt: FramebufferContext + Sized {
+    fn build_framebuffer<'a>(self) -> FramebufferBuilder<'a, Self>;
+}
+
+impl<'b, C: 'b> ContextFramebufferBuilderExt for &'b mut C
+    where &'b mut C: FramebufferContext
+{
+    fn build_framebuffer<'a>(self) -> FramebufferBuilder<'a, &'b mut C> {
         FramebufferBuilder::new(self)
     }
 }
