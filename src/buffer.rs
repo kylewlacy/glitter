@@ -387,33 +387,6 @@ unsafe fn _draw_elements(mode: DrawingMode,
     }
 }
 
-impl<'a> ArrayBufferBinding<'a> {
-    pub unsafe fn vertex_attrib_pointer(&self,
-                                        attrib: super::ProgramAttrib,
-                                        components: i8,
-                                        gl_type: super::DataType,
-                                        normalized: bool,
-                                        stride: usize,
-                                        offset: usize)
-    {
-        debug_assert!(1 <= components && components <= 4);
-
-        let gl_normalized = if normalized { gl::TRUE } else { gl::FALSE };
-        gl::VertexAttribPointer(attrib.gl_index,
-                                components as GLint,
-                                gl_type.gl_enum(),
-                                gl_normalized,
-                                stride as GLsizei,
-                                offset as *const GLvoid);
-        dbg_gl_error! {
-            GLError::InvalidEnum => "Illegal vertex attribute type",
-            GLError::InvalidValue => "`stride` is negative, `size` is not in range, or `index` is >= GL_MAX_VERTEX_ATTRIBS",
-            GLError::InvalidFramebufferOperation => "Currently bound framebuffer is not framebuffer complete",
-            _ => "Unknown error"
-        }
-    }
-}
-
 pub struct ElementArrayBufferBinding<'a> {
     phantom: PhantomData<&'a mut Buffer>
 }
