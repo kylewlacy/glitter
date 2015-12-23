@@ -74,24 +74,28 @@ impl<'a, C: 'a> ShaderBuilder<'a, C>
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    // TODO: Move these methods into `ContextShaderExt`
-    pub fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
+pub trait ContextShaderBuilderExt: AContext + Sized {
+    fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
+        -> ShaderBuilder<'a, Self>;
+
+    fn build_fragment_shader<'a>(&'a self, source: &'a str)
         -> ShaderBuilder<'a, Self>
+    {
+        self.build_shader(ShaderType::FragmentShader, source)
+    }
+
+    fn build_vertex_shader<'a>(&'a self, source: &'a str)
+        -> ShaderBuilder<'a, Self>
+    {
+        self.build_shader(ShaderType::VertexShader, source)
+    }
+}
+
+impl<C: AContext> ContextShaderBuilderExt for C {
+    fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
+        -> ShaderBuilder<'a, C>
     {
         ShaderBuilder::new(self, ty, source)
-    }
-
-    pub fn build_fragment_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, Self>
-    {
-        ShaderBuilder::new(self, ShaderType::FragmentShader, source)
-    }
-
-    pub fn build_vertex_shader<'a>(&'a self, source: &'a str)
-        -> ShaderBuilder<'a, Self>
-    {
-        ShaderBuilder::new(self, ShaderType::VertexShader, source)
     }
 }
 
