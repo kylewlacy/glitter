@@ -212,7 +212,7 @@ pub unsafe trait ContextProgramExt {
             Ok(s) => { s },
             Err(_) => { return err; }
         };
-        
+
         let str_ptr = c_str.as_ptr() as *const GLchar;
         unsafe {
             let index = gl::GetUniformLocation(program.gl_id(), str_ptr);
@@ -230,62 +230,11 @@ pub unsafe trait ContextProgramExt {
             }
         }
     }
-}
 
-unsafe impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'b, B, F, P, R, T> ContextProgramExt
-    for &'b mut ContextOf<B, F, P, R, T>
-{
-
-}
-
-
-
-pub trait ProgramContext: AContext {
-    type Rest: AContext;
-
-    fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest);
-}
-
-impl<B, F, P, R, T> ProgramContext for ContextOf<B, F, P, R, T>
-    where P: BorrowMut<ProgramBinder>
-{
-    type Rest = ContextOf<B, F, (), R, T>;
-
-    fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest)
-    {
-        let (mut program_binder, rest) = self.split_program();
-        (program_binder.borrow_mut().bind(program), rest)
-    }
-}
-
-impl<'b, B, F, P, R, T> ProgramContext for &'b mut ContextOf<B, F, P, R, T>
-    where P: BorrowMut<ProgramBinder>
-{
-    type Rest = ContextOf<&'b mut B, &'b mut F, (), &'b mut R, &'b mut T>;
-
-    fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (program_binder, rest): (&mut P, _) = gl.split_program();
-        (program_binder.borrow_mut().bind(program), rest)
-    }
-}
-
-
-
-pub struct ProgramBinding<'a> {
-    phantom: PhantomData<&'a mut Program>
-}
-
-impl<'a> ProgramBinding<'a> {
-    pub fn set_uniform<T>(&self, uniform: ProgramUniform, val: T)
+    fn set_uniform<T>(&self,
+                      _gl_program: &ProgramBinding,
+                      uniform: ProgramUniform,
+                      val: T)
         where T: UniformData
     {
         let idx = uniform.gl_index as GLint;
@@ -360,6 +309,58 @@ impl<'a> ProgramBinding<'a> {
             }
         }
     }
+}
+
+unsafe impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
+
+}
+
+unsafe impl<'b, B, F, P, R, T> ContextProgramExt
+    for &'b mut ContextOf<B, F, P, R, T>
+{
+
+}
+
+
+
+pub trait ProgramContext: AContext {
+    type Rest: AContext;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest);
+}
+
+impl<B, F, P, R, T> ProgramContext for ContextOf<B, F, P, R, T>
+    where P: BorrowMut<ProgramBinder>
+{
+    type Rest = ContextOf<B, F, (), R, T>;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest)
+    {
+        let (mut program_binder, rest) = self.split_program();
+        (program_binder.borrow_mut().bind(program), rest)
+    }
+}
+
+impl<'b, B, F, P, R, T> ProgramContext for &'b mut ContextOf<B, F, P, R, T>
+    where P: BorrowMut<ProgramBinder>
+{
+    type Rest = ContextOf<&'b mut B, &'b mut F, (), &'b mut R, &'b mut T>;
+
+    fn use_program<'a>(self, program: &'a mut Program)
+        -> (ProgramBinding<'a>, Self::Rest)
+    {
+        let gl = self.mut_into();
+        let (program_binder, rest): (&mut P, _) = gl.split_program();
+        (program_binder.borrow_mut().bind(program), rest)
+    }
+}
+
+
+
+pub struct ProgramBinding<'a> {
+    phantom: PhantomData<&'a mut Program>
 }
 
 pub struct ProgramBinder;
