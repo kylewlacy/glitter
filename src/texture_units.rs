@@ -14,12 +14,13 @@ unsafe fn _active_texture(idx: u32) {
 }
 
 pub trait TextureUnit {
-    fn idx() -> u32;
+    fn idx(&self) -> u32;
 
     fn active(&mut self) -> TextureUnitBinding {
+        let idx = self.idx();
         unsafe {
-            _active_texture(Self::idx());
-            TextureUnitBinding::current_at_idx(Self::idx())
+            _active_texture(idx);
+            TextureUnitBinding::current_at_idx(idx)
         }
     }
 }
@@ -36,14 +37,14 @@ pub struct TextureUnit5;
 pub struct TextureUnit6;
 pub struct TextureUnit7;
 
-impl TextureUnit for TextureUnit0 { fn idx() -> u32 { 0 } }
-impl TextureUnit for TextureUnit1 { fn idx() -> u32 { 1 } }
-impl TextureUnit for TextureUnit2 { fn idx() -> u32 { 2 } }
-impl TextureUnit for TextureUnit3 { fn idx() -> u32 { 3 } }
-impl TextureUnit for TextureUnit4 { fn idx() -> u32 { 4 } }
-impl TextureUnit for TextureUnit5 { fn idx() -> u32 { 5 } }
-impl TextureUnit for TextureUnit6 { fn idx() -> u32 { 6 } }
-impl TextureUnit for TextureUnit7 { fn idx() -> u32 { 7 } }
+impl TextureUnit for TextureUnit0 { fn idx(&self) -> u32 { 0 } }
+impl TextureUnit for TextureUnit1 { fn idx(&self) -> u32 { 1 } }
+impl TextureUnit for TextureUnit2 { fn idx(&self) -> u32 { 2 } }
+impl TextureUnit for TextureUnit3 { fn idx(&self) -> u32 { 3 } }
+impl TextureUnit for TextureUnit4 { fn idx(&self) -> u32 { 4 } }
+impl TextureUnit for TextureUnit5 { fn idx(&self) -> u32 { 5 } }
+impl TextureUnit for TextureUnit6 { fn idx(&self) -> u32 { 6 } }
+impl TextureUnit for TextureUnit7 { fn idx(&self) -> u32 { 7 } }
 
 // NOTE: Ensure the number of each texture unit matches its index in the tuple
 // TODO: Use macros + integer-level types to refactor this
