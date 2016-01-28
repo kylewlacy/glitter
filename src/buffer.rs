@@ -60,27 +60,6 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
     }
 }
 
-
-
-impl<BA, BE, F, P, R, T> ContextOf<BufferBinderOf<BA, BE>, F, P, R, T> {
-    pub fn split_array_buffer(self)
-        -> (BA, ContextOf<BufferBinderOf<(), BE>, F, P, R, T>)
-    {
-        let (buffers, gl) = self.split_buffers();
-        let (ba_binder, rest_buffers) = buffers.split_array();
-
-        (ba_binder, gl.join_buffers(rest_buffers))
-    }
-
-    pub fn split_element_array_buffer(self)
-        -> (BE, ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>)
-    {
-        let (buffers, gl) = self.split_buffers();
-        let (be_binder, rest_buffers) = buffers.split_element_array();
-        (be_binder, gl.join_buffers(rest_buffers))
-    }
-}
-
 pub unsafe trait ContextBufferExt {
     fn gen_buffer(&self) -> Buffer {
         let mut id : GLuint = 0;
@@ -205,68 +184,89 @@ unsafe impl<'a, B, F, P, R, T> ContextBufferExt
 
 
 pub trait ArrayBufferContext: AContext {
+    type Binder: BorrowMut<ArrayBufferBinder>;
     type Rest: AContext;
 
+    fn split_array_buffer(self) -> (Self::Binder, Self::Rest);
+
     fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ArrayBufferBinding<'a>, Self::Rest);
+        -> (ArrayBufferBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_array_buffer();
+        (binder.borrow_mut().bind(buffer), rest)
+    }
 }
 
 pub trait ElementArrayBufferContext: AContext {
+    type Binder: BorrowMut<ElementArrayBufferBinder>;
     type Rest: AContext;
 
+    fn split_element_array_buffer(self) -> (Self::Binder, Self::Rest);
+
     fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ElementArrayBufferBinding<'a>, Self::Rest);
+        -> (ElementArrayBufferBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_element_array_buffer();
+        (binder.borrow_mut().bind(buffer), rest)
+    }
 }
 
 impl<BA, BE, F, P, R, T> ArrayBufferContext
     for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BA: BorrowMut<ArrayBufferBinder>
 {
+    type Binder = BA;
     type Rest = ContextOf<BufferBinderOf<(), BE>, F, P, R, T>;
 
-    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ArrayBufferBinding<'a>, Self::Rest)
-    {
-        let (mut ba_binder, rest) = self.split_array_buffer();
-        (ba_binder.borrow_mut().bind(buffer), rest)
+    fn split_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let (buffers, gl) = self.split_buffers();
+        let (binder, rest_buffers) = buffers.split_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
-impl<'b, BA, BE, F, P, R, T> ArrayBufferContext
-    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+impl<'a, BA, BE, F, P, R, T> ArrayBufferContext
+    for &'a mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BA: BorrowMut<ArrayBufferBinder>
 {
-    type Rest = ContextOf<BufferBinderOf<(), &'b mut BE>,
-                          &'b mut F,
-                          &'b mut P,
-                          &'b mut R,
-                          &'b mut T>;
+    type Binder = &'a mut ArrayBufferBinder;
+    type Rest = ContextOf<BufferBinderOf<(), &'a mut BE>,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut T>;
 
-    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ArrayBufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (ba_binder, rest): (&mut BA, _) = gl.split_array_buffer();
-        (ba_binder.borrow_mut().bind(buffer), rest)
+    fn split_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (buffers, gl) = gl.split_buffers();
+        let buffers = buffers.borrowed_mut();
+        let (binder, rest_buffers) = buffers.split_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
-impl<'b, BA, BE, F, P, R, T> ArrayBufferContext
-    for &'b mut ContextOf<&'b mut BufferBinderOf<BA, BE>, F, P, R, T>
+impl<'a, BA, BE, F, P, R, T> ArrayBufferContext
+    for &'a mut ContextOf<&'a mut BufferBinderOf<BA, BE>, F, P, R, T>
     where BA: BorrowMut<ArrayBufferBinder>
 {
-    type Rest = ContextOf<BufferBinderOf<(), &'b mut BE>,
-                          &'b mut F,
-                          &'b mut P,
-                          &'b mut R,
-                          &'b mut T>;
+    type Binder = &'a mut ArrayBufferBinder;
+    type Rest = ContextOf<BufferBinderOf<(), &'a mut BE>,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut T>;
 
-    fn bind_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ArrayBufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (ba_binder, rest): (&mut BA, _) = gl.split_array_buffer();
-        (ba_binder.borrow_mut().bind(buffer), rest)
+    fn split_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (buffers, gl): (&mut BufferBinderOf<_, _>, _) = gl.split_buffers();
+        let buffers = buffers.borrowed_mut();
+        let (binder, rest_buffers) = buffers.split_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
@@ -274,51 +274,56 @@ impl<BA, BE, F, P, R, T> ElementArrayBufferContext
     for ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BE: BorrowMut<ElementArrayBufferBinder>
 {
+    type Binder = BE;
     type Rest = ContextOf<BufferBinderOf<BA, ()>, F, P, R, T>;
 
-    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ElementArrayBufferBinding<'a>, Self::Rest)
-    {
-        let (mut be_binder, rest) = self.split_element_array_buffer();
-        (be_binder.borrow_mut().bind(buffer), rest)
+    fn split_element_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let (buffers, gl) = self.split_buffers();
+        let (binder, rest_buffers) = buffers.split_element_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
-impl<'b, BA, BE, F, P, R, T> ElementArrayBufferContext
-    for &'b mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
+impl<'a, BA, BE, F, P, R, T> ElementArrayBufferContext
+    for &'a mut ContextOf<BufferBinderOf<BA, BE>, F, P, R, T>
     where BE: BorrowMut<ElementArrayBufferBinder>
 {
-    type Rest = ContextOf<BufferBinderOf<&'b mut BA, ()>,
-                          &'b mut F,
-                          &'b mut P,
-                          &'b mut R,
-                          &'b mut T>;
+    type Binder = &'a mut ElementArrayBufferBinder;
+    type Rest = ContextOf<BufferBinderOf<&'a mut BA, ()>,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut T>;
 
-    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ElementArrayBufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (be_binder, rest): (&mut BE, _) = gl.split_element_array_buffer();
-        (be_binder.borrow_mut().bind(buffer), rest)
+    fn split_element_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (buffers, gl) = gl.split_buffers();
+        let buffers = buffers.borrowed_mut();
+        let (binder, rest_buffers) = buffers.split_element_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
-impl<'b, BA, BE, F, P, R, T> ElementArrayBufferContext
-    for &'b mut ContextOf<&'b mut BufferBinderOf<BA, BE>, F, P, R, T>
+impl<'a, BA, BE, F, P, R, T> ElementArrayBufferContext
+    for &'a mut ContextOf<&'a mut BufferBinderOf<BA, BE>, F, P, R, T>
     where BE: BorrowMut<ElementArrayBufferBinder>
 {
-    type Rest = ContextOf<BufferBinderOf<&'b mut BA, ()>,
-                          &'b mut F,
-                          &'b mut P,
-                          &'b mut R,
-                          &'b mut T>;
+    type Binder = &'a mut ElementArrayBufferBinder;
+    type Rest = ContextOf<BufferBinderOf<&'a mut BA, ()>,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut T>;
 
-    fn bind_element_array_buffer<'a>(self, buffer: &'a mut Buffer)
-        -> (ElementArrayBufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (be_binder, rest): (&mut BE, _) = gl.split_element_array_buffer();
-        (be_binder.borrow_mut().bind(buffer), rest)
+    fn split_element_array_buffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (buffers, gl): (&mut BufferBinderOf<_, _>, _) = gl.split_buffers();
+        let buffers = buffers.borrowed_mut();
+        let (binder, rest_buffers) = buffers.split_element_array();
+
+        (binder, gl.join_buffers(rest_buffers))
     }
 }
 
