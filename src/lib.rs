@@ -54,7 +54,11 @@ pub mod prelude {
     pub use program::{ProgramContext, ContextProgramBuilderExt};
     pub use renderbuffer::{RenderbufferContext, ContextRenderbufferBuilderExt};
     pub use shader::ContextShaderBuilderExt;
-    pub use texture_units::TextureUnit;
+    pub use texture_units::{TextureUnit,
+                            TextureUnit0Context, TextureUnit1Context,
+                            TextureUnit2Context, TextureUnit3Context,
+                            TextureUnit4Context, TextureUnit5Context,
+                            TextureUnit6Context, TextureUnit7Context};
     pub use texture::TextureBinding;
     pub use vertex_buffer::{VertexBufferContext, IndexBufferContext,
                             ContextVertexBufferExt};
