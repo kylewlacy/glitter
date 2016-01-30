@@ -1,6 +1,7 @@
 use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
+use context::{AContext, ContextOf};
 use texture::{Texture2dBinder, TextureCubeMapBinder};
 use uniform_data::{UniformDatum, UniformDatumType, UniformPrimitiveType};
 use types::GLError;
@@ -313,6 +314,898 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         TextureUnitBinding::current_at_idx(idx)
     }
 }
+
+
+
+pub trait TextureUnit0Context: AContext {
+    type Unit: BorrowMut<TextureUnit0>;
+    type Rest: AContext;
+
+    fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_0(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_0();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit1Context: AContext {
+    type Unit: BorrowMut<TextureUnit1>;
+    type Rest: AContext;
+
+    fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_1(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_1();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit2Context: AContext {
+    type Unit: BorrowMut<TextureUnit2>;
+    type Rest: AContext;
+
+    fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_2(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_2();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit3Context: AContext {
+    type Unit: BorrowMut<TextureUnit3>;
+    type Rest: AContext;
+
+    fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_3(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_3();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit4Context: AContext {
+    type Unit: BorrowMut<TextureUnit4>;
+    type Rest: AContext;
+
+    fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_4(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_4();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit5Context: AContext {
+    type Unit: BorrowMut<TextureUnit5>;
+    type Rest: AContext;
+
+    fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_5(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_5();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit6Context: AContext {
+    type Unit: BorrowMut<TextureUnit6>;
+    type Rest: AContext;
+
+    fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_6(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_6();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+pub trait TextureUnit7Context: AContext {
+    type Unit: BorrowMut<TextureUnit7>;
+    type Rest: AContext;
+
+    fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest);
+
+    fn active_texture_7(self) -> (TextureUnitBinding, Self::Rest)
+        where Self: Sized
+    {
+        let (mut unit, rest) = self.split_tex_unit_7();
+        (unit.borrow_mut().active(), rest)
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T0: BorrowMut<TextureUnit0>
+{
+    type Unit = T0;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<(),
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_0();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T0: BorrowMut<TextureUnit0>
+{
+    type Unit = &'a mut TextureUnit0;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<(),
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_0();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T0: BorrowMut<TextureUnit0>
+{
+    type Unit = &'a mut TextureUnit0;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<(),
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_0();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T1: BorrowMut<TextureUnit1>
+{
+    type Unit = T1;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     (),
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_1();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T1: BorrowMut<TextureUnit1>
+{
+    type Unit = &'a mut TextureUnit1;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         (),
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_1();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T1: BorrowMut<TextureUnit1>
+{
+    type Unit = &'a mut TextureUnit1;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         (),
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_1();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T2: BorrowMut<TextureUnit2>
+{
+    type Unit = T2;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     (),
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_2();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T2: BorrowMut<TextureUnit2>
+{
+    type Unit = &'a mut TextureUnit2;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         (),
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_2();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T2: BorrowMut<TextureUnit2>
+{
+    type Unit = &'a mut TextureUnit2;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         (),
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_2();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T3: BorrowMut<TextureUnit3>
+{
+    type Unit = T3;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     (),
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_3();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T3: BorrowMut<TextureUnit3>
+{
+    type Unit = &'a mut TextureUnit3;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         (),
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_3();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T3: BorrowMut<TextureUnit3>
+{
+    type Unit = &'a mut TextureUnit3;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         (),
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_3();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T4: BorrowMut<TextureUnit4>
+{
+    type Unit = T4;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     (),
+                                                     T5,
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_4();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T4: BorrowMut<TextureUnit4>
+{
+    type Unit = &'a mut TextureUnit4;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         (),
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_4();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T4: BorrowMut<TextureUnit4>
+{
+    type Unit = &'a mut TextureUnit4;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         (),
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_4();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T5: BorrowMut<TextureUnit5>
+{
+    type Unit = T5;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     (),
+                                                     T6,
+                                                     T7>>;
+
+    fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_5();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T5: BorrowMut<TextureUnit5>
+{
+    type Unit = &'a mut TextureUnit5;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         (),
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_5();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T5: BorrowMut<TextureUnit5>
+{
+    type Unit = &'a mut TextureUnit5;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         (),
+                                         &'a mut T6,
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_5();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T6: BorrowMut<TextureUnit6>
+{
+    type Unit = T6;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     (),
+                                                     T7>>;
+
+    fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_6();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T6: BorrowMut<TextureUnit6>
+{
+    type Unit = &'a mut TextureUnit6;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         (),
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_6();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T6: BorrowMut<TextureUnit6>
+{
+    type Unit = &'a mut TextureUnit6;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         (),
+                                         &'a mut T7>>;
+
+    fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_6();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
+    for ContextOf<B, F, P, R, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>>
+    where T7: BorrowMut<TextureUnit7>
+{
+    type Unit = T7;
+    type Rest = ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     ()>>;
+
+    fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
+        let (tex_units, gl) = self.split_tex_units();
+        let (unit, rest_tex_units) = tex_units.split_7();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
+    for &'a mut ContextOf<B, F, P, R, TextureUnitsOf<T0,
+                                                     T1,
+                                                     T2,
+                                                     T3,
+                                                     T4,
+                                                     T5,
+                                                     T6,
+                                                     T7>>
+    where T7: BorrowMut<TextureUnit7>
+{
+    type Unit = &'a mut TextureUnit7;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         ()>>;
+
+    fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl) = gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (tex_unit, rest_tex_units) = tex_units.split_7();
+
+        (tex_unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
+    for &'a mut ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          &'a mut TextureUnitsOf<T0,
+                                                 T1,
+                                                 T2,
+                                                 T3,
+                                                 T4,
+                                                 T5,
+                                                 T6,
+                                                 T7>>
+    where T7: BorrowMut<TextureUnit7>
+{
+    type Unit = &'a mut TextureUnit7;
+    type Rest = ContextOf<&'a mut B,
+                          &'a mut F,
+                          &'a mut P,
+                          &'a mut R,
+                          TextureUnitsOf<&'a mut T0,
+                                         &'a mut T1,
+                                         &'a mut T2,
+                                         &'a mut T3,
+                                         &'a mut T4,
+                                         &'a mut T5,
+                                         &'a mut T6,
+                                         ()>>;
+
+    fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
+        let gl = self.borrowed_mut();
+        let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
+            gl.split_tex_units();
+        let tex_units = tex_units.borrowed_mut();
+        let (unit, rest_tex_units) = tex_units.split_7();
+
+        (unit, gl.join_tex_units(rest_tex_units))
+    }
+}
+
+
 
 pub struct TextureUnitBinding {
     idx: u32,
