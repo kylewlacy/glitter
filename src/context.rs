@@ -250,6 +250,18 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
             }
         )
     }
+
+    pub fn join_tex_units<JT>(self, tex_units: JT)
+        -> ContextOf<B, F, P, R, JT>
+    {
+        ContextOf {
+            buffers: self.buffers,
+            framebuffer: self.framebuffer,
+            program: self.program,
+            renderbuffer: self.renderbuffer,
+            tex_units: tex_units
+        }
+    }
 }
 
 pub unsafe trait ContextExt {
