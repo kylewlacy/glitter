@@ -141,37 +141,41 @@ unsafe impl<'a, B, F, P, R, T> ContextRenderbufferExt
 
 
 pub trait RenderbufferContext: AContext {
+    type Binder: BorrowMut<RenderbufferBinder>;
     type Rest: AContext;
 
+    fn split_renderbuffer(self) -> (Self::Binder, Self::Rest);
+
     fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
-        -> (RenderbufferBinding<'a>, Self::Rest);
+        -> (RenderbufferBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_renderbuffer();
+        (binder.borrow_mut().bind(rbo), rest)
+    }
 }
 
 impl<B, F, P, R, T> RenderbufferContext for ContextOf<B, F, P, R, T>
     where R: BorrowMut<RenderbufferBinder>
 {
+    type Binder = R;
     type Rest = ContextOf<B, F, P, (), T>;
 
-    fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
-        -> (RenderbufferBinding<'a>, Self::Rest)
-    {
-        let (mut rbo_binder, rest) = self.split_renderbuffer();
-        (rbo_binder.borrow_mut().bind(rbo), rest)
+    fn split_renderbuffer(self) -> (Self::Binder, Self::Rest) {
+        self.split_renderbuffer()
     }
 }
 
-impl<'b, B, F, P, R, T> RenderbufferContext
-    for &'b mut ContextOf<B, F, P, R, T>
+impl<'a, B, F, P, R, T> RenderbufferContext
+    for &'a mut ContextOf<B, F, P, R, T>
     where R: BorrowMut<RenderbufferBinder>
 {
-    type Rest = ContextOf<&'b mut B, &'b mut F, &'b mut P, (), &'b mut T>;
+    type Binder = &'a mut RenderbufferBinder;
+    type Rest = ContextOf<&'a mut B, &'a mut F, &'a mut P, (), &'a mut T>;
 
-    fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
-        -> (RenderbufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (rbo_binder, rest): (&mut R, _) = gl.split_renderbuffer();
-        (rbo_binder.borrow_mut().bind(rbo), rest)
+    fn split_renderbuffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        gl.split_renderbuffer()
     }
 }
 
