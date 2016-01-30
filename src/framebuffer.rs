@@ -258,36 +258,40 @@ gl_enum! {
 }
 
 pub trait FramebufferContext: AContext {
+    type Binder: BorrowMut<FramebufferBinder>;
     type Rest: AContext;
 
+    fn split_framebuffer(self) -> (Self::Binder, Self::Rest);
+
     fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
-        -> (FramebufferBinding<'a>, Self::Rest);
+        -> (FramebufferBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_framebuffer();
+        (binder.borrow_mut().bind(fbo), rest)
+    }
 }
 
 impl<B, F, P, R, T> FramebufferContext for ContextOf<B, F, P, R, T>
     where F: BorrowMut<FramebufferBinder>
 {
+    type Binder = F;
     type Rest = ContextOf<B, (), P, R, T>;
 
-    fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
-        -> (FramebufferBinding<'a>, Self::Rest)
-    {
-        let (mut fbo_binder, rest) = self.split_framebuffer();
-        (fbo_binder.borrow_mut().bind(fbo), rest)
+    fn split_framebuffer(self) -> (Self::Binder, Self::Rest) {
+        self.split_framebuffer()
     }
 }
 
-impl<'b, B, F, P, R, T> FramebufferContext for &'b mut ContextOf<B, F, P, R, T>
+impl<'a, B, F, P, R, T> FramebufferContext for &'a mut ContextOf<B, F, P, R, T>
     where F: BorrowMut<FramebufferBinder>
 {
-    type Rest = ContextOf<&'b mut B, (), &'b mut P, &'b mut R, &'b mut T>;
+    type Binder = &'a mut FramebufferBinder;
+    type Rest = ContextOf<&'a mut B, (), &'a mut P, &'a mut R, &'a mut T>;
 
-    fn bind_framebuffer<'a>(self, fbo: &'a mut Framebuffer)
-        -> (FramebufferBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (framebuffer_binder, rest): (&mut F, _) = gl.split_framebuffer();
-        (framebuffer_binder.borrow_mut().bind(fbo), rest)
+    fn split_framebuffer(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        gl.split_framebuffer()
     }
 }
 
