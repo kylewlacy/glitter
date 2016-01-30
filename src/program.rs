@@ -315,8 +315,8 @@ unsafe impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
 
 }
 
-unsafe impl<'b, B, F, P, R, T> ContextProgramExt
-    for &'b mut ContextOf<B, F, P, R, T>
+unsafe impl<'a, B, F, P, R, T> ContextProgramExt
+    for &'a mut ContextOf<B, F, P, R, T>
 {
 
 }
@@ -324,36 +324,40 @@ unsafe impl<'b, B, F, P, R, T> ContextProgramExt
 
 
 pub trait ProgramContext: AContext {
+    type Binder: BorrowMut<ProgramBinder>;
     type Rest: AContext;
 
+    fn split_program(self) -> (Self::Binder, Self::Rest);
+
     fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest);
+        -> (ProgramBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_program();
+        (binder.borrow_mut().bind(program), rest)
+    }
 }
 
 impl<B, F, P, R, T> ProgramContext for ContextOf<B, F, P, R, T>
     where P: BorrowMut<ProgramBinder>
 {
+    type Binder = P;
     type Rest = ContextOf<B, F, (), R, T>;
 
-    fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest)
-    {
-        let (mut program_binder, rest) = self.split_program();
-        (program_binder.borrow_mut().bind(program), rest)
+    fn split_program(self) -> (Self::Binder, Self::Rest) {
+        self.split_program()
     }
 }
 
-impl<'b, B, F, P, R, T> ProgramContext for &'b mut ContextOf<B, F, P, R, T>
-    where P: BorrowMut<ProgramBinder>
+impl<'a, B, F, P, R, T> ProgramContext for &'a mut ContextOf<B, F, P, R, T>
+    where &'a mut P: BorrowMut<ProgramBinder>
 {
-    type Rest = ContextOf<&'b mut B, &'b mut F, (), &'b mut R, &'b mut T>;
+    type Binder = &'a mut P;
+    type Rest = ContextOf<&'a mut B, &'a mut F, (), &'a mut R, &'a mut T>;
 
-    fn use_program<'a>(self, program: &'a mut Program)
-        -> (ProgramBinding<'a>, Self::Rest)
-    {
-        let gl = self.mut_into();
-        let (program_binder, rest): (&mut P, _) = gl.split_program();
-        (program_binder.borrow_mut().bind(program), rest)
+    fn split_program(self) -> (Self::Binder, Self::Rest) {
+        let gl = self.borrowed_mut();
+        gl.split_program()
     }
 }
 
