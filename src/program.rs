@@ -345,7 +345,7 @@ impl<B, F, P, R, T> ProgramContext for ContextOf<B, F, P, R, T>
     type Rest = ContextOf<B, F, (), R, T>;
 
     fn split_program(self) -> (Self::Binder, Self::Rest) {
-        self.split_program()
+        self.swap_program(())
     }
 }
 
@@ -357,7 +357,7 @@ impl<'a, B, F, P, R, T> ProgramContext for &'a mut ContextOf<B, F, P, R, T>
 
     fn split_program(self) -> (Self::Binder, Self::Rest) {
         let gl = self.borrowed_mut();
-        gl.split_program()
+        gl.swap_program(())
     }
 }
 

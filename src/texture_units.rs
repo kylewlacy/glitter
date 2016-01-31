@@ -446,10 +446,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
                                                      T7>>;
 
     fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_0();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -480,11 +481,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
 
     fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_0();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -520,11 +522,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit0Context
     fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_0();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -543,10 +546,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
                                                      T7>>;
 
     fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_1();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -577,11 +581,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
 
     fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_1();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -617,11 +622,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit1Context
     fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_1();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -640,10 +646,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
                                                      T7>>;
 
     fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_2();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -674,11 +681,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
 
     fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_2();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -714,11 +722,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit2Context
     fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_2();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -737,10 +746,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
                                                      T7>>;
 
     fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_3();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -771,11 +781,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
 
     fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_3();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -811,11 +822,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit3Context
     fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_3();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -834,10 +846,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
                                                      T7>>;
 
     fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_4();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -868,11 +881,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
 
     fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_4();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -908,11 +922,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit4Context
     fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_4();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -931,10 +946,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
                                                      T7>>;
 
     fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_5();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -965,11 +981,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
 
     fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_5();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -1005,11 +1022,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit5Context
     fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_5();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -1028,10 +1046,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
                                                      T7>>;
 
     fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_6();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -1062,11 +1081,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
 
     fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_6();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -1102,11 +1122,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit6Context
     fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_6();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -1125,10 +1146,11 @@ impl<B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
                                                      ()>>;
 
     fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
-        let (tex_units, gl) = self.split_tex_units();
+        let (tex_units, gl) = self.swap_tex_units(());
         let (unit, rest_tex_units) = tex_units.split_7();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 
@@ -1159,11 +1181,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
 
     fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
-        let (tex_units, gl) = gl.split_tex_units();
+        let (tex_units, gl) = gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (tex_unit, rest_tex_units) = tex_units.split_7();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (tex_unit, gl.join_tex_units(rest_tex_units))
+        (tex_unit, gl)
     }
 }
 
@@ -1199,11 +1222,12 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
     fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest) {
         let gl = self.borrowed_mut();
         let (tex_units, gl): (&mut TextureUnitsOf<_, _, _, _, _, _, _, _>, _) =
-            gl.split_tex_units();
+            gl.swap_tex_units(());
         let tex_units = tex_units.borrowed_mut();
         let (unit, rest_tex_units) = tex_units.split_7();
+        let ((), gl) = gl.swap_tex_units(rest_tex_units);
 
-        (unit, gl.join_tex_units(rest_tex_units))
+        (unit, gl)
     }
 }
 

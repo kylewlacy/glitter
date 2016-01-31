@@ -162,7 +162,7 @@ impl<B, F, P, R, T> RenderbufferContext for ContextOf<B, F, P, R, T>
     type Rest = ContextOf<B, F, P, (), T>;
 
     fn split_renderbuffer(self) -> (Self::Binder, Self::Rest) {
-        self.split_renderbuffer()
+        self.swap_renderbuffer(())
     }
 }
 
@@ -175,7 +175,7 @@ impl<'a, B, F, P, R, T> RenderbufferContext
 
     fn split_renderbuffer(self) -> (Self::Binder, Self::Rest) {
         let gl = self.borrowed_mut();
-        gl.split_renderbuffer()
+        gl.swap_renderbuffer(())
     }
 }
 

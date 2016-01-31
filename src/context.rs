@@ -164,13 +164,13 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         }
     }
 
-    pub fn split_buffers(self)
-        -> (B, ContextOf<(), F, P, R, T>)
+    pub fn swap_buffers<NB>(self, new_buffer: NB)
+        -> (B, ContextOf<NB, F, P, R, T>)
     {
         (
             self.buffers,
             ContextOf {
-                buffers: (),
+                buffers: new_buffer,
                 framebuffer: self.framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
@@ -179,26 +179,14 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         )
     }
 
-    pub fn join_buffers<JB>(self, buffers: JB)
-        -> ContextOf<JB, F, P, R, T>
-    {
-        ContextOf {
-            buffers: buffers,
-            framebuffer: self.framebuffer,
-            program: self.program,
-            renderbuffer: self.renderbuffer,
-            tex_units: self.tex_units
-        }
-    }
-
-    pub fn split_framebuffer(self)
-        -> (F, ContextOf<B, (), P, R, T>)
+    pub fn swap_framebuffer<NF>(self, new_framebuffer: NF)
+        -> (F, ContextOf<B, NF, P, R, T>)
     {
         (
             self.framebuffer,
             ContextOf {
                 buffers: self.buffers,
-                framebuffer: (),
+                framebuffer: new_framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
                 tex_units: self.tex_units
@@ -206,23 +194,23 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
         )
     }
 
-    pub fn split_program(self)
-        -> (P, ContextOf<B, F, (), R, T>)
+    pub fn swap_program<NP>(self, new_program: NP)
+        -> (P, ContextOf<B, F, NP, R, T>)
     {
         (
             self.program,
             ContextOf {
                 buffers: self.buffers,
                 framebuffer: self.framebuffer,
-                program: (),
+                program: new_program,
                 renderbuffer: self.renderbuffer,
                 tex_units: self.tex_units
             }
         )
     }
 
-    pub fn split_renderbuffer(self)
-        -> (R, ContextOf<B, F, P, (), T>)
+    pub fn swap_renderbuffer<NR>(self, new_renderbuffer: NR)
+        -> (R, ContextOf<B, F, P, NR, T>)
     {
         (
             self.renderbuffer,
@@ -230,14 +218,14 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 buffers: self.buffers,
                 framebuffer: self.framebuffer,
                 program: self.program,
-                renderbuffer: (),
+                renderbuffer: new_renderbuffer,
                 tex_units: self.tex_units
             }
         )
     }
 
-    pub fn split_tex_units(self)
-        -> (T, ContextOf<B, F, P, R, ()>)
+    pub fn swap_tex_units<NT>(self, new_tex_units: NT)
+        -> (T, ContextOf<B, F, P, R, NT>)
     {
         (
             self.tex_units,
@@ -246,21 +234,9 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: self.framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
-                tex_units: ()
+                tex_units: new_tex_units
             }
         )
-    }
-
-    pub fn join_tex_units<JT>(self, tex_units: JT)
-        -> ContextOf<B, F, P, R, JT>
-    {
-        ContextOf {
-            buffers: self.buffers,
-            framebuffer: self.framebuffer,
-            program: self.program,
-            renderbuffer: self.renderbuffer,
-            tex_units: tex_units
-        }
     }
 }
 

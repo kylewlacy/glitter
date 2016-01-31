@@ -279,7 +279,7 @@ impl<B, F, P, R, T> FramebufferContext for ContextOf<B, F, P, R, T>
     type Rest = ContextOf<B, (), P, R, T>;
 
     fn split_framebuffer(self) -> (Self::Binder, Self::Rest) {
-        self.split_framebuffer()
+        self.swap_framebuffer(())
     }
 }
 
@@ -291,7 +291,7 @@ impl<'a, B, F, P, R, T> FramebufferContext for &'a mut ContextOf<B, F, P, R, T>
 
     fn split_framebuffer(self) -> (Self::Binder, Self::Rest) {
         let gl = self.borrowed_mut();
-        gl.split_framebuffer()
+        gl.swap_framebuffer(())
     }
 }
 
