@@ -1255,6 +1255,30 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
             }
         )
     }
+
+    fn borrowed<'a, B2 = T2, BC = TC>(&'a self)
+        -> TextureUnitBindingOf<&'a B2, &'a BC>
+        where T2: Borrow<B2>,
+              TC: Borrow<BC>
+    {
+        TextureUnitBindingOf {
+            idx: self.idx,
+            texture_2d: self.texture_2d.borrow(),
+            texture_cube_map: self.texture_cube_map.borrow()
+        }
+    }
+
+    fn borrowed_mut<'a, B2 = T2, BC = TC>(&'a mut self)
+        -> TextureUnitBindingOf<&'a mut B2, &'a mut BC>
+        where T2: BorrowMut<B2>,
+              TC: BorrowMut<BC>
+    {
+        TextureUnitBindingOf {
+            idx: self.idx,
+            texture_2d: self.texture_2d.borrow_mut(),
+            texture_cube_map: self.texture_cube_map.borrow_mut()
+        }
+    }
 }
 
 #[repr(C)]
