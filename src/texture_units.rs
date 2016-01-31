@@ -1207,14 +1207,18 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
 
 
 
-pub struct TextureUnitBinding {
+// TODO: Make `idx` a type-level integer parameter
+pub struct TextureUnitBindingOf<T2, TC> {
     idx: u32,
-    pub texture_2d: Texture2dBinder,
-    pub texture_cube_map: TextureCubeMapBinder
+    pub texture_2d: T2,
+    pub texture_cube_map: TC
 }
 
-impl TextureUnitBinding {
-    unsafe fn current_at_idx(idx: u32) -> Self {
+pub type TextureUnitBinding = TextureUnitBindingOf<Texture2dBinder,
+                                                   TextureCubeMapBinder>;
+
+impl<T2, TC> TextureUnitBindingOf<T2, TC> {
+    unsafe fn current_at_idx(idx: u32) -> TextureUnitBinding {
         TextureUnitBinding {
             idx: idx,
             texture_2d: Texture2dBinder,
