@@ -1281,6 +1281,20 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
     }
 }
 
+pub unsafe trait ATextureUnitBinding {
+
+}
+
+unsafe impl<T2, TC> ATextureUnitBinding for TextureUnitBindingOf<T2, TC> {
+
+}
+
+unsafe impl<'a, T2, TC> ATextureUnitBinding
+    for &'a mut TextureUnitBindingOf<T2, TC>
+{
+
+}
+
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct TextureSampler { idx: i32 }
@@ -1290,6 +1304,7 @@ unsafe impl UniformDatum for TextureSampler {
         UniformDatumType::Vec1(UniformPrimitiveType::Int)
     }
 }
+
 
 
 #[macro_export]
