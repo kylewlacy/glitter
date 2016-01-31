@@ -222,7 +222,7 @@ impl<BA, BE, F, P, R, T> ArrayBufferContext
 
     fn split_array_buffer(self) -> (Self::Binder, Self::Rest) {
         let (buffers, gl) = self.swap_buffers(());
-        let (binder, rest_buffers) = buffers.split_array();
+        let (binder, rest_buffers) = buffers.swap_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -244,7 +244,7 @@ impl<'a, BA, BE, F, P, R, T> ArrayBufferContext
         let gl = self.borrowed_mut();
         let (buffers, gl) = gl.swap_buffers(());
         let buffers = buffers.borrowed_mut();
-        let (binder, rest_buffers) = buffers.split_array();
+        let (binder, rest_buffers) = buffers.swap_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -266,7 +266,7 @@ impl<'a, BA, BE, F, P, R, T> ArrayBufferContext
         let gl = self.borrowed_mut();
         let (buffers, gl): (&mut BufferBinderOf<_, _>, _) = gl.swap_buffers(());
         let buffers = buffers.borrowed_mut();
-        let (binder, rest_buffers) = buffers.split_array();
+        let (binder, rest_buffers) = buffers.swap_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -282,7 +282,7 @@ impl<BA, BE, F, P, R, T> ElementArrayBufferContext
 
     fn split_element_array_buffer(self) -> (Self::Binder, Self::Rest) {
         let (buffers, gl) = self.swap_buffers(());
-        let (binder, rest_buffers) = buffers.split_element_array();
+        let (binder, rest_buffers) = buffers.swap_element_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -304,7 +304,7 @@ impl<'a, BA, BE, F, P, R, T> ElementArrayBufferContext
         let gl = self.borrowed_mut();
         let (buffers, gl) = gl.swap_buffers(());
         let buffers = buffers.borrowed_mut();
-        let (binder, rest_buffers) = buffers.split_element_array();
+        let (binder, rest_buffers) = buffers.swap_element_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -326,7 +326,7 @@ impl<'a, BA, BE, F, P, R, T> ElementArrayBufferContext
         let gl = self.borrowed_mut();
         let (buffers, gl): (&mut BufferBinderOf<_, _>, _) = gl.swap_buffers(());
         let buffers = buffers.borrowed_mut();
-        let (binder, rest_buffers) = buffers.split_element_array();
+        let (binder, rest_buffers) = buffers.swap_element_array(());
         let ((), gl) = gl.swap_buffers(rest_buffers);
 
         (binder, gl)
@@ -452,22 +452,26 @@ impl<A, E> BufferBinderOf<A, E> {
         }
     }
 
-    pub fn split_array(self) -> (A, BufferBinderOf<(), E>) {
+    pub fn swap_array<NA>(self, new_array: NA)
+        -> (A, BufferBinderOf<NA, E>)
+    {
         (
             self.array,
             BufferBinderOf {
-                array: (),
+                array: new_array,
                 element_array: self.element_array
             }
         )
     }
 
-    pub fn split_element_array(self) -> (E, BufferBinderOf<A, ()>) {
+    pub fn swap_element_array<NE>(self, new_element_array: NE)
+        -> (E, BufferBinderOf<A, NE>)
+    {
         (
             self.element_array,
             BufferBinderOf {
                 array: self.array,
-                element_array: ()
+                element_array: new_element_array
             }
         )
     }
