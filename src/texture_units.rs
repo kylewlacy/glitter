@@ -2,7 +2,9 @@ use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use context::{AContext, ContextOf};
-use texture::{Texture2dBinder, TextureCubeMapBinder};
+use texture::{Texture2dBinder, TextureCubeMapBinder,
+              Texture2dBinding, TextureCubeMapBinding,
+              Texture2d, TextureCubeMap};
 use uniform_data::{UniformDatum, UniformDatumType, UniformPrimitiveType};
 use types::GLError;
 
@@ -1293,6 +1295,84 @@ unsafe impl<'a, T2, TC> ATextureUnitBinding
     for &'a mut TextureUnitBindingOf<T2, TC>
 {
 
+}
+
+pub trait TextureUnitBinding2d: ATextureUnitBinding {
+    type Binder: BorrowMut<Texture2dBinder>;
+    type Rest: ATextureUnitBinding;
+
+    fn split_texture_2d(self) -> (Self::Binder, Self::Rest);
+
+    fn bind_texture_2d<'a>(self, tex: &'a mut Texture2d)
+        -> (Texture2dBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_texture_2d();
+        (binder.borrow_mut().bind(tex), rest)
+    }
+}
+
+pub trait TextureUnitBindingCubeMap: ATextureUnitBinding {
+    type Binder: BorrowMut<TextureCubeMapBinder>;
+    type Rest: ATextureUnitBinding;
+
+    fn split_texture_cube_map(self) -> (Self::Binder, Self::Rest);
+
+    fn bind_texture_cube_map<'a>(self, tex: &'a mut TextureCubeMap)
+        -> (TextureCubeMapBinding<'a>, Self::Rest)
+        where Self: Sized
+    {
+        let (mut binder, rest) = self.split_texture_cube_map();
+        (binder.borrow_mut().bind(tex), rest)
+    }
+}
+
+impl<T2, TC> TextureUnitBinding2d for TextureUnitBindingOf<T2, TC>
+    where T2: BorrowMut<Texture2dBinder>
+{
+    type Binder = T2;
+    type Rest = TextureUnitBindingOf<(), TC>;
+
+    fn split_texture_2d(self) -> (Self::Binder, Self::Rest) {
+        self.split_texture_2d()
+    }
+}
+
+impl<'a, T2, TC> TextureUnitBinding2d
+    for &'a mut TextureUnitBindingOf<T2, TC>
+    where T2: BorrowMut<Texture2dBinder>
+{
+    type Binder = &'a mut Texture2dBinder;
+    type Rest = TextureUnitBindingOf<(), &'a mut TC>;
+
+    fn split_texture_2d(self) -> (Self::Binder, Self::Rest) {
+        let gl_tex_unit = self.borrowed_mut();
+        gl_tex_unit.split_texture_2d()
+    }
+}
+
+impl<T2, TC> TextureUnitBindingCubeMap for TextureUnitBindingOf<T2, TC>
+    where TC: BorrowMut<TextureCubeMapBinder>
+{
+    type Binder = TC;
+    type Rest = TextureUnitBindingOf<T2, ()>;
+
+    fn split_texture_cube_map(self) -> (Self::Binder, Self::Rest) {
+        self.split_texture_cube_map()
+    }
+}
+
+impl<'a, T2, TC> TextureUnitBindingCubeMap
+    for &'a mut TextureUnitBindingOf<T2, TC>
+    where TC: BorrowMut<TextureCubeMapBinder>
+{
+    type Binder = &'a mut TextureCubeMapBinder;
+    type Rest = TextureUnitBindingOf<&'a mut T2, ()>;
+
+    fn split_texture_cube_map(self) -> (Self::Binder, Self::Rest) {
+        let gl_tex_unit = self.borrowed_mut();
+        gl_tex_unit.split_texture_cube_map()
+    }
 }
 
 #[repr(C)]
