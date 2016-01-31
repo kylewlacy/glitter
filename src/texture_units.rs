@@ -1233,6 +1233,28 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
     pub fn sampler(&self) -> TextureSampler {
         TextureSampler { idx: self.idx as i32 }
     }
+
+    fn split_texture_2d(self) -> (T2, TextureUnitBindingOf<(), TC>) {
+        (
+            self.texture_2d,
+            TextureUnitBindingOf {
+                idx: self.idx,
+                texture_2d: (),
+                texture_cube_map: self.texture_cube_map
+            }
+        )
+    }
+
+    fn split_texture_cube_map(self) -> (TC, TextureUnitBindingOf<T2, ()>) {
+        (
+            self.texture_cube_map,
+            TextureUnitBindingOf {
+                idx: self.idx,
+                texture_2d: self.texture_2d,
+                texture_cube_map: ()
+            }
+        )
+    }
 }
 
 #[repr(C)]
