@@ -9,6 +9,7 @@ use renderbuffer::{RenderbufferBinder, ContextRenderbufferExt};
 use shader::ContextShaderExt;
 use texture::ContextTextureExt;
 use texture_units::TextureUnits;
+use to_ref::{ToRef, ToMut};
 
 pub type Context = ContextOf<BufferBinder,
                              FramebufferBinder,
@@ -190,6 +191,46 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 tex_units: new_tex_units
             }
         )
+    }
+}
+
+impl<'a, B, F, P, R, T> ToRef<'a> for ContextOf<B, F, P, R, T>
+    where B: 'a + ToRef<'a>,
+          F: 'a + ToRef<'a>,
+          P: 'a + ToRef<'a>,
+          R: 'a + ToRef<'a>,
+          T: 'a + ToRef<'a>
+{
+    type Ref = ContextOf<B::Ref, F::Ref, P::Ref, R::Ref, T::Ref>;
+
+    fn to_ref(&'a self) -> Self::Ref {
+        ContextOf {
+            buffers: self.buffers.to_ref(),
+            framebuffer: self.framebuffer.to_ref(),
+            program: self.program.to_ref(),
+            renderbuffer: self.renderbuffer.to_ref(),
+            tex_units: self.tex_units.to_ref()
+        }
+    }
+}
+
+impl<'a, B, F, P, R, T> ToMut<'a> for ContextOf<B, F, P, R, T>
+    where B: 'a + ToMut<'a>,
+          F: 'a + ToMut<'a>,
+          P: 'a + ToMut<'a>,
+          R: 'a + ToMut<'a>,
+          T: 'a + ToMut<'a>
+{
+    type Mut = ContextOf<B::Mut, F::Mut, P::Mut, R::Mut, T::Mut>;
+
+    fn to_mut(&'a mut self) -> Self::Mut {
+        ContextOf {
+            buffers: self.buffers.to_mut(),
+            framebuffer: self.framebuffer.to_mut(),
+            program: self.program.to_mut(),
+            renderbuffer: self.renderbuffer.to_mut(),
+            tex_units: self.tex_units.to_mut()
+        }
     }
 }
 
