@@ -6,7 +6,7 @@ use std::marker::PhantomData;
 use std::ffi::CString;
 use gl;
 use gl::types::*;
-use types::GLError;
+use types::{GLObject, GLError};
 use context::{AContext, ContextOf};
 use shader::Shader;
 use uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
@@ -26,6 +26,18 @@ impl Drop for Program {
         unsafe {
             gl::DeleteProgram(self.gl_id);
         }
+    }
+}
+
+impl GLObject for Program {
+    type Id = GLuint;
+
+    unsafe fn from_raw(id: Self::Id) -> Self {
+        Program { gl_id: id }
+    }
+
+    fn id(&self) -> Self::Id {
+        self.gl_id
     }
 }
 
