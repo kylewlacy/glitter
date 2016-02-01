@@ -90,16 +90,16 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        TextureUnit7)
     }
 
-    pub fn borrowed<'a,
-                    B0 = T0,
-                    B1 = T1,
-                    B2 = T2,
-                    B3 = T3,
-                    B4 = T4,
-                    B5 = T5,
-                    B6 = T6,
-                    B7 = T7>
-                   (&'a self)
+    fn borrowed<'a,
+                B0 = T0,
+                B1 = T1,
+                B2 = T2,
+                B3 = T3,
+                B4 = T4,
+                B5 = T5,
+                B6 = T6,
+                B7 = T7>
+               (&'a self)
         -> TextureUnitsOf<&'a B0,
                           &'a B1,
                           &'a B2,
@@ -127,16 +127,16 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        self.7.borrow())
     }
 
-    pub fn borrowed_mut<'a,
-                        B0 = T0,
-                        B1 = T1,
-                        B2 = T2,
-                        B3 = T3,
-                        B4 = T4,
-                        B5 = T5,
-                        B6 = T6,
-                        B7 = T7>
-                       (&'a mut self)
+    fn borrowed_mut<'a,
+                    B0 = T0,
+                    B1 = T1,
+                    B2 = T2,
+                    B3 = T3,
+                    B4 = T4,
+                    B5 = T5,
+                    B6 = T6,
+                    B7 = T7>
+                   (&'a mut self)
         -> TextureUnitsOf<&'a mut B0,
                           &'a mut B1,
                           &'a mut B2,
