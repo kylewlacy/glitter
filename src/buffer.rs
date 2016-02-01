@@ -5,7 +5,7 @@ use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
 use context::{AContext, ContextOf};
-use types::{DrawingMode, GLError};
+use types::{DrawingMode, GLObject, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
 use to_ref::{ToRef, ToMut};
 
@@ -24,6 +24,18 @@ impl Drop for Buffer {
         unsafe {
             gl::DeleteBuffers(1, &self.gl_id as *const GLuint);
         }
+    }
+}
+
+impl GLObject for Buffer {
+    type Id = GLuint;
+
+    unsafe fn from_raw(id: Self::Id) -> Self {
+        Buffer { gl_id: id }
+    }
+
+    fn id(&self) -> Self::Id {
+        self.gl_id
     }
 }
 
