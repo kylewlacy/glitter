@@ -7,6 +7,7 @@ use gl::types::*;
 use context::{AContext, ContextOf};
 use types::{DrawingMode, GLError};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
+use to_ref::{ToRef, ToMut};
 
 pub struct Buffer {
     gl_id: GLuint
@@ -473,6 +474,32 @@ impl<A, E> BufferBinderOf<A, E> {
                 element_array: new_element_array
             }
         )
+    }
+}
+
+impl<'a, A, E> ToRef<'a> for BufferBinderOf<A, E>
+    where A: 'a + ToRef<'a>, E: 'a + ToRef<'a>
+{
+    type Ref = BufferBinderOf<A::Ref, E::Ref>;
+
+    fn to_ref(&'a self) -> Self::Ref {
+        BufferBinderOf {
+            array: self.array.to_ref(),
+            element_array: self.element_array.to_ref()
+        }
+    }
+}
+
+impl<'a, A, E> ToMut<'a> for BufferBinderOf<A, E>
+    where A: 'a + ToMut<'a>, E: 'a + ToMut<'a>
+{
+    type Mut = BufferBinderOf<A::Mut, E::Mut>;
+
+    fn to_mut(&'a mut self) -> Self::Mut {
+        BufferBinderOf {
+            array: self.array.to_mut(),
+            element_array: self.element_array.to_mut()
+        }
     }
 }
 
