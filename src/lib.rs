@@ -49,9 +49,9 @@ pub mod prelude {
     pub use context::{AContext, BufferContext,
                       ArrayBufferContext, ElementArrayBufferContext,
                       FramebufferContext, ContextFramebufferBuilderExt,
-                      ProgramContext, ContextProgramBuilderExt};
+                      ProgramContext, ContextProgramBuilderExt,
+                      RenderbufferContext, ContextRenderbufferBuilderExt};
     pub use context::ext::*;
-    pub use renderbuffer::{RenderbufferContext, ContextRenderbufferBuilderExt};
     pub use shader::ContextShaderBuilderExt;
     pub use texture_units::{TextureUnit, TextureUnitBinding,
                             TextureUnitBindingOf, ATextureUnitBinding,
