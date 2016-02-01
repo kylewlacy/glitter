@@ -1,4 +1,4 @@
-use std::borrow::{Borrow, BorrowMut};
+use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
 use context::{AContext, ContextOf};
@@ -88,43 +88,6 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        TextureUnit5,
                        TextureUnit6,
                        TextureUnit7)
-    }
-
-    fn borrowed<'a,
-                B0 = T0,
-                B1 = T1,
-                B2 = T2,
-                B3 = T3,
-                B4 = T4,
-                B5 = T5,
-                B6 = T6,
-                B7 = T7>
-               (&'a self)
-        -> TextureUnitsOf<&'a B0,
-                          &'a B1,
-                          &'a B2,
-                          &'a B3,
-                          &'a B4,
-                          &'a B5,
-                          &'a B6,
-                          &'a B7>
-        where T0: Borrow<B0>,
-              T1: Borrow<B1>,
-              T2: Borrow<B2>,
-              T3: Borrow<B3>,
-              T4: Borrow<B4>,
-              T5: Borrow<B5>,
-              T6: Borrow<B6>,
-              T7: Borrow<B7>
-    {
-        TextureUnitsOf(self.0.borrow(),
-                       self.1.borrow(),
-                       self.2.borrow(),
-                       self.3.borrow(),
-                       self.4.borrow(),
-                       self.5.borrow(),
-                       self.6.borrow(),
-                       self.7.borrow())
     }
 
     fn borrowed_mut<'a,
@@ -1307,18 +1270,6 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
                 texture_cube_map: ()
             }
         )
-    }
-
-    fn borrowed<'a, B2 = T2, BC = TC>(&'a self)
-        -> TextureUnitBindingOf<&'a B2, &'a BC>
-        where T2: Borrow<B2>,
-              TC: Borrow<BC>
-    {
-        TextureUnitBindingOf {
-            idx: self.idx,
-            texture_2d: self.texture_2d.borrow(),
-            texture_cube_map: self.texture_cube_map.borrow()
-        }
     }
 
     fn borrowed_mut<'a, B2 = T2, BC = TC>(&'a mut self)
