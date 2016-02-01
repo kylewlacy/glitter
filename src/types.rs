@@ -1,3 +1,4 @@
+use std::mem;
 use std::fmt;
 use std::error;
 use gl;
@@ -31,6 +32,22 @@ impl Viewport {
             width: width,
             height: height
         }
+    }
+}
+
+pub trait GLObject {
+    type Id;
+
+    unsafe fn from_raw(id: Self::Id) -> Self;
+
+    fn id(&self) -> Self::Id;
+
+    fn into_raw(self) -> Self::Id
+        where Self: Sized
+    {
+        let id = self.id();
+        mem::forget(self);
+        id
     }
 }
 
