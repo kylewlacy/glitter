@@ -4,7 +4,7 @@ use gl;
 use gl::types::*;
 use context::{AContext, ContextOf};
 use image_data::{RenderbufferFormat};
-use types::GLError;
+use types::{GLObject, GLError};
 
 pub struct Renderbuffer {
     gl_id: GLuint
@@ -21,6 +21,18 @@ impl Drop for Renderbuffer {
         unsafe {
             gl::DeleteRenderbuffers(1, &self.gl_id as *const GLuint);
         }
+    }
+}
+
+impl GLObject for Renderbuffer {
+    type Id = GLuint;
+
+    unsafe fn from_raw(id: Self::Id) -> Self {
+        Renderbuffer { gl_id: id }
+    }
+
+    fn id(&self) -> Self::Id {
+        self.gl_id
     }
 }
 
