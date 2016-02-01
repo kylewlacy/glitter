@@ -2,7 +2,6 @@ use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
-use buffer::{BufferBinder, ContextBufferExt};
 use framebuffer::{FramebufferBinder, ContextFramebufferExt};
 use program::{ProgramBinder, ContextProgramExt, ProgramAttrib};
 use renderbuffer::{RenderbufferBinder, ContextRenderbufferExt};
@@ -10,6 +9,10 @@ use shader::ContextShaderExt;
 use texture::ContextTextureExt;
 use texture_units::TextureUnits;
 use to_ref::{ToRef, ToMut};
+
+pub mod buffer_context;
+
+pub use self::buffer_context::*;
 
 pub type Context = ContextOf<BufferBinder,
                              FramebufferBinder,

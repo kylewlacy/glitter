@@ -1,12 +1,12 @@
 use std::marker::PhantomData;
 use std::collections::{HashMap, HashSet};
-use context::{ContextOf, AContext};
+use context::{ContextOf, AContext, ContextBufferExt,
+              ArrayBufferBinding, ArrayBufferContext,
+              ElementArrayBufferBinding, ElementArrayBufferContext};
 use program::ProgramAttrib;
 use vertex_data::{VertexData, VertexBytes, VertexAttribute};
 use index_data::{IndexData, IndexDatum};
-use buffer::{Buffer, ContextBufferExt,
-             ArrayBufferBinding, ArrayBufferContext,
-             ElementArrayBufferBinding, ElementArrayBufferContext};
+use buffer::Buffer;
 use types::DrawingMode;
 
 #[derive(Debug)]
