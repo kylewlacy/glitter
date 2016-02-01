@@ -7,6 +7,7 @@ use texture::{Texture2dBinder, TextureCubeMapBinder,
               Texture2d, TextureCubeMap};
 use uniform_data::{UniformDatum, UniformDatumType, UniformPrimitiveType};
 use types::GLError;
+use to_ref::{ToRef, ToMut};
 
 unsafe fn _active_texture(idx: u32) {
     gl::ActiveTexture(gl::TEXTURE0 + (idx as GLenum));
@@ -314,6 +315,74 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
     pub unsafe fn active_nth(&self, idx: u32) -> TextureUnitBinding {
         _active_texture(idx);
         TextureUnitBinding::current_at_idx(idx)
+    }
+}
+
+impl<'a, T0, T1, T2, T3, T4, T5, T6, T7> ToRef<'a>
+    for TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>
+    where T0: 'a + ToRef<'a>,
+          T1: 'a + ToRef<'a>,
+          T2: 'a + ToRef<'a>,
+          T3: 'a + ToRef<'a>,
+          T4: 'a + ToRef<'a>,
+          T5: 'a + ToRef<'a>,
+          T6: 'a + ToRef<'a>,
+          T7: 'a + ToRef<'a>
+{
+    type Ref = TextureUnitsOf<T0::Ref,
+                              T1::Ref,
+                              T2::Ref,
+                              T3::Ref,
+                              T4::Ref,
+                              T5::Ref,
+                              T6::Ref,
+                              T7::Ref>;
+
+    fn to_ref(&'a self) -> Self::Ref {
+        TextureUnitsOf(
+            self.0.to_ref(),
+            self.1.to_ref(),
+            self.2.to_ref(),
+            self.3.to_ref(),
+            self.4.to_ref(),
+            self.5.to_ref(),
+            self.6.to_ref(),
+            self.7.to_ref()
+        )
+    }
+}
+
+impl<'a, T0, T1, T2, T3, T4, T5, T6, T7> ToMut<'a>
+    for TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>
+    where T0: 'a + ToMut<'a>,
+          T1: 'a + ToMut<'a>,
+          T2: 'a + ToMut<'a>,
+          T3: 'a + ToMut<'a>,
+          T4: 'a + ToMut<'a>,
+          T5: 'a + ToMut<'a>,
+          T6: 'a + ToMut<'a>,
+          T7: 'a + ToMut<'a>
+{
+    type Mut = TextureUnitsOf<T0::Mut,
+                              T1::Mut,
+                              T2::Mut,
+                              T3::Mut,
+                              T4::Mut,
+                              T5::Mut,
+                              T6::Mut,
+                              T7::Mut>;
+
+    fn to_mut(&'a mut self) -> Self::Mut {
+        TextureUnitsOf(
+            self.0.to_mut(),
+            self.1.to_mut(),
+            self.2.to_mut(),
+            self.3.to_mut(),
+            self.4.to_mut(),
+            self.5.to_mut(),
+            self.6.to_mut(),
+            self.7.to_mut()
+        )
     }
 }
 
