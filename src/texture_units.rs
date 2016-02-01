@@ -70,24 +70,6 @@ pub type TextureUnits = TextureUnitsOf<TextureUnit0,
                                        TextureUnit6,
                                        TextureUnit7>;
 
-pub type TextureUnitsRef<'a> = TextureUnitsOf<&'a TextureUnit0,
-                                              &'a TextureUnit1,
-                                              &'a TextureUnit2,
-                                              &'a TextureUnit3,
-                                              &'a TextureUnit4,
-                                              &'a TextureUnit5,
-                                              &'a TextureUnit6,
-                                              &'a TextureUnit7>;
-
-pub type TextureUnitsMut<'a> = TextureUnitsOf<&'a mut TextureUnit0,
-                                              &'a mut TextureUnit1,
-                                              &'a mut TextureUnit2,
-                                              &'a mut TextureUnit3,
-                                              &'a mut TextureUnit4,
-                                              &'a mut TextureUnit5,
-                                              &'a mut TextureUnit6,
-                                              &'a mut TextureUnit7>;
-
 impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                                                     T1,
                                                     T2,

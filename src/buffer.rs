@@ -432,12 +432,6 @@ pub struct BufferBinderOf<A, E> {
 pub type BufferBinder = BufferBinderOf<ArrayBufferBinder,
                                        ElementArrayBufferBinder>;
 
-pub type BufferBinderRef<'a> = BufferBinderOf<&'a ArrayBufferBinder,
-                                              &'a ElementArrayBufferBinder>;
-
-pub type BufferBinderMut<'a> = BufferBinderOf<&'a mut ArrayBufferBinder,
-                                              &'a mut ElementArrayBufferBinder>;
-
 impl<A, E> BufferBinderOf<A, E> {
     pub unsafe fn current() -> BufferBinder {
         BufferBinderOf {

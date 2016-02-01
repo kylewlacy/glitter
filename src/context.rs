@@ -2,7 +2,7 @@ use std::borrow::{Borrow, BorrowMut};
 use gl;
 use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
-use buffer::{BufferBinder, ContextBufferExt, BufferBinderRef, BufferBinderMut};
+use buffer::{BufferBinder, ContextBufferExt};
 use framebuffer::{FramebufferBinder, ContextFramebufferExt};
 use program::{ProgramBinder, ContextProgramExt, ProgramAttrib};
 use renderbuffer::{RenderbufferBinder, ContextRenderbufferExt};
@@ -16,30 +16,6 @@ pub type Context = ContextOf<BufferBinder,
                              ProgramBinder,
                              RenderbufferBinder,
                              TextureUnits>;
-
-pub type ContextRef<'a> = ContextOf<&'a BufferBinder,
-                                    &'a FramebufferBinder,
-                                    &'a ProgramBinder,
-                                    &'a RenderbufferBinder,
-                                    &'a TextureUnits>;
-
-pub type ContextMut<'a> = ContextOf<&'a mut BufferBinder,
-                                    &'a mut FramebufferBinder,
-                                    &'a mut ProgramBinder,
-                                    &'a mut RenderbufferBinder,
-                                    &'a mut TextureUnits>;
-
-pub type ContextSubRef<'a> = ContextOf<BufferBinderRef<'a>,
-                                       &'a FramebufferBinder,
-                                       &'a ProgramBinder,
-                                       &'a RenderbufferBinder,
-                                       &'a TextureUnits>;
-
-pub type ContextSubMut<'a> = ContextOf<BufferBinderMut<'a>,
-                                       &'a mut FramebufferBinder,
-                                       &'a mut ProgramBinder,
-                                       &'a mut RenderbufferBinder,
-                                       &'a mut TextureUnits>;
 
 pub struct ContextOf<B, F, P, R, T> {
     pub buffers: B,
