@@ -47,9 +47,9 @@ pub use types::*;
 
 pub mod prelude {
     pub use context::{AContext, BufferContext,
-                      ArrayBufferContext, ElementArrayBufferContext};
+                      ArrayBufferContext, ElementArrayBufferContext,
+                      FramebufferContext, ContextFramebufferBuilderExt};
     pub use context::ext::*;
-    pub use framebuffer::{FramebufferContext, ContextFramebufferBuilderExt};
     pub use program::{ProgramContext, ContextProgramBuilderExt};
     pub use renderbuffer::{RenderbufferContext, ContextRenderbufferBuilderExt};
     pub use shader::ContextShaderBuilderExt;
