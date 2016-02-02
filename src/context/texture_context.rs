@@ -1,10 +1,8 @@
 use std::ptr;
-use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
-use prelude::*;
-use context::{ContextOf, TextureUnits};
+use context::{ContextOf, TextureUnit0Context, TextureUnitBinding2d};
 use texture::{TextureMipmapFilter, TextureFilter, TextureWrapMode,
               Texture, Texture2d, TextureCubeMap,
               Tx2d, TxCubeMap, TextureType, Tx2dImageTarget,
@@ -12,14 +10,10 @@ use texture::{TextureMipmapFilter, TextureFilter, TextureWrapMode,
 use image_data::{Image2d, TextelFormat, ImageFormat};
 use types::{GLObject, GLError};
 
-pub struct Texture2dBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a,
-          T: 'a + BorrowMut<TextureUnits>
+pub struct Texture2dBuilder<'a, C>
+    where C: 'a + TextureUnit0Context
 {
-    gl: &'a mut ContextOf<B, F, P, R, T>,
+    gl: C,
     min_filter: Option<TextureMipmapFilter>,
     mag_filter: Option<TextureFilter>,
     wrap_s: Option<TextureWrapMode>,
@@ -29,14 +23,10 @@ pub struct Texture2dBuilder<'a, B, F, P, R, T>
     empty_params: Option<(ImageFormat, u32, u32)>
 }
 
-impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
-    where B: 'a,
-          F: 'a,
-          P: 'a,
-          R: 'a,
-          T: 'a + BorrowMut<TextureUnits>
+impl<'a, C> Texture2dBuilder<'a, C>
+    where C: TextureUnit0Context
 {
-    fn new(gl: &'a mut ContextOf<B, F, P, R, T>) -> Self {
+    fn new(gl: C) -> Self {
         Texture2dBuilder {
             gl: gl,
             min_filter: None,
@@ -94,52 +84,53 @@ impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
         let gl = self.gl;
         let mut texture = unsafe { gl.gen_texture() };
 
-        // TODO: Use macros here
-        let mut gl_tex_unit = gl.tex_units.borrow_mut().0.active();
-        let mut gl_tex = gl_tex_unit.texture_2d.bind(&mut texture);
+        {
+            let (gl_tex_unit, gl) = gl.active_texture_0();
+            let (mut gl_tex, _) = gl_tex_unit.bind_texture_2d(&mut texture);
 
-        if let Some(min_filter) = self.min_filter {
-            gl.set_min_filter(&mut gl_tex, min_filter);
-        }
-        if let Some(mag_filter) = self.mag_filter {
-            gl.set_mag_filter(&mut gl_tex, mag_filter);
-        }
-        if let Some(wrap_s) = self.wrap_s {
-            gl.set_wrap_s(&mut gl_tex, wrap_s);
-        }
-        if let Some(wrap_t) = self.wrap_t {
-            gl.set_wrap_t(&mut gl_tex, wrap_t);
-        }
+            if let Some(min_filter) = self.min_filter {
+                gl.set_min_filter(&mut gl_tex, min_filter);
+            }
+            if let Some(mag_filter) = self.mag_filter {
+                gl.set_mag_filter(&mut gl_tex, mag_filter);
+            }
+            if let Some(wrap_s) = self.wrap_s {
+                gl.set_wrap_s(&mut gl_tex, wrap_s);
+            }
+            if let Some(wrap_t) = self.wrap_t {
+                gl.set_wrap_t(&mut gl_tex, wrap_t);
+            }
 
-        // TODO: Find out what conditions lead to a non-complete texture
-        //       (e.g. if either width or height are 0)
-        if let Some(image) = self.image {
-            gl.image_2d(&mut gl_tex, Tx2dImageTarget::Texture2d, 0, image);
-        }
-        else if let Some((format, width, height)) = self.empty_params {
-            gl.image_2d_empty(&mut gl_tex,
-                              Tx2dImageTarget::Texture2d,
-                              0,
-                              format,
-                              width,
-                              height);
+            // TODO: Find out what conditions lead to a non-complete texture
+            //       (e.g. if either width or height are 0)
+            if let Some(image) = self.image {
+                gl.image_2d(&mut gl_tex, Tx2dImageTarget::Texture2d, 0, image);
+            }
+            else if let Some((format, width, height)) = self.empty_params {
+                gl.image_2d_empty(&mut gl_tex,
+                                  Tx2dImageTarget::Texture2d,
+                                  0,
+                                  format,
+                                  width,
+                                  height);
 
-            if !(width > 0 && height > 0) {
-                let msg = "Error building texture: texture must have positive dimensions";
+                if !(width > 0 && height > 0) {
+                    let msg = "Error building texture: texture must have positive dimensions";
+                    return Err(GLError::Message(msg.to_owned()))
+                }
+            }
+            else {
+                let msg = "Error building texture: neither an image nor a format were provided";
                 return Err(GLError::Message(msg.to_owned()))
             }
-        }
-        else {
-            let msg = "Error building texture: neither an image nor a format were provided";
-            return Err(GLError::Message(msg.to_owned()))
-        }
 
-        if self.gen_mipmap {
-            gl.generate_mipmap(&mut gl_tex);
-        }
-        else if let Some(MipmapFilter {..}) = self.min_filter {
-                let msg = "Error building texture: texture uses a mipmap filter but does not have a mipmap";
-                return Err(GLError::Message(msg.to_owned()));
+            if self.gen_mipmap {
+                gl.generate_mipmap(&mut gl_tex);
+            }
+            else if let Some(MipmapFilter {..}) = self.min_filter {
+                    let msg = "Error building texture: texture uses a mipmap filter but does not have a mipmap";
+                    return Err(GLError::Message(msg.to_owned()));
+            }
         }
 
         Ok(texture)
@@ -150,14 +141,22 @@ impl<'a, B, F, P, R, T> Texture2dBuilder<'a, B, F, P, R, T>
     }
 }
 
-impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
-    pub fn build_texture_2d<'a>(&'a mut self)
-        -> Texture2dBuilder<'a, B, F, P, R, T>
-        where T: BorrowMut<TextureUnits>
-    {
+// NOTE: There is currently no way to express "a context with
+//       one free texure unit"; this design should be explored for
+//       cases like this (where the actual unit number doesn't matter)
+pub trait ContextTextureBuilderExt: TextureUnit0Context + Sized {
+    fn build_texture_2d<'a>(self) -> Texture2dBuilder<'a, Self> {
         Texture2dBuilder::new(self)
     }
 }
+
+impl<'a, C: 'a> ContextTextureBuilderExt for &'a mut C
+    where &'a mut C: TextureUnit0Context
+{
+
+}
+
+
 
 pub unsafe trait ContextTextureExt {
     unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
