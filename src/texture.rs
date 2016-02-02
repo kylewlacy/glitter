@@ -6,7 +6,7 @@ use gl::types::*;
 use prelude::*;
 use context::{ContextOf, TextureUnits};
 use image_data::{Image2d, TextelFormat, ImageFormat};
-use types::GLError;
+use types::{GLObject, GLError};
 
 pub struct Texture<T: TextureType> {
     gl_id: GLuint,
@@ -26,6 +26,21 @@ impl<T: TextureType> Drop for Texture<T> {
         unsafe {
             gl::DeleteTextures(1, &self.gl_id as *const GLuint);
         }
+    }
+}
+
+impl<T: TextureType> GLObject for Texture<T> {
+    type Id = GLuint;
+
+    unsafe fn from_raw(id: Self::Id) -> Self {
+        Texture {
+            gl_id: id,
+            phantom: PhantomData
+        }
+    }
+
+    fn id(&self) -> Self::Id {
+        self.gl_id
     }
 }
 
