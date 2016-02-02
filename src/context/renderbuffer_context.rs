@@ -60,15 +60,15 @@ impl<C> RenderbufferBuilder<C>
 }
 
 pub trait ContextRenderbufferBuilderExt: RenderbufferContext + Sized {
-    fn build_renderbuffer(self) -> RenderbufferBuilder<Self>;
+    fn build_renderbuffer(self) -> RenderbufferBuilder<Self> {
+        RenderbufferBuilder::new(self)
+    }
 }
 
 impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
     where &'a mut C: RenderbufferContext
 {
-    fn build_renderbuffer(self) -> RenderbufferBuilder<&'a mut C> {
-        RenderbufferBuilder::new(self)
-    }
+    
 }
 
 pub unsafe trait ContextRenderbufferExt {

@@ -205,15 +205,15 @@ impl<'a, C> FramebufferBuilder<'a, C>
 }
 
 pub trait ContextFramebufferBuilderExt: FramebufferContext + Sized {
-    fn build_framebuffer<'a>(self) -> FramebufferBuilder<'a, Self>;
+    fn build_framebuffer<'a>(self) -> FramebufferBuilder<'a, Self> {
+        FramebufferBuilder::new(self)
+    }
 }
 
 impl<'b, C: 'b> ContextFramebufferBuilderExt for &'b mut C
     where &'b mut C: FramebufferContext
 {
-    fn build_framebuffer<'a>(self) -> FramebufferBuilder<'a, &'b mut C> {
-        FramebufferBuilder::new(self)
-    }
+    
 }
 
 

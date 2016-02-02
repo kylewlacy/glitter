@@ -66,15 +66,14 @@ impl<'a, C> ProgramBuilder<'a, C>
 
 pub trait ContextProgramBuilderExt: AContext + Sized {
     fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a, Self>;
-}
-
-impl<C: AContext> ContextProgramBuilderExt for C {
-    fn build_program<'a>(&'a self, shaders: &'a [Shader])
-        -> ProgramBuilder<'a, C>
+        -> ProgramBuilder<'a, Self>
     {
         ProgramBuilder::new(self, shaders)
     }
+}
+
+impl<C: AContext> ContextProgramBuilderExt for C {
+    
 }
 
 pub unsafe trait ContextProgramExt {
