@@ -4,8 +4,7 @@ use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use prelude::*;
-use context::ContextOf;
-use texture_units::TextureUnits;
+use context::{ContextOf, TextureUnits};
 use image_data::{Image2d, TextelFormat, ImageFormat};
 use types::GLError;
 
