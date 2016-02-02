@@ -4,19 +4,20 @@ use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
 use program::ProgramAttrib;
 use shader::ContextShaderExt;
-use texture::ContextTextureExt;
 use to_ref::{ToRef, ToMut};
 
 pub mod buffer_context;
 pub mod framebuffer_context;
 pub mod program_context;
 pub mod renderbuffer_context;
+pub mod texture_context;
 pub mod texture_units;
 
 pub use self::buffer_context::*;
 pub use self::framebuffer_context::*;
 pub use self::program_context::*;
 pub use self::renderbuffer_context::*;
+pub use self::texture_context::*;
 pub use self::texture_units::*;
 
 pub type Context = ContextOf<BufferBinder,

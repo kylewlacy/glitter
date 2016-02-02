@@ -1,10 +1,10 @@
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::{AContext, ContextOf};
-use texture::{Texture2dBinder, TextureCubeMapBinder,
-              Texture2dBinding, TextureCubeMapBinding,
-              Texture2d, TextureCubeMap};
+use context::{AContext, ContextOf,
+              Texture2dBinder, TextureCubeMapBinder,
+              Texture2dBinding, TextureCubeMapBinding};
+use texture::{Texture2d, TextureCubeMap};
 use uniform_data::{UniformDatum, UniformDatumType, UniformPrimitiveType};
 use types::GLError;
 use to_ref::{ToRef, ToMut};

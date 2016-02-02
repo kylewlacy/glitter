@@ -49,7 +49,8 @@ pub mod prelude {
                       FramebufferContext, ContextFramebufferBuilderExt,
                       ProgramContext, ContextProgramBuilderExt,
                       RenderbufferContext, ContextRenderbufferBuilderExt,
-                      TextureUnit, TextureUnitBinding, ATextureUnitBinding,
+                      TextureBinding, TextureUnit,
+                      TextureUnitBinding, ATextureUnitBinding,
                       TextureUnitBinding2d, TextureUnitBindingCubeMap,
                       TextureUnit0Context, TextureUnit1Context,
                       TextureUnit2Context, TextureUnit3Context,
@@ -57,7 +58,6 @@ pub mod prelude {
                       TextureUnit6Context, TextureUnit7Context};
     pub use context::ext::*;
     pub use shader::ContextShaderBuilderExt;
-    pub use texture::TextureBinding;
     pub use vertex_buffer::{VertexBufferContext, IndexBufferContext,
                             ContextVertexBufferExt};
 }
