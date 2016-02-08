@@ -306,26 +306,3 @@ impl<B, F, P, R, T> AContext for ContextOf<B, F, P, R, T> {
 impl<'a, B, F, P, R, T> AContext for &'a mut ContextOf<B, F, P, R, T> {
 
 }
-
-
-
-// HACK: Workaround for issue described here:
-// https://www.reddit.com/r/rust/comments/339yj3/tuple_indexing_in_a_macro/cqiyv4n
-#[macro_export]
-macro_rules! _glitter_expr {
-    ($x:expr) => ($x)
-}
-
-#[macro_export]
-macro_rules! active_texture {
-    ($gl:expr, $idx:tt) => {
-        _glitter_expr!($gl.tex_units.$idx.active())
-    }
-}
-
-#[macro_export]
-macro_rules! active_texture_n {
-    ($gl:expr, $idx:expr) => {
-        $gl.tex_units.nth_unit($idx).active()
-    }
-}
