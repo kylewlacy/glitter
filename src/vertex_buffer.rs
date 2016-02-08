@@ -364,9 +364,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
 
 #[macro_export]
 macro_rules! attrib_pointers {
-    ($gl:expr, $vbo:expr, {
-        $($field_name:ident => $field_attrib:expr),*
-    }) => {
+    ($($field_name:ident => $field_attrib:expr),*) => {
         {
             let mut binder = $crate::AttribBinder::new();
             $(binder.add(stringify!($field_name), $field_attrib).unwrap());*;
