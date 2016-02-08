@@ -35,6 +35,12 @@ pub struct ContextOf<B, F, P, R, T> {
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
+    pub unsafe fn load_with<L>(load_fn: L)
+        where L: FnMut(&str) -> *const GLvoid
+    {
+        gl::load_with(load_fn);
+    }
+
     pub unsafe fn current_context() -> Context {
         ContextOf {
             buffers: BufferBinder::current(),
