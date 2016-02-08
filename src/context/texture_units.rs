@@ -1226,8 +1226,8 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
 // TODO: Make `idx` a type-level integer parameter
 pub struct TextureUnitBindingOf<T2, TC> {
     idx: u32,
-    pub texture_2d: T2,
-    pub texture_cube_map: TC
+    texture_2d: T2,
+    texture_cube_map: TC
 }
 
 pub type TextureUnitBinding = TextureUnitBindingOf<Texture2dBinder,

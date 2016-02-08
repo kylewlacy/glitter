@@ -27,11 +27,11 @@ pub type Context = ContextOf<BufferBinder,
                              TextureUnits>;
 
 pub struct ContextOf<B, F, P, R, T> {
-    pub buffers: B,
-    pub framebuffer: F,
-    pub program: P,
-    pub renderbuffer: R,
-    pub tex_units: T
+    buffers: B,
+    framebuffer: F,
+    program: P,
+    renderbuffer: R,
+    tex_units: T
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
