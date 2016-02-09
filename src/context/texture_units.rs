@@ -1,3 +1,5 @@
+//! Contains all of the OpenGL state types related texture units.
+
 use std::borrow::BorrowMut;
 use std::marker::PhantomData;
 use gl;
@@ -18,9 +20,13 @@ unsafe fn _active_texture(idx: u32) {
     }
 }
 
+/// A trait that represents a 'texture unit', which is a piece of OpenGL state
+/// that contains its own independent texture bindings.
 pub trait TextureUnit {
+    /// Get the index of the texture unit.
     fn idx(&self) -> u32;
 
+    /// Make the current texture unit active, returning a binding.
     fn active(&mut self) -> TextureUnitBinding {
         let idx = self.idx();
         unsafe {
@@ -33,34 +39,42 @@ pub trait TextureUnit {
 // TODO: Use a macro, or const generic parameters:
 // https://github.com/rust-lang/rfcs/issues/273
 // https://github.com/rust-lang/rfcs/issues/1038
+/// The 0th texture unit.
 pub struct TextureUnit0 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 1st texture unit.
 pub struct TextureUnit1 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 2nd texture unit.
 pub struct TextureUnit2 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 3rd texture unit.
 pub struct TextureUnit3 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 4th texture unit.
 pub struct TextureUnit4 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 5th texture unit.
 pub struct TextureUnit5 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 6th texture unit.
 pub struct TextureUnit6 {
     _phantom: PhantomData<*mut ()>
 }
 
+/// The 7th texture unit.
 pub struct TextureUnit7 {
     _phantom: PhantomData<*mut ()>
 }
@@ -77,6 +91,9 @@ impl TextureUnit for TextureUnit7 { fn idx(&self) -> u32 { 7 } }
 
 // NOTE: Ensure the number of each texture unit matches its index in the tuple
 // TODO: Use macros + integer-level types to refactor this
+/// This type holds all of the OpenGL textrure units. Each type parameter
+/// is the current type of a texture unit. See the [`ContextOf`]
+/// (../struct.ContextOf.html) docs for more details.
 pub struct TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>(pub T0,
                                                           pub T1,
                                                           pub T2,
@@ -86,6 +103,7 @@ pub struct TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>(pub T0,
                                                           pub T6,
                                                           pub T7);
 
+/// A part of the OpenGL context that has all free texture units.
 pub type TextureUnits = TextureUnitsOf<TextureUnit0,
                                        TextureUnit1,
                                        TextureUnit2,
@@ -104,6 +122,12 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                                                     T6,
                                                     T7>
 {
+    /// Get the current texture units.
+    ///
+    /// # Safety
+    /// The same rules apply to this method as the
+    /// [`ContextOf::current_context()` method]
+    /// (../struct.ContextOf.html#method.current_context).
     pub unsafe fn current() -> TextureUnits {
         TextureUnitsOf(TextureUnit0 { _phantom: PhantomData },
                        TextureUnit1 { _phantom: PhantomData },
@@ -152,6 +176,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        self.7.borrow_mut())
     }
 
+    /// Replace the 0th texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_0<N0>(self, new_unit: N0)
         -> (T0, TextureUnitsOf<N0, T1, T2, T3, T4, T5, T6, T7>)
     {
@@ -168,8 +194,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
-
-
+    /// Replace the 1st texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_1<N1>(self, new_unit: N1)
         -> (T1, TextureUnitsOf<T0, N1, T2, T3, T4, T5, T6, T7>)
     {
@@ -186,6 +212,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 2nd texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_2<N2>(self, new_unit: N2)
         -> (T2, TextureUnitsOf<T0, T1, N2, T3, T4, T5, T6, T7>)
     {
@@ -202,6 +230,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 3rd texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_3<N3>(self, new_unit: N3)
         -> (T3, TextureUnitsOf<T0, T1, T2, N3, T4, T5, T6, T7>)
     {
@@ -218,6 +248,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 4th texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_4<N4>(self, new_unit: N4)
         -> (T4, TextureUnitsOf<T0, T1, T2, T3, N4, T5, T6, T7>)
     {
@@ -234,6 +266,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 5th texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_5<N5>(self, new_unit: N5)
         -> (T5, TextureUnitsOf<T0, T1, T2, T3, T4, N5, T6, T7>)
     {
@@ -250,6 +284,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 6th texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_6<N6>(self, new_unit: N6)
         -> (T6, TextureUnitsOf<T0, T1, T2, T3, T4, T5, N6, T7>)
     {
@@ -266,6 +302,8 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Replace the 7th texture unit context with a new value, returning the
+    /// old value and a new set of texture units
     pub fn swap_7<N7>(self, new_unit: N7)
         -> (T7, TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, N7>)
     {
@@ -282,6 +320,16 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
         )
     }
 
+    /// Make the `idx`th texture unit the active one, returning a new binding.
+    ///
+    /// # Safety
+    /// For convenience, this function takes `self` by shared reference, not
+    /// motable reference. Thus, this function can be to create multiple
+    /// live bindings. Special care must be taken to ensure that two bindings
+    /// do not conflict; since there can only ever be one active texture unit
+    /// in OpenGL, using this function may result in unexpected or undefined
+    /// behavior, and it should only be used as a fallback when glitter's
+    /// safe texture unit interface is not sufficient.
     pub unsafe fn active_nth(&self, idx: u32) -> TextureUnitBinding {
         _active_texture(idx);
         TextureUnitBinding::current_at_idx(idx)
@@ -358,12 +406,21 @@ impl<'a, T0, T1, T2, T3, T4, T5, T6, T7> ToMut<'a>
 
 
 
+/// An OpenGL context with the 0th texture unit free.
 pub trait TextureUnit0Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit0>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 0th texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_0(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 0th texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_0(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -372,12 +429,21 @@ pub trait TextureUnit0Context: AContext {
     }
 }
 
+/// An OpenGL context with the 1st texture unit free.
 pub trait TextureUnit1Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit1>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 1st texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_1(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 1st texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_1(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -386,12 +452,21 @@ pub trait TextureUnit1Context: AContext {
     }
 }
 
+/// An OpenGL context with the 2nd texture unit free.
 pub trait TextureUnit2Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit2>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 2nd texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_2(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 2nd texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_2(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -400,12 +475,21 @@ pub trait TextureUnit2Context: AContext {
     }
 }
 
+/// An OpenGL context with the 3rd texture unit free.
 pub trait TextureUnit3Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit3>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 3rd texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_3(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 3rd texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_3(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -414,12 +498,21 @@ pub trait TextureUnit3Context: AContext {
     }
 }
 
+/// An OpenGL context with the 4th texture unit free.
 pub trait TextureUnit4Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit4>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 4th texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_4(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 4th texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_4(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -428,12 +521,21 @@ pub trait TextureUnit4Context: AContext {
     }
 }
 
+/// An OpenGL context with the 5th texture unit free.
 pub trait TextureUnit5Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit5>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 5th texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_5(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 5th texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_5(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -442,12 +544,21 @@ pub trait TextureUnit5Context: AContext {
     }
 }
 
+/// An OpenGL context with the 6th texture unit free.
 pub trait TextureUnit6Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit6>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 6th texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_6(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 6th texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_6(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -456,12 +567,21 @@ pub trait TextureUnit6Context: AContext {
     }
 }
 
+/// An OpenGL context with the 7th texture unit free.
 pub trait TextureUnit7Context: AContext {
+    /// The type of unit this context contains.
     type Unit: BorrowMut<TextureUnit7>;
+
+    /// The OpenGL context that will be returned after making the
+    /// texture unit active.
     type Rest: AContext;
 
+    /// Split the 7th texture unit from the context, returning the unit
+    /// and the remaining context.
     fn split_tex_unit_7(self) -> (Self::Unit, Self::Rest);
 
+    /// Make the 7th texture unit active, returning a binding and the
+    /// remaining context
     fn active_texture_7(self) -> (TextureUnitBinding, Self::Rest)
         where Self: Sized
     {
@@ -1249,6 +1369,8 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
 
 
 // TODO: Make `idx` a type-level integer parameter
+/// A texture unit that has been made active, and can have textures
+/// bound to it.
 pub struct TextureUnitBindingOf<T2, TC> {
     idx: u32,
     texture_2d: T2,
@@ -1256,6 +1378,7 @@ pub struct TextureUnitBindingOf<T2, TC> {
     _phantom: PhantomData<*mut ()>
 }
 
+/// A fresh texture unit binding, that has all free texture bindings.
 pub type TextureUnitBinding = TextureUnitBindingOf<Texture2dBinder,
                                                    TextureCubeMapBinder>;
 
@@ -1269,10 +1392,14 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
         }
     }
 
+    /// Get the index of the texture unit.
     pub fn gl_idx(&self) -> u32 {
         self.idx
     }
 
+    /// Get the current texture unit as a [`TextureSampler`]
+    /// (struct.TextureSampler.html), which can be used to set
+    /// a uniform variable.
     pub fn sampler(&self) -> TextureSampler {
         TextureSampler { idx: self.idx as i32 }
     }
@@ -1317,6 +1444,12 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
 
 
 
+/// A marker trait for types that represent an active texture unit binding.
+///
+/// # Safety
+/// This type should only be implemented for types that can guarantee
+/// that an active texture unit will be bound for the lifetime of an
+/// instance of this type.
 pub unsafe trait ATextureUnitBinding {
 
 }
@@ -1331,12 +1464,19 @@ unsafe impl<'a, T2, TC> ATextureUnitBinding
 
 }
 
+/// A texture unit binding that has a free `GL_TEXTURE_2D` binding.
 pub trait TextureUnitBinding2d: ATextureUnitBinding {
+    /// The type of binder this texture unit contains.
     type Binder: BorrowMut<Texture2dBinder>;
+
+    /// The texture unit that will be returned after binding the texture.
     type Rest: ATextureUnitBinding;
 
+    /// Split the texture unit into a binder and the remaining texture unit.
     fn split_texture_2d(self) -> (Self::Binder, Self::Rest);
 
+    /// Bind a 2D texture to this texture unit, returning a binding
+    /// and the remaining texture unit.
     fn bind_texture_2d<'a>(self, tex: &'a mut Texture2d)
         -> (Texture2dBinding<'a>, Self::Rest)
         where Self: Sized
@@ -1346,12 +1486,19 @@ pub trait TextureUnitBinding2d: ATextureUnitBinding {
     }
 }
 
+/// A texture unit binding that has a free `GL_TEXTURE_CUBE_MAP` binding.
 pub trait TextureUnitBindingCubeMap: ATextureUnitBinding {
+    /// The type of binder this texture unit contains.
     type Binder: BorrowMut<TextureCubeMapBinder>;
+
+    /// The texture unit that will be returned after binding the texture.
     type Rest: ATextureUnitBinding;
 
+    /// Split the texture unit into a binder and the remaining texture unit.
     fn split_texture_cube_map(self) -> (Self::Binder, Self::Rest);
 
+    /// Bind a cubemap texture to this texture unit, returning a binding
+    /// and the remaining texture unit.
     fn bind_texture_cube_map<'a>(self, tex: &'a mut TextureCubeMap)
         -> (TextureCubeMapBinding<'a>, Self::Rest)
         where Self: Sized
@@ -1409,6 +1556,9 @@ impl<'a, T2, TC> TextureUnitBindingCubeMap
     }
 }
 
+/// A newtype wrapper representing a texture sampler, which can be
+/// used to set a uniform variable, using [`gl.set_uniform`]
+/// (../program_context/trait.ContextProgramExt.html#method.set_uniform).
 #[repr(C)]
 #[derive(Debug, Clone, Copy)]
 pub struct TextureSampler { idx: i32 }

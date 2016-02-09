@@ -20,6 +20,7 @@ macro_rules! dbg_gl_sanity_check {
     }
 }
 
+// Create a Rust enum that maps to an OpenGL enum.
 macro_rules! gl_enum {
     (
         $(#[$attr:meta])*

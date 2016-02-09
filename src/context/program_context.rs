@@ -1,3 +1,5 @@
+//! Contains all of the OpenGL state types related to shader programs.
+
 use std::ptr;
 use std::error;
 use std::fmt;
@@ -25,6 +27,9 @@ unsafe fn _get_program_iv(program: &Program,
     }
 }
 
+/// Provides a safe interface for creating program objects. A
+/// `ProgramBuilder` can be created using the [`gl.build_program`]
+/// (trait.ContextProgramBuilderExt.html#method.build_program) method.
 pub struct ProgramBuilder<'a, C>
     where C: AContext + 'a
 {
@@ -35,12 +40,23 @@ pub struct ProgramBuilder<'a, C>
 impl<'a, C> ProgramBuilder<'a, C>
     where C: AContext
 {
+    /// Create a new program builder.
     pub fn new(gl: &'a C, shaders: &'a [Shader])
         -> Self
     {
         ProgramBuilder { gl: gl, shaders: shaders }
     }
 
+    /// Create and link the program object with the provided shaders, or
+    /// return an error.
+    ///
+    /// # Failures
+    /// An error will be returned if there was an error linking the program
+    /// object.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL
+    /// error was generated with debug assertions enabled.
     pub fn try_unwrap(self) -> Result<Program, GLError> {
         unsafe {
             let mut program = try! {
@@ -59,12 +75,23 @@ impl<'a, C> ProgramBuilder<'a, C>
         }
     }
 
+    /// Create and link the program object with the provided shaders,
+    /// or panic.
+    ///
+    /// # Panics
+    /// This function will panic if there was an error linking
+    /// the program object or if an OpenGL error was generated with debug
+    /// assertions enabled.
     pub fn unwrap(self) -> Program {
         self.try_unwrap().unwrap()
     }
 }
 
+/// The extension trait that adds the `build_program` method.
 pub trait ContextProgramBuilderExt: AContext + Sized {
+    /// Create a new program builder, providing a safe interface
+    /// for constructing a program object. See the [`ProgramBuilder`]
+    /// (struct.ProgramBuilder.html) docs for more details.
     fn build_program<'a>(&'a self, shaders: &'a [Shader])
         -> ProgramBuilder<'a, Self>
     {
@@ -76,7 +103,24 @@ impl<C: AContext> ContextProgramBuilderExt for C {
 
 }
 
+/// An extension trait that includes program-related OpenGL methods.
 pub trait ContextProgramExt: BaseContext {
+    /// Create a new program object that has no shaders attached, or return
+    /// an error if a shader object could not be created.
+    ///
+    /// # Safety
+    /// Most OpenGL function calls assume a program object will have
+    /// already had shaders attached and linked using [`gl.attach_shader`]
+    /// (trait.ContextProgramExt.html#method.attach_shader) and
+    /// [`gl.link_program`](trait.ContextProgramExt.html#method.link_program),
+    /// respectively. Violating this invariant is considered undefined
+    /// behavior in glitter.
+    ///
+    /// # See also
+    /// [`glCreateProgram`](http://docs.gl/es2/glCreateProgram) OpenGL docs
+    ///
+    /// [`gl.build_program`](trait.ContextProgramBuilderExt.html#method.build_program):
+    /// A safe wrapper for creating a program object.
     unsafe fn create_program(&self) -> Result<Program, ()> {
         let id = gl::CreateProgram();
         if id > 0 {
@@ -87,6 +131,14 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Attach a shader to a program object.
+    ///
+    /// # Panics
+    /// This function will panic if the provided shader is already attached
+    /// to the program object.
+    ///
+    /// # See also
+    /// [`glAttachShader`](http://docs.gl/es2/glAttachShader) OpenGL docs
     fn attach_shader(&self, program: &mut Program, shader: &Shader) {
         unsafe {
             gl::AttachShader(program.id(), shader.id());
@@ -98,6 +150,22 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Link the program object, so that it can be used for rendering. Returns
+    /// an error if the program could not be linked.
+    ///
+    /// # Failures
+    /// If the `GL_LINK_STATUS` after linking the program was not `GL_TRUE`,
+    /// then an error object containing the program's info log will
+    /// be returned. Refer to the [`glLinkProgram`]
+    /// (http://docs.gl/es2/glLinkProgram) OpenGL docs for the possible
+    /// causes of failure.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error is generated and debug
+    /// assertions are enabled.
+    ///
+    /// # See also
+    /// [`glLinkProgram`](http://docs.gl/es2/glLinkProgram) OpenGL docs
     fn link_program(&self, program: &mut Program) -> Result<(), GLError> {
         let success = unsafe {
             gl::LinkProgram(program.id());
@@ -127,6 +195,15 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Return the information log for the program object, if any is
+    /// avaiable.
+    ///
+    /// # Note
+    /// If the info log returned by the OpenGL driver contained an invalid
+    /// UTF-8 sequence, `None` will be returned.
+    ///
+    /// # See also
+    /// [`glGetProgramInfoLog`](http://docs.gl/es2/glGetProgramInfoLog) OpenGL docs
     fn get_program_info_log(&self, program: &Program) -> Option<String> {
         unsafe {
             let mut info_length : GLint = 0;
@@ -156,6 +233,16 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Retrieve a program attribute's index by name, or return an error
+    /// if the attribute was not found in the program.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error was generated and
+    /// debug assertions are enabled.
+    ///
+    /// # See also
+    /// [`glGetAttribLocation`](http://docs.gl/es2/glGetAttribLocation) OpenGL
+    /// docs
     fn get_attrib_location<'a>(&self, program: &Program, name: &'a str)
         -> Result<ProgramAttrib, UnknownProgramAttrib<'a>>
     {
@@ -183,6 +270,16 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Retrieve a program uniform's index by name, or return an error
+    /// if the unfirom was not found within the program.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error was generated and
+    /// debug assertions are enabled.
+    ///
+    /// # See also
+    /// [`glGetUniformLocation`](http://docs.gl/es2/glGetUniformLocation)
+    /// OpenGL docs
     fn get_uniform_location<'a>(&self, program: &Program, name: &'a str)
         -> Result<ProgramUniform, UnknownProgramUniform<'a>>
     {
@@ -211,6 +308,24 @@ pub trait ContextProgramExt: BaseContext {
         }
     }
 
+    /// Set the value of a uniform variable within the provided program
+    /// object binding.
+    ///
+    /// - `_gl_program`: The program binding to change.
+    /// - `uniform`: The location of the uniform varaible. This value
+    ///              can be retrieved using [`gl.get_uniform_location`]
+    ///              (trait.ContextProgramExt.html#method.get_uniform_location)
+    ///              method.
+    /// - `val`: The value to set the uniform varaible to. See the
+    ///          [`UniformData`](../../uniform_data/trait.UniformData.html)
+    ///          docs for more details about the types of uniform data.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error is generated and
+    /// debug assertions are enabled.
+    ///
+    /// # See also
+    /// [`glUniform`](http://docs.gl/es2/glUniform) OpenGL docs
     fn set_uniform<T>(&self,
                       _gl_program: &ProgramBinding,
                       uniform: ProgramUniform,
@@ -297,12 +412,19 @@ impl<C: BaseContext> ContextProgramExt for C {
 
 
 
+/// An OpenGL context that has a free program binding.
 pub trait ProgramContext: AContext {
+    /// The type of binder this context contains.
     type Binder: BorrowMut<ProgramBinder>;
+
+    /// The OpenGL context that will be returned after binding a program.
     type Rest: AContext;
 
+    /// Split the context into a binder and the remaining context.
     fn split_program(self) -> (Self::Binder, Self::Rest);
 
+    /// Bind a program to this context's program, returning a new
+    /// context and a binding.
     fn use_program<'a>(self, program: &'a mut Program)
         -> (ProgramBinding<'a>, Self::Rest)
         where Self: Sized
@@ -337,22 +459,26 @@ impl<'a, B, F, P, R, T> ProgramContext for &'a mut ContextOf<B, F, P, R, T>
 
 
 
+/// Represents a progarm that has been bound to the context.
 pub struct ProgramBinding<'a> {
     _phantom_ref: PhantomData<&'a mut Program>,
     _phantom_ptr: PhantomData<*mut ()>
 }
 
+/// The OpenGL state representing the active program target.
 pub struct ProgramBinder {
     _phantom: PhantomData<*mut ()>
 }
 
 impl ProgramBinder {
+    /// Get the current program binder.
     pub unsafe fn current() -> Self {
         ProgramBinder {
             _phantom: PhantomData
         }
     }
 
+    /// Bind a program to the context, returning a binding.
     pub fn bind<'a>(&mut self, program: &'a mut Program) -> ProgramBinding<'a>
     {
         let binding = ProgramBinding {
@@ -373,7 +499,7 @@ impl ProgramBinder {
 
 
 
-
+/// An error that represents a program attribute that could not be found.
 #[derive(Debug)]
 pub struct UnknownProgramAttrib<'a> {
     name: &'a str
@@ -393,6 +519,7 @@ impl<'a> error::Error for UnknownProgramAttrib<'a> {
 
 
 
+/// An error that represents a program uniform that could not be found.
 #[derive(Debug)]
 pub struct UnknownProgramUniform<'a> {
     name: &'a str

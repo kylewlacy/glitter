@@ -1,3 +1,5 @@
+//! Contains all of the OpenGL state types related to renderbuffers.
+
 use std::marker::PhantomData;
 use std::borrow::BorrowMut;
 use gl;
@@ -7,6 +9,10 @@ use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use image_data::{RenderbufferFormat};
 use types::{GLObject, GLError};
 
+/// Provides a safe wrapper for creating renderbuffer objects. A
+/// `RenderbufferBuilder` can be created using the [`gl.build_renderbuffer`]
+/// (trait.ContextRenderbufferBuilderExt.html#method.build_renderbuffer)
+/// method.
 pub struct RenderbufferBuilder<C>
     where C: RenderbufferContext
 {
@@ -24,6 +30,7 @@ impl<C> RenderbufferBuilder<C>
         }
     }
 
+    /// Set the storage parameters for the renderbuffer.
     pub fn storage(mut self,
                    format: RenderbufferFormat,
                    width: u32,
@@ -34,6 +41,15 @@ impl<C> RenderbufferBuilder<C>
         self
     }
 
+    /// Create and return a renderbuffer with the provided storage options,
+    /// or return an error.
+    ///
+    /// # Failures
+    /// An error will be returned if no storage options were provided.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error is generated
+    /// and debug assertions are enabled.
     pub fn try_unwrap(self) -> Result<Renderbuffer, GLError> {
         let gl = self.gl;
         let mut rbo = unsafe { gl.gen_renderbuffer() };
@@ -54,12 +70,23 @@ impl<C> RenderbufferBuilder<C>
         }
     }
 
+    /// Create a renderbuffer with the provided storage options, or panic.
+    ///
+    /// # Panics
+    /// This function will panic if no storage options were provided
+    /// or if an OpenGL error was generated and debug assertions are enabled.
     pub fn unwrap(self) -> Renderbuffer {
         self.try_unwrap().unwrap()
     }
 }
 
+/// The extension trait for contexts that adds the `build_renderbuffer` method.
+/// This trait is only implemented for contexts with a free renderbuffer
+/// binding.
 pub trait ContextRenderbufferBuilderExt: RenderbufferContext + Sized {
+    /// Create a new renderbuffer builder, providing a safe interface
+    /// for constructing a renderbuffer object. See the [`RenderbufferBuilder`]
+    /// (struct.RenderbufferBuilder.html) docs for more details.
     fn build_renderbuffer(self) -> RenderbufferBuilder<Self> {
         RenderbufferBuilder::new(self)
     }
@@ -71,7 +98,15 @@ impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
 
 }
 
+/// An extension trait that includes renderbuffer-related OpenGL methods.
 pub trait ContextRenderbufferExt: BaseContext {
+    /// Create a new renderbuffer object with no storage allocated.
+    ///
+    /// # Safety
+    /// Many OpenGL function calls expect a renderbuffer to be
+    /// [attachment-complete](https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness).
+    /// Be sure to properly set up the renderbuffer's storage before passing
+    /// the renderbuffer to such functions.
     unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
         let mut id : GLuint = 0;
 
@@ -84,6 +119,16 @@ pub trait ContextRenderbufferExt: BaseContext {
         Renderbuffer::from_raw(id)
     }
 
+    /// Initialize a renderbuffer object's storage.
+    ///
+    /// - `gl_rbo`: The binding of the renderbuffer to set up storage for.
+    /// - `format`: The storage format to use for the renderbuffer.
+    /// - `width`: The storage width of the renderbuffer, in pixels.
+    /// - `height`: The storage height of the renderbuffer, in pixels.
+    ///
+    /// # See also
+    /// [`glRenderbufferStorage`](http://docs.gl/es2/glRenderbufferStorage)
+    /// OpenGL docs
     fn storage(&self,
                gl_rbo: &mut RenderbufferBinding,
                format: RenderbufferFormat,
@@ -112,13 +157,19 @@ impl<C: BaseContext> ContextRenderbufferExt for C {
 
 
 
-
+/// An OpenGL context that has a free `GL_RENDERBUFFER` binding.
 pub trait RenderbufferContext: AContext {
+    /// The type of binder this context contains.
     type Binder: BorrowMut<RenderbufferBinder>;
+
+    /// The OpenGL context that will be returned after binding a renderbuffer.
     type Rest: AContext;
 
+    /// Split the context into a binder and the remaining context.
     fn split_renderbuffer(self) -> (Self::Binder, Self::Rest);
 
+    /// Bind a renderbuffer to this context's renderbuffer,
+    /// returning a new context and a binding.
     fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
         -> (RenderbufferBinding<'a>, Self::Rest)
         where Self: Sized
@@ -154,6 +205,8 @@ impl<'a, B, F, P, R, T> RenderbufferContext
 
 
 
+/// Represents a renderbuffer that has been bound to the `GL_RENDERBUFFER`
+/// binding target.
 pub struct RenderbufferBinding<'a> {
     _phantom_ref: PhantomData<&'a mut Renderbuffer>,
     _phantom_ptr: PhantomData<*mut ()>
@@ -165,17 +218,26 @@ impl<'a> RenderbufferBinding<'a> {
     }
 }
 
+/// The OpenGL state representing the `GL_RENDERBUFFER` target.
 pub struct RenderbufferBinder {
     _phantom: PhantomData<*mut ()>
 }
 
 impl RenderbufferBinder {
+    /// Get the current `GL_RENDERBUFFER` binder.
+    ///
+    /// # Safety
+    /// The same rules apply to this function as the
+    /// [`ContextOf::current_context`]
+    /// (../struct.ContextOf.html#method.current_context) method.
     pub unsafe fn current() -> Self {
         RenderbufferBinder {
             _phantom: PhantomData
         }
     }
 
+    /// Bind a renderbuffer to the `GL_RENDERBUFFER` target, returning
+    /// a binding.
     pub fn bind<'a>(&mut self, renderbuffer: &'a mut Renderbuffer)
         -> RenderbufferBinding<'a>
     {

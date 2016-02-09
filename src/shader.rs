@@ -1,3 +1,5 @@
+//! Exposes the OpenGL [`Shader`](struct.Shader.html) object and related types.
+
 use std::marker::PhantomData;
 use std::ptr;
 use gl;
@@ -5,6 +7,26 @@ use gl::types::*;
 use context::{AContext, BaseContext};
 use types::{GLObject, GLError};
 
+/// An OpenGL shader object.
+///
+/// A shader is a small program that runs on the GPU to compute a part of
+/// the rendering pipeline. There are two shaders that are necessary for
+/// rendering in OpenGL: the vertex shader and the fragment shader. The
+/// vertex shader translates geometry from world space into screen space, and
+/// the fragment shader determines the final color of each pixel (or
+/// 'fragment'). In order to use a shader, it should be linked with
+/// a [`Program`](../program/struct.Program.html) to be used for drawing.
+///
+/// A shader will automatically be deleted after going out of scope.
+///
+/// # See also
+/// [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_fragment_shader),
+/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_vertex_shader),
+/// and [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader):
+/// Build and compile a new shader object.
+///
+/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):
+/// Create a new, empty shader object.
 pub struct Shader {
     gl_id: GLuint,
     _phantom: PhantomData<*mut ()>
@@ -48,6 +70,8 @@ unsafe fn _get_shader_iv(shader: &Shader,
     }
 }
 
+/// A safe interface for creating a shader with a source, and returning an error
+/// or panicking if there is an error.
 pub struct ShaderBuilder<'a, C: 'a>
     where C: AContext
 {
@@ -65,6 +89,9 @@ impl<'a, C: 'a> ShaderBuilder<'a, C>
         ShaderBuilder { gl: gl, ty: ty, source: source }
     }
 
+    /// Try to compile a shader with the provided options, or `Err` if
+    /// a new shader object could not be created or if there was an error
+    /// compiling the provided source.
     pub fn try_unwrap(self) -> Result<Shader, GLError> {
         unsafe {
             let mut shader = try! {
@@ -80,21 +107,87 @@ impl<'a, C: 'a> ShaderBuilder<'a, C>
         }
     }
 
+    /// Try to compile a shader with the provided options, panicking if
+    /// a new shader object could not be created or if there was an error
+    /// compiling the provided source.
     pub fn unwrap(self) -> Shader {
         self.try_unwrap().unwrap()
     }
 }
 
+/// An extension trait for [`ContextOf`](../context/struct.ContextOf.html) that
+/// adds functions to build shaders using the [`ShaderBuilder`]
+/// (struct.ShaderBuilder.html) interface.
 pub trait ContextShaderBuilderExt: AContext + Sized {
+    /// Build a new shader with the provided shader type and shader source.
+    ///
+    /// # Example
+    /// ```no_run
+    /// #[macro_use] extern crate glitter;
+    /// use glitter::prelude::*;
+    ///
+    /// # fn main() {
+    /// let vertex_source = r##"#version 100
+    ///     attribute vec4 position;
+    ///
+    ///     void main() {
+    ///         gl_Position = position;
+    ///         _color = color;
+    ///     }
+    /// "##;
+    ///
+    /// let gl = unsafe { glitter::Context::current_context() };
+    /// let shader = gl.build_shader(glitter::VERTEX_SHADER, vertex_source).unwrap();
+    /// # }
+    /// ```
     fn build_shader<'a>(&'a self, ty: ShaderType, source: &'a str)
         -> ShaderBuilder<'a, Self>;
 
+    /// Build a new fragment shader with the provided shader source.
+    ///
+    /// # Example
+    /// ```no_run
+    /// #[macro_use] extern crate glitter;
+    /// use glitter::prelude::*;
+    ///
+    /// # fn main() {
+    /// let fragment_source = r##"#version 100
+    ///     void main() {
+    ///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);
+    ///     }
+    /// "##;
+    ///
+    /// let gl = unsafe { glitter::Context::current_context() };
+    /// let shader = gl.build_fragment_shader(fragment_source).unwrap();
+    /// # }
+    /// ```
     fn build_fragment_shader<'a>(&'a self, source: &'a str)
         -> ShaderBuilder<'a, Self>
     {
         self.build_shader(ShaderType::FragmentShader, source)
     }
 
+    /// Build a new vertex shader with the provided shader source.
+    ///
+    /// # Example
+    /// ```no_run
+    /// #[macro_use] extern crate glitter;
+    /// use glitter::prelude::*;
+    ///
+    /// # fn main() {
+    /// let vertex_source = r##"#version 100
+    ///     attribute vec4 position;
+    ///
+    ///     void main() {
+    ///         gl_Position = position;
+    ///         _color = color;
+    ///     }
+    /// "##;
+    ///
+    /// let gl = unsafe { glitter::Context::current_context() };
+    /// let shader = gl.build_vertex_shader(vertex_source).unwrap();
+    /// # }
+    /// ```
     fn build_vertex_shader<'a>(&'a self, source: &'a str)
         -> ShaderBuilder<'a, Self>
     {
@@ -110,7 +203,52 @@ impl<C: AContext> ContextShaderBuilderExt for C {
     }
 }
 
+/// An extension trait that includes shader-related OpenGL methods.
 pub trait ContextShaderExt: BaseContext {
+    /// Create a new, uninitalized shader.
+    ///
+    /// # Safety
+    /// Most OpenGL functions that take a shader expect the shader to have
+    /// been setup and compiled already. Before using this shader,
+    /// it must have its source set using [`gl.shader_source`]
+    /// (trait.ContextShaderExt.html#method.shader_source) and compiled with
+    /// [`gl.compile_shader`](trait.ContextShaderExt.html#method.compile_shader).
+    /// Instead, consider using one of the shader builder functions, which
+    /// handle proper setup and compilation automatically.
+    ///
+    /// # Example
+    /// ```no_run
+    /// #[macro_use] extern crate glitter;
+    /// use glitter::prelude::*;
+    ///
+    /// # fn main() {
+    /// let gl = unsafe { glitter::Context::current_context() };
+    /// let vertex_source = r##"#version 100
+    ///     attribute vec4 position;
+    ///
+    ///     void main() {
+    ///         gl_Position = position;
+    ///     }
+    /// "##;
+    ///
+    /// let shader = unsafe {
+    ///     let mut shader = gl.create_shader(glitter::VERTEX_SHADER).unwrap();
+    ///     gl.shader_source(&mut shader, vertex_source);
+    ///     gl.compile_shader(&mut shader).unwrap();
+    ///
+    ///     shader
+    /// };
+    /// # }
+    /// ```
+    ///
+    /// # See also
+    /// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),
+    /// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),
+    /// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):
+    /// A safe interface for creating and building shaders, which automatically
+    /// handle compilation and error checking.
+    ///
+    /// [`glCreateShader`](http://docs.gl/es2/glCreateShader) OpenGL docs
     unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
@@ -127,6 +265,22 @@ pub trait ContextShaderExt: BaseContext {
         }
     }
 
+    /// Set or replace a shader object's source. The shader should be recompiled
+    /// after calling this function by using the [`gl.compile_shader`]
+    /// (trait.ContextShaderExt.html#method.compile_shader) function
+    ///
+    /// # See also
+    /// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):
+    /// A function to create a new, uninitialized shader. Includes an example
+    /// of how to use `gl.shader_source`
+    ///
+    /// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),
+    /// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),
+    /// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):
+    /// The preferred way to create and compile a shader object, which skips
+    /// the need to directly call `gl.shader_source`.
+    ///
+    /// [`glShaderSource`](http://docs.gl/es2/glShaderSource) OpenGL docs
     fn shader_source(&self, shader: &mut Shader, source: &str) {
         unsafe {
             let source_ptr = source.as_ptr() as *const GLchar;
@@ -143,6 +297,33 @@ pub trait ContextShaderExt: BaseContext {
         }
     }
 
+    /// Compile the shader's associated source.
+    ///
+    /// # Panics
+    /// This function will panic if an OpenGL error occurs while trying to
+    /// compile the shader (determined by calling [`gl.get_error`]
+    /// (../context/struct.ContextOf.html#method.get_error)). Note that this
+    /// function ***does not*** panic if there was an error *within* the shader;
+    /// this function should only panic if the shader is invalid or if
+    /// shader compilation is unavailable with the current OpenGL context.
+    ///
+    /// # Failures
+    /// If a compilation error occurs, an `Err` value will be returned
+    /// with the compilation error messages (as determined by
+    /// [`gl.get_shader_info_log`](trait.ContextShaderExt.html#method.get_shader_info_log)).
+    ///
+    /// # See also
+    /// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):
+    /// A function to create a new, uninitialized shader. Includes an example
+    /// of how to use `gl.compile_shader`
+    ///
+    /// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),
+    /// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),
+    /// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):
+    /// The preferred way to create and compile a shader object, which skips
+    /// the need to directly call `gl.compile_shader`.
+    ///
+    /// [`glCompileShader`](http://docs.gl/es2/glCompileShader) OpenGL docs
     fn compile_shader(&self, shader: &mut Shader) -> Result<(), GLError> {
         let success = unsafe {
             gl::CompileShader(shader.id());
@@ -172,6 +353,37 @@ pub trait ContextShaderExt: BaseContext {
         }
     }
 
+    /// Get the information log associated with a shader. This is used to
+    /// get compilation errors, warnings, or other diagnostic information
+    /// that may have occurred while trying to compile a shader. Returns `None`
+    /// if no such diagnostic information was generated.
+    ///
+    /// # Example
+    /// ```no_run
+    /// #[macro_use] extern crate glitter;
+    /// use glitter::prelude::*;
+    ///
+    /// # fn main() {
+    /// let fragment_source = r##"#version 100
+    ///     void main() {
+    ///         float someValue = 1.0 * 2.0;
+    ///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);
+    ///     }
+    /// "##;
+    ///
+    /// let gl = unsafe { glitter::Context::current_context() };
+    /// let shader = gl.build_fragment_shader(fragment_source).unwrap();
+    /// if let Some(info) = gl.get_shader_info_log(&shader) {
+    ///     println!("Shader compilation info: {}", info);
+    ///     // "Shader compilation info: unused variable `someValue` on line 3"
+    ///     // (or whatever other diagnostics your graphics device
+    ///     //  decides to output)
+    /// }
+    /// # }
+    /// ```
+    ///
+    /// # See also
+    /// [`glGetShaderInfoLog`](http://docs.gl/es2/glGetShaderInfoLog) OpenGL docs
     fn get_shader_info_log(&self, shader: &Shader) -> Option<String> {
         unsafe {
             let mut info_length : GLint = 0;
@@ -208,8 +420,13 @@ impl<C: BaseContext> ContextShaderExt for C {
 }
 
 gl_enum! {
+    /// The possible types of shader objects.
     pub gl_enum ShaderType {
+        /// A shader that is used for processing per-vertex data.
         pub const VertexShader as VERTEX_SHADER = gl::VERTEX_SHADER,
+
+        /// A shader that is used for processing per-fragment (per-pixel)
+        /// data.
         pub const FragmentShader as FRAGMENT_SHADER = gl::FRAGMENT_SHADER
     }
 }

@@ -1,3 +1,5 @@
+//! Contains all of the OpenGL state types related to texture bindings.
+
 use std::ptr;
 use std::marker::PhantomData;
 use gl;
@@ -10,6 +12,11 @@ use texture::{TextureMipmapFilter, TextureFilter, TextureWrapMode,
 use image_data::{Image2d, TexelFormat, ImageFormat};
 use types::{GLObject, GLError};
 
+/// Provide a safe interface for building a 2D texture
+/// object that is checked to be complete. A `Texture2dBuilder`
+/// can be created using the [`gl.build_texture_2d`]
+/// (trait.ContextTextureBuilderExt.html#method.build_texture_2d)
+/// method.
 pub struct Texture2dBuilder<'a, C>
     where C: 'a + TextureUnit0Context
 {
@@ -39,11 +46,13 @@ impl<'a, C> Texture2dBuilder<'a, C>
         }
     }
 
+    /// Set the 2D image data to fill the texture with.
     pub fn image_2d(mut self, image: &'a Image2d) -> Self {
         self.image = Some(image);
         self
     }
 
+    /// Set the parameters for creating an empty texture.
     pub fn empty(mut self, format: ImageFormat, width: u32, height: u32)
         -> Self
     {
@@ -51,11 +60,13 @@ impl<'a, C> Texture2dBuilder<'a, C>
         self
     }
 
+    /// Automatically generate mipamps for the texture.
     pub fn generate_mipmap(mut self) -> Self {
         self.gen_mipmap = true;
         self
     }
 
+    /// Set the texture's minifying filter.
     pub fn min_filter<I>(mut self, filter: I) -> Self
         where I: Into<TextureMipmapFilter>
     {
@@ -63,21 +74,42 @@ impl<'a, C> Texture2dBuilder<'a, C>
         self
     }
 
+    /// Set the texture's magnifying filter.
     pub fn mag_filter(mut self, filter: TextureFilter) -> Self {
         self.mag_filter = Some(filter);
         self
     }
 
+    /// Set the texture's wrap mode for the s-coordinate.
     pub fn wrap_s(mut self, wrap: TextureWrapMode) -> Self {
         self.wrap_s = Some(wrap);
         self
     }
 
+    /// Set the texture's wrap mode for the t-coordinate.
     pub fn wrap_t(mut self, wrap: TextureWrapMode) -> Self {
         self.wrap_t = Some(wrap);
         self
     }
 
+    /// Create and return a texture with the specified options,
+    /// or return an error.
+    ///
+    /// # Failures
+    /// If any of the following conditions are met, an error
+    /// will be returned:
+    ///
+    /// - The texture is not complete.
+    /// - The texture was set to be empty, but either the width
+    ///   or height were 0.
+    /// - The texture was neither set to be empty with [`empty`]
+    ///   (struct.Texture2dBuilder.html#method.empty), nor had
+    ///   any image data supplied with [`image_2d`]
+    ///   (struct.Texture2dBuilder.html#method.image_2d).
+    /// - The texture had a mipmap filter set for the [`min_filter`]
+    ///   (struct.Texture2dBuilder.html#method.min_filter), but
+    ///   mimaps were not generated using [`generate_mipmaps`]
+    ///   (struct.Texture2dBuilder.html#method.generate_mipmap).
     pub fn try_unwrap(self) -> Result<Texture2d, GLError> {
         use TextureMipmapFilter::MipmapFilter;
 
@@ -136,6 +168,12 @@ impl<'a, C> Texture2dBuilder<'a, C>
         Ok(texture)
     }
 
+    /// Create a texture with the specified options, or panic.
+    ///
+    /// # Panic
+    /// See the [`try_unwrap`](struct.Texture2dBuilder.html#method.try_unwrap)
+    /// method docs for all of the possible failure cases when building
+    /// a texture.
     pub fn unwrap(self) -> Texture2d {
         self.try_unwrap().unwrap()
     }
@@ -144,7 +182,15 @@ impl<'a, C> Texture2dBuilder<'a, C>
 // NOTE: There is currently no way to express "a context with
 //       one free texure unit"; this design should be explored for
 //       cases like this (where the actual unit number doesn't matter)
+/// The extension trait for contexts that adds the `build_texture_2d` method.
+///
+/// # Note
+/// Currently, this trait is only implemented for contexts where the
+/// 0th texture unit is free.
 pub trait ContextTextureBuilderExt: TextureUnit0Context + Sized {
+    /// Create a new 2D texture builder, providing a safe interface
+    /// for constructing a 2D texture object. See the [`Texture2dBuilder`]
+    /// (struct.Texture2dBuilder.html) docs for more details.
     fn build_texture_2d<'a>(self) -> Texture2dBuilder<'a, Self> {
         Texture2dBuilder::new(self)
     }
@@ -158,7 +204,20 @@ impl<'a, C: 'a> ContextTextureBuilderExt for &'a mut C
 
 
 
+/// An extension trait that includes texture-related OpenGL methods.
 pub trait ContextTextureExt: BaseContext {
+    /// Create a new texture with no storage or image data.
+    ///
+    /// # Safety
+    /// Many OpenGL functions assume a texture object will be [texture-complete]
+    /// (https://www.opengl.org/wiki/Texture_Storage#Texture_completeness).
+    /// Violating this invariant is considered undefined behavior.
+    ///
+    /// # See also
+    /// [`gl.build_texture_2d`](trait.ContextTextureBuilderExt.html#method.build_texture_2d):
+    /// A safe wrapper for building 2D textures.
+    ///
+    /// [`glGenTextures`](http://docs.gl/es2/glGenTextures) OpenGL docs
     unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
         let mut id : GLuint =  0;
 
@@ -171,6 +230,10 @@ pub trait ContextTextureExt: BaseContext {
         Texture::from_raw(id)
     }
 
+    /// Set a texture's minifying filter.
+    ///
+    /// # See also
+    /// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs
     fn set_min_filter<T, F>(&self, gl_texture: &mut T, filter: F)
         where T: TextureBinding, F: Into<TextureMipmapFilter>
     {
@@ -182,6 +245,10 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Set a texture's magnifying filter.
+    ///
+    /// # See also
+    /// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs
     fn set_mag_filter<T>(&self, gl_texture: &mut T, filter: TextureFilter)
         where T: TextureBinding
     {
@@ -193,6 +260,10 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Set a texture's wrap mode for the s-coordinate.
+    ///
+    /// # See also
+    /// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs
     fn set_wrap_s<T>(&self, gl_texture: &mut T, wrap_mode: TextureWrapMode)
         where T: TextureBinding
     {
@@ -204,6 +275,10 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Set a texture's wrap mode for the t-coordinate.
+    ///
+    /// # See also
+    /// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs
     fn set_wrap_t<T>(&self, gl_texture: &mut T, wrap_mode: TextureWrapMode)
         where T: TextureBinding
     {
@@ -215,6 +290,10 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Generate a set of mipmaps for a texture object.
+    ///
+    /// # See also
+    /// [`glGenerateMipmap`](http://docs.gl/es2/glGenerateMipmap) OpenGL docs
     fn generate_mipmap<T>(&self, gl_texture: &mut T)
         where T: TextureBinding
     {
@@ -223,6 +302,12 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Upload 2D image data to a texture object's image target.
+    ///
+    /// - `_gl_texture`: The binding of the texture object.
+    /// - `target`: The texture's 2D image target to upload the image data to.
+    /// - `level`: The mipmap level to upload the image data to.
+    /// - `img`: The image data to upload.
     fn image_2d<T, U, I: ?Sized>(&self,
                                  _gl_texture: &mut T,
                                  target: U,
@@ -244,6 +329,16 @@ pub trait ContextTextureExt: BaseContext {
         }
     }
 
+    /// Set a texture object's image target to an empty image
+    /// with the specified parameters.
+    ///
+    /// - `_gl_texture`: The binding of the texture object.
+    /// - `target`: The texture's 2D image target to set.
+    /// - `level`: The mipmap level to set.
+    /// - `format`: The image format to use to use for the
+    ///             texture's data store.
+    /// - `width`: The width to set for the texture's data store.
+    /// - `height`: The height to set for the texture's data store.
     fn image_2d_empty<T, I>(&self,
                             _gl_texture: &mut T,
                             target: I,
@@ -309,12 +404,17 @@ unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
     }
 }
 
+/// Represents a texture that has been bound to a texture unit.
 pub trait TextureBinding {
+    /// The type of texture that this binding represents.
     type TextureType: TextureType;
 
+    /// The OpenGL texture target of this binding.
     fn target(&self) -> TextureBindingTarget;
 }
 
+/// Represents a texture that has been bound to the `GL_TEXTURE_2D` binding
+/// target of a texture unit.
 pub struct Texture2dBinding<'a> {
     _phantom_ref: PhantomData<&'a mut Texture2d>,
     _phantom_ptr: PhantomData<*mut ()>
@@ -328,6 +428,8 @@ impl<'a> TextureBinding for Texture2dBinding<'a> {
     }
 }
 
+/// Represents a texture that has been bound to the `GL_TEXTURE_CUBE_MAP`
+/// binding target of a texture unit.
 pub struct TextureCubeMapBinding<'a> {
     _phantom_ref: PhantomData<&'a mut TextureCubeMap>,
     _phantom_ptr: PhantomData<*mut ()>
@@ -352,17 +454,27 @@ unsafe fn _bind_texture<T: TextureType>(texture: &mut Texture<T>) {
     }
 }
 
+/// The OpenGL texture unit state that represents the `GL_TEXTURE_2D`
+/// target.
 pub struct Texture2dBinder {
     _phantom: PhantomData<*mut ()>
 }
 
 impl Texture2dBinder {
+    /// Get the current `GL_TEXTURE_2D` binder.
+    ///
+    /// # Safety
+    /// The same rules apply to this method as the
+    /// [`ContextOf::current_context()`]
+    /// (../struct.ContextOf.html#method.current_context) method.
     pub unsafe fn current() -> Self {
         Texture2dBinder {
             _phantom: PhantomData
         }
     }
 
+    /// Bind a texture to the `GL_TEXTURE_2D` target,
+    /// returning a binding.
     pub fn bind<'a>(&mut self, texture: &mut Texture2d)
         -> Texture2dBinding<'a>
     {
@@ -376,17 +488,27 @@ impl Texture2dBinder {
     }
 }
 
+/// The OpenGL texture unit state that represents the `GL_TEXTURE_CUBE_MAP`
+/// target.
 pub struct TextureCubeMapBinder {
     _phantom: PhantomData<*mut ()>
 }
 
 impl TextureCubeMapBinder {
+    /// Get the current `GL_TEXTURE_CUBE_MAP` binder.
+    ///
+    /// # Safety
+    /// The same rules apply to this method as the
+    /// [`ContextOf::current_context()`]
+    /// (../struct.ContextOf.html#method.current_context) method.
     pub unsafe fn current() -> Self {
         TextureCubeMapBinder {
             _phantom: PhantomData
         }
     }
 
+    /// Bind a texture to the `GL_TEXTURE_CUBE_MAP` target,
+    /// returning a binding.
     pub fn bind<'a>(&mut self, texture: &'a mut TextureCubeMap)
         -> TextureCubeMapBinding<'a>
     {
