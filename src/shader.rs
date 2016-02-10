@@ -2,7 +2,7 @@ use std::ptr;
 use gl;
 use gl::types::*;
 use context::{AContext, ContextOf};
-use types::GLError;
+use types::{GLObject, GLError};
 
 pub struct Shader {
     gl_id: GLuint
@@ -13,6 +13,18 @@ impl Drop for Shader {
         unsafe {
             gl::DeleteShader(self.gl_id);
         }
+    }
+}
+
+impl GLObject for Shader {
+    type Id = GLuint;
+
+    unsafe fn from_raw(id: Self::Id) -> Self {
+        Shader { gl_id: id }
+    }
+
+    fn id(&self) -> Self::Id {
+        self.gl_id
     }
 }
 
