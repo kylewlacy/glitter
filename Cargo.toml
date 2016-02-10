@@ -26,3 +26,6 @@ optional = true
 version = "^0.3.14"
 optional = true
 default_features = false
+
+[dev-dependencies]
+sdl2 = "0.13.0"
