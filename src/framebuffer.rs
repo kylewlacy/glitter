@@ -6,16 +6,6 @@ pub struct Framebuffer {
     gl_id: GLuint
 }
 
-impl Framebuffer {
-    pub unsafe fn from_gl(id: GLuint) -> Self {
-        Framebuffer { gl_id: id }
-    }
-
-    pub fn gl_id(&self) -> GLuint {
-        self.gl_id
-    }
-}
-
 impl Drop for Framebuffer {
     fn drop(&mut self) {
         unsafe {

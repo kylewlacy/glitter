@@ -213,7 +213,7 @@ pub trait ContextFramebufferBuilderExt: FramebufferContext + Sized {
 impl<'b, C: 'b> ContextFramebufferBuilderExt for &'b mut C
     where &'b mut C: FramebufferContext
 {
-    
+
 }
 
 
@@ -293,7 +293,7 @@ impl FramebufferBinder {
     {
         let binding = FramebufferBinding { phantom: PhantomData };
         unsafe {
-            gl::BindFramebuffer(binding.target().gl_enum(), fbo.gl_id());
+            gl::BindFramebuffer(binding.target().gl_enum(), fbo.id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`",
                 _ => "Unknown error"
