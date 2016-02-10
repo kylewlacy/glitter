@@ -58,4 +58,5 @@ pub mod prelude {
     pub use shader::ContextShaderBuilderExt;
     pub use vertex_buffer::{VertexBufferContext, IndexBufferContext,
                             ContextVertexBufferExt};
+    pub use types::GLObject;
 }
