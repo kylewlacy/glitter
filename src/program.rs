@@ -6,12 +6,6 @@ pub struct Program {
     gl_id: GLuint
 }
 
-impl Program {
-    pub fn gl_id(&self) -> GLuint {
-        self.gl_id
-    }
-}
-
 impl Drop for Program {
     fn drop(&mut self) {
         unsafe {

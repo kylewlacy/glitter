@@ -34,7 +34,7 @@ unsafe fn _draw_elements(mode: DrawingMode,
 
 fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
     unsafe {
-        gl::BindBuffer(target as GLuint, buffer.gl_id());
+        gl::BindBuffer(target as GLuint, buffer.id());
         dbg_gl_sanity_check! {
             GLError::InvalidEnum => "`target` is not an allowed value",
             _ => "Unknown error"

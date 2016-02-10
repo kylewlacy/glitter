@@ -6,12 +6,6 @@ pub struct Buffer {
     gl_id: GLuint
 }
 
-impl Buffer {
-    pub fn gl_id(&self) -> GLuint {
-        self.gl_id
-    }
-}
-
 impl Drop for Buffer {
     fn drop(&mut self) {
         unsafe {
