@@ -68,7 +68,7 @@ pub trait ContextRenderbufferBuilderExt: RenderbufferContext + Sized {
 impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
     where &'a mut C: RenderbufferContext
 {
-    
+
 }
 
 pub unsafe trait ContextRenderbufferExt {
@@ -178,7 +178,7 @@ impl RenderbufferBinder {
         let binding = RenderbufferBinding { phantom: PhantomData };
         unsafe {
             gl::BindRenderbuffer(binding.target().gl_enum(),
-                                 renderbuffer.gl_id());
+                                 renderbuffer.id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_RENDERBUFFER`",
                 _ => "Unknown error"

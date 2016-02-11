@@ -348,7 +348,7 @@ impl<'a> TextureBinding for TextureCubeMapBinding<'a> {
 
 
 unsafe fn _bind_texture<T: TextureType>(texture: &mut Texture<T>) {
-    gl::BindTexture(T::target().gl_enum(), texture.gl_id());
+    gl::BindTexture(T::target().gl_enum(), texture.id());
     dbg_gl_error! {
         GLError::InvalidEnum => "`target` is not one of the allowed values",
         GLError::InvalidOperation => "`texture` was created with a target that doesn't match `target`",

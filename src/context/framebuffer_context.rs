@@ -55,7 +55,7 @@ pub unsafe trait ContextFramebufferExt {
             gl::FramebufferRenderbuffer(gl_fbo.target().gl_enum(),
                                         attachment.gl_enum(),
                                         renderbuffer_target.gl_enum(),
-                                        renderbuffer.gl_id());
+                                        renderbuffer.id());
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not a valid attachment point, or `renderbuffer` is not `GL_RENDERBUFFER` and `renderbuffer` is not 0",
                 GLError::InvalidOperation => "Framebuffer 0 is bound, or `renderbuffer` is neither 0 nor the name of an existing renderbuffer object",
@@ -79,7 +79,7 @@ pub unsafe trait ContextFramebufferExt {
             gl::FramebufferTexture2D(gl_fbo.target().gl_enum(),
                                      attachment.gl_enum(),
                                      tex_target.into().gl_enum(),
-                                     texture.gl_id(),
+                                     texture.id(),
                                      level as GLint);
             dbg_gl_sanity_check! {
                 GLError::InvalidEnum => "`target` is not `GL_FRAMEBUFFER`, `attachment` is not an accepted attachment point, or `textarget` is not an accepted texture target and texture is not 0",

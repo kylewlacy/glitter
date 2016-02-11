@@ -10,12 +10,6 @@ pub struct Texture<T: TextureType> {
 pub type Texture2d = Texture<Tx2d>;
 pub type TextureCubeMap = Texture<TxCubeMap>;
 
-impl<T: TextureType> Texture<T> {
-    pub fn gl_id(&self) -> GLuint {
-        self.gl_id
-    }
-}
-
 impl<T: TextureType> Drop for Texture<T> {
     fn drop(&mut self) {
         unsafe {
