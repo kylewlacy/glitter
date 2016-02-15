@@ -364,7 +364,8 @@ pub trait BufferBinding {
 }
 
 pub struct ArrayBufferBinding<'a> {
-    phantom: PhantomData<&'a mut Buffer>
+    _phantom_ref: PhantomData<&'a mut Buffer>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> BufferBinding for ArrayBufferBinding<'a> {
@@ -374,7 +375,8 @@ impl<'a> BufferBinding for ArrayBufferBinding<'a> {
 }
 
 pub struct ElementArrayBufferBinding<'a> {
-    phantom: PhantomData<&'a mut Buffer>
+    _phantom_ref: PhantomData<&'a mut Buffer>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
@@ -387,7 +389,8 @@ impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
 
 pub struct BufferBinderOf<A, E> {
     array: A,
-    element_array: E
+    element_array: E,
+    _phantom: PhantomData<*mut ()>
 }
 
 pub type BufferBinder = BufferBinderOf<ArrayBufferBinder,
@@ -396,8 +399,9 @@ pub type BufferBinder = BufferBinderOf<ArrayBufferBinder,
 impl<A, E> BufferBinderOf<A, E> {
     pub unsafe fn current() -> BufferBinder {
         BufferBinderOf {
-            array: ArrayBufferBinder,
-            element_array: ElementArrayBufferBinder
+            array: ArrayBufferBinder::current(),
+            element_array: ElementArrayBufferBinder::current(),
+            _phantom: PhantomData
         }
     }
 
@@ -408,7 +412,8 @@ impl<A, E> BufferBinderOf<A, E> {
     {
         BufferBinderOf {
             array: self.array.borrow_mut(),
-            element_array: self.element_array.borrow_mut()
+            element_array: self.element_array.borrow_mut(),
+            _phantom: PhantomData
         }
     }
 
@@ -419,7 +424,8 @@ impl<A, E> BufferBinderOf<A, E> {
             self.array,
             BufferBinderOf {
                 array: new_array,
-                element_array: self.element_array
+                element_array: self.element_array,
+                _phantom: PhantomData
             }
         )
     }
@@ -431,7 +437,8 @@ impl<A, E> BufferBinderOf<A, E> {
             self.element_array,
             BufferBinderOf {
                 array: self.array,
-                element_array: new_element_array
+                element_array: new_element_array,
+                _phantom: PhantomData
             }
         )
     }
@@ -445,7 +452,8 @@ impl<'a, A, E> ToRef<'a> for BufferBinderOf<A, E>
     fn to_ref(&'a self) -> Self::Ref {
         BufferBinderOf {
             array: self.array.to_ref(),
-            element_array: self.element_array.to_ref()
+            element_array: self.element_array.to_ref(),
+            _phantom: PhantomData
         }
     }
 }
@@ -458,29 +466,54 @@ impl<'a, A, E> ToMut<'a> for BufferBinderOf<A, E>
     fn to_mut(&'a mut self) -> Self::Mut {
         BufferBinderOf {
             array: self.array.to_mut(),
-            element_array: self.element_array.to_mut()
+            element_array: self.element_array.to_mut(),
+            _phantom: PhantomData
         }
     }
 }
 
 
 
-pub struct ArrayBufferBinder;
+pub struct ArrayBufferBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl ArrayBufferBinder {
+    pub unsafe fn current() -> Self {
+        ArrayBufferBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, buffer: &'a mut Buffer) -> ArrayBufferBinding<'a>
     {
-        let binding = ArrayBufferBinding { phantom: PhantomData };
+        let binding = ArrayBufferBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        };
         _bind_buffer(binding.target(), buffer);
         binding
     }
 }
 
-pub struct ElementArrayBufferBinder;
+pub struct ElementArrayBufferBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl ElementArrayBufferBinder {
+    pub unsafe fn current() -> Self {
+        ElementArrayBufferBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, buffer: &'a mut Buffer)
         -> ElementArrayBufferBinding<'a>
     {
-        let binding = ElementArrayBufferBinding { phantom: PhantomData };
+        let binding = ElementArrayBufferBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        };
         _bind_buffer(binding.target(), buffer);
         binding
     }

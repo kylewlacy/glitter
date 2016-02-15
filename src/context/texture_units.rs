@@ -1,4 +1,5 @@
 use std::borrow::BorrowMut;
+use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use context::{AContext, ContextOf,
@@ -32,14 +33,38 @@ pub trait TextureUnit {
 // TODO: Use a macro, or const generic parameters:
 // https://github.com/rust-lang/rfcs/issues/273
 // https://github.com/rust-lang/rfcs/issues/1038
-pub struct TextureUnit0;
-pub struct TextureUnit1;
-pub struct TextureUnit2;
-pub struct TextureUnit3;
-pub struct TextureUnit4;
-pub struct TextureUnit5;
-pub struct TextureUnit6;
-pub struct TextureUnit7;
+pub struct TextureUnit0 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit1 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit2 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit3 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit4 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit5 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit6 {
+    _phantom: PhantomData<*mut ()>
+}
+
+pub struct TextureUnit7 {
+    _phantom: PhantomData<*mut ()>
+}
+
 
 impl TextureUnit for TextureUnit0 { fn idx(&self) -> u32 { 0 } }
 impl TextureUnit for TextureUnit1 { fn idx(&self) -> u32 { 1 } }
@@ -80,14 +105,14 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                                                     T7>
 {
     pub unsafe fn current() -> TextureUnits {
-        TextureUnitsOf(TextureUnit0,
-                       TextureUnit1,
-                       TextureUnit2,
-                       TextureUnit3,
-                       TextureUnit4,
-                       TextureUnit5,
-                       TextureUnit6,
-                       TextureUnit7)
+        TextureUnitsOf(TextureUnit0 { _phantom: PhantomData },
+                       TextureUnit1 { _phantom: PhantomData },
+                       TextureUnit2 { _phantom: PhantomData },
+                       TextureUnit3 { _phantom: PhantomData },
+                       TextureUnit4 { _phantom: PhantomData },
+                       TextureUnit5 { _phantom: PhantomData },
+                       TextureUnit6 { _phantom: PhantomData },
+                       TextureUnit7 { _phantom: PhantomData })
     }
 
     fn borrowed_mut<'a,
@@ -1227,7 +1252,8 @@ impl<'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7> TextureUnit7Context
 pub struct TextureUnitBindingOf<T2, TC> {
     idx: u32,
     texture_2d: T2,
-    texture_cube_map: TC
+    texture_cube_map: TC,
+    _phantom: PhantomData<*mut ()>
 }
 
 pub type TextureUnitBinding = TextureUnitBindingOf<Texture2dBinder,
@@ -1237,8 +1263,9 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
     unsafe fn current_at_idx(idx: u32) -> TextureUnitBinding {
         TextureUnitBinding {
             idx: idx,
-            texture_2d: Texture2dBinder,
-            texture_cube_map: TextureCubeMapBinder
+            texture_2d: Texture2dBinder::current(),
+            texture_cube_map: TextureCubeMapBinder::current(),
+            _phantom: PhantomData
         }
     }
 
@@ -1256,7 +1283,8 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
             TextureUnitBindingOf {
                 idx: self.idx,
                 texture_2d: (),
-                texture_cube_map: self.texture_cube_map
+                texture_cube_map: self.texture_cube_map,
+                _phantom: PhantomData
             }
         )
     }
@@ -1267,7 +1295,8 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
             TextureUnitBindingOf {
                 idx: self.idx,
                 texture_2d: self.texture_2d,
-                texture_cube_map: ()
+                texture_cube_map: (),
+                _phantom: PhantomData
             }
         )
     }
@@ -1280,7 +1309,8 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
         TextureUnitBindingOf {
             idx: self.idx,
             texture_2d: self.texture_2d.borrow_mut(),
-            texture_cube_map: self.texture_cube_map.borrow_mut()
+            texture_cube_map: self.texture_cube_map.borrow_mut(),
+            _phantom: PhantomData
         }
     }
 }

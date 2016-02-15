@@ -344,14 +344,27 @@ impl<'a, B, F, P, R, T> ProgramContext for &'a mut ContextOf<B, F, P, R, T>
 
 
 pub struct ProgramBinding<'a> {
-    phantom: PhantomData<&'a mut Program>
+    _phantom_ref: PhantomData<&'a mut Program>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
-pub struct ProgramBinder;
+pub struct ProgramBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl ProgramBinder {
+    pub unsafe fn current() -> Self {
+        ProgramBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, program: &'a mut Program) -> ProgramBinding<'a>
     {
-        let binding = ProgramBinding { phantom: PhantomData };
+        let binding = ProgramBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        };
         unsafe {
             gl::UseProgram(program.id());
             dbg_gl_error! {

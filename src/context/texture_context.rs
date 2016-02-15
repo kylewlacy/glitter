@@ -322,7 +322,8 @@ pub trait TextureBinding {
 }
 
 pub struct Texture2dBinding<'a> {
-    phantom: PhantomData<&'a mut Texture2d>
+    _phantom_ref: PhantomData<&'a mut Texture2d>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> TextureBinding for Texture2dBinding<'a> {
@@ -334,7 +335,8 @@ impl<'a> TextureBinding for Texture2dBinding<'a> {
 }
 
 pub struct TextureCubeMapBinding<'a> {
-    phantom: PhantomData<&'a mut TextureCubeMap>
+    _phantom_ref: PhantomData<&'a mut TextureCubeMap>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> TextureBinding for TextureCubeMapBinding<'a> {
@@ -356,26 +358,50 @@ unsafe fn _bind_texture<T: TextureType>(texture: &mut Texture<T>) {
     }
 }
 
-pub struct Texture2dBinder;
+pub struct Texture2dBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl Texture2dBinder {
+    pub unsafe fn current() -> Self {
+        Texture2dBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, texture: &mut Texture2d)
         -> Texture2dBinding<'a>
     {
         unsafe {
             _bind_texture(texture);
         }
-        Texture2dBinding { phantom: PhantomData }
+        Texture2dBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        }
     }
 }
 
-pub struct TextureCubeMapBinder;
+pub struct TextureCubeMapBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl TextureCubeMapBinder {
+    pub unsafe fn current() -> Self {
+        TextureCubeMapBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, texture: &'a mut TextureCubeMap)
         -> TextureCubeMapBinding<'a>
     {
         unsafe {
             _bind_texture(texture);
         }
-        TextureCubeMapBinding { phantom: PhantomData }
+        TextureCubeMapBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        }
     }
 }

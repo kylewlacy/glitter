@@ -1,4 +1,5 @@
 use std::borrow::{Borrow, BorrowMut};
+use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use types::{Color, Viewport, Capability, GLError};
@@ -31,7 +32,8 @@ pub struct ContextOf<B, F, P, R, T> {
     framebuffer: F,
     program: P,
     renderbuffer: R,
-    tex_units: T
+    tex_units: T,
+    _phantom: PhantomData<*mut ()>
 }
 
 impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
@@ -44,10 +46,11 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     pub unsafe fn current_context() -> Context {
         ContextOf {
             buffers: BufferBinder::current(),
-            framebuffer: FramebufferBinder,
-            program: ProgramBinder,
-            renderbuffer: RenderbufferBinder,
-            tex_units: TextureUnits::current()
+            framebuffer: FramebufferBinder::current(),
+            program: ProgramBinder::current(),
+            renderbuffer: RenderbufferBinder::current(),
+            tex_units: TextureUnits::current(),
+            _phantom: PhantomData
         }
     }
 
@@ -83,7 +86,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
             framebuffer: self.framebuffer.borrow(),
             program: self.program.borrow(),
             renderbuffer: self.renderbuffer.borrow(),
-            tex_units: self.tex_units.borrow()
+            tex_units: self.tex_units.borrow(),
+            _phantom: PhantomData
         }
     }
 
@@ -105,7 +109,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
             framebuffer: self.framebuffer.borrow_mut(),
             program: self.program.borrow_mut(),
             renderbuffer: self.renderbuffer.borrow_mut(),
-            tex_units: self.tex_units.borrow_mut()
+            tex_units: self.tex_units.borrow_mut(),
+            _phantom: PhantomData
         }
     }
 
@@ -119,7 +124,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: self.framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
-                tex_units: self.tex_units
+                tex_units: self.tex_units,
+                _phantom: PhantomData
             }
         )
     }
@@ -134,7 +140,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: new_framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
-                tex_units: self.tex_units
+                tex_units: self.tex_units,
+                _phantom: PhantomData
             }
         )
     }
@@ -149,7 +156,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: self.framebuffer,
                 program: new_program,
                 renderbuffer: self.renderbuffer,
-                tex_units: self.tex_units
+                tex_units: self.tex_units,
+                _phantom: PhantomData
             }
         )
     }
@@ -164,7 +172,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: self.framebuffer,
                 program: self.program,
                 renderbuffer: new_renderbuffer,
-                tex_units: self.tex_units
+                tex_units: self.tex_units,
+                _phantom: PhantomData
             }
         )
     }
@@ -179,7 +188,8 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
                 framebuffer: self.framebuffer,
                 program: self.program,
                 renderbuffer: self.renderbuffer,
-                tex_units: new_tex_units
+                tex_units: new_tex_units,
+                _phantom: PhantomData
             }
         )
     }
@@ -200,7 +210,8 @@ impl<'a, B, F, P, R, T> ToRef<'a> for ContextOf<B, F, P, R, T>
             framebuffer: self.framebuffer.to_ref(),
             program: self.program.to_ref(),
             renderbuffer: self.renderbuffer.to_ref(),
-            tex_units: self.tex_units.to_ref()
+            tex_units: self.tex_units.to_ref(),
+            _phantom: PhantomData
         }
     }
 }
@@ -220,7 +231,8 @@ impl<'a, B, F, P, R, T> ToMut<'a> for ContextOf<B, F, P, R, T>
             framebuffer: self.framebuffer.to_mut(),
             program: self.program.to_mut(),
             renderbuffer: self.renderbuffer.to_mut(),
-            tex_units: self.tex_units.to_mut()
+            tex_units: self.tex_units.to_mut(),
+            _phantom: PhantomData
         }
     }
 }

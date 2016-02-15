@@ -161,7 +161,8 @@ impl<'a, B, F, P, R, T> RenderbufferContext
 
 
 pub struct RenderbufferBinding<'a> {
-    phantom: PhantomData<&'a mut Renderbuffer>
+    _phantom_ref: PhantomData<&'a mut Renderbuffer>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> RenderbufferBinding<'a> {
@@ -170,12 +171,24 @@ impl<'a> RenderbufferBinding<'a> {
     }
 }
 
-pub struct RenderbufferBinder;
+pub struct RenderbufferBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl RenderbufferBinder {
+    pub unsafe fn current() -> Self {
+        RenderbufferBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub fn bind<'a>(&mut self, renderbuffer: &'a mut Renderbuffer)
         -> RenderbufferBinding<'a>
     {
-        let binding = RenderbufferBinding { phantom: PhantomData };
+        let binding = RenderbufferBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        };
         unsafe {
             gl::BindRenderbuffer(binding.target().gl_enum(),
                                  renderbuffer.id());

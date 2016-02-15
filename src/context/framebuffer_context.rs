@@ -273,7 +273,8 @@ impl<'a, B, F, P, R, T> FramebufferContext for &'a mut ContextOf<B, F, P, R, T>
 
 
 pub struct FramebufferBinding<'a> {
-    phantom: PhantomData<&'a mut Framebuffer>
+    _phantom_ref: PhantomData<&'a mut Framebuffer>,
+    _phantom_ptr: PhantomData<*mut ()>
 }
 
 impl<'a> FramebufferBinding<'a> {
@@ -282,16 +283,31 @@ impl<'a> FramebufferBinding<'a> {
     }
 }
 
-pub struct FramebufferBinder;
+pub struct FramebufferBinder {
+    _phantom: PhantomData<*mut ()>
+}
+
 impl FramebufferBinder {
+    pub unsafe fn current() -> Self {
+        FramebufferBinder {
+            _phantom: PhantomData
+        }
+    }
+
     pub unsafe fn current_binding(&mut self) -> FramebufferBinding {
-        FramebufferBinding { phantom: PhantomData }
+        FramebufferBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        }
     }
 
     pub fn bind<'a>(&mut self, fbo: &'a mut Framebuffer)
         -> FramebufferBinding<'a>
     {
-        let binding = FramebufferBinding { phantom: PhantomData };
+        let binding = FramebufferBinding {
+            _phantom_ref: PhantomData,
+            _phantom_ptr: PhantomData
+        };
         unsafe {
             gl::BindFramebuffer(binding.target().gl_enum(), fbo.id());
             dbg_gl_sanity_check! {

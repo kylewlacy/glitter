@@ -1,9 +1,11 @@
+use std::marker::PhantomData;
 use gl;
 use gl::types::*;
 use types::GLObject;
 
 pub struct Framebuffer {
-    gl_id: GLuint
+    gl_id: GLuint,
+    _phantom: PhantomData<*mut ()>
 }
 
 impl Drop for Framebuffer {
@@ -18,7 +20,10 @@ impl GLObject for Framebuffer {
     type Id = GLuint;
 
     unsafe fn from_raw(id: Self::Id) -> Self {
-        Framebuffer { gl_id: id }
+        Framebuffer {
+            gl_id: id,
+            _phantom: PhantomData
+        }
     }
 
     fn id(&self) -> Self::Id {

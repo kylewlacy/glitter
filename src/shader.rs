@@ -1,3 +1,4 @@
+use std::marker::PhantomData;
 use std::ptr;
 use gl;
 use gl::types::*;
@@ -5,7 +6,8 @@ use context::{AContext, ContextOf};
 use types::{GLObject, GLError};
 
 pub struct Shader {
-    gl_id: GLuint
+    gl_id: GLuint,
+    _phantom: PhantomData<*mut ()>
 }
 
 impl Drop for Shader {
@@ -20,7 +22,10 @@ impl GLObject for Shader {
     type Id = GLuint;
 
     unsafe fn from_raw(id: Self::Id) -> Self {
-        Shader { gl_id: id }
+        Shader {
+            gl_id: id,
+            _phantom: PhantomData
+        }
     }
 
     fn id(&self) -> Self::Id {
@@ -115,7 +120,7 @@ pub unsafe trait ContextShaderExt {
             _ => "Unknown error"
         }
         if id > 0 {
-            Ok(Shader { gl_id: id })
+            Ok(Shader::from_raw(id))
         }
         else {
             Err(())
