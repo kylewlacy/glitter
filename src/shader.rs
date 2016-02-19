@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 use std::ptr;
 use gl;
 use gl::types::*;
-use context::{AContext, ContextOf};
+use context::{AContext, BaseContext};
 use types::{GLObject, GLError};
 
 pub struct Shader {
@@ -110,7 +110,7 @@ impl<C: AContext> ContextShaderBuilderExt for C {
     }
 }
 
-pub unsafe trait ContextShaderExt {
+pub trait ContextShaderExt: BaseContext {
     unsafe fn create_shader(&self, shader_type: ShaderType)
         -> Result<Shader, ()>
     {
@@ -203,12 +203,7 @@ pub unsafe trait ContextShaderExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextShaderExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextShaderExt
-    for &'a mut ContextOf<B, F, P, R, T> {
+impl<C: BaseContext> ContextShaderExt for C {
 
 }
 

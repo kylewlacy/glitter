@@ -7,7 +7,7 @@ use std::ffi::CString;
 use gl;
 use gl::types::*;
 use types::{GLObject, GLError};
-use context::{AContext, ContextOf};
+use context::{AContext, BaseContext, ContextOf};
 use program::{Program, ProgramAttrib, ProgramUniform};
 use shader::Shader;
 use uniform_data::{UniformData, UniformDatumType, UniformPrimitiveType};
@@ -76,7 +76,7 @@ impl<C: AContext> ContextProgramBuilderExt for C {
 
 }
 
-pub unsafe trait ContextProgramExt {
+pub trait ContextProgramExt: BaseContext {
     unsafe fn create_program(&self) -> Result<Program, ()> {
         let id = gl::CreateProgram();
         if id > 0 {
@@ -291,13 +291,7 @@ pub unsafe trait ContextProgramExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextProgramExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextProgramExt
-    for &'a mut ContextOf<B, F, P, R, T>
-{
+impl<C: BaseContext> ContextProgramExt for C {
 
 }
 

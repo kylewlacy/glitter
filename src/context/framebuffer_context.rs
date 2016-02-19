@@ -3,14 +3,14 @@ use std::collections::hash_map::{HashMap, Entry};
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::{AContext, ContextOf};
+use context::{AContext, BaseContext, ContextOf};
 use framebuffer::Framebuffer;
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use texture::{Texture, TextureType, ImageTargetType,
               Texture2d, Tx2dImageTarget};
 use types::{BufferBits, GLError, GLObject, GLFramebufferError};
 
-pub unsafe trait ContextFramebufferExt {
+pub trait ContextFramebufferExt: BaseContext {
     unsafe fn gen_framebuffer(&self) -> Framebuffer {
         let mut id : GLuint = 0;
 
@@ -104,13 +104,7 @@ pub unsafe trait ContextFramebufferExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextFramebufferExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextFramebufferExt
-    for &'a mut ContextOf<B, F, P, R, T>
-{
+impl<C: BaseContext> ContextFramebufferExt for C {
 
 }
 

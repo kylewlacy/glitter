@@ -237,7 +237,21 @@ impl<'a, B, F, P, R, T> ToMut<'a> for ContextOf<B, F, P, R, T>
     }
 }
 
-pub unsafe trait ContextExt {
+pub unsafe trait BaseContext {
+
+}
+
+unsafe impl<B, F, P, R, T> BaseContext for ContextOf<B, F, P, R, T> {
+
+}
+
+unsafe impl<'a, B, F, P, R, T> BaseContext
+    for &'a mut ContextOf<B, F, P, R, T>
+{
+
+}
+
+pub trait ContextExt: BaseContext {
     fn clear_color(&mut self, color: Color) {
         unsafe {
             gl::ClearColor(color.r, color.g, color.b, color.a);
@@ -288,15 +302,12 @@ pub unsafe trait ContextExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextExt for &'a mut ContextOf<B, F, P, R, T> {
+impl<C: BaseContext> ContextExt for C {
 
 }
 
 pub mod ext {
+    pub use BaseContext;
     pub use ContextExt;
     pub use ContextBufferExt;
     pub use ContextFramebufferExt;

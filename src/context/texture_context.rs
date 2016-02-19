@@ -2,7 +2,7 @@ use std::ptr;
 use std::marker::PhantomData;
 use gl;
 use gl::types::*;
-use context::{ContextOf, TextureUnit0Context, TextureUnitBinding2d};
+use context::{BaseContext, TextureUnit0Context, TextureUnitBinding2d};
 use texture::{TextureMipmapFilter, TextureFilter, TextureWrapMode,
               Texture, Texture2d, TextureCubeMap,
               Tx2d, TxCubeMap, TextureType, Tx2dImageTarget,
@@ -158,7 +158,7 @@ impl<'a, C: 'a> ContextTextureBuilderExt for &'a mut C
 
 
 
-pub unsafe trait ContextTextureExt {
+pub trait ContextTextureExt: BaseContext {
     unsafe fn gen_texture<TX: TextureType>(&self) -> Texture<TX> {
         let mut id : GLuint =  0;
 
@@ -266,13 +266,7 @@ pub unsafe trait ContextTextureExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextTextureExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextTextureExt
-    for &'a mut ContextOf<B, F, P, R, T>
-{
+impl<C: BaseContext> ContextTextureExt for C {
 
 }
 

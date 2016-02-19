@@ -2,7 +2,7 @@ use std::marker::PhantomData;
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::{AContext, ContextOf};
+use context::{AContext, BaseContext, ContextOf};
 use renderbuffer::{Renderbuffer, RenderbufferTarget};
 use image_data::{RenderbufferFormat};
 use types::{GLObject, GLError};
@@ -71,7 +71,7 @@ impl<'a, C: 'a> ContextRenderbufferBuilderExt for &'a mut C
 
 }
 
-pub unsafe trait ContextRenderbufferExt {
+pub trait ContextRenderbufferExt: BaseContext {
     unsafe fn gen_renderbuffer(&self) -> Renderbuffer {
         let mut id : GLuint = 0;
 
@@ -106,13 +106,7 @@ pub unsafe trait ContextRenderbufferExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextRenderbufferExt for ContextOf<B, F, P, R, T> {
-
-}
-
-unsafe impl<'a, B, F, P, R, T> ContextRenderbufferExt
-    for &'a mut ContextOf<B, F, P, R, T>
-{
+impl<C: BaseContext> ContextRenderbufferExt for C {
 
 }
 

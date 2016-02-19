@@ -4,7 +4,7 @@ use std::marker::PhantomData;
 use std::borrow::BorrowMut;
 use gl;
 use gl::types::*;
-use context::{ContextOf, AContext};
+use context::{ContextOf, BaseContext, AContext};
 use buffer::{Buffer, BufferDataUsage, BufferBindingTarget};
 use program::{ProgramAttrib};
 use index_data::{IndexData, IndexDatum, IndexDatumType};
@@ -42,7 +42,7 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
     }
 }
 
-pub unsafe trait ContextBufferExt {
+pub trait ContextBufferExt: BaseContext {
     fn gen_buffer(&self) -> Buffer {
         let mut id : GLuint = 0;
 
@@ -153,15 +153,11 @@ pub unsafe trait ContextBufferExt {
     }
 }
 
-unsafe impl<B, F, P, R, T> ContextBufferExt for ContextOf<B, F, P, R, T> {
+impl<C: BaseContext> ContextBufferExt for C {
 
 }
 
-unsafe impl<'a, B, F, P, R, T> ContextBufferExt
-    for &'a mut ContextOf<B, F, P, R, T>
-{
 
-}
 
 pub trait ArrayBufferContext: AContext {
     type Binder: BorrowMut<ArrayBufferBinder>;
