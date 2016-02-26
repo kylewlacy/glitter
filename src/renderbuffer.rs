@@ -35,6 +35,6 @@ impl GLObject for Renderbuffer {
 
 gl_enum! {
     pub gl_enum RenderbufferTarget {
-        Renderbuffer as RENDERBUFFER = gl::RENDERBUFFER
+        pub const Renderbuffer as RENDERBUFFER = gl::RENDERBUFFER
     }
 }

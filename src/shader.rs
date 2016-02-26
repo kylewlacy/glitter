@@ -209,7 +209,7 @@ impl<C: BaseContext> ContextShaderExt for C {
 
 gl_enum! {
     pub gl_enum ShaderType {
-        VertexShader as VERTEX_SHADER = gl::VERTEX_SHADER,
-        FragmentShader as FRAGMENT_SHADER = gl::FRAGMENT_SHADER
+        pub const VertexShader as VERTEX_SHADER = gl::VERTEX_SHADER,
+        pub const FragmentShader as FRAGMENT_SHADER = gl::FRAGMENT_SHADER
     }
 }

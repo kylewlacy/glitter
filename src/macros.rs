@@ -22,18 +22,25 @@ macro_rules! dbg_gl_sanity_check {
 
 macro_rules! gl_enum {
     (
+        $(#[$attr:meta])*
         pub gl_enum $name:ident {
-            $($variant:ident as $const_name:ident = $value:expr),+
+            $(
+                $(#[$variant_attr:meta])*
+                pub const $variant:ident as $const_name:ident = $value:expr
+            ),+
         }
     ) => {
+        $(#[$attr])*
         #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
         pub enum $name {
-            $($variant = $value as isize),+
+            $($(#[$variant_attr])* $variant = $value as isize),+
         }
-        $(pub const $const_name: $name = $name::$variant;)+
+        $($(#[$variant_attr])* pub const $const_name: $name = $name::$variant;)+
 
         #[allow(dead_code)]
         impl $name {
+            /// Convert from a raw OpenGL integer value to an enum variant.
+            /// Returns an error if the value is not a valid enum variant.
             pub fn from_gl(gl_enum: $crate::gl::types::GLenum)
                 -> Result<Self, ()>
             {
@@ -43,6 +50,7 @@ macro_rules! gl_enum {
                 }
             }
 
+            /// Return the OpenGL integer value for a given enum variant.
             pub fn gl_enum(&self) -> $crate::gl::types::GLenum {
                 *self as $crate::gl::types::GLenum
             }

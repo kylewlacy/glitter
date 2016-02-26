@@ -61,23 +61,23 @@ bitflags! {
 
 gl_enum! {
     pub gl_enum Capability {
-        Blend as BLEND
+        pub const Blend as BLEND
             = gl::BLEND,
-        CullFace as CULL_FACE
+        pub const CullFace as CULL_FACE
             = gl::CULL_FACE,
-        DepthTest as DEPTH_TEST
+        pub const DepthTest as DEPTH_TEST
             = gl::DEPTH_TEST,
-        Dither as DITHER
+        pub const Dither as DITHER
             = gl::DITHER,
-        PolygonOffsetFill as POLYGON_OFFSET_FILL
+        pub const PolygonOffsetFill as POLYGON_OFFSET_FILL
             = gl::POLYGON_OFFSET_FILL,
-        SampleAlphaToCoverage as SAMPLE_ALPHA_TO_COVERAGE =
+        pub const SampleAlphaToCoverage as SAMPLE_ALPHA_TO_COVERAGE =
             gl::SAMPLE_ALPHA_TO_COVERAGE,
-        SampleCoverage as SAMPLE_COVERAGE =
+        pub const SampleCoverage as SAMPLE_COVERAGE =
             gl::SAMPLE_COVERAGE,
-        ScisscorTest as SCISSCOR_TEST =
+        pub const ScisscorTest as SCISSCOR_TEST =
             gl::SCISSOR_TEST,
-        StencilTest as STENCIL_TEST =
+        pub const StencilTest as STENCIL_TEST =
             gl::STENCIL_TEST
     }
 }
@@ -194,23 +194,23 @@ impl From<GLFramebufferError> for GLError {
 
 gl_enum! {
     pub gl_enum DrawingMode {
-        Points as POINTS = gl::POINTS,
-        LineStrip as LINE_STRIP = gl::LINE_STRIP,
-        LineLoop as LINE_LOOP = gl::LINE_LOOP,
-        Lines as LINES = gl::LINES,
-        TriangleStrip as TRIANGLE_STRIP = gl::TRIANGLE_STRIP,
-        TriangleFan as TRIANGLE_FAN = gl::TRIANGLE_FAN,
-        Triangles as TRIANGLES = gl::TRIANGLES
+        pub const Points as POINTS = gl::POINTS,
+        pub const LineStrip as LINE_STRIP = gl::LINE_STRIP,
+        pub const LineLoop as LINE_LOOP = gl::LINE_LOOP,
+        pub const Lines as LINES = gl::LINES,
+        pub const TriangleStrip as TRIANGLE_STRIP = gl::TRIANGLE_STRIP,
+        pub const TriangleFan as TRIANGLE_FAN = gl::TRIANGLE_FAN,
+        pub const Triangles as TRIANGLES = gl::TRIANGLES
     }
 }
 
 gl_enum! {
     pub gl_enum DataType {
-        Byte as BYTE = gl::BYTE,
-        UnsignedByte as UNSIGNED_BYTE = gl::UNSIGNED_BYTE,
-        Short as SHORT = gl::SHORT,
-        UnsignedShort as UNSIGNED_SHORT = gl::UNSIGNED_SHORT,
-        Fixed as FIXED = gl::FIXED,
-        Float as FLOAT = gl::FLOAT
+        pub const Byte as BYTE = gl::BYTE,
+        pub const UnsignedByte as UNSIGNED_BYTE = gl::UNSIGNED_BYTE,
+        pub const Short as SHORT = gl::SHORT,
+        pub const UnsignedShort as UNSIGNED_SHORT = gl::UNSIGNED_SHORT,
+        pub const Fixed as FIXED = gl::FIXED,
+        pub const Float as FLOAT = gl::FLOAT
     }
 }

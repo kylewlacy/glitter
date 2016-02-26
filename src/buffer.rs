@@ -35,15 +35,17 @@ impl GLObject for Buffer {
 
 gl_enum! {
     pub gl_enum BufferDataUsage {
-        StreamDraw as STREAM_DRAW = gl::STREAM_DRAW,
-        StaticDraw as STATIC_DRAW = gl::STATIC_DRAW,
-        DynamicDraw as DYNAMIC_DRAW = gl::DYNAMIC_DRAW
+        pub const StreamDraw as STREAM_DRAW = gl::STREAM_DRAW,
+        pub const StaticDraw as STATIC_DRAW = gl::STATIC_DRAW,
+        pub const DynamicDraw as DYNAMIC_DRAW = gl::DYNAMIC_DRAW
     }
 }
 
 gl_enum! {
     pub gl_enum BufferBindingTarget {
-        ArrayBuffer as ARRAY_BUFFER = gl::ARRAY_BUFFER,
-        ElementArrayBuffer as ELEMENT_ARRAY_BUFFER = gl::ELEMENT_ARRAY_BUFFER
+        pub const ArrayBuffer as ARRAY_BUFFER =
+            gl::ARRAY_BUFFER,
+        pub const ElementArrayBuffer as ELEMENT_ARRAY_BUFFER =
+            gl::ELEMENT_ARRAY_BUFFER
     }
 }

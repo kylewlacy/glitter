@@ -214,15 +214,18 @@ impl<'b, C: 'b> ContextFramebufferBuilderExt for &'b mut C
 
 gl_enum! {
     pub gl_enum FramebufferTarget {
-        Framebuffer as FRAMEBUFFER = gl::FRAMEBUFFER
+        pub const Framebuffer as FRAMEBUFFER = gl::FRAMEBUFFER
     }
 }
 
 gl_enum! {
     pub gl_enum FramebufferAttachment {
-        ColorAttachment0 as COLOR_ATTACHMENT0 = gl::COLOR_ATTACHMENT0,
-        DepthAttachment as DEPTH_ATTACHMENT = gl::DEPTH_ATTACHMENT,
-        StencilAttachment as STENCIL_ATTACHMENT = gl::STENCIL_ATTACHMENT
+        pub const ColorAttachment0 as COLOR_ATTACHMENT0 =
+            gl::COLOR_ATTACHMENT0,
+        pub const DepthAttachment as DEPTH_ATTACHMENT =
+            gl::DEPTH_ATTACHMENT,
+        pub const StencilAttachment as STENCIL_ATTACHMENT =
+            gl::STENCIL_ATTACHMENT
     }
 }
 

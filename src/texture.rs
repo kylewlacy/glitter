@@ -70,17 +70,17 @@ pub struct TxCubeMap;
 
 gl_enum! {
     pub gl_enum TxCubeMapImageTarget {
-        CubeMapPositiveX as TEXTURE_CUBE_MAP_POSITIVE_X =
+        pub const CubeMapPositiveX as TEXTURE_CUBE_MAP_POSITIVE_X =
             gl::TEXTURE_CUBE_MAP_POSITIVE_X,
-        CubeMapNegativeX as TEXTURE_CUBE_MAP_NEGATIVE_X =
+        pub const CubeMapNegativeX as TEXTURE_CUBE_MAP_NEGATIVE_X =
             gl::TEXTURE_CUBE_MAP_NEGATIVE_X,
-        CubeMapPositiveY as TEXTURE_CUBE_MAP_POSITIVE_Y =
+        pub const CubeMapPositiveY as TEXTURE_CUBE_MAP_POSITIVE_Y =
             gl::TEXTURE_CUBE_MAP_POSITIVE_Y,
-        CubeMapNegativeY as TEXTURE_CUBE_MAP_NEGATIVE_Y =
+        pub const CubeMapNegativeY as TEXTURE_CUBE_MAP_NEGATIVE_Y =
             gl::TEXTURE_CUBE_MAP_NEGATIVE_Y,
-        CubeMapPositiveZ as TEXTURE_CUBE_MAP_POSITIVE_Z =
+        pub const CubeMapPositiveZ as TEXTURE_CUBE_MAP_POSITIVE_Z =
             gl::TEXTURE_CUBE_MAP_POSITIVE_Z,
-        CubeMapNegativeZ as TEXTURE_CUBE_MAP_NEGATIVE_Z =
+        pub const CubeMapNegativeZ as TEXTURE_CUBE_MAP_NEGATIVE_Z =
             gl::TEXTURE_CUBE_MAP_NEGATIVE_Z
     }
 }
@@ -229,8 +229,8 @@ impl From<TextureFilter> for TextureMipmapFilter {
 
 gl_enum! {
     pub gl_enum TextureWrapMode {
-        ClampToEdge as CLAMP_TO_EDGE = gl::CLAMP_TO_EDGE,
-        MirroredRepeat as MIRRORED_REPEAT = gl::MIRRORED_REPEAT,
-        Repeat as REPEAT = gl::REPEAT
+        pub const ClampToEdge as CLAMP_TO_EDGE = gl::CLAMP_TO_EDGE,
+        pub const MirroredRepeat as MIRRORED_REPEAT = gl::MIRRORED_REPEAT,
+        pub const Repeat as REPEAT = gl::REPEAT
     }
 }

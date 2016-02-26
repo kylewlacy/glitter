@@ -110,30 +110,32 @@ impl Image2d for Pixels {
 
 gl_enum! {
     pub gl_enum TextelType {
-        UnsignedByte as UNSIGNED_BYTE_TEXTEL = gl::UNSIGNED_BYTE,
-        UnsignedShort565 as UNSIGNED_SHORT_5_6_5 = gl::UNSIGNED_SHORT_5_6_5,
-        UnsignedShort4444 as UNSIGNED_SHORT_4_4_4_4 =
+        pub const UnsignedByte as UNSIGNED_BYTE_TEXTEL =
+            gl::UNSIGNED_BYTE,
+        pub const UnsignedShort565 as UNSIGNED_SHORT_5_6_5 =
+            gl::UNSIGNED_SHORT_5_6_5,
+        pub const UnsignedShort4444 as UNSIGNED_SHORT_4_4_4_4 =
             gl::UNSIGNED_SHORT_4_4_4_4,
-        UnsignedShort5551 as UNSIGNED_SHORT_5_5_5_1 =
+        pub const UnsignedShort5551 as UNSIGNED_SHORT_5_5_5_1 =
             gl::UNSIGNED_SHORT_5_5_5_1
     }
 }
 
 gl_enum! {
     pub gl_enum TextelFormat {
-        Alpha as ALPHA = gl::ALPHA,
-        RGB as RGB = gl::RGB,
-        RGBA as RGBA = gl::RGBA
+        pub const Alpha as ALPHA = gl::ALPHA,
+        pub const RGB as RGB = gl::RGB,
+        pub const RGBA as RGBA = gl::RGBA
     }
 }
 
 gl_enum! {
     pub gl_enum RenderbufferFormat {
-        RGBA4 as RGBA4 = gl::RGBA4,
-        RGB565 as RGB565 = gl::RGB565,
-        RGB5A1 as RGB5_A1 = gl::RGB5_A1,
-        DepthComponent16 as DEPTH_COMPONENT16 = gl::DEPTH_COMPONENT16,
-        StencilIndex8 as STENCIL_INDEX8 = gl::STENCIL_INDEX8
+        pub const RGBA4 as RGBA4 = gl::RGBA4,
+        pub const RGB565 as RGB565 = gl::RGB565,
+        pub const RGB5A1 as RGB5_A1 = gl::RGB5_A1,
+        pub const DepthComponent16 as DEPTH_COMPONENT16 = gl::DEPTH_COMPONENT16,
+        pub const StencilIndex8 as STENCIL_INDEX8 = gl::STENCIL_INDEX8
     }
 }
 
