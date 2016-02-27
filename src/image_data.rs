@@ -35,10 +35,17 @@ pub trait Image2d {
 #[derive(Debug, Clone, Copy)]
 #[repr(C)]
 pub struct Pixel {
-    r: u8,
-    g: u8,
-    b: u8,
-    a: u8
+    /// The red component.
+    pub r: u8,
+
+    /// The green component.
+    pub g: u8,
+
+    /// The blue component.
+    pub b: u8,
+
+    /// The alpha component.
+    pub a: u8
 }
 
 impl Pixel {
