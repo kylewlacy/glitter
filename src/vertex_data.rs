@@ -342,6 +342,8 @@ macro_rules! impl_vertex_data {
                         offset: offset_of!($name, $field_name)
                     });
                 )*
+
+                ::std::mem::forget(_data);
             }
         }
     };
