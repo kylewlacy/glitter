@@ -50,24 +50,61 @@ pub struct Pixel {
 
 impl Pixel {
     /// Create an RGBA color, provided each color component.
+    ///
+    /// # Examples
+    /// ```
+    /// let pixel = glitter::Pixel::r_g_b_a(0xAA, 0xBB, 0xCC, 0xDD);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xDD);
+    /// ```
     pub fn r_g_b_a(r: u8, g: u8, b: u8, a: u8) -> Self {
         Pixel { r: r, g: g, b: b, a: a }
     }
 
     /// Create an RGBA color, provided the RGB components and using
     /// `0xFF` as the A value.
+    ///
+    /// # Examples
+    /// ```
+    /// let pixel = glitter::Pixel::r_g_b(0xAA, 0xBB, 0xCC);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xFF);
+    /// ```
     pub fn r_g_b(r: u8, g: u8, b: u8) -> Self {
         Pixel::r_g_b_a(r, g, b, 0xFF)
     }
 
     /// Create an RGBA color, provided the RGB components as a packed
     /// `u32` value. The `u32` value will be read as `0x00RRGGBB`.
+    ///
+    /// # Examples
+    /// ```
+    /// // The `0x55` component gets discared
+    /// let pixel = glitter::Pixel::rgb(0x55AABBCC);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xFF);
+    /// ```
     pub fn rgb(rgb: u32) -> Self {
         Pixel::rgb_a(rgb, 0xFF)
     }
 
     /// Create an RGBA color value, provided the components as a packed
     /// `u32` value. The `u32` value will be read as `0xAARRGGBB`.
+    ///
+    /// # Examples
+    /// ```
+    /// let pixel = glitter::Pixel::argb(0xDDAABBCC);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xDD);
+    /// ```
     pub fn argb(argb: u32) -> Self {
         let a = (argb & 0xFF000000) >> 24;
         Pixel::rgb_a(argb, a as u8)
@@ -75,6 +112,15 @@ impl Pixel {
 
     /// Create an RGBA color, provided the RGB components as a packed
     /// `u32` value. The `u32` value will be read as `0xRRGGBBAA`.
+    ///
+    /// # Examples
+    /// ```
+    /// let pixel = glitter::Pixel::rgba(0xAABBCCDD);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xDD);
+    /// ```
     pub fn rgba(rgba: u32) -> Self {
         let r = (rgba & 0xFF000000) >> 24;
         let g = (rgba & 0x00FF0000) >> 16;
@@ -86,6 +132,16 @@ impl Pixel {
     /// Create an RGBA color, provided the RGB components as a packed
     /// `u32` value, and a separate A component. The `u32` value
     /// will be read as `0x00RRGGBB`.
+    ///
+    /// # Examples
+    /// ```
+    /// // The `0x55` component gets discarded
+    /// let pixel = glitter::Pixel::rgb_a(0x55AABBCC, 0xDD);
+    /// assert_eq!(pixel.r, 0xAA);
+    /// assert_eq!(pixel.g, 0xBB);
+    /// assert_eq!(pixel.b, 0xCC);
+    /// assert_eq!(pixel.a, 0xDD);
+    /// ```
     pub fn rgb_a(rgb: u32, a: u8) -> Self {
         let r = (rgb & 0xFF0000) >> 16;
         let g = (rgb & 0x00FF00) >> 8;
