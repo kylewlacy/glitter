@@ -183,6 +183,7 @@ impl Pixel {
 //     }
 // }
 // ```
+#[derive(Clone)]
 pub struct Pixels {
     width: usize,
     height: usize,
