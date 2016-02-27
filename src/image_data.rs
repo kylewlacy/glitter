@@ -7,7 +7,7 @@ pub trait Image2d {
     fn width(&self) -> usize;
     fn height(&self) -> usize;
     fn format(&self) -> ImageFormat;
-    fn textel_bytes(&self) -> &[u8];
+    fn texel_bytes(&self) -> &[u8];
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -100,7 +100,7 @@ impl Image2d for Pixels {
         ImageFormat::rgba8()
     }
 
-    fn textel_bytes(&self) -> &[u8] {
+    fn texel_bytes(&self) -> &[u8] {
         let len = self.pixels.len() * mem::size_of::<Pixel>();
         unsafe {
             slice::from_raw_parts(mem::transmute(&self.pixels[0]), len)
@@ -109,8 +109,8 @@ impl Image2d for Pixels {
 }
 
 gl_enum! {
-    pub gl_enum TextelType {
-        pub const UnsignedByte as UNSIGNED_BYTE_TEXTEL =
+    pub gl_enum TexelType {
+        pub const UnsignedByte as UNSIGNED_BYTE_TEXEL =
             gl::UNSIGNED_BYTE,
         pub const UnsignedShort565 as UNSIGNED_SHORT_5_6_5 =
             gl::UNSIGNED_SHORT_5_6_5,
@@ -122,7 +122,7 @@ gl_enum! {
 }
 
 gl_enum! {
-    pub gl_enum TextelFormat {
+    pub gl_enum TexelFormat {
         pub const Alpha as ALPHA = gl::ALPHA,
         pub const RGB as RGB = gl::RGB,
         pub const RGBA as RGBA = gl::RGBA
@@ -141,15 +141,15 @@ gl_enum! {
 
 #[derive(Debug, Clone, Copy)]
 pub struct ImageFormat {
-    pub textel_type: TextelType,
-    pub textel_format: TextelFormat
+    pub texel_type: TexelType,
+    pub texel_format: TexelFormat
 }
 
 impl ImageFormat {
     pub fn rgba8() -> Self {
         ImageFormat {
-            textel_type: TextelType::UnsignedByte,
-            textel_format: TextelFormat::RGBA
+            texel_type: TexelType::UnsignedByte,
+            texel_format: TexelFormat::RGBA
         }
     }
 }

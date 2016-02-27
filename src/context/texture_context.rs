@@ -7,7 +7,7 @@ use texture::{TextureMipmapFilter, TextureFilter, TextureWrapMode,
               Texture, Texture2d, TextureCubeMap,
               Tx2d, TxCubeMap, TextureType, Tx2dImageTarget,
               ImageTargetType, TextureBindingTarget};
-use image_data::{Image2d, TextelFormat, ImageFormat};
+use image_data::{Image2d, TexelFormat, ImageFormat};
 use types::{GLObject, GLError};
 
 pub struct Texture2dBuilder<'a, C>
@@ -235,12 +235,12 @@ pub trait ContextTextureExt: BaseContext {
         unsafe {
             _tex_image_2d(target.into(),
                           level,
-                          img.format().textel_format,
+                          img.format().texel_format,
                           img.width() as u32,
                           img.height() as u32,
                           0,
                           img.format(),
-                          img.textel_bytes().as_ptr());
+                          img.texel_bytes().as_ptr());
         }
     }
 
@@ -256,7 +256,7 @@ pub trait ContextTextureExt: BaseContext {
         unsafe {
             _tex_image_2d(target,
                           level,
-                          format.textel_format,
+                          format.texel_format,
                           width,
                           height,
                           0,
@@ -285,21 +285,21 @@ unsafe fn _tex_parameter_iv(target: TextureBindingTarget,
 
 unsafe fn _tex_image_2d<T: ImageTargetType>(target: T,
                                             level: u32,
-                                            internal_format: TextelFormat,
+                                            internal_format: TexelFormat,
                                             width: u32,
                                             height: u32,
                                             border: u32,
                                             format: ImageFormat,
                                             image_ptr: *const u8) {
-    debug_assert!(internal_format == format.textel_format);
+    debug_assert!(internal_format == format.texel_format);
     gl::TexImage2D(target.gl_enum(),
                    level as GLint,
                    internal_format.gl_enum() as GLint,
                    width as GLint,
                    height as GLint,
                    border as GLint,
-                   format.textel_format.gl_enum(),
-                   format.textel_type.gl_enum(),
+                   format.texel_format.gl_enum(),
+                   format.texel_type.gl_enum(),
                    image_ptr as *const GLvoid);
     dbg_gl_sanity_check! {
         GLError::InvalidEnum => "`target`, `format`, or `type` is not an accepted value",
