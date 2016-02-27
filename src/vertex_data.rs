@@ -286,11 +286,11 @@ impl<T> VertexBytes for [T] where T: VertexData {
 macro_rules! offset_of {
     ($T:ty, $field:ident) => {
         unsafe {
-            use std::mem::{uninitialized, transmute};
+            let obj: $T = ::std::mem::uninitialized();
+            let obj_ptr: *const u8 = ::std::mem::transmute(&obj);
+            let member_ptr: *const u8 = ::std::mem::transmute(&obj.$field);
 
-            let obj : $T = uninitialized();
-            let obj_ptr : *const u8 = transmute(&obj);
-            let member_ptr : *const u8 = transmute(&obj.$field);
+            ::std::mem::forget(obj);
 
             (member_ptr as usize) - (obj_ptr as usize)
         }
