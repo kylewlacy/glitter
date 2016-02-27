@@ -136,15 +136,18 @@ impl<'a, C> Texture2dBuilder<'a, C>
             // TODO: Find out what conditions lead to a non-complete texture
             //       (e.g. if either width or height are 0)
             if let Some(image) = self.image {
-                gl.image_2d(&mut gl_tex, Tx2dImageTarget::Texture2d, 0, image);
+                gl.tex_image_2d(&mut gl_tex,
+                                Tx2dImageTarget::Texture2d,
+                                0,
+                                image);
             }
             else if let Some((format, width, height)) = self.empty_params {
-                gl.image_2d_empty(&mut gl_tex,
-                                  Tx2dImageTarget::Texture2d,
-                                  0,
-                                  format,
-                                  width,
-                                  height);
+                gl.tex_image_2d_empty(&mut gl_tex,
+                                      Tx2dImageTarget::Texture2d,
+                                      0,
+                                      format,
+                                      width,
+                                      height);
 
                 if !(width > 0 && height > 0) {
                     let msg = "Error building texture: texture must have positive dimensions";
@@ -308,11 +311,11 @@ pub trait ContextTextureExt: BaseContext {
     /// - `target`: The texture's 2D image target to upload the image data to.
     /// - `level`: The mipmap level to upload the image data to.
     /// - `img`: The image data to upload.
-    fn image_2d<T, U, I: ?Sized>(&self,
-                                 _gl_texture: &mut T,
-                                 target: U,
-                                 level: u32,
-                                 img: &I)
+    fn tex_image_2d<T, U, I: ?Sized>(&self,
+                                     _gl_texture: &mut T,
+                                     target: U,
+                                     level: u32,
+                                     img: &I)
         where T: TextureBinding,
               U: Into<<T::TextureType as TextureType>::ImageTargetType>,
               I: Image2d
@@ -339,13 +342,13 @@ pub trait ContextTextureExt: BaseContext {
     ///             texture's data store.
     /// - `width`: The width to set for the texture's data store.
     /// - `height`: The height to set for the texture's data store.
-    fn image_2d_empty<T, I>(&self,
-                            _gl_texture: &mut T,
-                            target: I,
-                            level: u32,
-                            format: ImageFormat,
-                            width: u32,
-                            height: u32)
+    fn tex_image_2d_empty<T, I>(&self,
+                                _gl_texture: &mut T,
+                                target: I,
+                                level: u32,
+                                format: ImageFormat,
+                                width: u32,
+                                height: u32)
         where T: TextureBinding, I: ImageTargetType
     {
         unsafe {
