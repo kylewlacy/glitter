@@ -191,7 +191,9 @@ pub struct Pixels {
 }
 
 impl Pixels {
-    /// Create a new image with the desired width and height.
+    /// Create a new image with the desired width and height. Pixels
+    /// are initialized with [`Pixel::default()`]
+    /// (https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default).
     pub fn new(width: usize, height: usize) -> Self {
         Pixels {
             width: width,
