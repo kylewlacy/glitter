@@ -101,7 +101,8 @@ pub unsafe trait VertexDatum: Copy {
     /// # Safety
     /// An instance of this type must match the size and memory layout
     /// specified by the returned [`VertexAttributeType`]
-    /// (struct.VertexAttributeType.html).
+    /// (struct.VertexAttributeType.html). Additionally **this function
+    /// must not painc**. Safe code must be able to rely on this property.
     fn attrib_type() -> VertexAttributeType;
 }
 
@@ -302,6 +303,14 @@ macro_rules! offset_of {
 /// `VertexData` implementation must be a type that implements [`VertexDatum`]
 /// (vertex_data/trait.VertexDatum.html).
 ///
+/// # Note
+/// The generated implementation will **not** be panic safe with regards
+/// to the [`VertexDatum::attrib_type`]
+/// (trait.VertexDatum.html#tymethod.attrib_type) method of the vertex
+/// attribute fields. However, as the documenation of
+// [`VertexDatum::attrib_type`](trait.VertexDatum.html#tymethod.attrib_type)
+/// notes, implementors should be aware of this already.
+///
 /// # Examples
 ///
 /// ```
@@ -328,6 +337,7 @@ macro_rules! impl_vertex_data {
                 where F: FnMut($crate::VertexAttribute)
             {
                 // TODO: A better way of iterating over field types
+                // TODO: Panic safety (using `catch_panic`/`recover`)
                 let _data: $name = unsafe { ::std::mem::uninitialized() };
                 fn get_attribute_type<T: $crate::VertexDatum>(_: &T)
                     -> $crate::VertexAttributeType
