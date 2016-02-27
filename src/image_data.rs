@@ -32,7 +32,7 @@ pub trait Image2d {
 /// as a C struct in RGBA order. This type is the simplest implementation
 /// of [`Image2d`](trait.Image2d.html), which allows it to be uploaded
 /// to a texture.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Default)]
 #[repr(C)]
 pub struct Pixel {
     /// The red component.
