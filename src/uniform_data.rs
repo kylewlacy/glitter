@@ -191,29 +191,3 @@ impl<T: UniformDatum> UniformData for [T] {
         self.len()
     }
 }
-
-/// Transpose a static matrix (of form `[[a1, b1, ...], [a2, b2, ...]]`
-/// into `[[a1, a2, ...], [[b1, b2, ...]]]`).
-macro_rules! transpose {
-    [[$a1:expr, $b1:expr],
-     [$a2:expr, $b2:expr]] => {
-        [[$a1, $a2],
-         [$b1, $b2]]
-    };
-    [[$a1:expr, $b1:expr, $c1:expr],
-     [$a2:expr, $b2:expr, $c2:expr],
-     [$a3:expr, $b3:expr, $c3:expr]] => {
-        [[$a1, $a2, $a3],
-         [$b1, $b2, $b3],
-         [$c1, $c2, $c3]]
-    };
-    [[$a1:expr, $b1:expr, $c1:expr, $d1:expr],
-     [$a2:expr, $b2:expr, $c2:expr, $d2:expr],
-     [$a3:expr, $b3:expr, $c3:expr, $d3:expr],
-     [$a4:expr, $b4:expr, $c4:expr, $d4:expr]] => {
-        [[$a1, $a2, $a3, $a4],
-         [$b1, $b2, $b3, $b4],
-         [$c1, $c2, $c3, $c4],
-         [$d1, $d2, $d3, $d4]]
-    }
-}
