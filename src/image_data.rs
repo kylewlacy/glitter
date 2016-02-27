@@ -195,7 +195,7 @@ impl Pixels {
         Pixels {
             width: width,
             height: height,
-            pixels: vec![Pixel::rgb(0x0000FF); width * height]
+            pixels: vec![Pixel::default(); width * height]
         }
     }
 }
