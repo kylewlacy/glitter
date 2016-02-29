@@ -160,7 +160,7 @@ impl Pixel {
 ///
 /// let width = 100;
 /// let height = 100;
-/// let radius = 50;
+/// let radius = 50.0;
 ///
 /// let (center_x, center_y) = (width as f32/2.0, height as f32/2.0);
 ///
