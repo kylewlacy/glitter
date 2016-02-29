@@ -47,7 +47,7 @@
                 [<span class='inner'>&#x2212;</span>]
             </a>
         </span><a id='src-30967' class='srclink' href='https://doc.rust-lang.org/nightly/core/slice/struct.Split.html?gotosrc=30967' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Split&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, T: 'a</span> {
+<pre class='rust struct'>pub struct Split&lt;'a, T, P&gt; <span class='where'>where T: 'a, P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></span> {
     // some fields omitted
 }</pre><div class='docblock'><p>An iterator over subslices separated by elements that match a predicate
 function.</p>
