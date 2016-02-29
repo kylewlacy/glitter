@@ -162,27 +162,27 @@ impl Pixel {
 /// let height = 100;
 /// let radius = 50;
 ///
-// let (center_x, center_y) = (width as f32/2.0, height as f32/2.0);
-//
-// let mut pixels = glitter::Pixels::new(width, height);
-// for x in 0..width {
-//     for y in 0..height {
-//         let dx = center_x - x as f32;
-//         let dy = center_y - y as f32;
-//         let distance = (dx*dx + dy*dy).sqrt();
-//
-//         let color = if distance < radius {
-//             // The point is within the circle, so it should be red
-//             glitter::Pixel::rgb(0xFF0000)
-//         }
-//         else {
-//             // The point is outside the circle, so it should be black
-//             glitter::Pixel::rgb(0x000000)
-//         };
-//         pixels[y][x] = color;
-//     }
-// }
-// ```
+/// let (center_x, center_y) = (width as f32/2.0, height as f32/2.0);
+///
+/// let mut pixels = glitter::Pixels::new(width, height);
+/// for x in 0..width {
+///     for y in 0..height {
+///         let dx = center_x - x as f32;
+///         let dy = center_y - y as f32;
+///         let distance = (dx*dx + dy*dy).sqrt();
+///
+///         let color = if distance < radius {
+///             // The point is within the circle, so it should be red
+///             glitter::Pixel::rgb(0xFF0000)
+///         }
+///         else {
+///             // The point is outside the circle, so it should be black
+///             glitter::Pixel::rgb(0x000000)
+///         };
+///         pixels[y][x] = color;
+///     }
+/// }
+/// ```
 #[derive(Clone)]
 pub struct Pixels {
     width: usize,
