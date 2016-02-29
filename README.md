@@ -6,6 +6,7 @@ critical, such as in game and game engine development. **Currently, glitter
 only supports the OpenGL ES2 API**, but this will change in an upcoming
 release.
 
+# [crates.io](https://crates.io/crates/glitter)
 # [Documentation](https://kylewlacy.github.io/glitter/docs/glitter/index.html)
 
 (The documentation, like the rest of the project, is still very much
