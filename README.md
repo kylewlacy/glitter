@@ -14,7 +14,7 @@ a lot to clean up!)
 
 # Show me the code!
 
-There are also currently two examples in the [`examples`](https://github.com/kylewlacy/tree/master/examples)
+There are also currently two examples in the [`examples`](https://github.com/kylewlacy/glitter/tree/master/examples)
 directory, which use the [`sdl2`](https://crates.io/crates/sdl2) crate.
 These can be run using `cargo`, such as with the following:
 
@@ -156,7 +156,7 @@ the borrow checker. Where can I yell at you about it?*
 # License
 All source code in this repository is licensed under both the MIT license
 and the Apache 2.0 license, at the choice of the library user. All code in
-the [`examples`](https://github.com/kylewlacy/tree/master/examples)
+the [`examples`](https://github.com/kylewlacy/glitter/tree/master/examples)
 directory is *additionally* available in the public domain, under the
 terms of the Unlicense. See the appropriate `LICENSE` files for some legal
 words.
