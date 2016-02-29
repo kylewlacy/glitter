@@ -4,15 +4,7 @@ version = "0.1.0"
 authors = ["Kyle Lacy <kylewlacy@me.com>"]
 
 [features]
-default = ["cgmath", "image", "image_gif_codec", "image_jpeg", "image_png_codec", "image_ppm", "image_tga", "image_tiff", "image_webp", "image_bmp"]
-"image_gif_codec" = ["image", "image/gif_codec"]
-"image_jpeg" = ["image", "image/jpeg"]
-"image_png_codec" = ["image", "image/png_codec"]
-"image_ppm" = ["image", "image/ppm"]
-"image_tga" = ["image", "image/tga"]
-"image_tiff" = ["image", "image/tiff"]
-"image_webp" = ["image", "image/webp"]
-"image_bmp" = ["image", "image/bmp"]
+default = ["cgmath", "image"]
 
 [dependencies]
 bitflags = "0.3.2"
@@ -25,7 +17,6 @@ optional = true
 [dependencies.image]
 version = "^0.3.14"
 optional = true
-default_features = false
 
 [dev-dependencies]
 sdl2 = "0.13.0"
