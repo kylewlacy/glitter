@@ -7,15 +7,15 @@ authors = ["Kyle Lacy <kylewlacy@me.com>"]
 default = ["cgmath", "image"]
 
 [dependencies]
-bitflags = "0.3.2"
-gl = "0.0.12"
+bitflags = "0.5.0"
+gl = "0.5.2"
 
 [dependencies.cgmath]
-version = "^0.3.1"
+version = "^0.7.0"
 optional = true
 
 [dependencies.image]
-version = "^0.3.14"
+version = "^0.7.0"
 optional = true
 
 [dev-dependencies]

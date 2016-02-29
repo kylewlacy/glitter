@@ -96,19 +96,19 @@ pub trait GLObject {
 
 bitflags! {
     /// The possible buffers that the active framebuffer may contain.
-    flags BufferBits: gl::types::GLbitfield {
+    pub flags BufferBits: ::gl::types::GLbitfield {
         /// The color buffer, which stores color information
         /// for each fragment (or pixel).
-        const COLOR_BUFFER_BIT = gl::COLOR_BUFFER_BIT,
+        const COLOR_BUFFER_BIT = ::gl::COLOR_BUFFER_BIT,
 
         /// The depth buffer, which stores distance information
         /// for each fragment when depth testing is enabled.
-        const DEPTH_BUFFER_BIT = gl::DEPTH_BUFFER_BIT,
+        const DEPTH_BUFFER_BIT = ::gl::DEPTH_BUFFER_BIT,
 
         /// The stencil buffer, which stores information about
         /// which fragments should be kept or discarded when
         /// stencil testing is enabled.
-        const STENCIL_BUFFER_BIT = gl::STENCIL_BUFFER_BIT
+        const STENCIL_BUFFER_BIT = ::gl::STENCIL_BUFFER_BIT
     }
 }
 
