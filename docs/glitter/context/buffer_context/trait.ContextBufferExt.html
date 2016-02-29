@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextBufferExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextBufferExt">
+
+    <title>glitter::context::buffer_context::ContextBufferExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>buffer_context</a></p><script>window.sidebarCurrent = {name: 'ContextBufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>buffer_context</a>::<wbr><a class='trait' href=''>ContextBufferExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-111' class='srclink' href='../../../src/glitter/context/buffer_context.rs.html#48-240' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextBufferExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
+    fn <a href='#method.gen_buffer' class='fnname'>gen_buffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a> { ... }
+    fn <a href='#method.buffer_bytes' class='fnname'>buffer_bytes</a>&lt;B&gt;(&amp;self, gl_buffer: &amp;mut B, bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where B: <a class='trait' href='../../../glitter/context/buffer_context/trait.BufferBinding.html' title='glitter::context::buffer_context::BufferBinding'>BufferBinding</a></span> { ... }
+    unsafe fn <a href='#method.vertex_attrib_pointer' class='fnname'>vertex_attrib_pointer</a>(&amp;self, attrib: <a class='struct' href='../../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>, components: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a>, gl_type: <a class='enum' href='../../../glitter/types/enum.DataType.html' title='glitter::types::DataType'>DataType</a>, normalized: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, stride: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) { ... }
+    unsafe fn <a href='#method.draw_arrays_range' class='fnname'>draw_arrays_range</a>(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, first: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) { ... }
+    unsafe fn <a href='#method.draw_n_elements_buffered' class='fnname'>draw_n_elements_buffered</a>(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, _eab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinding.html' title='glitter::context::buffer_context::ElementArrayBufferBinding'>ElementArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, index_type: <a class='enum' href='../../../glitter/index_data/enum.IndexDatumType.html' title='glitter::index_data::IndexDatumType'>IndexDatumType</a>) { ... }
+    unsafe fn <a href='#method.draw_n_elements' class='fnname'>draw_n_elements</a>&lt;I&gt;(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where I: <a class='trait' href='../../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span> { ... }
+    unsafe fn <a href='#method.draw_elements' class='fnname'>draw_elements</a>&lt;I&gt;(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where I: <a class='trait' href='../../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span> { ... }
+}</pre><div class='docblock'><p>An extension trait that includes buffer object-related OpenGL methods.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.gen_buffer' class='method stab '><code>fn <a href='#method.gen_buffer' class='fnname'>gen_buffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></h3><div class='docblock'><p>Create a new, empty OpenGL buffer object.</p>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glGenBuffers"><code>glGenBuffers</code></a> OpenGL docs</p>
+
+<p><a href="../../vertex_buffer/trait.ContextVertexBufferExt.html#method.new_vertex_buffer"><code>gl.new_vertex_buffer</code></a>:
+Create a new vertex buffer, which wraps a raw OpenGL buffer.</p>
+
+<p><a href="../struct.ContextOf.html#method.new_index_buffer"><code>gl.new_index_buffer</code></a>:
+Create a new index buffer, which wraps a raw OpenGL buffer.</p>
+
+<p><a href="trait.ContextBufferExt.html#method.buffer_bytes"><code>gl.buffer_bytes</code></a>:
+Send data to a buffer.</p>
+</div><h3 id='method.buffer_bytes' class='method stab '><code>fn <a href='#method.buffer_bytes' class='fnname'>buffer_bytes</a>&lt;B&gt;(&amp;self, gl_buffer: &amp;mut B, bytes: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where B: <a class='trait' href='../../../glitter/context/buffer_context/trait.BufferBinding.html' title='glitter::context::buffer_context::BufferBinding'>BufferBinding</a></span></code></h3><div class='docblock'><p>Send data to a buffer object. Note that this will replace the buffer&#39;s
+current contents, if any.</p>
+
+<h1 id='see-also-1' class='section-header'><a href='#see-also-1'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glBufferData"><code>glBufferData</code></a>  OpenGL docs</p>
+</div><h3 id='method.vertex_attrib_pointer' class='method stab '><code>unsafe fn <a href='#method.vertex_attrib_pointer' class='fnname'>vertex_attrib_pointer</a>(&amp;self, attrib: <a class='struct' href='../../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>, components: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a>, gl_type: <a class='enum' href='../../../glitter/types/enum.DataType.html' title='glitter::types::DataType'>DataType</a>, normalized: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, stride: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, offset: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h3><div class='docblock'><p>Specify how an array of vertex data will be treated while rendering.
+Most uses of this function can be replaced by using a <a href="../../vertex_buffer/struct.VertexBuffer.html"><code>VertexBuffer</code></a>, which provides a nicer
+interface for setting up vertex attributes.</p>
+
+<h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
+<p>This function will panic in debug mode if <code>components</code> is less than 1 or
+greater than 4.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>Using this function can cause an OpenGL draw call to read uninitialized
+memory from a buffer.</p>
+
+<h1 id='see-also-2' class='section-header'><a href='#see-also-2'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glVertexAttribPointer"><code>glVertexAttribPointer</code></a> OpenGL docs</p>
+</div><h3 id='method.draw_arrays_range' class='method stab '><code>unsafe fn <a href='#method.draw_arrays_range' class='fnname'>draw_arrays_range</a>(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, first: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>)</code></h3><div class='docblock'><p>Use the vertex data from the provided array buffer binding to render
+primitives.</p>
+
+<ul>
+<li><code>_ab</code>: The binding for the array buffer to read vertices from.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>first</code>: The index of the first vertex to read.</li>
+<li><code>count</code>: The number of vertices to read.</li>
+</ul>
+
+<h1 id='safety-1' class='section-header'><a href='#safety-1'>Safety</a></h1>
+<p>The vertex attributes for the need to be set up before calling this
+method by using the <a href="trait.ContextBufferExt.html#method.vertex_attrib_pointer"><code>gl.vertex_attrib_pointer</code></a> method.</p>
+
+<h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glDrawArrays"><code>glDrawArrays</code></a> OpenGL docs</p>
+</div><h3 id='method.draw_n_elements_buffered' class='method stab '><code>unsafe fn <a href='#method.draw_n_elements_buffered' class='fnname'>draw_n_elements_buffered</a>(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, _eab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinding.html' title='glitter::context::buffer_context::ElementArrayBufferBinding'>ElementArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, index_type: <a class='enum' href='../../../glitter/index_data/enum.IndexDatumType.html' title='glitter::index_data::IndexDatumType'>IndexDatumType</a>)</code></h3><div class='docblock'><p>Draw primitives specified by the provided element array buffer, treated
+as indices of the vertices from the provided array buffer.</p>
+
+<ul>
+<li><code>_ab</code>: The binding for the array buffer that contains the vertex
+     data.</li>
+<li><code>_eab</code>: The binding for the element array buffer that contains the
+      index data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>count</code>: The number of indices to read.</li>
+<li><code>index_type</code>: Specifies the data type of the index (whether it is
+            a byte or short, signed unsigned, etc).</li>
+</ul>
+
+<h1 id='see-also-4' class='section-header'><a href='#see-also-4'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glDrawElements"><code>glDrawElements</code></a> OpenGL docs</p>
+</div><h3 id='method.draw_n_elements' class='method stab '><code>unsafe fn <a href='#method.draw_n_elements' class='fnname'>draw_n_elements</a>&lt;I&gt;(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where I: <a class='trait' href='../../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span></code></h3><div class='docblock'><p>Draw primtives specified by the provided index array, treated as
+indices of the vertices from the provided array buffer.</p>
+
+<ul>
+<li><code>_ab</code>: The binding for the array buffer that contains the vertex
+     data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>count</code>: The number of indices to read.</li>
+<li><code>indices</code>: The index array to use.</li>
+</ul>
+
+<h1 id='see-also-5' class='section-header'><a href='#see-also-5'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glDrawElements"><code>glDrawElements</code></a> OpenGL docs</p>
+</div><h3 id='method.draw_elements' class='method stab '><code>unsafe fn <a href='#method.draw_elements' class='fnname'>draw_elements</a>&lt;I&gt;(&amp;self, _ab: &amp;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinding.html' title='glitter::context::buffer_context::ArrayBufferBinding'>ArrayBufferBinding</a>, mode: <a class='enum' href='../../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where I: <a class='trait' href='../../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span></code></h3><div class='docblock'><p>Draw primtives specified by the provided index array, treated as
+indices of the vertices from the provided array buffer.</p>
+
+<ul>
+<li><code>_ab</code>: The binding for the array buffer that contains the vertex
+     data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>indices</code>: The index array to use.</li>
+</ul>
+
+<h1 id='see-also-6' class='section-header'><a href='#see-also-6'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glDrawElements"><code>glDrawElements</code></a> OpenGL docs</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../../implementors/glitter/context/buffer_context/trait.ContextBufferExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

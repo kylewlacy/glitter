@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextRenderbufferExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextRenderbufferExt">
+
+    <title>glitter::context::renderbuffer_context::ContextRenderbufferExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a></p><script>window.sidebarCurrent = {name: 'ContextRenderbufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a>::<wbr><a class='trait' href=''>ContextRenderbufferExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1095' class='srclink' href='../../../src/glitter/context/renderbuffer_context.rs.html#102-152' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextRenderbufferExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
+    unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a> { ... }
+    fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self, gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>, format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) { ... }
+}</pre><div class='docblock'><p>An extension trait that includes renderbuffer-related OpenGL methods.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.gen_renderbuffer' class='method stab '><code>unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></h3><div class='docblock'><p>Create a new renderbuffer object with no storage allocated.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>Many OpenGL function calls expect a renderbuffer to be
+<a href="https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness">attachment-complete</a>.
+Be sure to properly set up the renderbuffer&#39;s storage before passing
+the renderbuffer to such functions.</p>
+</div><h3 id='method.storage' class='method stab '><code>fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self, gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>, format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</code></h3><div class='docblock'><p>Initialize a renderbuffer object&#39;s storage.</p>
+
+<ul>
+<li><code>gl_rbo</code>: The binding of the renderbuffer to set up storage for.</li>
+<li><code>format</code>: The storage format to use for the renderbuffer.</li>
+<li><code>width</code>: The storage width of the renderbuffer, in pixels.</li>
+<li><code>height</code>: The storage height of the renderbuffer, in pixels.</li>
+</ul>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glRenderbufferStorage"><code>glRenderbufferStorage</code></a>
+OpenGL docs</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../../implementors/glitter/context/renderbuffer_context/trait.ContextRenderbufferExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

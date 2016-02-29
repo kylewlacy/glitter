@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `glitter` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, glitter">
+
+    <title>glitter - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'glitter', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>glitter</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-0' class='srclink' href='../src/glitter/lib.rs.html#1-132' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>A type-safe, zero-cost OpenGL abstraction.</p>
+
+<h1 id='introduction' class='section-header'><a href='#introduction'>Introduction</a></h1>
+<p>OpenGL is an API designed for 2D and 3D rendering in a high-level,
+platform-agnostic way. In many situations, it is the <em>only</em> viable choice,
+considering platform, time, and performance requirements.</p>
+
+<p>glitter is designed to provide a thin, zero-cost, type-safe wrapper
+for OpenGL. The API is designed to look and feel familiar to the plain C
+OpenGL API, so that translating code between glitter and OpenGL can be as
+painless as possible. Most OpenGL functions have a direct parallel
+in glitter, such as <code>glClearColor</code>, provided as <a href="context/trait.ContextExt.html#method.clear_color"><code>gl.clear_color</code></a>. Others provide several
+different wrapper functions to provide better type safety, such as
+<code>glDrawElements</code>, which is wrapped by <a href="context/buffer_context/trait.ContextBufferExt.html#method.draw_elements"><code>gl.draw_elements</code></a>,
+<a href="context/buffer_context/trait.ContextBufferExt.html#method.draw_n_elements"><code>gl.draw_n_elements</code></a>,
+and <a href="context/buffer_context/trait.ContextBufferExt.html#method.draw_n_elements_buffered"><code>gl.draw_n_elements_buffered</code></a>.</p>
+
+<p>Additionally, some higher-level abstractions are included, usually to
+reduce boilerplate or to provide a common interface to work across multiple
+OpenGL versions. A simple example is the <a href="context/program_context/trait.ContextProgramBuilderExt.html#method.build_program"><code>gl.build_program</code></a>
+interface, which makes it quick and easy to create and link a program
+object, while also correctly checking and reporting any errors.</p>
+
+<p>A good starting starting point to dive into glitter is the <a href="context/index.html"><code>context</code></a> module. This module is the home of the <a href="context/struct.ContextOf.html"><code>ContextOf</code></a> type, which is the main entry point
+to making OpenGL calls.</p>
+
+<h1 id='opengl-version-support' class='section-header'><a href='#opengl-version-support'>OpenGL Version Support</a></h1>
+<p>Currently, glitter only supports OpenGL ES 2, although the goal is to
+enable support for targetting any OpenGL version. An example of what this
+entails is the <a href="struct.VertexBuffer.html"><code>VertexBuffer</code></a> type. The current
+implementation of <a href="struct.VertexBuffer.html"><code>VertexBuffer</code></a> uses OpenGL
+&quot;vertex buffer objects&quot; under the hood. However, OpenGL also has a
+complimentary feature, called &quot;vertex array objects&quot;, that could replace the
+current implementation and reduce the number of draw calls. Unfortunately,
+this API is not available in OpenGL ES 2 (without an extension, that is).
+In a future version of glitter, the goal is to update <a href="struct.VertexBuffer.html"><code>VertexBuffer</code></a> to use vertex array objects, and to fall back
+to vertex buffer objects when vertex array objects are unavailable.</p>
+
+<h1 id='thread-safety' class='section-header'><a href='#thread-safety'>Thread Safety</a></h1>
+<p>Eventually, glitter should support proper thread safety using the <a href="https://doc.rust-lang.org/std/marker/trait.Send.html"><code>Send</code></a> and <a href="https://doc.rust-lang.org/std/marker/trait.Sync.html"><code>Sync</code></a> marker traits.
+For now, most types have been marked as <code>!Send</code> and <code>!Sync</code>, meaning that
+they cannot be sent or shared across threads.</p>
+
+<h1 id='the-future' class='section-header'><a href='#the-future'>The Future</a></h1>
+<p>In its current form, glitter should be considered work-in-progress, and
+the API will likely undergo radical changes before a 1.0 version is
+establised.</p>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use <a class='mod' href='../glitter/context/index.html' title='glitter::context'>context</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/buffer/index.html' title='glitter::buffer'>buffer</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/shader/index.html' title='glitter::shader'>shader</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/program/index.html' title='glitter::program'>program</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/framebuffer/index.html' title='glitter::framebuffer'>framebuffer</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/renderbuffer/index.html' title='glitter::renderbuffer'>renderbuffer</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/texture/index.html' title='glitter::texture'>texture</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/image_data/index.html' title='glitter::image_data'>image_data</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/vertex_data/index.html' title='glitter::vertex_data'>vertex_data</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/vertex_buffer/index.html' title='glitter::vertex_buffer'>vertex_buffer</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/index_data/index.html' title='glitter::index_data'>index_data</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/uniform_data/index.html' title='glitter::uniform_data'>uniform_data</a>::*;</code></td></tr><tr><td><code>pub use <a class='mod' href='../glitter/types/index.html' title='glitter::types'>types</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='buffer/index.html'
+                               title='glitter::buffer'>buffer</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Buffer.html"><code>Buffer</code></a> object, and related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='context/index.html'
+                               title='glitter::context'>context</a></td>
+                        <td class='docblock short'>
+                             <p>Home of <a href="struct.ContextOf.html"><code>ContextOf</code></a>, which is the type that
+represents &quot;the OpenGL state machine&quot;, and the type you use to make
+OpenGL calls.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='framebuffer/index.html'
+                               title='glitter::framebuffer'>framebuffer</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Framebuffer.html"><code>Framebuffer</code></a> object,
+and related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='gl/index.html'
+                               title='glitter::gl'>gl</a></td>
+                        <td class='docblock short'>
+                             
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='image_data/index.html'
+                               title='glitter::image_data'>image_data</a></td>
+                        <td class='docblock short'>
+                             <p>Contains types related to 2D image data.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='index_data/index.html'
+                               title='glitter::index_data'>index_data</a></td>
+                        <td class='docblock short'>
+                             <p>Contains types related to index data, which are used for <a href="../vertex_buffer/struct.IndexBuffer.html"><code>IndexBuffers</code></a>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='prelude/index.html'
+                               title='glitter::prelude'>prelude</a></td>
+                        <td class='docblock short'>
+                             <p>Re-exports essential extension traits. Everything exported in this module
+should be used anywhere that glitter is used.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='program/index.html'
+                               title='glitter::program'>program</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Program.html"><code>Program</code></a> object and related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='renderbuffer/index.html'
+                               title='glitter::renderbuffer'>renderbuffer</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Renderbuffer.html"><code>Renderbuffer</code></a> object,
+and related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='shader/index.html'
+                               title='glitter::shader'>shader</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Shader.html"><code>Shader</code></a> object and related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='texture/index.html'
+                               title='glitter::texture'>texture</a></td>
+                        <td class='docblock short'>
+                             <p>Exposes the OpenGL <a href="struct.Texture.html"><code>Texture</code></a> family of objects and
+related types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='types/index.html'
+                               title='glitter::types'>types</a></td>
+                        <td class='docblock short'>
+                             <p>Contains miscellaneous general-purpose OpenGL types.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='uniform_data/index.html'
+                               title='glitter::uniform_data'>uniform_data</a></td>
+                        <td class='docblock short'>
+                             <p>Contains types that represent uniform data, which is used
+for methods such as <a href="../context/program_context/trait.ContextProgramExt.html#method.set_uniform"><code>gl.set_uniform</code></a>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='vertex_buffer/index.html'
+                               title='glitter::vertex_buffer'>vertex_buffer</a></td>
+                        <td class='docblock short'>
+                             <p>Contains a higher-level abstraction for creating vertex and index
+buffer.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='mod' href='vertex_data/index.html'
+                               title='glitter::vertex_data'>vertex_data</a></td>
+                        <td class='docblock short'>
+                             <p>Contains types related to vertex data, which are used for <a href="../vertex_buffer/struct.VertexBuffer.html"><code>VertexBuffers</code></a>.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.attrib_pointers!.html'
+                               title='glitter::attrib_pointers!'>attrib_pointers!</a></td>
+                        <td class='docblock short'>
+                             <p>Create an <a href="vertex_buffer/struct.AttribBinder.html"><code>AttribBinder</code></a> from
+a set of associations from vertex attribute names to <a href="program/struct.ProgramAttrib.html"><code>ProgramAttribs</code></a>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.impl_vertex_data!.html'
+                               title='glitter::impl_vertex_data!'>impl_vertex_data!</a></td>
+                        <td class='docblock short'>
+                             <p>Implement the <a href="vertex_data/trait.VertexData.html"><code>VertexData</code></a> trait
+for a struct. Each field of the struct must that is part of the
+<code>VertexData</code> implementation must be a type that implements <a href="vertex_data/trait.VertexDatum.html"><code>VertexDatum</code></a>.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='macro' href='macro.offset_of!.html'
+                               title='glitter::offset_of!'>offset_of!</a></td>
+                        <td class='docblock short'>
+                             <p>Compute the offset of a field within a struct type.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

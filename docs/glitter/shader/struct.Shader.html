@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Shader` struct in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Shader">
+
+    <title>glitter::shader::Shader - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a></p><script>window.sidebarCurrent = {name: 'Shader', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a>::<wbr><a class='struct' href=''>Shader</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2654' class='srclink' href='../../src/glitter/shader.rs.html#30-33' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Shader {
+    // some fields omitted
+}</pre><div class='docblock'><p>An OpenGL shader object.</p>
+
+<p>A shader is a small program that runs on the GPU to compute a part of
+the rendering pipeline. There are two shaders that are necessary for
+rendering in OpenGL: the vertex shader and the fragment shader. The
+vertex shader translates geometry from world space into screen space, and
+the fragment shader determines the final color of each pixel (or
+&#39;fragment&#39;). In order to use a shader, it should be linked with
+a <a href="../program/struct.Program.html"><code>Program</code></a> to be used for drawing.</p>
+
+<p>A shader will automatically be deleted after going out of scope.</p>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="trait.ContextShaderBuilderExt.html#tymethod.build_fragment_shader"><code>gl.build_fragment_shader</code></a>,
+<a href="trait.ContextShaderBuilderExt.html#tymethod.build_vertex_shader"><code>gl.build_vertex_shader</code></a>,
+and <a href="trait.ContextShaderBuilderExt.html#tymethod.build_shader"><code>gl.build_shader</code></a>:
+Build and compile a new shader object.</p>
+
+<p><a href="trait.ContextShaderExt.html#method.create_shader"><code>gl.create_shader</code></a>:
+Create a new, empty shader object.</p>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></h3><div class='impl-items'><h4 id='assoc_type.Id' class='type'><code>type Id = <a class='type' href='../../glitter/gl/types/type.GLuint.html' title='glitter::gl::types::GLuint'>GLuint</a></code></h4>
+<h4 id='method.from_raw' class='method'><code>unsafe fn <a href='../../glitter/types/trait.GLObject.html#method.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self</code></h4>
+<h4 id='method.id' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#method.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a></code></h4>
+<h4 id='method.into_raw' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

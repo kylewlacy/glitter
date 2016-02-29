@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Texture2dBuilder` struct in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Texture2dBuilder">
+
+    <title>glitter::context::texture_context::Texture2dBuilder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_context</a></p><script>window.sidebarCurrent = {name: 'Texture2dBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_context</a>::<wbr><a class='struct' href=''>Texture2dBuilder</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1209' class='srclink' href='../../../src/glitter/context/texture_context.rs.html#20-31' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Texture2dBuilder&lt;'a, C&gt; <span class='where'>where C: 'a + <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a></span> {
+    // some fields omitted
+}</pre><div class='docblock'><p>Provide a safe interface for building a 2D texture
+object that is checked to be complete. A <code>Texture2dBuilder</code>
+can be created using the <a href="trait.ContextTextureBuilderExt.html#method.build_texture_2d"><code>gl.build_texture_2d</code></a>
+method.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, C&gt; <a class='struct' href='../../../glitter/context/texture_context/struct.Texture2dBuilder.html' title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a>&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a></span></code></h3><div class='impl-items'><h4 id='method.image_2d' class='method'><code>fn <a href='#method.image_2d' class='fnname'>image_2d</a>(self, image: &amp;'a <a class='trait' href='../../../glitter/image_data/trait.Image2d.html' title='glitter::image_data::Image2d'>Image2d</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Set the 2D image data to fill the texture with.</p>
+</div><h4 id='method.empty' class='method'><code>fn <a href='#method.empty' class='fnname'>empty</a>(self, format: <a class='struct' href='../../../glitter/image_data/struct.ImageFormat.html' title='glitter::image_data::ImageFormat'>ImageFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Set the parameters for creating an empty texture.</p>
+</div><h4 id='method.generate_mipmap' class='method'><code>fn <a href='#method.generate_mipmap' class='fnname'>generate_mipmap</a>(self) -&gt; Self</code></h4>
+<div class='docblock'><p>Automatically generate mipamps for the texture.</p>
+</div><h4 id='method.min_filter' class='method'><code>fn <a href='#method.min_filter' class='fnname'>min_filter</a>&lt;I&gt;(self, filter: I) -&gt; Self <span class='where'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='../../../glitter/texture/enum.TextureMipmapFilter.html' title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a>&gt;</span></code></h4>
+<div class='docblock'><p>Set the texture&#39;s minifying filter.</p>
+</div><h4 id='method.mag_filter' class='method'><code>fn <a href='#method.mag_filter' class='fnname'>mag_filter</a>(self, filter: <a class='enum' href='../../../glitter/texture/enum.TextureFilter.html' title='glitter::texture::TextureFilter'>TextureFilter</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Set the texture&#39;s magnifying filter.</p>
+</div><h4 id='method.wrap_s' class='method'><code>fn <a href='#method.wrap_s' class='fnname'>wrap_s</a>(self, wrap: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Set the texture&#39;s wrap mode for the s-coordinate.</p>
+</div><h4 id='method.wrap_t' class='method'><code>fn <a href='#method.wrap_t' class='fnname'>wrap_t</a>(self, wrap: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Set the texture&#39;s wrap mode for the t-coordinate.</p>
+</div><h4 id='method.try_unwrap' class='method'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='type' href='../../../glitter/texture/type.Texture2d.html' title='glitter::texture::Texture2d'>Texture2d</a>, <a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h4>
+<div class='docblock'><p>Create and return a texture with the specified options,
+or return an error.</p>
+
+<h1 id='failures' class='section-header'><a href='#failures'>Failures</a></h1>
+<p>If any of the following conditions are met, an error
+will be returned:</p>
+
+<ul>
+<li>The texture is not complete.</li>
+<li>The texture was set to be empty, but either the width
+or height were 0.</li>
+<li>The texture was neither set to be empty with <a href="struct.Texture2dBuilder.html#method.empty"><code>empty</code></a>, nor had
+any image data supplied with <a href="struct.Texture2dBuilder.html#method.image_2d"><code>image_2d</code></a>.</li>
+<li>The texture had a mipmap filter set for the <a href="struct.Texture2dBuilder.html#method.min_filter"><code>min_filter</code></a>, but
+mimaps were not generated using <a href="struct.Texture2dBuilder.html#method.generate_mipmap"><code>generate_mipmaps</code></a>.</li>
+</ul>
+</div><h4 id='method.unwrap' class='method'><code>fn <a href='#method.unwrap' class='fnname'>unwrap</a>(self) -&gt; <a class='type' href='../../../glitter/texture/type.Texture2d.html' title='glitter::texture::Texture2d'>Texture2d</a></code></h4>
+<div class='docblock'><p>Create a texture with the specified options, or panic.</p>
+
+<h1 id='panic' class='section-header'><a href='#panic'>Panic</a></h1>
+<p>See the <a href="struct.Texture2dBuilder.html#method.try_unwrap"><code>try_unwrap</code></a>
+method docs for all of the possible failure cases when building
+a texture.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

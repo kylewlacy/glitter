@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `AttribBinder` struct in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, AttribBinder">
+
+    <title>glitter::vertex_buffer::AttribBinder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a></p><script>window.sidebarCurrent = {name: 'AttribBinder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='struct' href=''>AttribBinder</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-3595' class='srclink' href='../../src/glitter/vertex_buffer.rs.html#42-44' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct AttribBinder {
+    // some fields omitted
+}</pre><div class='docblock'><p>A type used to perform operations on a list of program attributes. An
+instance of an <code>AttribBinder</code> can be created with the <a href="../macro.attrib_pointers!.html"><code>attrib_pointers!</code></a> macro or with the <a href="struct.AttribBinder.html#method.new"><code>new</code></a> method.</p>
+
+<h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
+<p>Currently, <code>AttribBinder</code> when both adding vertex attributes and when
+operating on vertex attributes. Consider using the direct lower-level
+glitter API&#39;s if heap allocations become a performance bottleneck.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../glitter/vertex_buffer/struct.AttribBinder.html' title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; Self</code></h4>
+<div class='docblock'><p>Create a new, empty <code>AttribBinder</code>.</p>
+</div><h4 id='method.add' class='method'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;mut self, name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, attrib: <a class='struct' href='../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/vertex_buffer/enum.AttribAddError.html' title='glitter::vertex_buffer::AttribAddError'>AttribAddError</a>&gt;</code></h4>
+<div class='docblock'><p>Add an attribute to the <code>AttribBinder</code>.</p>
+
+<h1 id='failures' class='section-header'><a href='#failures'>Failures</a></h1>
+<p><code>add</code> will return an error if the attribute being added is already
+present.</p>
+
+<h1 id='note-1' class='section-header'><a href='#note-1'>Note</a></h1>
+<p>Each call to <code>add</code> can potentially cause a heap allocation.</p>
+</div><h4 id='method.enable' class='method'><code>fn <a href='#method.enable' class='fnname'>enable</a>&lt;V, C&gt;(&amp;self, gl: &amp;mut C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></h4>
+<div class='docblock'><p>Enable all of the vertex attributes contained within the <code>AttribBinder</code>.
+The provided type of <code>VertexData</code> is used to to verify the list
+of attributes.</p>
+
+<h1 id='failures-1' class='section-header'><a href='#failures-1'>Failures</a></h1>
+<p>An error will be returned if the set of vertex attributes contained
+by the <code>VertexData</code> types does not exactly match the list of attributes
+contained by the <code>AttribBinder</code>.</p>
+
+<h1 id='note-2' class='section-header'><a href='#note-2'>Note</a></h1>
+<p>Currently, calling <code>enable</code> will perform a heap allocation. Consider
+using <a href="../context/trait.ContextExt.html#method.enable_vertex_attrib_array"><code>gl.enable_vertex_attrib_array</code></a>
+if this becomes a performance concern.</p>
+</div><h4 id='method.bind' class='method'><code>fn <a href='#method.bind' class='fnname'>bind</a>&lt;V, C&gt;(&amp;self, gl: &amp;C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></h4>
+<div class='docblock'><p>Set up each vertex attribute with the appropriate attribute options
+(using <a href="http://docs.gl/es2/glVertexAttribPointer"><code>glVertexAttribPointer</code></a>). The <code>VertexData</code> type
+parameter is used to get the attribute options for each attribute.</p>
+
+<h1 id='failures-2' class='section-header'><a href='#failures-2'>Failures</a></h1>
+<p>An error will be returned if the set of vertex attributes contained
+by the <code>VertexData</code> types does not exactly match the list of attributes
+contained by the <code>AttribBinder.</code></p>
+
+<h1 id='note-3' class='section-header'><a href='#note-3'>Note</a></h1>
+<p>Currently, calling <code>bind</code> will perform a heap allocation. Consider
+using <a href="../context/trait.ContextExt.html#method.enable_vertex_attrib_array"><code>gl.enable_vertex_attrib_array</code></a>
+if this becomes a performance concern.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

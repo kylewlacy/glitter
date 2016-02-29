@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextVertexBufferExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextVertexBufferExt">
+
+    <title>glitter::vertex_buffer::ContextVertexBufferExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a></p><script>window.sidebarCurrent = {name: 'ContextVertexBufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='trait' href=''>ContextVertexBufferExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-3673' class='srclink' href='../../src/glitter/vertex_buffer.rs.html#226-390' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextVertexBufferExt: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> {
+    fn <a href='#method.new_vertex_buffer' class='fnname'>new_vertex_buffer</a>&lt;V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt;(&amp;self) -&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt; { ... }
+    fn <a href='#method.buffer_vertices' class='fnname'>buffer_vertices</a>&lt;T&gt;(&amp;self, gl_vbo: &amp;mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;T&gt;, vertices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where T: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='../../glitter/vertex_data/trait.VertexBytes.html' title='glitter::vertex_data::VertexBytes'>VertexBytes</a></span> { ... }
+    fn <a href='#method.buffer_indices' class='fnname'>buffer_indices</a>&lt;T&gt;(&amp;self, gl_ibo: &amp;mut <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;T&gt;, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where T: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span> { ... }
+    fn <a href='#method.draw_arrays_range_vbo' class='fnname'>draw_arrays_range_vbo</a>&lt;V&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, start: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, length: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span> { ... }
+    fn <a href='#method.draw_arrays_vbo' class='fnname'>draw_arrays_vbo</a>&lt;V&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span> { ... }
+    fn <a href='#method.draw_n_elements_buffered_vbo' class='fnname'>draw_n_elements_buffered_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, gl_ibo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, length: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span> { ... }
+    fn <a href='#method.draw_elements_buffered_vbo' class='fnname'>draw_elements_buffered_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, gl_ibo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span> { ... }
+    fn <a href='#method.draw_n_elements_vbo' class='fnname'>draw_n_elements_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span> { ... }
+    fn <a href='#method.draw_elements_vbo' class='fnname'>draw_elements_vbo</a>&lt;V, I&gt;(&amp;mut self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span> { ... }
+}</pre><div class='docblock'><p>An extension trait that adds vertex buffer and index buffer-related methods
+to OpenGL contexts.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.new_vertex_buffer' class='method stab '><code>fn <a href='#method.new_vertex_buffer' class='fnname'>new_vertex_buffer</a>&lt;V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt;(&amp;self) -&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;</code></h3><div class='docblock'><p>Create a new, empty vertex buffer.</p>
+</div><h3 id='method.buffer_vertices' class='method stab '><code>fn <a href='#method.buffer_vertices' class='fnname'>buffer_vertices</a>&lt;T&gt;(&amp;self, gl_vbo: &amp;mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;T&gt;, vertices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where T: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='../../glitter/vertex_data/trait.VertexBytes.html' title='glitter::vertex_data::VertexBytes'>VertexBytes</a></span></code></h3><div class='docblock'><p>Send data to a vertex buffer. Note that this will replace the buffer&#39;s
+current contents, if any.</p>
+</div><h3 id='method.buffer_indices' class='method stab '><code>fn <a href='#method.buffer_indices' class='fnname'>buffer_indices</a>&lt;T&gt;(&amp;self, gl_ibo: &amp;mut <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;T&gt;, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, usage: <a class='enum' href='../../glitter/buffer/enum.BufferDataUsage.html' title='glitter::buffer::BufferDataUsage'>BufferDataUsage</a>) <span class='where'>where T: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span></code></h3><div class='docblock'><p>Send data to an index buffer. Note that this will replace the buffer&#39;s
+current contents, if any.</p>
+</div><h3 id='method.draw_arrays_range_vbo' class='method stab '><code>fn <a href='#method.draw_arrays_range_vbo' class='fnname'>draw_arrays_range_vbo</a>&lt;V&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, start: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, length: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span></code></h3><div class='docblock'><p>Use the data from the provided vertex buffer binding to render
+primitives.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the vertex buffer to read vertices from.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>start</code>: The index of the first vertex to draw.</li>
+<li><code>length</code>: The number of vertices to draw.</li>
+</ul>
+
+<h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
+<p>This function will panic if the <code>start</code> and <code>length</code> are out
+of bounds of the currently-buffered data.</p>
+</div><h3 id='method.draw_arrays_vbo' class='method stab '><code>fn <a href='#method.draw_arrays_vbo' class='fnname'>draw_arrays_vbo</a>&lt;V&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span></code></h3><div class='docblock'><p>Use the data from the provided vertex buffer binding to render
+primitives. This function will use the full range of vertices
+that have been buffered.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the vertex buffer to read vertices from.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+</ul>
+</div><h3 id='method.draw_n_elements_buffered_vbo' class='method stab '><code>fn <a href='#method.draw_n_elements_buffered_vbo' class='fnname'>draw_n_elements_buffered_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, gl_ibo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, length: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span></code></h3><div class='docblock'><p>Draw primitives using the provided index buffer as
+the indices into the provided vertex buffer.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the buffer that contains the vertex data.</li>
+<li><code>gl_ibo</code>: The binding of the buffer that contains the index data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>length</code>: The number of indices to read.</li>
+</ul>
+</div><h3 id='method.draw_elements_buffered_vbo' class='method stab '><code>fn <a href='#method.draw_elements_buffered_vbo' class='fnname'>draw_elements_buffered_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, gl_ibo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span></code></h3><div class='docblock'><p>Draw primitives using the provided index buffer as
+the indices into the provided vertex buffer. All buffered
+indices will be used.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the buffer that contains the vertex data.</li>
+<li><code>gl_ibo</code>: The binding of the buffer that contains the index data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+</ul>
+</div><h3 id='method.draw_n_elements_vbo' class='method stab '><code>fn <a href='#method.draw_n_elements_vbo' class='fnname'>draw_n_elements_vbo</a>&lt;V, I&gt;(&amp;self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, count: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span></code></h3><div class='docblock'><p>Draw primitives speicified by the provided index array,
+treated as indices into the provided vertex buffer.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the buffer that contains the vertex data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>count</code>: The number of indices to read.</li>
+<li><code>indices</code>: The index array to use.</li>
+</ul>
+</div><h3 id='method.draw_elements_vbo' class='method stab '><code>fn <a href='#method.draw_elements_vbo' class='fnname'>draw_elements_vbo</a>&lt;V, I&gt;(&amp;mut self, gl_vbo: &amp;<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, mode: <a class='enum' href='../../glitter/types/enum.DrawingMode.html' title='glitter::types::DrawingMode'>DrawingMode</a>, indices: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>I<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[I]</a>: <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a></span></code></h3><div class='docblock'><p>Draw primitives speicified by the provided index array,
+treated as indices into the provided vertex buffer.</p>
+
+<ul>
+<li><code>gl_vbo</code>: The binding of the buffer that contains the vertex data.</li>
+<li><code>mode</code>: The type of primitives to draw.</li>
+<li><code>indices</code>: The index array to use.</li>
+</ul>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../implementors/glitter/vertex_buffer/trait.ContextVertexBufferExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

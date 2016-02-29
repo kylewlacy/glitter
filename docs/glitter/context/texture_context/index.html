@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `texture_context` mod in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, texture_context">
+
+    <title>glitter::context::texture_context - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a></p><script>window.sidebarCurrent = {name: 'texture_context', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a class='mod' href=''>texture_context</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1199' class='srclink' href='../../../src/glitter/context/texture_context.rs.html#1-526' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>Contains all of the OpenGL state types related to texture bindings.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Texture2dBinder.html'
+                               title='glitter::context::texture_context::Texture2dBinder'>Texture2dBinder</a></td>
+                        <td class='docblock short'>
+                             <p>The OpenGL texture unit state that represents the <code>GL_TEXTURE_2D</code>
+target.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Texture2dBinding.html'
+                               title='glitter::context::texture_context::Texture2dBinding'>Texture2dBinding</a></td>
+                        <td class='docblock short'>
+                             <p>Represents a texture that has been bound to the <code>GL_TEXTURE_2D</code> binding
+target of a texture unit.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.Texture2dBuilder.html'
+                               title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a></td>
+                        <td class='docblock short'>
+                             <p>Provide a safe interface for building a 2D texture
+object that is checked to be complete. A <code>Texture2dBuilder</code>
+can be created using the <a href="trait.ContextTextureBuilderExt.html#method.build_texture_2d"><code>gl.build_texture_2d</code></a>
+method.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.TextureCubeMapBinder.html'
+                               title='glitter::context::texture_context::TextureCubeMapBinder'>TextureCubeMapBinder</a></td>
+                        <td class='docblock short'>
+                             <p>The OpenGL texture unit state that represents the <code>GL_TEXTURE_CUBE_MAP</code>
+target.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='struct' href='struct.TextureCubeMapBinding.html'
+                               title='glitter::context::texture_context::TextureCubeMapBinding'>TextureCubeMapBinding</a></td>
+                        <td class='docblock short'>
+                             <p>Represents a texture that has been bound to the <code>GL_TEXTURE_CUBE_MAP</code>
+binding target of a texture unit.</p>
+
+                        </td>
+                    </tr>
+                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+<table>
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.ContextTextureBuilderExt.html'
+                               title='glitter::context::texture_context::ContextTextureBuilderExt'>ContextTextureBuilderExt</a></td>
+                        <td class='docblock short'>
+                             <p>The extension trait for contexts that adds the <code>build_texture_2d</code> method.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.ContextTextureExt.html'
+                               title='glitter::context::texture_context::ContextTextureExt'>ContextTextureExt</a></td>
+                        <td class='docblock short'>
+                             <p>An extension trait that includes texture-related OpenGL methods.</p>
+
+                        </td>
+                    </tr>
+                
+                    <tr class=' module-item'>
+                        <td><a class='trait' href='trait.TextureBinding.html'
+                               title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></td>
+                        <td class='docblock short'>
+                             <p>Represents a texture that has been bound to a texture unit.</p>
+
+                        </td>
+                    </tr>
+                </table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

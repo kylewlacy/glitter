@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `TextureUnitsOf` struct in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, TextureUnitsOf">
+
+    <title>glitter::context::texture_units::TextureUnitsOf - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'TextureUnitsOf', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class='struct' href=''>TextureUnitsOf</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1508' class='srclink' href='../../../src/glitter/context/texture_units.rs.html#97-104' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct TextureUnitsOf&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;(pub T0, pub T1, pub T2, pub T3, pub T4, pub T5, pub T6, pub T7);</pre><div class='docblock'><p>This type holds all of the OpenGL textrure units. Each type parameter
+is the current type of a texture unit. See the <a href="../struct.ContextOf.html"><code>ContextOf</code></a> docs for more details.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt; <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;</code></h3><div class='impl-items'><h4 id='method.current' class='method'><code>unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; <a class='type' href='../../../glitter/context/texture_units/type.TextureUnits.html' title='glitter::context::texture_units::TextureUnits'>TextureUnits</a></code></h4>
+<div class='docblock'><p>Get the current texture units.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>The same rules apply to this method as the
+<a href="../struct.ContextOf.html#method.current_context"><code>ContextOf::current_context()</code> method</a>.</p>
+</div><h4 id='method.swap_0' class='method'><code>fn <a href='#method.swap_0' class='fnname'>swap_0</a>&lt;N0&gt;(self, new_unit: N0) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T0, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;N0, T1, T2, T3, T4, T5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 0th texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_1' class='method'><code>fn <a href='#method.swap_1' class='fnname'>swap_1</a>&lt;N1&gt;(self, new_unit: N1) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T1, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, N1, T2, T3, T4, T5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 1st texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_2' class='method'><code>fn <a href='#method.swap_2' class='fnname'>swap_2</a>&lt;N2&gt;(self, new_unit: N2) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T2, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, N2, T3, T4, T5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 2nd texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_3' class='method'><code>fn <a href='#method.swap_3' class='fnname'>swap_3</a>&lt;N3&gt;(self, new_unit: N3) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T3, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, N3, T4, T5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 3rd texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_4' class='method'><code>fn <a href='#method.swap_4' class='fnname'>swap_4</a>&lt;N4&gt;(self, new_unit: N4) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T4, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, N4, T5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 4th texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_5' class='method'><code>fn <a href='#method.swap_5' class='fnname'>swap_5</a>&lt;N5&gt;(self, new_unit: N5) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T5, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, N5, T6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 5th texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_6' class='method'><code>fn <a href='#method.swap_6' class='fnname'>swap_6</a>&lt;N6&gt;(self, new_unit: N6) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T6, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, N6, T7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 6th texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.swap_7' class='method'><code>fn <a href='#method.swap_7' class='fnname'>swap_7</a>&lt;N7&gt;(self, new_unit: N7) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(T7, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, N7&gt;)</a></code></h4>
+<div class='docblock'><p>Replace the 7th texture unit context with a new value, returning the
+old value and a new set of texture units</p>
+</div><h4 id='method.active_nth' class='method'><code>unsafe fn <a href='#method.active_nth' class='fnname'>active_nth</a>(&amp;self, idx: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; <a class='type' href='../../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a></code></h4>
+<div class='docblock'><p>Make the <code>idx</code>th texture unit the active one, returning a new binding.</p>
+
+<h1 id='safety-1' class='section-header'><a href='#safety-1'>Safety</a></h1>
+<p>For convenience, this function takes <code>self</code> by shared reference, not
+motable reference. Thus, this function can be to create multiple
+live bindings. Special care must be taken to ensure that two bindings
+do not conflict; since there can only ever be one active texture unit
+in OpenGL, using this function may result in unexpected or undefined
+behavior, and it should only be used as a fallback when glitter&#39;s
+safe texture unit interface is not sufficient.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

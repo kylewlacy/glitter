@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextShaderExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextShaderExt">
+
+    <title>glitter::shader::ContextShaderExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a></p><script>window.sidebarCurrent = {name: 'ContextShaderExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a>::<wbr><a class='trait' href=''>ContextShaderExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-2733' class='srclink' href='../../src/glitter/shader.rs.html#207-416' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextShaderExt: <a class='trait' href='../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
+    unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt; { ... }
+    fn <a href='#method.shader_source' class='fnname'>shader_source</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, source: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
+    fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt; { ... }
+    fn <a href='#method.get_shader_info_log' class='fnname'>get_shader_info_log</a>(&amp;self, shader: &amp;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt; { ... }
+}</pre><div class='docblock'><p>An extension trait that includes shader-related OpenGL methods.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.create_shader' class='method stab '><code>unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></h3><div class='docblock'><p>Create a new, uninitalized shader.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>Most OpenGL functions that take a shader expect the shader to have
+been setup and compiled already. Before using this shader,
+it must have its source set using <a href="trait.ContextShaderExt.html#method.shader_source"><code>gl.shader_source</code></a> and compiled with
+<a href="trait.ContextShaderExt.html#method.compile_shader"><code>gl.compile_shader</code></a>.
+Instead, consider using one of the shader builder functions, which
+handle proper setup and compilation automatically.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1><pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glitter</span>;
+<span class='kw'>use</span> <span class='ident'>glitter</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
+
+<span class='kw'>let</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
+<span class='kw'>let</span> <span class='ident'>vertex_source</span> <span class='op'>=</span> <span class='string'>r##&quot;#version 100
+    attribute vec4 position;
+
+    void main() {
+        gl_Position = position;
+    }
+&quot;##</span>;
+
+<span class='kw'>let</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='ident'>gl</span>.<span class='ident'>create_shader</span>(<span class='ident'>glitter</span>::<span class='ident'>VERTEX_SHADER</span>).<span class='ident'>unwrap</span>();
+    <span class='ident'>gl</span>.<span class='ident'>shader_source</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>shader</span>, <span class='ident'>vertex_source</span>);
+    <span class='ident'>gl</span>.<span class='ident'>compile_shader</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>shader</span>).<span class='ident'>unwrap</span>();
+
+    <span class='ident'>shader</span>
+};</pre>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="trait.ContextShaderBuilderExt.html#tymethod.build_shader"><code>gl.build_shader</code></a>,
+<a href="trait.ContextShaderBuilderExt.html#method.build_vertex_shader"><code>gl.build_vertex_shader</code></a>,
+and <a href="trait.ContextShaderBuilderExt.html#method.build_fragment_shader"><code>gl.build_fragment_shader</code></a>:
+A safe interface for creating and building shaders, which automatically
+handle compilation and error checking.</p>
+
+<p><a href="http://docs.gl/es2/glCreateShader"><code>glCreateShader</code></a> OpenGL docs</p>
+</div><h3 id='method.shader_source' class='method stab '><code>fn <a href='#method.shader_source' class='fnname'>shader_source</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, source: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)</code></h3><div class='docblock'><p>Set or replace a shader object&#39;s source. The shader should be recompiled
+after calling this function by using the <a href="trait.ContextShaderExt.html#method.compile_shader"><code>gl.compile_shader</code></a> function</p>
+
+<h1 id='see-also-1' class='section-header'><a href='#see-also-1'>See also</a></h1>
+<p><a href="trait.ContextShaderExt.html#method.create_shader"><code>gl.create_shader</code></a>:
+A function to create a new, uninitialized shader. Includes an example
+of how to use <code>gl.shader_source</code></p>
+
+<p><a href="trait.ContextShaderBuilderExt.html#tymethod.build_shader"><code>gl.build_shader</code></a>,
+<a href="trait.ContextShaderBuilderExt.html#method.build_vertex_shader"><code>gl.build_vertex_shader</code></a>,
+and <a href="trait.ContextShaderBuilderExt.html#method.build_fragment_shader"><code>gl.build_fragment_shader</code></a>:
+The preferred way to create and compile a shader object, which skips
+the need to directly call <code>gl.shader_source</code>.</p>
+
+<p><a href="http://docs.gl/es2/glShaderSource"><code>glShaderSource</code></a> OpenGL docs</p>
+</div><h3 id='method.compile_shader' class='method stab '><code>fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h3><div class='docblock'><p>Compile the shader&#39;s associated source.</p>
+
+<h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
+<p>This function will panic if an OpenGL error occurs while trying to
+compile the shader (determined by calling <a href="../context/struct.ContextOf.html#method.get_error"><code>gl.get_error</code></a>). Note that this
+function <strong><em>does not</em></strong> panic if there was an error <em>within</em> the shader;
+this function should only panic if the shader is invalid or if
+shader compilation is unavailable with the current OpenGL context.</p>
+
+<h1 id='failures' class='section-header'><a href='#failures'>Failures</a></h1>
+<p>If a compilation error occurs, an <code>Err</code> value will be returned
+with the compilation error messages (as determined by
+<a href="trait.ContextShaderExt.html#method.get_shader_info_log"><code>gl.get_shader_info_log</code></a>).</p>
+
+<h1 id='see-also-2' class='section-header'><a href='#see-also-2'>See also</a></h1>
+<p><a href="trait.ContextShaderExt.html#method.create_shader"><code>gl.create_shader</code></a>:
+A function to create a new, uninitialized shader. Includes an example
+of how to use <code>gl.compile_shader</code></p>
+
+<p><a href="trait.ContextShaderBuilderExt.html#tymethod.build_shader"><code>gl.build_shader</code></a>,
+<a href="trait.ContextShaderBuilderExt.html#method.build_vertex_shader"><code>gl.build_vertex_shader</code></a>,
+and <a href="trait.ContextShaderBuilderExt.html#method.build_fragment_shader"><code>gl.build_fragment_shader</code></a>:
+The preferred way to create and compile a shader object, which skips
+the need to directly call <code>gl.compile_shader</code>.</p>
+
+<p><a href="http://docs.gl/es2/glCompileShader"><code>glCompileShader</code></a> OpenGL docs</p>
+</div><h3 id='method.get_shader_info_log' class='method stab '><code>fn <a href='#method.get_shader_info_log' class='fnname'>get_shader_info_log</a>(&amp;self, shader: &amp;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></h3><div class='docblock'><p>Get the information log associated with a shader. This is used to
+get compilation errors, warnings, or other diagnostic information
+that may have occurred while trying to compile a shader. Returns <code>None</code>
+if no such diagnostic information was generated.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1><pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glitter</span>;
+<span class='kw'>use</span> <span class='ident'>glitter</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
+
+<span class='kw'>let</span> <span class='ident'>fragment_source</span> <span class='op'>=</span> <span class='string'>r##&quot;#version 100
+    void main() {
+        float someValue = 1.0 * 2.0;
+        gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);
+    }
+&quot;##</span>;
+
+<span class='kw'>let</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
+<span class='kw'>let</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='ident'>gl</span>.<span class='ident'>build_fragment_shader</span>(<span class='ident'>fragment_source</span>).<span class='ident'>unwrap</span>();
+<span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>info</span>) <span class='op'>=</span> <span class='ident'>gl</span>.<span class='ident'>get_shader_info_log</span>(<span class='kw-2'>&amp;</span><span class='ident'>shader</span>) {
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;Shader compilation info: {}&quot;</span>, <span class='ident'>info</span>);
+    <span class='comment'>// &quot;Shader compilation info: unused variable `someValue` on line 3&quot;</span>
+    <span class='comment'>// (or whatever other diagnostics your graphics device</span>
+    <span class='comment'>//  decides to output)</span>
+}</pre>
+
+<h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glGetShaderInfoLog"><code>glGetShaderInfoLog</code></a> OpenGL docs</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../implementors/glitter/shader/trait.ContextShaderExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Pixels` struct in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Pixels">
+
+    <title>glitter::image_data::Pixels - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a></p><script>window.sidebarCurrent = {name: 'Pixels', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a>::<wbr><a class='struct' href=''>Pixels</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-3294' class='srclink' href='../../src/glitter/image_data.rs.html#187-191' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Pixels {
+    // some fields omitted
+}</pre><div class='docblock'><p>A (heap-allocated) 2D image composed of a list of pixels.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1><pre class='rust rust-example-rendered'>
+<span class='comment'>// Draw a red circle with a 50px radius in a 100px * 100px black image.</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glitter</span>;
+
+<span class='kw'>let</span> <span class='ident'>width</span> <span class='op'>=</span> <span class='number'>100</span>;
+<span class='kw'>let</span> <span class='ident'>height</span> <span class='op'>=</span> <span class='number'>100</span>;
+<span class='kw'>let</span> <span class='ident'>radius</span> <span class='op'>=</span> <span class='number'>50</span>;
+
+<span class='kw'>let</span> (<span class='ident'>center_x</span>, <span class='ident'>center_y</span>) <span class='op'>=</span> (<span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>f32</span><span class='op'>/</span><span class='number'>2.0</span>, <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>f32</span><span class='op'>/</span><span class='number'>2.0</span>);
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>pixels</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixels</span>::<span class='ident'>new</span>(<span class='ident'>width</span>, <span class='ident'>height</span>);
+<span class='kw'>for</span> <span class='ident'>x</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>width</span> {
+    <span class='kw'>for</span> <span class='ident'>y</span> <span class='kw'>in</span> <span class='number'>0</span>..<span class='ident'>height</span> {
+        <span class='kw'>let</span> <span class='ident'>dx</span> <span class='op'>=</span> <span class='ident'>center_x</span> <span class='op'>-</span> <span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>f32</span>;
+        <span class='kw'>let</span> <span class='ident'>dy</span> <span class='op'>=</span> <span class='ident'>center_y</span> <span class='op'>-</span> <span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>f32</span>;
+        <span class='kw'>let</span> <span class='ident'>distance</span> <span class='op'>=</span> (<span class='ident'>dx</span><span class='op'>*</span><span class='ident'>dx</span> <span class='op'>+</span> <span class='ident'>dy</span><span class='op'>*</span><span class='ident'>dy</span>).<span class='ident'>sqrt</span>();
+
+        <span class='kw'>let</span> <span class='ident'>color</span> <span class='op'>=</span> <span class='kw'>if</span> <span class='ident'>distance</span> <span class='op'>&lt;</span> <span class='ident'>radius</span> {
+            <span class='comment'>// The point is within the circle, so it should be red</span>
+            <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>rgb</span>(<span class='number'>0xFF0000</span>)
+        }
+        <span class='kw'>else</span> {
+            <span class='comment'>// The point is outside the circle, so it should be black</span>
+            <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>rgb</span>(<span class='number'>0x000000</span>)
+        };
+        <span class='ident'>pixels</span>[<span class='ident'>y</span>][<span class='ident'>x</span>] <span class='op'>=</span> <span class='ident'>color</span>;
+    }
+}</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Create a new image with the desired width and height. Pixels
+are initialized with <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default"><code>Pixel::default()</code></a>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html' title='core::ops::Index'>Index</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h3><div class='impl-items'><h4 id='assoc_type.Output' class='type'><code>type Output = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[<a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a>]</a></code></h4>
+<h4 id='method.index' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Index.html#method.index' class='fnname'>index</a>(&amp;self, row: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html' title='core::ops::IndexMut'>IndexMut</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt; for <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h3><div class='impl-items'><h4 id='method.index_mut' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.IndexMut.html#method.index_mut' class='fnname'>index_mut</a>(&amp;mut self, row: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;mut [</a><a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+</div><h3 class='impl'><code>impl <a class='trait' href='../../glitter/image_data/trait.Image2d.html' title='glitter::image_data::Image2d'>Image2d</a> for <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h3><div class='impl-items'><h4 id='method.width' class='method'><code>fn <a href='../../glitter/image_data/trait.Image2d.html#method.width' class='fnname'>width</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.height' class='method'><code>fn <a href='../../glitter/image_data/trait.Image2d.html#method.height' class='fnname'>height</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.format' class='method'><code>fn <a href='../../glitter/image_data/trait.Image2d.html#method.format' class='fnname'>format</a>(&amp;self) -&gt; <a class='struct' href='../../glitter/image_data/struct.ImageFormat.html' title='glitter::image_data::ImageFormat'>ImageFormat</a></code></h4>
+<h4 id='method.texel_bytes' class='method'><code>fn <a href='../../glitter/image_data/trait.Image2d.html#method.texel_bytes' class='fnname'>texel_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></h4>
+</div><h3 class='impl'><code>impl&lt;'a, I, P&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;I&gt; for <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a> <span class='where'>where I: GenericImage&lt;Pixel=P&gt;, P: Pixel&lt;Subpixel=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;</span></code></h3><div class='impl-items'><h4 id='method.from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#method.from' class='fnname'>from</a>(img: I) -&gt; <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../glitter/image_data/struct.Pixels.html' title='glitter::image_data::Pixels'>Pixels</a></code></h4>
+<h4 id='method.clone_from' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

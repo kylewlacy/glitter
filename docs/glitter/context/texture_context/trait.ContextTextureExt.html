@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextTextureExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextTextureExt">
+
+    <title>glitter::context::texture_context::ContextTextureExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_context</a></p><script>window.sidebarCurrent = {name: 'ContextTextureExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_context</a>::<wbr><a class='trait' href=''>ContextTextureExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-1276' class='srclink' href='../../../src/glitter/context/texture_context.rs.html#211-365' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextTextureExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
+    unsafe fn <a href='#method.gen_texture' class='fnname'>gen_texture</a>&lt;TX: <a class='trait' href='../../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a>&gt;(&amp;self) -&gt; <a class='struct' href='../../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;TX&gt; { ... }
+    fn <a href='#method.set_min_filter' class='fnname'>set_min_filter</a>&lt;T, F&gt;(&amp;self, gl_texture: &amp;mut T, filter: F) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='../../../glitter/texture/enum.TextureMipmapFilter.html' title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a>&gt;</span> { ... }
+    fn <a href='#method.set_mag_filter' class='fnname'>set_mag_filter</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, filter: <a class='enum' href='../../../glitter/texture/enum.TextureFilter.html' title='glitter::texture::TextureFilter'>TextureFilter</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span> { ... }
+    fn <a href='#method.set_wrap_s' class='fnname'>set_wrap_s</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, wrap_mode: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span> { ... }
+    fn <a href='#method.set_wrap_t' class='fnname'>set_wrap_t</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, wrap_mode: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span> { ... }
+    fn <a href='#method.generate_mipmap' class='fnname'>generate_mipmap</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span> { ... }
+    fn <a href='#method.tex_image_2d' class='fnname'>tex_image_2d</a>&lt;T, U, I: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, _gl_texture: &amp;mut T, target: U, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, img: &amp;I) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, U: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;T::TextureType::ImageTargetType&gt;, I: <a class='trait' href='../../../glitter/image_data/trait.Image2d.html' title='glitter::image_data::Image2d'>Image2d</a></span> { ... }
+    fn <a href='#method.tex_image_2d_empty' class='fnname'>tex_image_2d_empty</a>&lt;T, I&gt;(&amp;self, _gl_texture: &amp;mut T, target: I, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, format: <a class='struct' href='../../../glitter/image_data/struct.ImageFormat.html' title='glitter::image_data::ImageFormat'>ImageFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, I: <a class='trait' href='../../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a></span> { ... }
+}</pre><div class='docblock'><p>An extension trait that includes texture-related OpenGL methods.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.gen_texture' class='method stab '><code>unsafe fn <a href='#method.gen_texture' class='fnname'>gen_texture</a>&lt;TX: <a class='trait' href='../../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a>&gt;(&amp;self) -&gt; <a class='struct' href='../../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;TX&gt;</code></h3><div class='docblock'><p>Create a new texture with no storage or image data.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>Many OpenGL functions assume a texture object will be <a href="https://www.opengl.org/wiki/Texture_Storage#Texture_completeness">texture-complete</a>.
+Violating this invariant is considered undefined behavior.</p>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="trait.ContextTextureBuilderExt.html#method.build_texture_2d"><code>gl.build_texture_2d</code></a>:
+A safe wrapper for building 2D textures.</p>
+
+<p><a href="http://docs.gl/es2/glGenTextures"><code>glGenTextures</code></a> OpenGL docs</p>
+</div><h3 id='method.set_min_filter' class='method stab '><code>fn <a href='#method.set_min_filter' class='fnname'>set_min_filter</a>&lt;T, F&gt;(&amp;self, gl_texture: &amp;mut T, filter: F) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='../../../glitter/texture/enum.TextureMipmapFilter.html' title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a>&gt;</span></code></h3><div class='docblock'><p>Set a texture&#39;s minifying filter.</p>
+
+<h1 id='see-also-1' class='section-header'><a href='#see-also-1'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glTexParameter"><code>glTexParameter</code></a> OpenGL docs</p>
+</div><h3 id='method.set_mag_filter' class='method stab '><code>fn <a href='#method.set_mag_filter' class='fnname'>set_mag_filter</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, filter: <a class='enum' href='../../../glitter/texture/enum.TextureFilter.html' title='glitter::texture::TextureFilter'>TextureFilter</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span></code></h3><div class='docblock'><p>Set a texture&#39;s magnifying filter.</p>
+
+<h1 id='see-also-2' class='section-header'><a href='#see-also-2'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glTexParameter"><code>glTexParameter</code></a> OpenGL docs</p>
+</div><h3 id='method.set_wrap_s' class='method stab '><code>fn <a href='#method.set_wrap_s' class='fnname'>set_wrap_s</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, wrap_mode: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span></code></h3><div class='docblock'><p>Set a texture&#39;s wrap mode for the s-coordinate.</p>
+
+<h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glTexParameter"><code>glTexParameter</code></a> OpenGL docs</p>
+</div><h3 id='method.set_wrap_t' class='method stab '><code>fn <a href='#method.set_wrap_t' class='fnname'>set_wrap_t</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T, wrap_mode: <a class='enum' href='../../../glitter/texture/enum.TextureWrapMode.html' title='glitter::texture::TextureWrapMode'>TextureWrapMode</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span></code></h3><div class='docblock'><p>Set a texture&#39;s wrap mode for the t-coordinate.</p>
+
+<h1 id='see-also-4' class='section-header'><a href='#see-also-4'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glTexParameter"><code>glTexParameter</code></a> OpenGL docs</p>
+</div><h3 id='method.generate_mipmap' class='method stab '><code>fn <a href='#method.generate_mipmap' class='fnname'>generate_mipmap</a>&lt;T&gt;(&amp;self, gl_texture: &amp;mut T) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a></span></code></h3><div class='docblock'><p>Generate a set of mipmaps for a texture object.</p>
+
+<h1 id='see-also-5' class='section-header'><a href='#see-also-5'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glGenerateMipmap"><code>glGenerateMipmap</code></a> OpenGL docs</p>
+</div><h3 id='method.tex_image_2d' class='method stab '><code>fn <a href='#method.tex_image_2d' class='fnname'>tex_image_2d</a>&lt;T, U, I: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a>&gt;(&amp;self, _gl_texture: &amp;mut T, target: U, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, img: &amp;I) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, U: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;T::TextureType::ImageTargetType&gt;, I: <a class='trait' href='../../../glitter/image_data/trait.Image2d.html' title='glitter::image_data::Image2d'>Image2d</a></span></code></h3><div class='docblock'><p>Upload 2D image data to a texture object&#39;s image target.</p>
+
+<ul>
+<li><code>_gl_texture</code>: The binding of the texture object.</li>
+<li><code>target</code>: The texture&#39;s 2D image target to upload the image data to.</li>
+<li><code>level</code>: The mipmap level to upload the image data to.</li>
+<li><code>img</code>: The image data to upload.</li>
+</ul>
+</div><h3 id='method.tex_image_2d_empty' class='method stab '><code>fn <a href='#method.tex_image_2d_empty' class='fnname'>tex_image_2d_empty</a>&lt;T, I&gt;(&amp;self, _gl_texture: &amp;mut T, target: I, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, format: <a class='struct' href='../../../glitter/image_data/struct.ImageFormat.html' title='glitter::image_data::ImageFormat'>ImageFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) <span class='where'>where T: <a class='trait' href='../../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, I: <a class='trait' href='../../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a></span></code></h3><div class='docblock'><p>Set a texture object&#39;s image target to an empty image
+with the specified parameters.</p>
+
+<ul>
+<li><code>_gl_texture</code>: The binding of the texture object.</li>
+<li><code>target</code>: The texture&#39;s 2D image target to set.</li>
+<li><code>level</code>: The mipmap level to set.</li>
+<li><code>format</code>: The image format to use to use for the
+        texture&#39;s data store.</li>
+<li><code>width</code>: The width to set for the texture&#39;s data store.</li>
+<li><code>height</code>: The height to set for the texture&#39;s data store.</li>
+</ul>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../../implementors/glitter/context/texture_context/trait.ContextTextureExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>

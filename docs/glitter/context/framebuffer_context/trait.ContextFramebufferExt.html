@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContextFramebufferExt` trait in crate `glitter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContextFramebufferExt">
+
+    <title>glitter::context::framebuffer_context::ContextFramebufferExt - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a></p><script>window.sidebarCurrent = {name: 'ContextFramebufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content trait">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a>::<wbr><a class='trait' href=''>ContextFramebufferExt</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-469' class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#16-163' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextFramebufferExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
+    unsafe fn <a href='#method.gen_framebuffer' class='fnname'>gen_framebuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a> { ... }
+    fn <a href='#method.check_framebuffer_status' class='fnname'>check_framebuffer_status</a>(&amp;self, gl_fbo: &amp;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../../glitter/types/enum.GLFramebufferError.html' title='glitter::types::GLFramebufferError'>GLFramebufferError</a>&gt; { ... }
+    fn <a href='#method.framebuffer_renderbuffer' class='fnname'>framebuffer_renderbuffer</a>(&amp;self, gl_fbo: &amp;mut <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, renderbuffer: &amp;mut <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a>) { ... }
+    fn <a href='#method.framebuffer_texture_2d' class='fnname'>framebuffer_texture_2d</a>&lt;I, T&gt;(&amp;self, gl_fbo: &amp;mut <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, tex_target: I, texture: &amp;mut <a class='struct' href='../../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;T&gt;, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) <span class='where'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;T::ImageTargetType&gt;, T: <a class='trait' href='../../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a></span> { ... }
+    fn <a href='#method.clear' class='fnname'>clear</a>(&amp;self, buffers: <a class='struct' href='../../../glitter/types/struct.BufferBits.html' title='glitter::types::BufferBits'>BufferBits</a>) { ... }
+}</pre><div class='docblock'><p>An extension trait that includes framebuffer-related OpenGL methods.</p>
+</div>
+            <h2 id='provided-methods'>Provided Methods</h2>
+            <div class='methods'>
+        <h3 id='method.gen_framebuffer' class='method stab '><code>unsafe fn <a href='#method.gen_framebuffer' class='fnname'>gen_framebuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></h3><div class='docblock'><p>Create a new framebuffer object with no attachments.</p>
+
+<h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
+<p>Most OpenGL function calls assume a framebuffer object will be
+<a href="https://www.opengl.org/wiki/Framebuffer_Object#Framebuffer_Completeness">framebuffer-complete</a>.
+Since the new framebuffer will have no attachments, it will not be
+framebuffer-complete. Violating this invariant is considered undefined
+behavior in glitter.</p>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="trait.ContextFramebufferBuilderExt.html#method.build_framebuffer"><code>gl.build_framebuffer</code></a>:
+A safe wrapper for building a framebuffer, which ensures
+framebuffer-completeness.</p>
+
+<p><a href="trait.ContextFramebufferExt.html#method.check_framebuffer_status"><code>gl.check_framebuffer_status</code></a>:
+Checks to see if a framebuffer object is framebuffer-complete.</p>
+
+<p><a href="http://docs.gl/es2/glGenFramebuffers"><code>glGenFramebuffers</code></a> OpenGL docs</p>
+</div><h3 id='method.check_framebuffer_status' class='method stab '><code>fn <a href='#method.check_framebuffer_status' class='fnname'>check_framebuffer_status</a>(&amp;self, gl_fbo: &amp;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='../../../glitter/types/enum.GLFramebufferError.html' title='glitter::types::GLFramebufferError'>GLFramebufferError</a>&gt;</code></h3><div class='docblock'><p>Returns the status of any framebuffer-completeness errors of a
+currently-bound framebuffer object. Returns <code>None</code> if the framebuffer
+is framebuffer-complete.</p>
+
+<h1 id='see-also-1' class='section-header'><a href='#see-also-1'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glCheckFramebufferStatus"><code>glCheckFramebufferStatus</code></a> OpenGL docs</p>
+</div><h3 id='method.framebuffer_renderbuffer' class='method stab '><code>fn <a href='#method.framebuffer_renderbuffer' class='fnname'>framebuffer_renderbuffer</a>(&amp;self, gl_fbo: &amp;mut <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, renderbuffer: &amp;mut <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a>)</code></h3><div class='docblock'><p>Attach a renderbuffer object to a framebuffer object&#39;s attachment
+point.</p>
+
+<ul>
+<li><code>gl_fbo</code>: The binding of the framebuffer to attach to.</li>
+<li><code>attachment</code>: Which attachment point of the framebuffer to attach to.</li>
+<li><code>renderbuffer</code>: The renderbuffer to attach.</li>
+</ul>
+
+<h1 id='see-also-2' class='section-header'><a href='#see-also-2'>See also</a></h1>
+<p><a href="http://docs.gl/gl4/glFramebufferRenderbuffer"><code>glFramebufferRenderbuffer</code></a> OpenGL docs</p>
+</div><h3 id='method.framebuffer_texture_2d' class='method stab '><code>fn <a href='#method.framebuffer_texture_2d' class='fnname'>framebuffer_texture_2d</a>&lt;I, T&gt;(&amp;self, gl_fbo: &amp;mut <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, tex_target: I, texture: &amp;mut <a class='struct' href='../../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;T&gt;, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) <span class='where'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;T::ImageTargetType&gt;, T: <a class='trait' href='../../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a></span></code></h3><div class='docblock'><p>Attach a texture to a framebuffer object&#39;s attachment point.</p>
+
+<ul>
+<li><code>gl_fbo</code>: The binding of the framebuffer to attach to.</li>
+<li><code>attachment</code>: Which attachment point of the framebuffer to attach to.</li>
+<li><code>tex_target</code>: The 2D &#39;face&#39; of the texture to attach.</li>
+<li><code>texture</code>: The texture to attach.</li>
+<li><code>level</code>: The mipmap level of the texture to attach. <strong>Note that this
+       value must be 0</strong>.</li>
+</ul>
+
+<h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
+<p>This function will panic with a debug assertion if <code>level</code> is not 0.</p>
+
+<h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glFramebufferTexture2D"><code>glFramebufferTexture2D</code></a> OpenGL docs</p>
+</div><h3 id='method.clear' class='method stab '><code>fn <a href='#method.clear' class='fnname'>clear</a>(&amp;self, buffers: <a class='struct' href='../../../glitter/types/struct.BufferBits.html' title='glitter::types::BufferBits'>BufferBits</a>)</code></h3><div class='docblock'><p>Clear the currently-bound drawing buffers that are specified by
+the <code>buffers</code> argument.</p>
+
+<h1 id='see-also-4' class='section-header'><a href='#see-also-4'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glClear"><code>glClear</code></a> OpenGL docs</p>
+</div></div>
+        <h2 id='implementors'>Implementors</h2>
+        <ul class='item-list' id='implementors-list'>
+    </ul><script type="text/javascript" async
+                              src="../../../implementors/glitter/context/framebuffer_context/trait.ContextFramebufferExt.js">
+                      </script></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../../";
+        window.currentCrate = "glitter";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../../../jquery.js"></script>
+    <script src="../../../main.js"></script>
+    
+    <script defer src="../../../search-index.js"></script>
+</body>
+</html>
