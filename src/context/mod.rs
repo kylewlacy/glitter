@@ -224,7 +224,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     /// are borrows of the current context. This function shouldn't be
     /// necessary in most circumstances, and will likely be removed from
     /// the public API in a future release.
-    pub fn borrowed<'a, BB = B, BF = F, BP = P, BR = R, BT = T>(&'a self)
+    pub fn borrowed<'a, BB, BF, BP, BR, BT>(&'a self)
         -> ContextOf<&'a BB, &'a BF, &'a BP, &'a BR, &'a BT>
         where B: Borrow<BB>,
               F: Borrow<BF>,
@@ -246,8 +246,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     /// are mutabel borrows of the current context. This function shouldn't
     /// be necessary in most circumstances, and will likely be removed from
     /// the public API in a future release.
-    pub fn borrowed_mut<'a, BB = B, BF = F, BP = P, BR = R, BT = T>
-                       (&'a mut self)
+    pub fn borrowed_mut<'a, BB, BF, BP, BR, BT>(&'a mut self)
         -> ContextOf<&'a mut BB,
                      &'a mut BF,
                      &'a mut BP,

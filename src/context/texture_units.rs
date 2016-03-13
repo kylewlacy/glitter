@@ -139,16 +139,7 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
                        TextureUnit7 { _phantom: PhantomData })
     }
 
-    fn borrowed_mut<'a,
-                    B0 = T0,
-                    B1 = T1,
-                    B2 = T2,
-                    B3 = T3,
-                    B4 = T4,
-                    B5 = T5,
-                    B6 = T6,
-                    B7 = T7>
-                   (&'a mut self)
+    fn borrowed_mut<'a, B0, B1, B2, B3, B4, B5, B6, B7>(&'a mut self)
         -> TextureUnitsOf<&'a mut B0,
                           &'a mut B1,
                           &'a mut B2,
@@ -1428,7 +1419,7 @@ impl<T2, TC> TextureUnitBindingOf<T2, TC> {
         )
     }
 
-    fn borrowed_mut<'a, B2 = T2, BC = TC>(&'a mut self)
+    fn borrowed_mut<'a, B2, BC>(&'a mut self)
         -> TextureUnitBindingOf<&'a mut B2, &'a mut BC>
         where T2: BorrowMut<B2>,
               TC: BorrowMut<BC>

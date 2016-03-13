@@ -527,7 +527,7 @@ impl<A, E> BufferBinderOf<A, E> {
         }
     }
 
-    fn borrowed_mut<'a, BA = A, BE = E>(&'a mut self)
+    fn borrowed_mut<'a, BA, BE>(&'a mut self)
         -> BufferBinderOf<&'a mut BA, &'a mut BE>
         where A: BorrowMut<BA>,
               E: BorrowMut<BE>
