@@ -59,7 +59,7 @@
 //! establised.
 
 #[macro_use] extern crate bitflags;
-extern crate gl as gl_lib;
+extern crate gl;
 #[cfg(feature = "cgmath")] extern crate cgmath;
 #[cfg(feature = "image")] extern crate image;
 
@@ -82,10 +82,6 @@ pub mod types;
 
 #[cfg(feature = "cgmath")] mod cgmath_features;
 #[cfg(feature = "image")] mod image_features;
-
-
-
-pub use gl_lib as gl;
 
 pub use context::*;
 pub use buffer::*;

@@ -1,5 +1,6 @@
 extern crate sdl2;
 #[macro_use] extern crate glitter;
+extern crate gl;
 
 use sdl2::video::GLProfile;
 use sdl2::event::Event;
@@ -53,8 +54,7 @@ fn setup_gl(video: &sdl2::VideoSubsystem) {
 }
 
 unsafe fn gl_vao_hack() {
-    use glitter::gl;
-    use glitter::gl::types::GLuint;
+    use gl::types::GLuint;
 
     // So... OpenGL 4.1 and OpenGL ES 2.0 aren't EXACTLY compatible.
     // For example, look at glEnableVertexAttribArray. In OpenGL 4.1, it
