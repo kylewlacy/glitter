@@ -32,27 +32,6 @@ fn circle_image(width: usize, height: usize, radius: f32) -> glitter::Pixels {
     pixels
 }
 
-fn setup_gl(video: &sdl2::VideoSubsystem) {
-    let gl_attr = video.gl_attr();
-
-    // Use OpenGL 4.1 core. Note that glitter is (currently) only designed
-    // for OpenGL ES 2.0, but OpenGL 4.1 added the GL_ARB_ES2_compatibility
-    // extension, which adds OpenGL ES 2 compatibility
-    gl_attr.set_context_profile(GLProfile::Core);
-    gl_attr.set_context_version(4, 1);
-    gl_attr.set_context_flags().debug().set();
-
-    // Load the system's OpenGL library
-    video.gl_load_library_default().expect("Failed to load OpenGL library");
-
-    // Load OpenGL function pointers
-    unsafe {
-        glitter::Context::load_with(|s| {
-            video.gl_get_proc_address(s) as *const _
-        });
-    }
-}
-
 unsafe fn gl_vao_hack() {
     use gl::types::GLuint;
 
@@ -74,8 +53,14 @@ fn main() {
     let sdl = sdl2::init().expect("Failed to initailize SDL");
     let video = sdl.video().expect("Failed to intialize SDL video system");
 
-    // Do all the necessary SDL OpenGL setup
-    setup_gl(&video);
+    let gl_attr = video.gl_attr();
+
+    // Use OpenGL 4.1 core. Note that glitter is (currently) only designed
+    // for OpenGL ES 2.0, but OpenGL 4.1 added the GL_ARB_ES2_compatibility
+    // extension, which adds OpenGL ES 2 compatibility
+    gl_attr.set_context_profile(GLProfile::Core);
+    gl_attr.set_context_version(4, 1);
+    gl_attr.set_context_flags().debug().set();
 
     // Create our window (and make it usable with OpenGL)
     let window = video.window("Hello Circle!", 800, 600)
@@ -85,6 +70,16 @@ fn main() {
 
     // Create a new OpenGL context
     let _context = window.gl_create_context().expect("Failed to create OpenGL context");
+
+    // Load the system's OpenGL library
+    video.gl_load_library_default().expect("Failed to load OpenGL library");
+
+    // Load OpenGL function pointers
+    unsafe {
+        glitter::Context::load_with(|s| {
+            video.gl_get_proc_address(s) as *const _
+        });
+    }
 
     // Bind the window's OpenGL context
     window.gl_set_context_to_current().expect("Failed to set current context");
