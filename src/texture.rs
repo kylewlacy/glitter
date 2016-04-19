@@ -270,7 +270,7 @@ pub const TEXTURE_2D : VariantTexture2d = VariantTexture2d;
 /// how a texture will be sampled when drawn.
 
 // TODO: Use type refinements someday...
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TextureFilter {
     /// When texturing a pixel, return the texel that is nearest to the center
     /// of the pixel.
@@ -282,7 +282,7 @@ pub enum TextureFilter {
 }
 
 /// Represents the different forms of texture filtering when using mipmaps.
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TextureMipmapFilter {
     /// Ignore mipmap values, and texture a pixel using a standard
     /// [`TextureFilter`](enum.TextureFilter.html).
