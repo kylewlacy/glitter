@@ -44,7 +44,7 @@ fn _bind_buffer(target: BufferBindingTarget, buffer: &mut Buffer) {
     }
 }
 
-/// An extension trait that includes buffer object-related OpenGL methods.
+/// An extension trait that includes buffer-object-related OpenGL methods.
 pub trait ContextBufferExt: BaseContext {
     /// Create a new, empty OpenGL buffer object.
     ///
@@ -194,7 +194,7 @@ pub trait ContextBufferExt: BaseContext {
         _draw_elements(mode, count, index_type, ptr::null());
     }
 
-    /// Draw primtives specified by the provided index array, treated as
+    /// Draw primitives specified by the provided index array, treated as
     /// indices of the vertices from the provided array buffer.
     ///
     /// - `_ab`: The binding for the array buffer that contains the vertex
@@ -219,7 +219,7 @@ pub trait ContextBufferExt: BaseContext {
         _draw_elements(mode, count, index_type, mem::transmute(ptr));
     }
 
-    /// Draw primtives specified by the provided index array, treated as
+    /// Draw primitives specified by the provided index array, treated as
     /// indices of the vertices from the provided array buffer.
     ///
     /// - `_ab`: The binding for the array buffer that contains the vertex
@@ -500,7 +500,7 @@ impl<'a> BufferBinding for ElementArrayBufferBinding<'a> {
 
 
 
-/// This type holds all of the OpenGL state releated buffer objects. See the
+/// This type holds all of the OpenGL-state-related buffer objects. See the
 /// [`ContextOf`](../struct.ContextOf.html) docs for more details.
 pub struct BufferBinderOf<A, E> {
     array: A,

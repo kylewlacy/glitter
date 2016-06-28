@@ -91,7 +91,7 @@ impl TextureUnit for TextureUnit7 { fn idx(&self) -> u32 { 7 } }
 
 // NOTE: Ensure the number of each texture unit matches its index in the tuple
 // TODO: Use macros + integer-level types to refactor this
-/// This type holds all of the OpenGL textrure units. Each type parameter
+/// This type holds all of the OpenGL texture units. Each type parameter
 /// is the current type of a texture unit. See the [`ContextOf`]
 /// (../struct.ContextOf.html) docs for more details.
 pub struct TextureUnitsOf<T0, T1, T2, T3, T4, T5, T6, T7>(pub T0,
@@ -315,7 +315,7 @@ impl<T0, T1, T2, T3, T4, T5, T6, T7> TextureUnitsOf<T0,
     ///
     /// # Safety
     /// For convenience, this function takes `self` by shared reference, not
-    /// motable reference. Thus, this function can be to create multiple
+    /// mutable reference. Thus, this function can be to create multiple
     /// live bindings. Special care must be taken to ensure that two bindings
     /// do not conflict; since there can only ever be one active texture unit
     /// in OpenGL, using this function may result in unexpected or undefined

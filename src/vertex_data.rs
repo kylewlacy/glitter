@@ -307,7 +307,7 @@ macro_rules! offset_of {
 /// The generated implementation will **not** be panic safe with regards
 /// to the [`VertexDatum::attrib_type`]
 /// (trait.VertexDatum.html#tymethod.attrib_type) method of the vertex
-/// attribute fields. However, as the documenation of
+/// attribute fields. However, as the documentation of
 // [`VertexDatum::attrib_type`](trait.VertexDatum.html#tymethod.attrib_type)
 /// notes, implementors should be aware of this already.
 ///

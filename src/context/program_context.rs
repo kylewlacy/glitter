@@ -196,7 +196,7 @@ pub trait ContextProgramExt: BaseContext {
     }
 
     /// Return the information log for the program object, if any is
-    /// avaiable.
+    /// available.
     ///
     /// # Note
     /// If the info log returned by the OpenGL driver contained an invalid
@@ -271,7 +271,7 @@ pub trait ContextProgramExt: BaseContext {
     }
 
     /// Retrieve a program uniform's index by name, or return an error
-    /// if the unfirom was not found within the program.
+    /// if the uniform was not found within the program.
     ///
     /// # Panics
     /// This function will panic if an OpenGL error was generated and
@@ -312,11 +312,11 @@ pub trait ContextProgramExt: BaseContext {
     /// object binding.
     ///
     /// - `_gl_program`: The program binding to change.
-    /// - `uniform`: The location of the uniform varaible. This value
+    /// - `uniform`: The location of the uniform variable. This value
     ///              can be retrieved using [`gl.get_uniform_location`]
     ///              (trait.ContextProgramExt.html#method.get_uniform_location)
     ///              method.
-    /// - `val`: The value to set the uniform varaible to. See the
+    /// - `val`: The value to set the uniform variable to. See the
     ///          [`UniformData`](../../uniform_data/trait.UniformData.html)
     ///          docs for more details about the types of uniform data.
     ///
@@ -459,7 +459,7 @@ impl<'a, B, F, P, R, T> ProgramContext for &'a mut ContextOf<B, F, P, R, T>
 
 
 
-/// Represents a progarm that has been bound to the context.
+/// Represents a program that has been bound to the context.
 pub struct ProgramBinding<'a> {
     _phantom_ref: PhantomData<&'a mut Program>,
     _phantom_ptr: PhantomData<*mut ()>

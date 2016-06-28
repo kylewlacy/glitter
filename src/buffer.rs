@@ -56,7 +56,7 @@ impl GLObject for Buffer {
 
 
 gl_enum! {
-    /// Proivdes a hint to the OpenGL driver for how a buffer will be used.
+    /// Provides a hint to the OpenGL driver for how a buffer will be used.
     pub gl_enum BufferDataUsage {
         /// Indicates that a buffer will be set once and drawn
         /// only a few times.

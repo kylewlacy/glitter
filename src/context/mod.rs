@@ -102,7 +102,7 @@ pub type Context = ContextOf<BufferBinder,
 /// In some circumstances, taking a concrete `Context` by value will be too
 /// strict. Additionally, being generic over all of the type parameters adds
 /// a great deal of complexity, and still isn't sufficient for all
-/// circumstnaces. For these cases, there are a number of traits that exist,
+/// circumstances. For these cases, there are a number of traits that exist,
 /// which allow for much more flexibility than using a `ContextOf` instance
 /// directly. The traits in question are:
 ///
@@ -176,7 +176,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     /// ^~~~~~~~~~~~~~~~~~~~~~~~
     ///  UNSOUNDNESS: gl_buffer_1 refers to GL_ARRAY_BUFFER, which was
     ///               invalidated by gl_buffer_2. This call overwrites buffer_2
-    ///               and leaves buffer_1 uninitalized.
+    ///               and leaves buffer_1 uninitialized.
     ///
     /// // Current data:
     /// // buffer_1: {uninitialized}
@@ -243,7 +243,7 @@ impl<B, F, P, R, T> ContextOf<B, F, P, R, T> {
     }
 
     /// Return a new `ContextOf`, where the type parameters of the new context
-    /// are mutabel borrows of the current context. This function shouldn't
+    /// are mutable borrows of the current context. This function shouldn't
     /// be necessary in most circumstances, and will likely be removed from
     /// the public API in a future release.
     pub fn borrowed_mut<'a, BB, BF, BP, BR, BT>(&'a mut self)
@@ -451,7 +451,7 @@ impl<'a, B, F, P, R, T> ToMut<'a> for ContextOf<B, F, P, R, T>
 /// A marker trait for types that represent an active OpenGL context.
 ///
 /// # Safety
-/// This type should only be implemented for types that can guarntee that
+/// This type should only be implemented for types that can guarantee that
 /// an OpenGL context will be available for the lifetime of an instance
 /// of the type.
 pub unsafe trait BaseContext {
