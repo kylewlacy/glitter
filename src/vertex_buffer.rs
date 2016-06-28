@@ -352,7 +352,7 @@ pub trait ContextVertexBufferExt: AContext {
         }
     }
 
-    /// Draw primitives speicified by the provided index array,
+    /// Draw primitives specified by the provided index array,
     /// treated as indices into the provided vertex buffer.
     ///
     /// - `gl_vbo`: The binding of the buffer that contains the vertex data.
@@ -371,7 +371,7 @@ pub trait ContextVertexBufferExt: AContext {
         }
     }
 
-    /// Draw primitives speicified by the provided index array,
+    /// Draw primitives specified by the provided index array,
     /// treated as indices into the provided vertex buffer.
     ///
     /// - `gl_vbo`: The binding of the buffer that contains the vertex data.
@@ -398,7 +398,7 @@ impl<C: AContext> ContextVertexBufferExt for C {
 /// An OpenGL context that can have a vertex buffer bound.
 ///
 /// # Note
-/// Interanlly, vertex buffers are bound to the `GL_ARRAY_BUFFER`
+/// Internally, vertex buffers are bound to the `GL_ARRAY_BUFFER`
 /// binding, so any context that has a free `GL_ARRAY_BUFFER` is
 /// a `VertexBufferContext`.
 pub trait VertexBufferContext: ArrayBufferContext + Sized {
@@ -442,7 +442,7 @@ impl<C: ArrayBufferContext> VertexBufferContext for C {
 /// An OpenGL context that can have an index buffer bound.
 ///
 /// # Note
-/// Interanlly, index buffers are bound to the `GL_ELEMENT_ARRAY_BUFFER`
+/// Internally, index buffers are bound to the `GL_ELEMENT_ARRAY_BUFFER`
 /// binding, so any context that has a free `GL_ELEMENT_ARRAY_BUFFER` is
 /// an `IndexBufferContext`.
 pub trait IndexBufferContext: ElementArrayBufferContext + Sized {
@@ -470,7 +470,7 @@ impl<C: ElementArrayBufferContext> IndexBufferContext for C {
 
 
 
-/// A buffer taht contains index data. In addition to storing a buffer, an
+/// A buffer that contains index data. In addition to storing a buffer, an
 /// `IndexBuffer` store a count of the amount of `IndexData` that has been
 /// buffered.
 pub struct IndexBuffer<T: IndexDatum> {

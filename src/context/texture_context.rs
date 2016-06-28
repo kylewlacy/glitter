@@ -60,7 +60,7 @@ impl<'a, C> Texture2dBuilder<'a, C>
         self
     }
 
-    /// Automatically generate mipamps for the texture.
+    /// Automatically generate mipmaps for the texture.
     pub fn generate_mipmap(mut self) -> Self {
         self.gen_mipmap = true;
         self

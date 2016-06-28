@@ -205,7 +205,7 @@ impl<C: AContext> ContextShaderBuilderExt for C {
 
 /// An extension trait that includes shader-related OpenGL methods.
 pub trait ContextShaderExt: BaseContext {
-    /// Create a new, uninitalized shader.
+    /// Create a new, uninitialized shader.
     ///
     /// # Safety
     /// Most OpenGL functions that take a shader expect the shader to have

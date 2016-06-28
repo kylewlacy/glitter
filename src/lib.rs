@@ -35,7 +35,7 @@
 //!
 //! # OpenGL Version Support
 //! Currently, glitter only supports OpenGL ES 2, although the goal is to
-//! enable support for targetting any OpenGL version. An example of what this
+//! enable support for targeting any OpenGL version. An example of what this
 //! entails is the [`VertexBuffer`](struct.VertexBuffer.html) type. The current
 //! implementation of [`VertexBuffer`](struct.VertexBuffer.html) uses OpenGL
 //! "vertex buffer objects" under the hood. However, OpenGL also has a
@@ -56,7 +56,7 @@
 //! # The Future
 //! In its current form, glitter should be considered work-in-progress, and
 //! the API will likely undergo radical changes before a 1.0 version is
-//! establised.
+//! established.
 
 #[macro_use] extern crate bitflags;
 extern crate gl;
