@@ -1,0 +1,23 @@
+language: rust
+env:
+  global:
+    - ENCRYPTION_LABEL: "b4cae8414a91"
+matrix:
+  include:
+    - rust: 1.8.0
+    - rust: stable
+    - rust: beta
+    - rust: nightly
+      after_success: bash .travis/build_docs.sh
+install:
+  - mkdir -p $HOME/usr
+  - curl -O http://www.libsdl.org/release/SDL2-2.0.0.tar.gz
+  - tar -xzvf SDL2-2.0.0.tar.gz
+  - (cd SDL2-2.0.0 && ./configure --prefix=$HOME/usr && make && make install)
+  - export LIBRARY_PATH=$HOME/usr/lib/
+before_script:
+  - rustc --version
+  - cargo --version
+script:
+  - cargo build --verbose
+  - cargo test --verbose
