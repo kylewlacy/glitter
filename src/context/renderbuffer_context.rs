@@ -170,6 +170,10 @@ pub trait RenderbufferContext: AContext {
 
     /// Bind a renderbuffer to this context's renderbuffer,
     /// returning a new context and a binding.
+    ///
+    /// # See also
+    /// [`glBindRenderbuffer`](http://docs.gl/es2/glBindRenderbuffer)
+    /// OpenGL docs
     fn bind_renderbuffer<'a>(self, rbo: &'a mut Renderbuffer)
         -> (RenderbufferBinding<'a>, Self::Rest)
         where Self: Sized

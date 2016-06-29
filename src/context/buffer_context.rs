@@ -77,7 +77,7 @@ pub trait ContextBufferExt: BaseContext {
     /// current contents, if any.
     ///
     /// # See also
-    /// [`glBufferData`](http://docs.gl/es2/glBufferData)  OpenGL docs
+    /// [`glBufferData`](http://docs.gl/es2/glBufferData) OpenGL docs
     fn buffer_bytes<B>(&self,
                        gl_buffer: &mut B,
                        bytes: &[u8],
