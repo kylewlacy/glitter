@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>framebuffer</a>::<wbr><a class='struct' href=''>Framebuffer</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2902' class='srclink' href='../../src/glitter/framebuffer.rs.html#33-36' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2872' class='srclink' href='../../src/glitter/src/framebuffer.rs.html#33-36' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Framebuffer {
     // some fields omitted
 }</pre><div class='docblock'><p>An OpenGL framebuffer object.</p>
@@ -71,12 +72,19 @@ Create a new framebuffer with no attachment points.</p>
 
 <p><a href="../context/framebuffer_context/trait.FramebufferContext.html#method.bind_framebuffer"><code>gl.bind_framebuffer</code></a>:
 Bind a framebuffer to a context, returning a <a href="../context/framebuffer_context/struct.FramebufferBinding.html"><code>FramebufferBinding</code></a> type.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></h3><div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#method.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
-</div><h3 class='impl'><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></h3><div class='impl-items'><h4 id='assoc_type.Id' class='type'><code>type Id = <a class='type' href='../../glitter/gl/types/type.GLuint.html' title='glitter::gl::types::GLuint'>GLuint</a></code></h4>
-<h4 id='method.from_raw' class='method'><code>unsafe fn <a href='../../glitter/types/trait.GLObject.html#method.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self</code></h4>
-<h4 id='method.id' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#method.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a></code></h4>
-<h4 id='method.into_raw' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2875' class='srclink' href='../../src/glitter/src/framebuffer.rs.html#38-44' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2878' class='srclink' href='../../src/glitter/src/framebuffer.rs.html#46-59' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Id' class='type'><code>type <a href='../../glitter/types/trait.GLObject.html#associatedtype.Id' class='type'>Id</a> = GLuint</code></h4>
+<div class='docblock'><p>The type of the object&#39;s internal ID.</p>
+</div><h4 id='method.from_raw' class='method'><code>unsafe fn <a href='../../glitter/types/trait.GLObject.html#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self</code></h4>
+<div class='docblock'><p>Get a new object from an OpenGL ID. <a href="../../glitter/types/trait.GLObject.html#tymethod.from_raw">Read more</a></p>
+</div><h4 id='method.id' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a></code></h4>
+<div class='docblock'><p>Get the object&#39;s ID.</p>
+</div><h4 id='method.into_raw' class='method'><code>fn <a href='../../glitter/types/trait.GLObject.html#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h4>
+<div class='docblock'><p>Consume the object without cleaning up its resources, returning the object&#39;s ID. <a href="../../glitter/types/trait.GLObject.html#method.into_raw">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -99,6 +107,8 @@ Bind a framebuffer to a context, returning a <a href="../context/framebuffer_con
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -119,7 +129,7 @@ Bind a framebuffer to a context, returning a <a href="../context/framebuffer_con
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>index_data</a>::<wbr><a class='trait' href=''>IndexData</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3794' class='srclink' href='../../src/glitter/index_data.rs.html#18-27' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3787' class='srclink' href='../../src/glitter/src/index_data.rs.html#18-27' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait IndexData {
     fn <a href='#tymethod.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class='enum' href='../../glitter/index_data/enum.IndexDatumType.html' title='glitter::index_data::IndexDatumType'>IndexDatumType</a>;
     fn <a href='#tymethod.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>;
@@ -62,10 +63,10 @@ be treated as a stream of index data.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; <a class='trait' href='../../glitter/index_data/trait.IndexData.html' title='glitter::index_data::IndexData'>IndexData</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[T]</a></code></li>
+    <li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; IndexData for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/index_data/trait.IndexData.js">
-                      </script></section>
+                         src="../../implementors/glitter/index_data/trait.IndexData.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -88,6 +89,8 @@ be treated as a stream of index data.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -108,7 +111,7 @@ be treated as a stream of index data.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

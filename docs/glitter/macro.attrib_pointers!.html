@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content macro">
 <h1 class='fqn'><span class='in-band'><a href='index.html'>glitter</a>::<wbr><a class='macro' href=''>attrib_pointers!</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4448' class='srclink' href='../src/glitter/vertex_buffer.rs.html#536-544' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4441' class='srclink' href='../src/glitter/src/vertex_buffer.rs.html#536-544' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>attrib_pointers</span> {
     ($(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>:<span class='ident'>ident</span> <span class='op'>=&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_attrib</span>:<span class='ident'>expr</span>),<span class='op'>*</span>) <span class='op'>=&gt;</span> { ... };
@@ -54,7 +55,8 @@
 <div class='docblock'><p>Create an <a href="vertex_buffer/struct.AttribBinder.html"><code>AttribBinder</code></a> from
 a set of associations from vertex attribute names to <a href="program/struct.ProgramAttrib.html"><code>ProgramAttribs</code></a>.</p>
 
-<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1><pre class='rust rust-example-rendered'>
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<pre class='rust rust-example-rendered'>
 <span class='comment'>// Create an `AttribBinder`, where &quot;position&quot; and &quot;color&quot; are set</span>
 <span class='comment'>// to their respective program attributes.</span>
 <span class='kw'>let</span> <span class='ident'>attribs</span> <span class='op'>=</span> <span class='macro'>attrib_pointers</span><span class='macro'>!</span> {
@@ -84,6 +86,8 @@ a set of associations from vertex attribute names to <a href="program/struct.Pro
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -104,7 +108,7 @@ a set of associations from vertex attribute names to <a href="program/struct.Pro
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

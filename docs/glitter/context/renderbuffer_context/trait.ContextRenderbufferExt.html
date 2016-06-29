@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a>::<wbr><a class='trait' href=''>ContextRenderbufferExt</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1095' class='srclink' href='../../../src/glitter/context/renderbuffer_context.rs.html#102-152' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1080' class='srclink' href='../../../src/glitter/src/context/renderbuffer_context.rs.html#102-152' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ContextRenderbufferExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
     unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a> { ... }
     fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self, gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>, format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) { ... }
@@ -76,9 +77,10 @@ OpenGL docs</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
-                              src="../../../implementors/glitter/context/renderbuffer_context/trait.ContextRenderbufferExt.js">
-                      </script></section>
+    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a>&gt; ContextRenderbufferExt for C</code></li>
+</ul><script type="text/javascript" async
+                         src="../../../implementors/glitter/context/renderbuffer_context/trait.ContextRenderbufferExt.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +103,8 @@ OpenGL docs</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -121,7 +125,7 @@ OpenGL docs</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

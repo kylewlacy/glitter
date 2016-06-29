@@ -1,5 +1,5 @@
 (function() {var implementors = {};
-implementors['glitter'] = [];
+implementors["glitter"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

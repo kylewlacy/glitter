@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,12 +44,12 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_context</a>::<wbr><a class='trait' href=''>ContextTextureBuilderExt</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1269' class='srclink' href='../../../src/glitter/context/texture_context.rs.html#193-200' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1253' class='srclink' href='../../../src/glitter/src/context/texture_context.rs.html#193-200' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ContextTextureBuilderExt: <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
-    fn <a href='#method.build_texture_2d' class='fnname'>build_texture_2d</a>&lt;'a&gt;(self) -&gt; <a class='struct' href='../../../glitter/context/texture_context/struct.Texture2dBuilder.html' title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a>&lt;'a, Self&gt; { ... }
+    fn <a href='#method.build_texture_2d' class='fnname'>build_texture_2d</a>&lt;'a&gt;(self) -&gt; <a class='struct' href='../../../glitter/context/texture_context/struct.Texture2dBuilder.html' title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a>&lt;'a,&nbsp;Self&gt; { ... }
 }</pre><div class='docblock'><p>The extension trait for contexts that adds the <code>build_texture_2d</code> method.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
@@ -57,15 +58,15 @@
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.build_texture_2d' class='method stab '><code>fn <a href='#method.build_texture_2d' class='fnname'>build_texture_2d</a>&lt;'a&gt;(self) -&gt; <a class='struct' href='../../../glitter/context/texture_context/struct.Texture2dBuilder.html' title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a>&lt;'a, Self&gt;</code></h3><div class='docblock'><p>Create a new 2D texture builder, providing a safe interface
+        <h3 id='method.build_texture_2d' class='method stab '><code>fn <a href='#method.build_texture_2d' class='fnname'>build_texture_2d</a>&lt;'a&gt;(self) -&gt; <a class='struct' href='../../../glitter/context/texture_context/struct.Texture2dBuilder.html' title='glitter::context::texture_context::Texture2dBuilder'>Texture2dBuilder</a>&lt;'a,&nbsp;Self&gt;</code></h3><div class='docblock'><p>Create a new 2D texture builder, providing a safe interface
 for constructing a 2D texture object. See the <a href="struct.Texture2dBuilder.html"><code>Texture2dBuilder</code></a> docs for more details.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;'a, C: 'a&gt; <a class='trait' href='../../../glitter/context/texture_context/trait.ContextTextureBuilderExt.html' title='glitter::context::texture_context::ContextTextureBuilderExt'>ContextTextureBuilderExt</a> for &amp;'a mut C <span class='where'>where &amp;'a mut C: <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a></span></code></li>
+    <li><code>impl&lt;'a,&nbsp;C:&nbsp;'a&gt; ContextTextureBuilderExt for &amp;'a mut C <span class='where'>where &amp;'a mut C: <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a></span></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/glitter/context/texture_context/trait.ContextTextureBuilderExt.js">
-                      </script></section>
+                         src="../../../implementors/glitter/context/texture_context/trait.ContextTextureBuilderExt.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -88,6 +89,8 @@ for constructing a 2D texture object. See the <a href="struct.Texture2dBuilder.h
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -108,7 +111,7 @@ for constructing a 2D texture object. See the <a href="struct.Texture2dBuilder.h
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

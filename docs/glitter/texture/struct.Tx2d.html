@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,14 +44,17 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='struct' href=''>Tx2d</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2994' class='srclink' href='../../src/glitter/texture.rs.html#119' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2960' class='srclink' href='../../src/glitter/src/texture.rs.html#119' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Tx2d;</pre><div class='docblock'><p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for 2-dimensional textures.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a> for <a class='struct' href='../../glitter/texture/struct.Tx2d.html' title='glitter::texture::Tx2d'>Tx2d</a></code></h3><div class='impl-items'><h4 id='assoc_type.ImageTargetType' class='type'><code>type ImageTargetType = <a class='enum' href='../../glitter/texture/enum.Tx2dImageTarget.html' title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></code></h4>
-<h4 id='method.target' class='method'><code>fn <a href='../../glitter/texture/trait.TextureType.html#method.target' class='fnname'>target</a>() -&gt; <a class='enum' href='../../glitter/texture/enum.TextureBindingTarget.html' title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a></code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a> for <a class='struct' href='../../glitter/texture/struct.Tx2d.html' title='glitter::texture::Tx2d'>Tx2d</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2984' class='srclink' href='../../src/glitter/src/texture.rs.html#135-141' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.ImageTargetType' class='type'><code>type <a href='../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType' class='type'>ImageTargetType</a> = <a class='enum' href='../../glitter/texture/enum.Tx2dImageTarget.html' title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></code></h4>
+<div class='docblock'><p>The type that is used to indicate all of the possible target 2D images for this type of texture. The associated <code>ImageTargetType</code> in the impl for <code>TxCubeMap</code>, for example, is <code>TxCubeMapImageTarget</code>, which is an enum with six variants, one for each of the six 2-dimensional images that make up a cube map. <a href="../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType">Read more</a></p>
+</div><h4 id='method.target' class='method'><code>fn <a href='../../glitter/texture/trait.TextureType.html#tymethod.target' class='fnname'>target</a>() -&gt; <a class='enum' href='../../glitter/texture/enum.TextureBindingTarget.html' title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a></code></h4>
+<div class='docblock'><p>The actual variant that represents this type of texture. The <code>target()</code> method impl for <code>TxCubeMap</code>, for example, returns <code>TextureBindingTarget::CubeMap</code>. <a href="../../glitter/texture/trait.TextureType.html#tymethod.target">Read more</a></p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -73,6 +77,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -93,7 +99,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

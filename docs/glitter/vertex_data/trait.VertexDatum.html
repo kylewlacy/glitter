@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a>::<wbr><a class='trait' href=''>VertexDatum</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3503' class='srclink' href='../../src/glitter/vertex_data.rs.html#98-107' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3496' class='srclink' href='../../src/glitter/src/vertex_data.rs.html#98-107' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait VertexDatum: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> {
     fn <a href='#tymethod.attrib_type' class='fnname'>attrib_type</a>() -&gt; <a class='struct' href='../../glitter/vertex_data/struct.VertexAttributeType.html' title='glitter::vertex_data::VertexAttributeType'>VertexAttributeType</a>;
 }</pre><div class='docblock'><p>A single value that can be treated as a part of a vertex. Implementors
@@ -70,16 +71,17 @@ must not painc</strong>. Safe code must be able to rely on this property.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 1]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 2]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 3]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 4]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for Vector2&lt;T&gt;</code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for Vector3&lt;T&gt;</code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; <a class='trait' href='../../glitter/vertex_data/trait.VertexDatum.html' title='glitter::vertex_data::VertexDatum'>VertexDatum</a> for Vector4&lt;T&gt;</code></li>
+    <li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for T</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 1]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 2]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 3]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 4]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for Vector2&lt;T&gt;</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for Vector3&lt;T&gt;</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexPrimitive.html' title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a>&gt; VertexDatum for Vector4&lt;T&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/vertex_data/trait.VertexDatum.js">
-                      </script></section>
+                         src="../../implementors/glitter/vertex_data/trait.VertexDatum.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -102,6 +104,8 @@ must not painc</strong>. Safe code must be able to rely on this property.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -122,7 +126,7 @@ must not painc</strong>. Safe code must be able to rely on this property.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

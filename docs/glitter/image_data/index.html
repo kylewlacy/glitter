@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,195 +44,157 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class='mod' href=''>image_data</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3228' class='srclink' href='../../src/glitter/image_data.rs.html#1-320' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3226' class='srclink' href='../../src/glitter/src/image_data.rs.html#1-320' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Contains types related to 2D image data.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.ImageFormat.html'
-                               title='glitter::image_data::ImageFormat'>ImageFormat</a></td>
-                        <td class='docblock short'>
-                             <p>A type that contains the texel type and format that make up a 2D image.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Pixel.html'
-                               title='glitter::image_data::Pixel'>Pixel</a></td>
-                        <td class='docblock short'>
-                             <p>A single OpenGL color value, with <code>u8</code> components laid out
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.ImageFormat.html'
+                                  title='glitter::image_data::ImageFormat'>ImageFormat</a></td>
+                           <td class='docblock short'>
+                                <p>A type that contains the texel type and format that make up a 2D image.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Pixel.html'
+                                  title='glitter::image_data::Pixel'>Pixel</a></td>
+                           <td class='docblock short'>
+                                <p>A single OpenGL color value, with <code>u8</code> components laid out
 as a C struct in RGBA order. This type is the simplest implementation
 of <a href="trait.Image2d.html"><code>Image2d</code></a>, which allows it to be uploaded
 to a texture.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Pixels.html'
-                               title='glitter::image_data::Pixels'>Pixels</a></td>
-                        <td class='docblock short'>
-                             <p>A (heap-allocated) 2D image composed of a list of pixels.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Pixels.html'
+                                  title='glitter::image_data::Pixels'>Pixels</a></td>
+                           <td class='docblock short'>
+                                <p>A (heap-allocated) 2D image composed of a list of pixels.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.RenderbufferFormat.html'
-                               title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a></td>
-                        <td class='docblock short'>
-                             <p>The various image formats of a renderbuffer.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TexelFormat.html'
-                               title='glitter::image_data::TexelFormat'>TexelFormat</a></td>
-                        <td class='docblock short'>
-                             <p>The different texel formats.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TexelType.html'
-                               title='glitter::image_data::TexelType'>TexelType</a></td>
-                        <td class='docblock short'>
-                             <p>The data types for a texel.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.RenderbufferFormat.html'
+                                  title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a></td>
+                           <td class='docblock short'>
+                                <p>The various image formats of a renderbuffer.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TexelFormat.html'
+                                  title='glitter::image_data::TexelFormat'>TexelFormat</a></td>
+                           <td class='docblock short'>
+                                <p>The different texel formats.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TexelType.html'
+                                  title='glitter::image_data::TexelType'>TexelType</a></td>
+                           <td class='docblock short'>
+                                <p>The data types for a texel.</p>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.ALPHA.html'
-                               title='glitter::image_data::ALPHA'>ALPHA</a></td>
-                        <td class='docblock short'>
-                             <p>A texel contains only an alpha component.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DEPTH_COMPONENT16.html'
-                               title='glitter::image_data::DEPTH_COMPONENT16'>DEPTH_COMPONENT16</a></td>
-                        <td class='docblock short'>
-                             <p>The renderbuffer stores a 16-bit depth component.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RGB.html'
-                               title='glitter::image_data::RGB'>RGB</a></td>
-                        <td class='docblock short'>
-                             <p>A texel contains red, green, and blue components.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RGB565.html'
-                               title='glitter::image_data::RGB565'>RGB565</a></td>
-                        <td class='docblock short'>
-                             <p>The red, green, and blue channels are stored with 5 bits, 6 bits,
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.ALPHA.html'
+                                  title='glitter::image_data::ALPHA'>ALPHA</a></td>
+                           <td class='docblock short'>
+                                <p>A texel contains only an alpha component.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DEPTH_COMPONENT16.html'
+                                  title='glitter::image_data::DEPTH_COMPONENT16'>DEPTH_COMPONENT16</a></td>
+                           <td class='docblock short'>
+                                <p>The renderbuffer stores a 16-bit depth component.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RGB.html'
+                                  title='glitter::image_data::RGB'>RGB</a></td>
+                           <td class='docblock short'>
+                                <p>A texel contains red, green, and blue components.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RGB565.html'
+                                  title='glitter::image_data::RGB565'>RGB565</a></td>
+                           <td class='docblock short'>
+                                <p>The red, green, and blue channels are stored with 5 bits, 6 bits,
 and 5 bits, respectively.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RGB5_A1.html'
-                               title='glitter::image_data::RGB5_A1'>RGB5_A1</a></td>
-                        <td class='docblock short'>
-                             <p>The red, green, and blue channels are stored with 5 bits, and the
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RGB5_A1.html'
+                                  title='glitter::image_data::RGB5_A1'>RGB5_A1</a></td>
+                           <td class='docblock short'>
+                                <p>The red, green, and blue channels are stored with 5 bits, and the
 alpha channel is stored with 1 bit.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RGBA.html'
-                               title='glitter::image_data::RGBA'>RGBA</a></td>
-                        <td class='docblock short'>
-                             <p>A texel contains red, green, blue, and alpha components.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.RGBA4.html'
-                               title='glitter::image_data::RGBA4'>RGBA4</a></td>
-                        <td class='docblock short'>
-                             <p>The red, green, blue, and alpha channels are all stored with 4 bits.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.STENCIL_INDEX8.html'
-                               title='glitter::image_data::STENCIL_INDEX8'>STENCIL_INDEX8</a></td>
-                        <td class='docblock short'>
-                             <p>The renderbuffer stores an 8-bit stencil component.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.UNSIGNED_BYTE_TEXEL.html'
-                               title='glitter::image_data::UNSIGNED_BYTE_TEXEL'>UNSIGNED_BYTE_TEXEL</a></td>
-                        <td class='docblock short'>
-                             <p>Each texel is 4 * 8 bits.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.UNSIGNED_SHORT_4_4_4_4.html'
-                               title='glitter::image_data::UNSIGNED_SHORT_4_4_4_4'>UNSIGNED_SHORT_4_4_4_4</a></td>
-                        <td class='docblock short'>
-                             <p>Each texel is 16 bits, with 4, 4-bit components.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.UNSIGNED_SHORT_5_5_5_1.html'
-                               title='glitter::image_data::UNSIGNED_SHORT_5_5_5_1'>UNSIGNED_SHORT_5_5_5_1</a></td>
-                        <td class='docblock short'>
-                             <p>Each texel is 16 bits, with 5-bit/5-bit/5-bit/1-bit components.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.UNSIGNED_SHORT_5_6_5.html'
-                               title='glitter::image_data::UNSIGNED_SHORT_5_6_5'>UNSIGNED_SHORT_5_6_5</a></td>
-                        <td class='docblock short'>
-                             <p>Each texel is 16 bits, with 5-bit/6-bit/5-bit components.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RGBA.html'
+                                  title='glitter::image_data::RGBA'>RGBA</a></td>
+                           <td class='docblock short'>
+                                <p>A texel contains red, green, blue, and alpha components.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.RGBA4.html'
+                                  title='glitter::image_data::RGBA4'>RGBA4</a></td>
+                           <td class='docblock short'>
+                                <p>The red, green, blue, and alpha channels are all stored with 4 bits.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.STENCIL_INDEX8.html'
+                                  title='glitter::image_data::STENCIL_INDEX8'>STENCIL_INDEX8</a></td>
+                           <td class='docblock short'>
+                                <p>The renderbuffer stores an 8-bit stencil component.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.UNSIGNED_BYTE_TEXEL.html'
+                                  title='glitter::image_data::UNSIGNED_BYTE_TEXEL'>UNSIGNED_BYTE_TEXEL</a></td>
+                           <td class='docblock short'>
+                                <p>Each texel is 4 * 8 bits.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.UNSIGNED_SHORT_4_4_4_4.html'
+                                  title='glitter::image_data::UNSIGNED_SHORT_4_4_4_4'>UNSIGNED_SHORT_4_4_4_4</a></td>
+                           <td class='docblock short'>
+                                <p>Each texel is 16 bits, with 4, 4-bit components.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.UNSIGNED_SHORT_5_5_5_1.html'
+                                  title='glitter::image_data::UNSIGNED_SHORT_5_5_5_1'>UNSIGNED_SHORT_5_5_5_1</a></td>
+                           <td class='docblock short'>
+                                <p>Each texel is 16 bits, with 5-bit/5-bit/5-bit/1-bit components.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.UNSIGNED_SHORT_5_6_5.html'
+                                  title='glitter::image_data::UNSIGNED_SHORT_5_6_5'>UNSIGNED_SHORT_5_6_5</a></td>
+                           <td class='docblock short'>
+                                <p>Each texel is 16 bits, with 5-bit/6-bit/5-bit components.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.Image2d.html'
-                               title='glitter::image_data::Image2d'>Image2d</a></td>
-                        <td class='docblock short'>
-                             <p>A trait for types that that contain 2D image data, which can
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.Image2d.html'
+                                  title='glitter::image_data::Image2d'>Image2d</a></td>
+                           <td class='docblock short'>
+                                <p>A trait for types that that contain 2D image data, which can
 be uploaded to a texture using a <a href="../context/texture_context/struct.Texture2dBuilder"><code>Texture2dBuilder</code></a>
 or using the <a href="../context/texture_context/trait.ContextTextureExt.html#method.image_2d"><code>gl.image_2d</code></a>
 method.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -254,6 +217,8 @@ method.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -274,7 +239,7 @@ method.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

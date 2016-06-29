@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,30 +44,30 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a>::<wbr><a class='trait' href=''>FramebufferContext</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-684' class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#346-368' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-673' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#346-368' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait FramebufferContext: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> {
-    type Binder: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;;
-    type Rest: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>;
-    fn <a href='#tymethod.split_framebuffer' class='fnname'>split_framebuffer</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Binder</a>, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a>)</a>;
+    type <a href='#associatedtype.Binder' class='type'>Binder</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;;
+    type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>;
+    fn <a href='#tymethod.split_framebuffer' class='fnname'>split_framebuffer</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Binder</a>, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>;
 
-    fn <a href='#method.bind_framebuffer' class='fnname'>bind_framebuffer</a>&lt;'a&gt;(self, fbo: &amp;'a mut <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>&lt;'a&gt;, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
+    fn <a href='#method.bind_framebuffer' class='fnname'>bind_framebuffer</a>&lt;'a&gt;(self, fbo: &amp;'a mut <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>&lt;'a&gt;, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
 }</pre><div class='docblock'><p>An OpenGL context that has a free <code>GL_FRAMEBUFFER</code> binding.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Binder' class='method stab '><code>type Binder: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</code></h3><div class='docblock'><p>The type of binder this context contains.</p>
-</div><h3 id='associatedtype.Rest' class='method stab '><code>type Rest: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></code></h3><div class='docblock'><p>The OpenGL context that will be returned after binding a framebuffer.</p>
+        <h3 id='associatedtype.Binder' class='method stab '><code>type <a href='#associatedtype.Binder' class='type'>Binder</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</code></h3><div class='docblock'><p>The type of binder this context contains.</p>
+</div><h3 id='associatedtype.Rest' class='method stab '><code>type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></code></h3><div class='docblock'><p>The OpenGL context that will be returned after binding a framebuffer.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.split_framebuffer' class='method stab '><code>fn <a href='#tymethod.split_framebuffer' class='fnname'>split_framebuffer</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Binder</a>, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a>)</a></code></h3><div class='docblock'><p>Split the context into a binder and the remaining context.</p>
+        <h3 id='tymethod.split_framebuffer' class='method stab '><code>fn <a href='#tymethod.split_framebuffer' class='fnname'>split_framebuffer</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Binder</a>, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h3><div class='docblock'><p>Split the context into a binder and the remaining context.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.bind_framebuffer' class='method stab '><code>fn <a href='#method.bind_framebuffer' class='fnname'>bind_framebuffer</a>&lt;'a&gt;(self, fbo: &amp;'a mut <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>&lt;'a&gt;, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h3><div class='docblock'><p>Bind a buffer to this context&#39;s framebuffer, returning a new context
+        <h3 id='method.bind_framebuffer' class='method stab '><code>fn <a href='#method.bind_framebuffer' class='fnname'>bind_framebuffer</a>&lt;'a&gt;(self, fbo: &amp;'a mut <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>&lt;'a&gt;, Self::<a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h3><div class='docblock'><p>Bind a buffer to this context&#39;s framebuffer, returning a new context
 and a binding.</p>
 
 <h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
@@ -74,11 +75,11 @@ and a binding.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;B, F, P, R, T&gt; <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a> for <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, T&gt; <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</span></code></li>
-<li><code>impl&lt;'a, B, F, P, R, T&gt; <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a> for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, T&gt; <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</span></code></li>
+    <li><code>impl&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; FramebufferContext for <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</span></code></li>
+<li><code>impl&lt;'a,&nbsp;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; FramebufferContext for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a>&gt;</span></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/glitter/context/framebuffer_context/trait.FramebufferContext.js">
-                      </script></section>
+                         src="../../../implementors/glitter/context/framebuffer_context/trait.FramebufferContext.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -101,6 +102,8 @@ and a binding.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -121,7 +124,7 @@ and a binding.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

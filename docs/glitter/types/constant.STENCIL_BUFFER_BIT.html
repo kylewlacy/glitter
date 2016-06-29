@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,12 +44,11 @@
 
     <section id='main' class="content constant">
 <h1 class='fqn'><span class='in-band'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class='constant' href=''>STENCIL_BUFFER_BIT</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3992' class='srclink' href='../../src/glitter/<bitflags macros>.html#7-8' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const STENCIL_BUFFER_BIT: <a class='struct' href='../../glitter/types/struct.BufferBits.html' title='glitter::types::BufferBits'>BufferBits</a><code> = </code><code>$ BitFlags {
-bits : $ value }</code></pre><div class='docblock'><p>The stencil buffer, which stores information about
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span></span></h1>
+<pre class='rust const'>pub const STENCIL_BUFFER_BIT: <a class='struct' href='../../glitter/types/struct.BufferBits.html' title='glitter::types::BufferBits'>BufferBits</a><code> = </code><code>BufferBits{bits: ::gl::STENCIL_BUFFER_BIT,}</code></pre><div class='docblock'><p>The stencil buffer, which stores information about
 which fragments should be kept or discarded when
 stencil testing is enabled.</p>
 </div></section>
@@ -74,6 +74,8 @@ stencil testing is enabled.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -94,7 +96,7 @@ stencil testing is enabled.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

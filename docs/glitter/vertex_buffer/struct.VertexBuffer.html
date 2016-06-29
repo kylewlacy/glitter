@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,16 +44,17 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='struct' href=''>VertexBuffer</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3652' class='srclink' href='../../src/glitter/vertex_buffer.rs.html#190-195' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct VertexBuffer&lt;T: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt; {
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3646' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#190-195' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct VertexBuffer&lt;T:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt; {
     // some fields omitted
 }</pre><div class='docblock'><p>A buffer that contains vertex data. In addition to storing a buffer,
 a <code>VertexBuffer</code> stores an <a href="struct.AttribBinder.html"><code>AttribBinder</code></a>
 and a count of the amount of <code>VertexData</code> that has been buffered.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;</code></h3><div class='impl-items'><h4 id='method.bind_attrib_pointers' class='method'><code>fn <a href='#method.bind_attrib_pointers' class='fnname'>bind_attrib_pointers</a>(&amp;mut self, binder: <a class='struct' href='../../glitter/vertex_buffer/struct.AttribBinder.html' title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a>)</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;V:&nbsp;<a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3652' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#197-214' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.bind_attrib_pointers' class='method'><code>fn <a href='#method.bind_attrib_pointers' class='fnname'>bind_attrib_pointers</a>(&amp;mut self, binder: <a class='struct' href='../../glitter/vertex_buffer/struct.AttribBinder.html' title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a>)</code></h4>
 <div class='docblock'><p>Set the <code>AttribBinder</code> that will contain all of the vertex attributes
 used when rendering.</p>
 </div><h4 id='method.buffer' class='method'><code>fn <a href='#method.buffer' class='fnname'>buffer</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></h4>
@@ -82,6 +84,8 @@ used when rendering.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -102,7 +106,7 @@ used when rendering.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

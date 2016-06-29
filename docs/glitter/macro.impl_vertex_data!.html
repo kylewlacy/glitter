@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content macro">
 <h1 class='fqn'><span class='in-band'><a href='index.html'>glitter</a>::<wbr><a class='macro' href=''>impl_vertex_data!</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4447' class='srclink' href='../src/glitter/vertex_data.rs.html#333-360' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4440' class='srclink' href='../src/glitter/src/vertex_data.rs.html#333-360' title='goto source code'>[src]</a></span></h1>
 <pre class='rust macro'>
 <span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_vertex_data</span> {
     (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>:<span class='ident'>ty</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>:<span class='ident'>ident</span>),<span class='op'>*</span>) <span class='op'>=&gt;</span> { ... };
@@ -58,10 +59,11 @@ for a struct. Each field of the struct must that is part of the
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
 <p>The generated implementation will <strong>not</strong> be panic safe with regards
 to the <a href="trait.VertexDatum.html#tymethod.attrib_type"><code>VertexDatum::attrib_type</code></a> method of the vertex
-attribute fields. However, as the documenation of
+attribute fields. However, as the documentation of
 notes, implementors should be aware of this already.</p>
 
-<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1><pre class='rust rust-example-rendered'>
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glitter</span>;
 
 <span class='comment'>// A type must implement `Copy` to implement `VertexData`</span>
@@ -97,6 +99,8 @@ notes, implementors should be aware of this already.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -117,7 +121,7 @@ notes, implementors should be aware of this already.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,16 +44,17 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='struct' href=''>IndexBuffer</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3761' class='srclink' href='../../src/glitter/vertex_buffer.rs.html#476-480' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct IndexBuffer&lt;T: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; {
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3755' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#476-480' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct IndexBuffer&lt;T:&nbsp;<a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; {
     // some fields omitted
-}</pre><div class='docblock'><p>A buffer taht contains index data. In addition to storing a buffer, an
+}</pre><div class='docblock'><p>A buffer that contains index data. In addition to storing a buffer, an
 <code>IndexBuffer</code> store a count of the amount of <code>IndexData</code> that has been
 buffered.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;T: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBuffer.html' title='glitter::vertex_buffer::IndexBuffer'>IndexBuffer</a>&lt;T&gt;</code></h3><div class='impl-items'><h4 id='method.buffer' class='method'><code>fn <a href='#method.buffer' class='fnname'>buffer</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBuffer.html' title='glitter::vertex_buffer::IndexBuffer'>IndexBuffer</a>&lt;T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3760' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#482-492' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.buffer' class='method'><code>fn <a href='#method.buffer' class='fnname'>buffer</a>(&amp;self) -&gt; &amp;<a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></h4>
 <div class='docblock'><p>Get a reference to the underlying OpenGL buffer.</p>
 </div><h4 id='method.buffer_mut' class='method'><code>fn <a href='#method.buffer_mut' class='fnname'>buffer_mut</a>(&amp;mut self) -&gt; &amp;mut <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></h4>
 <div class='docblock'><p>Get a mutable reference to the underlying OpenGL buffer.</p>
@@ -79,6 +81,8 @@ buffered.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -99,7 +103,7 @@ buffered.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

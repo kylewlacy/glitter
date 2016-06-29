@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,324 +44,262 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class='mod' href=''>texture</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2965' class='srclink' href='../../src/glitter/texture.rs.html#1-420' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2932' class='srclink' href='../../src/glitter/src/texture.rs.html#1-420' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Exposes the OpenGL <a href="struct.Texture.html"><code>Texture</code></a> family of objects and
 related types.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Texture.html'
-                               title='glitter::texture::Texture'>Texture</a></td>
-                        <td class='docblock short'>
-                             <p>A type of OpenGL texture.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Tx2d.html'
-                               title='glitter::texture::Tx2d'>Tx2d</a></td>
-                        <td class='docblock short'>
-                             <p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for 2-dimensional textures.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.TxCubeMap.html'
-                               title='glitter::texture::TxCubeMap'>TxCubeMap</a></td>
-                        <td class='docblock short'>
-                             <p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for cubemap textures.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.VariantTexture2d.html'
-                               title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></td>
-                        <td class='docblock short'>
-                             <p>This is a unit type that is used to be coerced into select enum variants.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Texture.html'
+                                  title='glitter::texture::Texture'>Texture</a></td>
+                           <td class='docblock short'>
+                                <p>A type of OpenGL texture.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Tx2d.html'
+                                  title='glitter::texture::Tx2d'>Tx2d</a></td>
+                           <td class='docblock short'>
+                                <p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for 2-dimensional textures.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.TxCubeMap.html'
+                                  title='glitter::texture::TxCubeMap'>TxCubeMap</a></td>
+                           <td class='docblock short'>
+                                <p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for cubemap textures.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.VariantTexture2d.html'
+                                  title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></td>
+                           <td class='docblock short'>
+                                <p>This is a unit type that is used to be coerced into select enum variants.</p>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TextureBindingTarget.html'
-                               title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a></td>
-                        <td class='docblock short'>
-                             <p>Represents all of the possible types of OpenGL textures.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TextureFilter.html'
-                               title='glitter::texture::TextureFilter'>TextureFilter</a></td>
-                        <td class='docblock short'>
-                             <p>Represents the different forms of texture filtering, which determines
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TextureBindingTarget.html'
+                                  title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a></td>
+                           <td class='docblock short'>
+                                <p>Represents all of the possible types of OpenGL textures.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TextureFilter.html'
+                                  title='glitter::texture::TextureFilter'>TextureFilter</a></td>
+                           <td class='docblock short'>
+                                <p>Represents the different forms of texture filtering, which determines
 how a texture will be sampled when drawn.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TextureMipmapFilter.html'
-                               title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a></td>
-                        <td class='docblock short'>
-                             <p>Represents the different forms of texture filtering when using mipmaps.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TextureWrapMode.html'
-                               title='glitter::texture::TextureWrapMode'>TextureWrapMode</a></td>
-                        <td class='docblock short'>
-                             <p>The wrapping modes when drawing a texture.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.Tx2dImageTarget.html'
-                               title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></td>
-                        <td class='docblock short'>
-                             <p>The possible image targets for <code>GL_TEXTURE_2D</code> (only one variant,
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TextureMipmapFilter.html'
+                                  title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a></td>
+                           <td class='docblock short'>
+                                <p>Represents the different forms of texture filtering when using mipmaps.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TextureWrapMode.html'
+                                  title='glitter::texture::TextureWrapMode'>TextureWrapMode</a></td>
+                           <td class='docblock short'>
+                                <p>The wrapping modes when drawing a texture.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.Tx2dImageTarget.html'
+                                  title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></td>
+                           <td class='docblock short'>
+                                <p>The possible image targets for <code>GL_TEXTURE_2D</code> (only one variant,
 since this <em>is</em> the 2D texture).</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.TxCubeMapImageTarget.html'
-                               title='glitter::texture::TxCubeMapImageTarget'>TxCubeMapImageTarget</a></td>
-                        <td class='docblock short'>
-                             <p>The possible 2D image targets for a cubemap texture.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.TxCubeMapImageTarget.html'
+                                  title='glitter::texture::TxCubeMapImageTarget'>TxCubeMapImageTarget</a></td>
+                           <td class='docblock short'>
+                                <p>The possible 2D image targets for a cubemap texture.</p>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.CLAMP_TO_EDGE.html'
-                               title='glitter::texture::CLAMP_TO_EDGE'>CLAMP_TO_EDGE</a></td>
-                        <td class='docblock short'>
-                             <p>Wrap a texture by clamping it within the range <code>[1/2x, 1 - 1/2x]</code>,
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.CLAMP_TO_EDGE.html'
+                                  title='glitter::texture::CLAMP_TO_EDGE'>CLAMP_TO_EDGE</a></td>
+                           <td class='docblock short'>
+                                <p>Wrap a texture by clamping it within the range <code>[1/2x, 1 - 1/2x]</code>,
 where <code>x</code> is the dimension of the texture being clamped.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.LINEAR.html'
-                               title='glitter::texture::LINEAR'>LINEAR</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the four texels that
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.LINEAR.html'
+                                  title='glitter::texture::LINEAR'>LINEAR</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the four texels that
 are closest to the center of the pixel, and compute the
 result by taking a weighted average of each texel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.LINEAR_MIPMAP_LINEAR.html'
-                               title='glitter::texture::LINEAR_MIPMAP_LINEAR'>LINEAR_MIPMAP_LINEAR</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the two mipmaps that are nearest
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.LINEAR_MIPMAP_LINEAR.html'
+                                  title='glitter::texture::LINEAR_MIPMAP_LINEAR'>LINEAR_MIPMAP_LINEAR</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the two mipmaps that are nearest
 in size to the pixel. For each, select the four texels that are
 closest to the center of the pixel, and compute the weighted average.
 Finally, take the resulting two weighted averages of the texels,
 and take the weighted average of both based on the mipmaps.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.LINEAR_MIPMAP_NEAREST.html'
-                               title='glitter::texture::LINEAR_MIPMAP_NEAREST'>LINEAR_MIPMAP_NEAREST</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the mipmap that is nearest
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.LINEAR_MIPMAP_NEAREST.html'
+                                  title='glitter::texture::LINEAR_MIPMAP_NEAREST'>LINEAR_MIPMAP_NEAREST</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the mipmap that is nearest
 in size to the pixel, select the four texels that are closest
 to the center of the pixel, and compute the result by taking
 the weighted average of each texel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.MIRRORED_REPEAT.html'
-                               title='glitter::texture::MIRRORED_REPEAT'>MIRRORED_REPEAT</a></td>
-                        <td class='docblock short'>
-                             <p>Wrap a texture by repeating it front-to-back, then back-to-front,
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.MIRRORED_REPEAT.html'
+                                  title='glitter::texture::MIRRORED_REPEAT'>MIRRORED_REPEAT</a></td>
+                           <td class='docblock short'>
+                                <p>Wrap a texture by repeating it front-to-back, then back-to-front,
 then repeating.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.NEAREST.html'
-                               title='glitter::texture::NEAREST'>NEAREST</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the texel that is closest
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.NEAREST.html'
+                                  title='glitter::texture::NEAREST'>NEAREST</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the texel that is closest
 to the center of the pixel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.NEAREST_MIPMAP_LINEAR.html'
-                               title='glitter::texture::NEAREST_MIPMAP_LINEAR'>NEAREST_MIPMAP_LINEAR</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the two mipmaps that are nearest
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.NEAREST_MIPMAP_LINEAR.html'
+                                  title='glitter::texture::NEAREST_MIPMAP_LINEAR'>NEAREST_MIPMAP_LINEAR</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the two mipmaps that are nearest
 in size to the pixel, select the texel in each that is closest
 to the center of the pixel, and compute the result by taking
 the weighted average of each texel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.NEAREST_MIPMAP_NEAREST.html'
-                               title='glitter::texture::NEAREST_MIPMAP_NEAREST'>NEAREST_MIPMAP_NEAREST</a></td>
-                        <td class='docblock short'>
-                             <p>When texturing a pixel, select the mipmap that is nearest
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.NEAREST_MIPMAP_NEAREST.html'
+                                  title='glitter::texture::NEAREST_MIPMAP_NEAREST'>NEAREST_MIPMAP_NEAREST</a></td>
+                           <td class='docblock short'>
+                                <p>When texturing a pixel, select the mipmap that is nearest
 in size to the pixel, and select the texel that is
 closest to the center of the pixel.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.REPEAT.html'
-                               title='glitter::texture::REPEAT'>REPEAT</a></td>
-                        <td class='docblock short'>
-                             <p>Wrap a texture by repeating it over and over again.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_2D.html'
-                               title='glitter::texture::TEXTURE_2D'>TEXTURE_2D</a></td>
-                        <td class='docblock short'>
-                             <p>This constant is designed to be used in glitter wherever the constant
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.REPEAT.html'
+                                  title='glitter::texture::REPEAT'>REPEAT</a></td>
+                           <td class='docblock short'>
+                                <p>Wrap a texture by repeating it over and over again.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_2D.html'
+                                  title='glitter::texture::TEXTURE_2D'>TEXTURE_2D</a></td>
+                           <td class='docblock short'>
+                                <p>This constant is designed to be used in glitter wherever the constant
 <code>GL_TEXTURE_2D</code> is used in plain OpenGL code.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP'>TEXTURE_CUBE_MAP</a></td>
-                        <td class='docblock short'>
-                             <p>This constant is designed to be used in glitter wherever the constant
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP'>TEXTURE_CUBE_MAP</a></td>
+                           <td class='docblock short'>
+                                <p>This constant is designed to be used in glitter wherever the constant
 <code>GL_TEXTURE_CUBE_MAP</code> is used in plain OpenGL code.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_X.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_X'>TEXTURE_CUBE_MAP_NEGATIVE_X</a></td>
-                        <td class='docblock short'>
-                             <p>The negative-X image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_Y.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_Y'>TEXTURE_CUBE_MAP_NEGATIVE_Y</a></td>
-                        <td class='docblock short'>
-                             <p>The negative-Y image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_Z.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_Z'>TEXTURE_CUBE_MAP_NEGATIVE_Z</a></td>
-                        <td class='docblock short'>
-                             <p>The negative-Z image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_X.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_X'>TEXTURE_CUBE_MAP_POSITIVE_X</a></td>
-                        <td class='docblock short'>
-                             <p>The positive-X image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_Y.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_Y'>TEXTURE_CUBE_MAP_POSITIVE_Y</a></td>
-                        <td class='docblock short'>
-                             <p>The positive-Y image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_Z.html'
-                               title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_Z'>TEXTURE_CUBE_MAP_POSITIVE_Z</a></td>
-                        <td class='docblock short'>
-                             <p>The positive-Z image target face of a cubemap.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_X.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_X'>TEXTURE_CUBE_MAP_NEGATIVE_X</a></td>
+                           <td class='docblock short'>
+                                <p>The negative-X image target face of a cubemap.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_Y.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_Y'>TEXTURE_CUBE_MAP_NEGATIVE_Y</a></td>
+                           <td class='docblock short'>
+                                <p>The negative-Y image target face of a cubemap.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_NEGATIVE_Z.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_NEGATIVE_Z'>TEXTURE_CUBE_MAP_NEGATIVE_Z</a></td>
+                           <td class='docblock short'>
+                                <p>The negative-Z image target face of a cubemap.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_X.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_X'>TEXTURE_CUBE_MAP_POSITIVE_X</a></td>
+                           <td class='docblock short'>
+                                <p>The positive-X image target face of a cubemap.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_Y.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_Y'>TEXTURE_CUBE_MAP_POSITIVE_Y</a></td>
+                           <td class='docblock short'>
+                                <p>The positive-Y image target face of a cubemap.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.TEXTURE_CUBE_MAP_POSITIVE_Z.html'
+                                  title='glitter::texture::TEXTURE_CUBE_MAP_POSITIVE_Z'>TEXTURE_CUBE_MAP_POSITIVE_Z</a></td>
+                           <td class='docblock short'>
+                                <p>The positive-Z image target face of a cubemap.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.ImageTargetType.html'
-                               title='glitter::texture::ImageTargetType'>ImageTargetType</a></td>
-                        <td class='docblock short'>
-                             <p>A trait implemented for types that are used to represent all of the
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.ImageTargetType.html'
+                                  title='glitter::texture::ImageTargetType'>ImageTargetType</a></td>
+                           <td class='docblock short'>
+                                <p>A trait implemented for types that are used to represent all of the
 possible 2D images that make up a specific implementation of
 <a href="trait.TextureType.html"><code>TextureType</code></a>. For more details, read the
 <a href="trait.TextureType.html"><code>TextureType</code></a> documentation.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.TextureType.html'
-                               title='glitter::texture::TextureType'>TextureType</a></td>
-                        <td class='docblock short'>
-                             <p>A trait implemented for a type that represent a type of texture (such
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.TextureType.html'
+                                  title='glitter::texture::TextureType'>TextureType</a></td>
+                           <td class='docblock short'>
+                                <p>A trait implemented for a type that represent a type of texture (such
 as 2D textures or cube map textures).  For example, <a href="struct.TxCubeMap.html"><code>TxCubeMap</code></a> is a type that implements <code>TextureType</code>, and
 it represents cube map textures.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='type' href='type.Texture2d.html'
-                               title='glitter::texture::Texture2d'>Texture2d</a></td>
-                        <td class='docblock short'>
-                             <p>An OpenGL texture with 2-dimensional image data.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='type' href='type.TextureCubeMap.html'
-                               title='glitter::texture::TextureCubeMap'>TextureCubeMap</a></td>
-                        <td class='docblock short'>
-                             <p>An OpenGL texture used to hold a cubemap texture, made up of 6
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Texture2d.html'
+                                  title='glitter::texture::Texture2d'>Texture2d</a></td>
+                           <td class='docblock short'>
+                                <p>An OpenGL texture with 2-dimensional image data.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.TextureCubeMap.html'
+                                  title='glitter::texture::TextureCubeMap'>TextureCubeMap</a></td>
+                           <td class='docblock short'>
+                                <p>An OpenGL texture used to hold a cubemap texture, made up of 6
 2-dimensional images (one for each face of a cube).</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -383,6 +322,8 @@ it represents cube map textures.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -403,7 +344,7 @@ it represents cube map textures.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

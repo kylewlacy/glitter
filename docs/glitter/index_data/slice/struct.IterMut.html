@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -42,29 +43,81 @@
     </nav>
 
     <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a>::<wbr><a class='struct' href=''>IterMut</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-30904' class='srclink' href='https://doc.rust-lang.org/nightly/core/slice/struct.IterMut.html?gotosrc=30904' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct IterMut&lt;'a, T&gt; <span class='where'>where T: 'a</span> {
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a>::<wbr><a class='struct' href=''>IterMut</a></span><span class='out-of-band'><span class='since' title='Stable since Rust version 1.0.0'>1.0.0</span><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-33904' class='srclink' href='https://doc.rust-lang.org/nightly/core/slice/struct.IterMut.html?gotosrc=33904' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct IterMut&lt;'a,&nbsp;T&gt; <span class='where'>where T: 'a</span> {
     // some fields omitted
 }</pre><div class='docblock'><p>Mutable slice iterator.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt;</code></h3><div class='impl-items'><h4 id='method.into_slice' class='method'><code>fn <a href='#method.into_slice' class='fnname'>into_slice</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a></code></h4>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<p>Basic usage:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='comment'>// First, we declare a type which has `iter_mut` method to get the `IterMut`</span>
+<span class='comment'>// struct (&amp;[usize here]):</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>slice</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+<span class='comment'>// Then, we iterate over it and increment each element value:</span>
+<span class='kw'>for</span> <span class='ident'>element</span> <span class='kw'>in</span> <span class='ident'>slice</span>.<span class='ident'>iter_mut</span>() {
+    <span class='op'>*</span><span class='ident'>element</span> <span class='op'>+=</span> <span class='number'>1</span>;
+}
+
+<span class='comment'>// We now have &quot;[2, 3, 4]&quot;:</span>
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>slice</span>);</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='method.into_slice' class='method'><code>fn <a href='#method.into_slice' class='fnname'>into_slice</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a></code><div class='since' title='Stable since Rust version 1.4.0'>1.4.0</div></h4>
 <div class='docblock'><p>View the underlying data as a subslice of the original data.</p>
 
 <p>To avoid creating <code>&amp;mut</code> references that alias, this is forced
 to consume the iterator. Consider using the <code>Slice</code> and
 <code>SliceMut</code> implementations for obtaining slices with more
 restricted lifetimes that do not consume the iterator.</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt;</code></h3><div class='impl-items'><h4 id='assoc_type.Item' class='type'><code>type Item = &amp;'a mut T</code></h4>
-<h4 id='method.next' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html#method.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
-<h4 id='method.size_hint' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;)</a></code></h4>
-<h4 id='method.count' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html#method.count' class='fnname'>count</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
-<h4 id='method.nth' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html#method.nth' class='fnname'>nth</a>(&amp;mut self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
-<h4 id='method.last' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html#method.last' class='fnname'>last</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
-</div><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.DoubleEndedIterator.html' title='core::iter::DoubleEndedIterator'>DoubleEndedIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt;</code></h3><div class='impl-items'><h4 id='method.next_back' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/trait.DoubleEndedIterator.html#method.next_back' class='fnname'>next_back</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
-</div><h3 class='impl'><code>impl&lt;'a, T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.ExactSizeIterator.html' title='core::iter::ExactSizeIterator'>ExactSizeIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a, T&gt;</code></h3><div class='impl-items'></div></section>
+
+<h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
+<p>Basic usage:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='comment'>// First, we declare a type which has `iter_mut` method to get the `IterMut`</span>
+<span class='comment'>// struct (&amp;[usize here]):</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>slice</span> <span class='op'>=</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='number'>1</span>, <span class='number'>2</span>, <span class='number'>3</span>];
+
+{
+    <span class='comment'>// Then, we get the iterator:</span>
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>iter</span> <span class='op'>=</span> <span class='ident'>slice</span>.<span class='ident'>iter_mut</span>();
+    <span class='comment'>// We move to next element:</span>
+    <span class='ident'>iter</span>.<span class='ident'>next</span>();
+    <span class='comment'>// So if we print what `into_slice` method returns here, we have &quot;[2, 3]&quot;:</span>
+    <span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>iter</span>.<span class='ident'>into_slice</span>());
+}
+
+<span class='comment'>// Now let&#39;s modify a value of the slice:</span>
+{
+    <span class='comment'>// First we get back the iterator:</span>
+    <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>iter</span> <span class='op'>=</span> <span class='ident'>slice</span>.<span class='ident'>iter_mut</span>();
+    <span class='comment'>// We change the value of the first element of the slice returned by the `next` method:</span>
+    <span class='op'>*</span><span class='ident'>iter</span>.<span class='ident'>next</span>().<span class='ident'>unwrap</span>() <span class='op'>+=</span> <span class='number'>1</span>;
+}
+<span class='comment'>// Now slice is &quot;[2, 2, 3]&quot;:</span>
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>slice</span>);</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt; <span class='where'>where T: 'a + <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a></span></code></span><span class='out-of-band'><div class='since' title='Stable since Rust version 1.9.0'>1.9.0</div></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a></span></code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt; <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a></span></code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html' title='core::iter::iterator::Iterator'>Iterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item' class='type'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item' class='type'>Item</a> = &amp;'a mut T</code></h4>
+<h4 id='method.next' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#tymethod.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
+<h4 id='method.size_hint' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
+<h4 id='method.count' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.count' class='fnname'>count</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></h4>
+<h4 id='method.nth' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.nth' class='fnname'>nth</a>(&amp;mut self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
+<h4 id='method.last' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.last' class='fnname'>last</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
+</div><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html' title='core::iter::traits::DoubleEndedIterator'>DoubleEndedIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'><h4 id='method.next_back' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html#tymethod.next_back' class='fnname'>next_back</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;'a mut T&gt;</code></h4>
+</div><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.ExactSizeIterator.html' title='core::iter::traits::ExactSizeIterator'>ExactSizeIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.IterMut.html' title='glitter::index_data::slice::IterMut'>IterMut</a>&lt;'a,&nbsp;T&gt;</code></span><span class='out-of-band'></span></h3>
+<div class='impl-items'></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -87,6 +140,8 @@ restricted lifetimes that do not consume the iterator.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -107,7 +162,7 @@ restricted lifetimes that do not consume the iterator.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

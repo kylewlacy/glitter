@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,15 +44,16 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class='mod' href=''>prelude</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-4439' class='srclink' href='../../src/glitter/lib.rs.html#114-132' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-4433' class='srclink' href='../../src/glitter/src/lib.rs.html#110-128' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Re-exports essential extension traits. Everything exported in this module
 should be used anywhere that glitter is used.</p>
 
 <p>Generally, this means that most modules that use glitter will start
 with the following:</p>
+
 <pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>glitter</span>;
 <span class='kw'>use</span> <span class='ident'>glitter</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;</pre>
@@ -79,6 +81,8 @@ with the following:</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -99,7 +103,7 @@ with the following:</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

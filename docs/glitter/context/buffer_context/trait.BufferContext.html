@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,22 +44,22 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>buffer_context</a>::<wbr><a class='trait' href=''>BufferContext</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-358' class='srclink' href='../../../src/glitter/context/buffer_context.rs.html#434-436' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-354' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#434-436' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait BufferContext: <a class='trait' href='../../../glitter/context/buffer_context/trait.ArrayBufferContext.html' title='glitter::context::buffer_context::ArrayBufferContext'>ArrayBufferContext</a> + <a class='trait' href='../../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html' title='glitter::context::buffer_context::ElementArrayBufferContext'>ElementArrayBufferContext</a> { }</pre><div class='docblock'><p>An OpenGL context that has all free buffer bindings. This trait implies
 both <a href="trait.ArrayBufferContext.html"><code>ArrayBufferContext</code></a> and
 <a href="trait.ElementArrayBufferContext.html"><code>ElementArrayBufferContext</code></a>.</p>
 </div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;BA, BE, F, P, R, T&gt; <a class='trait' href='../../../glitter/context/buffer_context/trait.BufferContext.html' title='glitter::context::buffer_context::BufferContext'>BufferContext</a> for <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA, BE&gt;, F, P, R, T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;</span></code></li>
-<li><code>impl&lt;'a, BA, BE, F, P, R, T&gt; <a class='trait' href='../../../glitter/context/buffer_context/trait.BufferContext.html' title='glitter::context::buffer_context::BufferContext'>BufferContext</a> for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA, BE&gt;, F, P, R, T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;, F: ToMut&lt;'a&gt;, P: ToMut&lt;'a&gt;, R: ToMut&lt;'a&gt;, T: ToMut&lt;'a&gt;</span></code></li>
-<li><code>impl&lt;'a, BA, BE, F, P, R, T&gt; <a class='trait' href='../../../glitter/context/buffer_context/trait.BufferContext.html' title='glitter::context::buffer_context::BufferContext'>BufferContext</a> for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;&amp;'a mut <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA, BE&gt;, F, P, R, T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;, F: ToMut&lt;'a&gt;, P: ToMut&lt;'a&gt;, R: ToMut&lt;'a&gt;, T: ToMut&lt;'a&gt;</span></code></li>
+    <li><code>impl&lt;BA,&nbsp;BE,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; BufferContext for <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA,&nbsp;BE&gt;,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;</span></code></li>
+<li><code>impl&lt;'a,&nbsp;BA,&nbsp;BE,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; BufferContext for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA,&nbsp;BE&gt;,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;, F: ToMut&lt;'a&gt;, P: ToMut&lt;'a&gt;, R: ToMut&lt;'a&gt;, T: ToMut&lt;'a&gt;</span></code></li>
+<li><code>impl&lt;'a,&nbsp;BA,&nbsp;BE,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; BufferContext for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;&amp;'a mut <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;BA,&nbsp;BE&gt;,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; <span class='where'>where BA: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ArrayBufferBinder.html' title='glitter::context::buffer_context::ArrayBufferBinder'>ArrayBufferBinder</a>&gt;, BE: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/buffer_context/struct.ElementArrayBufferBinder.html' title='glitter::context::buffer_context::ElementArrayBufferBinder'>ElementArrayBufferBinder</a>&gt;, F: ToMut&lt;'a&gt;, P: ToMut&lt;'a&gt;, R: ToMut&lt;'a&gt;, T: ToMut&lt;'a&gt;</span></code></li>
 </ul><script type="text/javascript" async
-                              src="../../../implementors/glitter/context/buffer_context/trait.BufferContext.js">
-                      </script></section>
+                         src="../../../implementors/glitter/context/buffer_context/trait.BufferContext.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -81,6 +82,8 @@ both <a href="trait.ArrayBufferContext.html"><code>ArrayBufferContext</code></a>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -101,7 +104,7 @@ both <a href="trait.ArrayBufferContext.html"><code>ArrayBufferContext</code></a>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

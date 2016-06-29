@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a>::<wbr><a class='trait' href=''>UniformPrimitive</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3841' class='srclink' href='../../src/glitter/uniform_data.rs.html#90-98' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3833' class='srclink' href='../../src/glitter/src/uniform_data.rs.html#90-98' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait UniformPrimitive {
     fn <a href='#tymethod.uniform_primitive_type' class='fnname'>uniform_primitive_type</a>() -&gt; <a class='enum' href='../../glitter/uniform_data/enum.UniformPrimitiveType.html' title='glitter::uniform_data::UniformPrimitiveType'>UniformPrimitiveType</a>;
 }</pre><div class='docblock'><p>A single, basic value that can be composed to make a <a href="trait.UniformDatum.html"><code>UniformDatum</code></a>. Scalar values are an example of a <code>UniformPrimitive</code>.</p>
@@ -67,11 +68,11 @@ returned by this function.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></li>
+    <li><code>impl UniformPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code></li>
+<li><code>impl UniformPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/uniform_data/trait.UniformPrimitive.js">
-                      </script></section>
+                         src="../../implementors/glitter/uniform_data/trait.UniformPrimitive.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -94,6 +95,8 @@ returned by this function.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -114,7 +117,7 @@ returned by this function.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

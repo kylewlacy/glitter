@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,130 +44,106 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Module <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a class='mod' href=''>framebuffer_context</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-457' class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#1-455' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-453' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#1-455' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Contains all of the OpenGL state types related to framebuffer objects.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FramebufferBinder.html'
-                               title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a></td>
-                        <td class='docblock short'>
-                             <p>The OpenGL state representing the <code>GL_FRAMEBUFFER</code> target.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FramebufferBinding.html'
-                               title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a></td>
-                        <td class='docblock short'>
-                             <p>Represents a framebuffer that has been bound to the <code>GL_FRAMEBUFFER</code>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.FramebufferBinder.html'
+                                  title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a></td>
+                           <td class='docblock short'>
+                                <p>The OpenGL state representing the <code>GL_FRAMEBUFFER</code> target.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.FramebufferBinding.html'
+                                  title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a></td>
+                           <td class='docblock short'>
+                                <p>Represents a framebuffer that has been bound to the <code>GL_FRAMEBUFFER</code>
 binding target.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.FramebufferBuilder.html'
-                               title='glitter::context::framebuffer_context::FramebufferBuilder'>FramebufferBuilder</a></td>
-                        <td class='docblock short'>
-                             <p>Provides a safe interface for building a framebuffer object that
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.FramebufferBuilder.html'
+                                  title='glitter::context::framebuffer_context::FramebufferBuilder'>FramebufferBuilder</a></td>
+                           <td class='docblock short'>
+                                <p>Provides a safe interface for building a framebuffer object that
 is checked to be framebuffer-complete. A <code>FramebufferBuilder</code> can
 be created using the <a href="trait.ContextFramebufferBuilderExt.html#method.build_framebuffer"><code>gl.build_framebuffer</code></a> method.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+                           </td>
+                       </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.FramebufferAttachment.html'
-                               title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a></td>
-                        <td class='docblock short'>
-                             <p>The various attachment points of a framebuffer object.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='enum' href='enum.FramebufferTarget.html'
-                               title='glitter::context::framebuffer_context::FramebufferTarget'>FramebufferTarget</a></td>
-                        <td class='docblock short'>
-                             <p>All of the possible OpenGL targets for binding
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.FramebufferAttachment.html'
+                                  title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a></td>
+                           <td class='docblock short'>
+                                <p>The various attachment points of a framebuffer object.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='enum' href='enum.FramebufferTarget.html'
+                                  title='glitter::context::framebuffer_context::FramebufferTarget'>FramebufferTarget</a></td>
+                           <td class='docblock short'>
+                                <p>All of the possible OpenGL targets for binding
 framebuffer objects.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
+                           </td>
+                       </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.COLOR_ATTACHMENT0.html'
-                               title='glitter::context::framebuffer_context::COLOR_ATTACHMENT0'>COLOR_ATTACHMENT0</a></td>
-                        <td class='docblock short'>
-                             <p>The color buffer attachment point.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.DEPTH_ATTACHMENT.html'
-                               title='glitter::context::framebuffer_context::DEPTH_ATTACHMENT'>DEPTH_ATTACHMENT</a></td>
-                        <td class='docblock short'>
-                             <p>The depth buffer attachment point.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.FRAMEBUFFER.html'
-                               title='glitter::context::framebuffer_context::FRAMEBUFFER'>FRAMEBUFFER</a></td>
-                        <td class='docblock short'>
-                             <p>The lone framebuffer target.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='constant' href='constant.STENCIL_ATTACHMENT.html'
-                               title='glitter::context::framebuffer_context::STENCIL_ATTACHMENT'>STENCIL_ATTACHMENT</a></td>
-                        <td class='docblock short'>
-                             <p>The stencil buffer attachment point.</p>
-
-                        </td>
-                    </tr>
-                </table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.COLOR_ATTACHMENT0.html'
+                                  title='glitter::context::framebuffer_context::COLOR_ATTACHMENT0'>COLOR_ATTACHMENT0</a></td>
+                           <td class='docblock short'>
+                                <p>The color buffer attachment point.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.DEPTH_ATTACHMENT.html'
+                                  title='glitter::context::framebuffer_context::DEPTH_ATTACHMENT'>DEPTH_ATTACHMENT</a></td>
+                           <td class='docblock short'>
+                                <p>The depth buffer attachment point.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.FRAMEBUFFER.html'
+                                  title='glitter::context::framebuffer_context::FRAMEBUFFER'>FRAMEBUFFER</a></td>
+                           <td class='docblock short'>
+                                <p>The lone framebuffer target.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='constant' href='constant.STENCIL_ATTACHMENT.html'
+                                  title='glitter::context::framebuffer_context::STENCIL_ATTACHMENT'>STENCIL_ATTACHMENT</a></td>
+                           <td class='docblock short'>
+                                <p>The stencil buffer attachment point.</p>
+                           </td>
+                       </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.ContextFramebufferBuilderExt.html'
-                               title='glitter::context::framebuffer_context::ContextFramebufferBuilderExt'>ContextFramebufferBuilderExt</a></td>
-                        <td class='docblock short'>
-                             <p>The extension trait for contexts that adds the <code>build_framebuffer</code> method.
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.ContextFramebufferBuilderExt.html'
+                                  title='glitter::context::framebuffer_context::ContextFramebufferBuilderExt'>ContextFramebufferBuilderExt</a></td>
+                           <td class='docblock short'>
+                                <p>The extension trait for contexts that adds the <code>build_framebuffer</code> method.
 This trait is only implemented for contexts that have a free framebuffer
 binding.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.ContextFramebufferExt.html'
-                               title='glitter::context::framebuffer_context::ContextFramebufferExt'>ContextFramebufferExt</a></td>
-                        <td class='docblock short'>
-                             <p>An extension trait that includes framebuffer-related OpenGL methods.</p>
-
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='trait' href='trait.FramebufferContext.html'
-                               title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></td>
-                        <td class='docblock short'>
-                             <p>An OpenGL context that has a free <code>GL_FRAMEBUFFER</code> binding.</p>
-
-                        </td>
-                    </tr>
-                </table></section>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.ContextFramebufferExt.html'
+                                  title='glitter::context::framebuffer_context::ContextFramebufferExt'>ContextFramebufferExt</a></td>
+                           <td class='docblock short'>
+                                <p>An extension trait that includes framebuffer-related OpenGL methods.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='trait' href='trait.FramebufferContext.html'
+                                  title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></td>
+                           <td class='docblock short'>
+                                <p>An OpenGL context that has a free <code>GL_FRAMEBUFFER</code> binding.</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -189,6 +166,8 @@ binding.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -209,7 +188,7 @@ binding.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

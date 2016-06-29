@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='struct' href=''>VariantTexture2d</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3118' class='srclink' href='../../src/glitter/texture.rs.html#235' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3080' class='srclink' href='../../src/glitter/src/texture.rs.html#235' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct VariantTexture2d;</pre><div class='docblock'><p>This is a unit type that is used to be coerced into select enum variants.</p>
 
 <p>In OpenGL, the <code>GL_TEXTURE_2D</code> enum value is used for multiple purposes. In
@@ -63,8 +64,10 @@ argument to a method that takes <a href="enum.Tx2dImageTarget.html"><code>Tx2dIm
 <em>both</em> types, so this type exists solely to be the type of
 <code>glitter::TEXTURE_2D</code>, and it implements <code>From</code> so that it can be converted
 to either type freely.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a> for <a class='struct' href='../../glitter/texture/struct.VariantTexture2d.html' title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></code></h3><div class='impl-items'><h4 id='method.gl_enum' class='method'><code>fn <a href='../../glitter/texture/trait.ImageTargetType.html#method.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; <a class='type' href='../../glitter/gl/types/type.GLenum.html' title='glitter::gl::types::GLenum'>GLenum</a></code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a> for <a class='struct' href='../../glitter/texture/struct.VariantTexture2d.html' title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3086' class='srclink' href='../../src/glitter/src/texture.rs.html#249-253' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.gl_enum' class='method'><code>fn <a href='../../glitter/texture/trait.ImageTargetType.html#tymethod.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; GLenum</code></h4>
+<div class='docblock'><p>Get the raw OpenGL enum value for an image target.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -87,6 +90,8 @@ to either type freely.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -107,7 +112,7 @@ to either type freely.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

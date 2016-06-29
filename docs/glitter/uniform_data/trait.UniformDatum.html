@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a>::<wbr><a class='trait' href=''>UniformDatum</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3839' class='srclink' href='../../src/glitter/uniform_data.rs.html#71-79' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3831' class='srclink' href='../../src/glitter/src/uniform_data.rs.html#71-79' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait UniformDatum {
     fn <a href='#tymethod.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class='enum' href='../../glitter/uniform_data/enum.UniformDatumType.html' title='glitter::uniform_data::UniformDatumType'>UniformDatumType</a>;
 }</pre><div class='docblock'><p>A single uniform value, which corresponds to a single
@@ -68,23 +69,24 @@ specified by the returned <a href="enum.UniformDatumType.html"><code>UniformDatu
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='struct' href='../../glitter/context/texture_units/struct.TextureSampler.html' title='glitter::context::texture_units::TextureSampler'>TextureSampler</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 1]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 2]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 3]</a></code></li>
-<li><code>impl&lt;T&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[T; 4]</a> <span class='where'>where T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a></span></code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>; 2]</a>; 2]</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>; 3]</a>; 3]</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>; 4]</a>; 4]</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Vector2&lt;T&gt;</code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Vector3&lt;T&gt;</code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Vector4&lt;T&gt;</code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Matrix2&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Matrix3&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
-<li><code>impl <a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a> for Matrix4&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
+    <li><code>impl UniformDatum for <a class='struct' href='../../glitter/context/texture_units/struct.TextureSampler.html' title='glitter::context::texture_units::TextureSampler'>TextureSampler</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for T</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 1]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 2]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 3]</a></code></li>
+<li><code>impl&lt;T&gt; UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 4]</a> <span class='where'>where T: <a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a></span></code></li>
+<li><code>impl UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 2]</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 2]</a></code></li>
+<li><code>impl UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 3]</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 3]</a></code></li>
+<li><code>impl UniformDatum for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 4]</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.array.html'>; 4]</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for Vector2&lt;T&gt;</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for Vector3&lt;T&gt;</code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformPrimitive.html' title='glitter::uniform_data::UniformPrimitive'>UniformPrimitive</a>&gt; UniformDatum for Vector4&lt;T&gt;</code></li>
+<li><code>impl UniformDatum for Matrix2&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
+<li><code>impl UniformDatum for Matrix3&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
+<li><code>impl UniformDatum for Matrix4&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/uniform_data/trait.UniformDatum.js">
-                      </script></section>
+                         src="../../implementors/glitter/uniform_data/trait.UniformDatum.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -107,6 +109,8 @@ specified by the returned <a href="enum.UniformDatumType.html"><code>UniformDatu
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -127,7 +131,7 @@ specified by the returned <a href="enum.UniformDatumType.html"><code>UniformDatu
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,15 +44,16 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a>::<wbr><a class='struct' href=''>ShaderBuilder</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2688' class='srclink' href='../../src/glitter/shader.rs.html#75-81' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct ShaderBuilder&lt;'a, C: 'a&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span> {
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2663' class='srclink' href='../../src/glitter/src/shader.rs.html#75-81' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ShaderBuilder&lt;'a,&nbsp;C:&nbsp;'a&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span> {
     // some fields omitted
 }</pre><div class='docblock'><p>A safe interface for creating a shader with a source, and returning an error
 or panicking if there is an error.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, C: 'a&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></h3><div class='impl-items'><h4 id='method.try_unwrap' class='method'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;C:&nbsp;'a&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;C&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2669' class='srclink' href='../../src/glitter/src/shader.rs.html#83-116' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.try_unwrap' class='method'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>,&nbsp;<a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h4>
 <div class='docblock'><p>Try to compile a shader with the provided options, or <code>Err</code> if
 a new shader object could not be created or if there was an error
 compiling the provided source.</p>
@@ -82,6 +84,8 @@ compiling the provided source.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -102,7 +106,7 @@ compiling the provided source.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

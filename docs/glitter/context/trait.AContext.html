@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,21 +44,21 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>context</a>::<wbr><a class='trait' href=''>AContext</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2528' class='srclink' href='../../src/glitter/context/mod.rs.html#600-609' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2510' class='srclink' href='../../src/glitter/src/context/mod.rs.html#599-608' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait AContext: <a class='trait' href='../../glitter/context/trait.ContextExt.html' title='glitter::context::ContextExt'>ContextExt</a> + <a class='trait' href='../../glitter/context/buffer_context/trait.ContextBufferExt.html' title='glitter::context::buffer_context::ContextBufferExt'>ContextBufferExt</a> + <a class='trait' href='../../glitter/context/framebuffer_context/trait.ContextFramebufferExt.html' title='glitter::context::framebuffer_context::ContextFramebufferExt'>ContextFramebufferExt</a> + <a class='trait' href='../../glitter/context/program_context/trait.ContextProgramExt.html' title='glitter::context::program_context::ContextProgramExt'>ContextProgramExt</a> + <a class='trait' href='../../glitter/context/renderbuffer_context/trait.ContextRenderbufferExt.html' title='glitter::context::renderbuffer_context::ContextRenderbufferExt'>ContextRenderbufferExt</a> + <a class='trait' href='../../glitter/shader/trait.ContextShaderExt.html' title='glitter::shader::ContextShaderExt'>ContextShaderExt</a> + <a class='trait' href='../../glitter/context/texture_context/trait.ContextTextureExt.html' title='glitter::context::texture_context::ContextTextureExt'>ContextTextureExt</a> { }</pre><div class='docblock'><p>The &#39;core&#39; OpenGL context trait. This trait provides access to any OpenGL
 functionality that don&#39;t deal with binding. This trait is implemented for
 <code>ContextOf&lt;_, _, _, _, _&gt;</code>, as well as for <code>&amp;mut ContextOf&lt;_, _, _, _, _&gt;</code>.</p>
 </div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;B, F, P, R, T&gt; <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> for <a class='struct' href='../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, T&gt;</code></li>
-<li><code>impl&lt;'a, B, F, P, R, T&gt; <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> for &amp;'a mut <a class='struct' href='../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, T&gt;</code></li>
+    <li><code>impl&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; AContext for <a class='struct' href='../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt;</code></li>
+<li><code>impl&lt;'a,&nbsp;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt; AContext for &amp;'a mut <a class='struct' href='../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B,&nbsp;F,&nbsp;P,&nbsp;R,&nbsp;T&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/context/trait.AContext.js">
-                      </script></section>
+                         src="../../implementors/glitter/context/trait.AContext.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -80,6 +81,8 @@ functionality that don&#39;t deal with binding. This trait is implemented for
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -100,7 +103,7 @@ functionality that don&#39;t deal with binding. This trait is implemented for
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

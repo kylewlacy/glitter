@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,12 +44,12 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='trait' href=''>TextureType</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2991' class='srclink' href='../../src/glitter/texture.rs.html#103-116' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2957' class='srclink' href='../../src/glitter/src/texture.rs.html#103-116' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait TextureType {
-    type ImageTargetType: <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a>;
+    type <a href='#associatedtype.ImageTargetType' class='type'>ImageTargetType</a>: <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a>;
     fn <a href='#tymethod.target' class='fnname'>target</a>() -&gt; <a class='enum' href='../../glitter/texture/enum.TextureBindingTarget.html' title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a>;
 }</pre><div class='docblock'><p>A trait implemented for a type that represent a type of texture (such
 as 2D textures or cube map textures).  For example, <a href="struct.TxCubeMap.html"><code>TxCubeMap</code></a> is a type that implements <code>TextureType</code>, and
@@ -56,7 +57,7 @@ it represents cube map textures.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.ImageTargetType' class='method stab '><code>type ImageTargetType: <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a></code></h3><div class='docblock'><p>The type that is used to indicate all of the possible target 2D images
+        <h3 id='associatedtype.ImageTargetType' class='method stab '><code>type <a href='#associatedtype.ImageTargetType' class='type'>ImageTargetType</a>: <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a></code></h3><div class='docblock'><p>The type that is used to indicate all of the possible target 2D images
 for this type of texture. The associated <code>ImageTargetType</code> in the impl
 for <a href="struct.TxCubeMap.html"><code>TxCubeMap</code></a>, for example, is
 <a href="enum.TxCubeMapImageTarget.html"><code>TxCubeMapImageTarget</code></a>, which is an
@@ -71,11 +72,11 @@ example, returns <code>TextureBindingTarget::CubeMap</code>.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a> for <a class='struct' href='../../glitter/texture/struct.Tx2d.html' title='glitter::texture::Tx2d'>Tx2d</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a> for <a class='struct' href='../../glitter/texture/struct.TxCubeMap.html' title='glitter::texture::TxCubeMap'>TxCubeMap</a></code></li>
+    <li><code>impl TextureType for <a class='struct' href='../../glitter/texture/struct.Tx2d.html' title='glitter::texture::Tx2d'>Tx2d</a></code></li>
+<li><code>impl TextureType for <a class='struct' href='../../glitter/texture/struct.TxCubeMap.html' title='glitter::texture::TxCubeMap'>TxCubeMap</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/texture/trait.TextureType.js">
-                      </script></section>
+                         src="../../implementors/glitter/texture/trait.TextureType.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -98,6 +99,8 @@ example, returns <code>TextureBindingTarget::CubeMap</code>.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -118,7 +121,7 @@ example, returns <code>TextureBindingTarget::CubeMap</code>.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

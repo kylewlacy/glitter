@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,24 +44,25 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>buffer_context</a>::<wbr><a class='struct' href=''>BufferBinderOf</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-401' class='srclink' href='../../../src/glitter/context/buffer_context.rs.html#505-509' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct BufferBinderOf&lt;A, E&gt; {
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-397' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#505-509' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct BufferBinderOf&lt;A,&nbsp;E&gt; {
     // some fields omitted
-}</pre><div class='docblock'><p>This type holds all of the OpenGL state releated buffer objects. See the
+}</pre><div class='docblock'><p>This type holds all of the OpenGL-state-related buffer objects. See the
 <a href="../struct.ContextOf.html"><code>ContextOf</code></a> docs for more details.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;A, E&gt; <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A, E&gt;</code></h3><div class='impl-items'><h4 id='method.current' class='method'><code>unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; <a class='type' href='../../../glitter/context/buffer_context/type.BufferBinder.html' title='glitter::context::buffer_context::BufferBinder'>BufferBinder</a></code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;A,&nbsp;E&gt; <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A,&nbsp;E&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-404' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#515-571' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.current' class='method'><code>unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; <a class='type' href='../../../glitter/context/buffer_context/type.BufferBinder.html' title='glitter::context::buffer_context::BufferBinder'>BufferBinder</a></code></h4>
 <div class='docblock'><p>Get the current buffer-object binders.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>The same rules apply to this method as the
 <a href="../struct.ContextOf.html#method.current_context"><code>ContextOf::current_context()</code> method</a>.</p>
-</div><h4 id='method.swap_array' class='method'><code>fn <a href='#method.swap_array' class='fnname'>swap_array</a>&lt;NA&gt;(self, new_array: NA) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(A, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;NA, E&gt;)</a></code></h4>
+</div><h4 id='method.swap_array' class='method'><code>fn <a href='#method.swap_array' class='fnname'>swap_array</a>&lt;NA&gt;(self, new_array: NA) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>A, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;NA,&nbsp;E&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
 <div class='docblock'><p>Replace the array-buffer-related context with a new value, returning
 the old value and a new buffer context.</p>
-</div><h4 id='method.swap_element_array' class='method'><code>fn <a href='#method.swap_element_array' class='fnname'>swap_element_array</a>&lt;NE&gt;(self, new_element_array: NE) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(E, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A, NE&gt;)</a></code></h4>
+</div><h4 id='method.swap_element_array' class='method'><code>fn <a href='#method.swap_element_array' class='fnname'>swap_element_array</a>&lt;NE&gt;(self, new_element_array: NE) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>E, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A,&nbsp;NE&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></h4>
 <div class='docblock'><p>Replace the element-array-buffer-related context with a new value,
 returning the old value and a new buffer context.</p>
 </div></div></section>
@@ -86,6 +88,8 @@ returning the old value and a new buffer context.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -106,7 +110,7 @@ returning the old value and a new buffer context.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

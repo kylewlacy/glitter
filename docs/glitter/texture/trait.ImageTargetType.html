@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,12 +44,12 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='trait' href=''>ImageTargetType</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-2988' class='srclink' href='../../src/glitter/texture.rs.html#94-97' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-2954' class='srclink' href='../../src/glitter/src/texture.rs.html#94-97' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ImageTargetType {
-    fn <a href='#tymethod.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; <a class='type' href='../../glitter/gl/types/type.GLenum.html' title='glitter::gl::types::GLenum'>GLenum</a>;
+    fn <a href='#tymethod.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; GLenum;
 }</pre><div class='docblock'><p>A trait implemented for types that are used to represent all of the
 possible 2D images that make up a specific implementation of
 <a href="trait.TextureType.html"><code>TextureType</code></a>. For more details, read the
@@ -56,16 +57,16 @@ possible 2D images that make up a specific implementation of
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.gl_enum' class='method stab '><code>fn <a href='#tymethod.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; <a class='type' href='../../glitter/gl/types/type.GLenum.html' title='glitter::gl::types::GLenum'>GLenum</a></code></h3><div class='docblock'><p>Get the raw OpenGL enum value for an image target.</p>
+        <h3 id='tymethod.gl_enum' class='method stab '><code>fn <a href='#tymethod.gl_enum' class='fnname'>gl_enum</a>(&amp;self) -&gt; GLenum</code></h3><div class='docblock'><p>Get the raw OpenGL enum value for an image target.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a> for <a class='enum' href='../../glitter/texture/enum.Tx2dImageTarget.html' title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a> for <a class='enum' href='../../glitter/texture/enum.TxCubeMapImageTarget.html' title='glitter::texture::TxCubeMapImageTarget'>TxCubeMapImageTarget</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/texture/trait.ImageTargetType.html' title='glitter::texture::ImageTargetType'>ImageTargetType</a> for <a class='struct' href='../../glitter/texture/struct.VariantTexture2d.html' title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></code></li>
+    <li><code>impl ImageTargetType for <a class='enum' href='../../glitter/texture/enum.Tx2dImageTarget.html' title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></code></li>
+<li><code>impl ImageTargetType for <a class='enum' href='../../glitter/texture/enum.TxCubeMapImageTarget.html' title='glitter::texture::TxCubeMapImageTarget'>TxCubeMapImageTarget</a></code></li>
+<li><code>impl ImageTargetType for <a class='struct' href='../../glitter/texture/struct.VariantTexture2d.html' title='glitter::texture::VariantTexture2d'>VariantTexture2d</a></code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/texture/trait.ImageTargetType.js">
-                      </script></section>
+                         src="../../implementors/glitter/texture/trait.ImageTargetType.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -88,6 +89,8 @@ possible 2D images that make up a specific implementation of
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -108,7 +111,7 @@ possible 2D images that make up a specific implementation of
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

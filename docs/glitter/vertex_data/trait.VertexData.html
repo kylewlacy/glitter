@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,10 +44,10 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a>::<wbr><a class='trait' href=''>VertexData</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3499' class='srclink' href='../../src/glitter/vertex_data.rs.html#76-87' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3492' class='srclink' href='../../src/glitter/src/vertex_data.rs.html#76-87' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait VertexData: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> {
     fn <a href='#tymethod.visit_attributes' class='fnname'>visit_attributes</a>&lt;F&gt;(f: F) <span class='where'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(<a class='struct' href='../../glitter/vertex_data/struct.VertexAttribute.html' title='glitter::vertex_data::VertexAttribute'>VertexAttribute</a>)</span>;
 }</pre><div class='docblock'><p>A type that has vertex data.</p>
@@ -56,7 +57,8 @@
 this method incorrectly will lead to memory unsafety in some safe
 API&#39;s in glitter.</p>
 
-<h1 id='example' class='section-header'><a href='#example'>Example</a></h1><pre class='rust rust-example-rendered'>
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glitter</span>;
 <span class='kw'>use</span> <span class='ident'>glitter</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;
 
@@ -126,8 +128,8 @@ docs for more details on what each field means.</p>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/vertex_data/trait.VertexData.js">
-                      </script></section>
+                         src="../../implementors/glitter/vertex_data/trait.VertexData.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -150,6 +152,8 @@ docs for more details on what each field means.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -170,7 +174,7 @@ docs for more details on what each field means.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

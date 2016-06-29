@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,14 +44,12 @@
 
     <section id='main' class="content constant">
 <h1 class='fqn'><span class='in-band'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='constant' href=''>NEAREST_MIPMAP_LINEAR</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3168' class='srclink' href='../../src/glitter/texture.rs.html#337-341' title='goto source code'>[src]</a></span></h1>
-<pre class='rust const'>pub const NEAREST_MIPMAP_LINEAR: <a class='enum' href='../../glitter/texture/enum.TextureMipmapFilter.html' title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a><code> = </code><code>TextureMipmapFilter::MipmapFilter {
-        criterion: TextureFilter::Nearest,
-        mipmap: TextureFilter::Linear
-    }</code></pre><div class='docblock'><p>When texturing a pixel, select the two mipmaps that are nearest
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3168' class='srclink' href='../../src/glitter/src/texture.rs.html#337-341' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const NEAREST_MIPMAP_LINEAR: <a class='enum' href='../../glitter/texture/enum.TextureMipmapFilter.html' title='glitter::texture::TextureMipmapFilter'>TextureMipmapFilter</a><code> = </code><code>TextureMipmapFilter::MipmapFilter{criterion: TextureFilter::Nearest,
+                                  mipmap: TextureFilter::Linear,}</code></pre><div class='docblock'><p>When texturing a pixel, select the two mipmaps that are nearest
 in size to the pixel, select the texel in each that is closest
 to the center of the pixel, and compute the result by taking
 the weighted average of each texel.</p>
@@ -77,6 +76,8 @@ the weighted average of each texel.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -97,7 +98,7 @@ the weighted average of each texel.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

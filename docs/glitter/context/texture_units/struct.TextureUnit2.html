@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,16 +44,19 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class='struct' href=''>TextureUnit2</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-1472' class='srclink' href='../../../src/glitter/context/texture_units.rs.html#53-55' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-1455' class='srclink' href='../../../src/glitter/src/context/texture_units.rs.html#53-55' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct TextureUnit2 {
     // some fields omitted
 }</pre><div class='docblock'><p>The 2nd texture unit.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit.html' title='glitter::context::texture_units::TextureUnit'>TextureUnit</a> for <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit2.html' title='glitter::context::texture_units::TextureUnit2'>TextureUnit2</a></code></h3><div class='impl-items'><h4 id='method.idx' class='method'><code>fn <a href='../../../glitter/context/texture_units/trait.TextureUnit.html#method.idx' class='fnname'>idx</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
-<h4 id='method.active' class='method'><code>fn <a href='../../../glitter/context/texture_units/trait.TextureUnit.html#method.active' class='fnname'>active</a>(&amp;mut self) -&gt; <a class='type' href='../../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a></code></h4>
-</div></section>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../../glitter/context/texture_units/trait.TextureUnit.html' title='glitter::context::texture_units::TextureUnit'>TextureUnit</a> for <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit2.html' title='glitter::context::texture_units::TextureUnit2'>TextureUnit2</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-1473' class='srclink' href='../../../src/glitter/src/context/texture_units.rs.html#85' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.idx' class='method'><code>fn <a href='../../../glitter/context/texture_units/trait.TextureUnit.html#tymethod.idx' class='fnname'>idx</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a></code></h4>
+<div class='docblock'><p>Get the index of the texture unit.</p>
+</div><h4 id='method.active' class='method'><code>fn <a href='../../../glitter/context/texture_units/trait.TextureUnit.html#method.active' class='fnname'>active</a>(&amp;mut self) -&gt; <a class='type' href='../../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a></code></h4>
+<div class='docblock'><p>Make the current texture unit active, returning a binding.</p>
+</div></div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -75,6 +79,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -95,7 +101,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

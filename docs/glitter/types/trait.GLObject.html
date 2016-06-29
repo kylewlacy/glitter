@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,12 +44,12 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class='trait' href=''>GLObject</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3919' class='srclink' href='../../src/glitter/types.rs.html#60-95' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3920' class='srclink' href='../../src/glitter/src/types.rs.html#60-95' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GLObject {
-    type Id;
+    type <a href='#associatedtype.Id' class='type'>Id</a>;
     unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self;
     fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>;
 
@@ -57,7 +58,7 @@
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Id' class='method stab '><code>type Id</code></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
+        <h3 id='associatedtype.Id' class='method stab '><code>type <a href='#associatedtype.Id' class='type'>Id</a></code></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
@@ -86,15 +87,15 @@ will be properly destroyed.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></li>
-<li><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></li>
-<li><code>impl&lt;T: <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a>&gt; <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;T&gt;</code></li>
+    <li><code>impl GLObject for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></li>
+<li><code>impl GLObject for <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></li>
+<li><code>impl GLObject for <a class='struct' href='../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a></code></li>
+<li><code>impl GLObject for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></li>
+<li><code>impl GLObject for <a class='struct' href='../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></li>
+<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a>&gt; GLObject for <a class='struct' href='../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;T&gt;</code></li>
 </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/types/trait.GLObject.js">
-                      </script></section>
+                         src="../../implementors/glitter/types/trait.GLObject.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -117,6 +118,8 @@ will be properly destroyed.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -137,7 +140,7 @@ will be properly destroyed.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

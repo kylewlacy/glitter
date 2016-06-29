@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,17 +44,18 @@
 
     <section id='main' class="content struct">
 <h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a>::<wbr><a class='struct' href=''>ProgramBuilder</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-783' class='srclink' href='../../../src/glitter/context/program_context.rs.html#33-38' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct ProgramBuilder&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> + 'a</span> {
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-771' class='srclink' href='../../../src/glitter/src/context/program_context.rs.html#33-38' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ProgramBuilder&lt;'a,&nbsp;C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> + 'a</span> {
     // some fields omitted
 }</pre><div class='docblock'><p>Provides a safe interface for creating program objects. A
 <code>ProgramBuilder</code> can be created using the <a href="trait.ContextProgramBuilderExt.html#method.build_program"><code>gl.build_program</code></a> method.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;'a, C&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(gl: &amp;'a C, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; Self</code></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;C&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a,&nbsp;C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-776' class='srclink' href='../../../src/glitter/src/context/program_context.rs.html#40-88' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>(gl: &amp;'a C, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; Self</code></h4>
 <div class='docblock'><p>Create a new program builder.</p>
-</div><h4 id='method.try_unwrap' class='method'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>, <a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h4>
+</div><h4 id='method.try_unwrap' class='method'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>,&nbsp;<a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></h4>
 <div class='docblock'><p>Create and link the program object with the provided shaders, or
 return an error.</p>
 
@@ -95,6 +97,8 @@ assertions enabled.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -115,7 +119,7 @@ assertions enabled.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

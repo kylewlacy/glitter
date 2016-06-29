@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
@@ -43,24 +44,25 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a>::<wbr><a class='trait' href=''>ContextProgramBuilderExt</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-808' class='srclink' href='../../../src/glitter/context/program_context.rs.html#91-100' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-794' class='srclink' href='../../../src/glitter/src/context/program_context.rs.html#91-100' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ContextProgramBuilderExt: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
-    fn <a href='#method.build_program' class='fnname'>build_program</a>&lt;'a&gt;(&amp;'a self, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a, Self&gt; { ... }
+    fn <a href='#method.build_program' class='fnname'>build_program</a>&lt;'a&gt;(&amp;'a self, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a,&nbsp;Self&gt; { ... }
 }</pre><div class='docblock'><p>The extension trait that adds the <code>build_program</code> method.</p>
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.build_program' class='method stab '><code>fn <a href='#method.build_program' class='fnname'>build_program</a>&lt;'a&gt;(&amp;'a self, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a, Self&gt;</code></h3><div class='docblock'><p>Create a new program builder, providing a safe interface
+        <h3 id='method.build_program' class='method stab '><code>fn <a href='#method.build_program' class='fnname'>build_program</a>&lt;'a&gt;(&amp;'a self, shaders: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a [</a><a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='struct' href='../../../glitter/context/program_context/struct.ProgramBuilder.html' title='glitter::context::program_context::ProgramBuilder'>ProgramBuilder</a>&lt;'a,&nbsp;Self&gt;</code></h3><div class='docblock'><p>Create a new program builder, providing a safe interface
 for constructing a program object. See the <a href="struct.ProgramBuilder.html"><code>ProgramBuilder</code></a> docs for more details.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
-                              src="../../../implementors/glitter/context/program_context/trait.ContextProgramBuilderExt.js">
-                      </script></section>
+    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>&gt; ContextProgramBuilderExt for C</code></li>
+</ul><script type="text/javascript" async
+                         src="../../../implementors/glitter/context/program_context/trait.ContextProgramBuilderExt.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -83,6 +85,8 @@ for constructing a program object. See the <a href="struct.ProgramBuilder.html">
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -103,7 +107,7 @@ for constructing a program object. See the <a href="struct.ProgramBuilder.html">
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>

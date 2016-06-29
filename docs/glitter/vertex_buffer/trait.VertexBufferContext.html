@@ -11,6 +11,7 @@
 
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
@@ -43,29 +44,30 @@
 
     <section id='main' class="content trait">
 <h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='trait' href=''>VertexBufferContext</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-3735' class='srclink' href='../../src/glitter/vertex_buffer.rs.html#404-434' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-3729' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#404-434' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait VertexBufferContext: <a class='trait' href='../../glitter/context/buffer_context/trait.ArrayBufferContext.html' title='glitter::context::buffer_context::ArrayBufferContext'>ArrayBufferContext</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
-    fn <a href='#method.bind_vertex_buffer' class='fnname'>bind_vertex_buffer</a>&lt;'a, V&gt;(self, vbo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, Self::<a class='trait' href='../../glitter/vertex_buffer/trait.VertexBufferContext.html' title='glitter::vertex_buffer::VertexBufferContext'>Rest</a>)</a> <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span> { ... }
+    fn <a href='#method.bind_vertex_buffer' class='fnname'>bind_vertex_buffer</a>&lt;'a,&nbsp;V&gt;(self, vbo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, Self::<a class='trait' href='../../glitter/vertex_buffer/trait.VertexBufferContext.html' title='glitter::vertex_buffer::VertexBufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span> { ... }
 }</pre><div class='docblock'><p>An OpenGL context that can have a vertex buffer bound.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
-<p>Interanlly, vertex buffers are bound to the <code>GL_ARRAY_BUFFER</code>
+<p>Internally, vertex buffers are bound to the <code>GL_ARRAY_BUFFER</code>
 binding, so any context that has a free <code>GL_ARRAY_BUFFER</code> is
 a <code>VertexBufferContext</code>.</p>
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.bind_vertex_buffer' class='method stab '><code>fn <a href='#method.bind_vertex_buffer' class='fnname'>bind_vertex_buffer</a>&lt;'a, V&gt;(self, vbo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(<a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, Self::<a class='trait' href='../../glitter/vertex_buffer/trait.VertexBufferContext.html' title='glitter::vertex_buffer::VertexBufferContext'>Rest</a>)</a> <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span></code></h3><div class='docblock'><p>Bind a vertex buffer to this context, returning a binding
+        <h3 id='method.bind_vertex_buffer' class='method stab '><code>fn <a href='#method.bind_vertex_buffer' class='fnname'>bind_vertex_buffer</a>&lt;'a,&nbsp;V&gt;(self, vbo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.VertexBuffer.html' title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a>&lt;V&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../glitter/vertex_buffer/struct.VertexBufferBinding.html' title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a>&lt;V&gt;, Self::<a class='trait' href='../../glitter/vertex_buffer/trait.VertexBufferContext.html' title='glitter::vertex_buffer::VertexBufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a></span></code></h3><div class='docblock'><p>Bind a vertex buffer to this context, returning a binding
 and a new context.</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    </ul><script type="text/javascript" async
-                              src="../../implementors/glitter/vertex_buffer/trait.VertexBufferContext.js">
-                      </script></section>
+    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../glitter/context/buffer_context/trait.ArrayBufferContext.html' title='glitter::context::buffer_context::ArrayBufferContext'>ArrayBufferContext</a>&gt; VertexBufferContext for C</code></li>
+</ul><script type="text/javascript" async
+                         src="../../implementors/glitter/vertex_buffer/trait.VertexBufferContext.js">
+                 </script></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -88,6 +90,8 @@ and a new context.</p>
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -108,7 +112,7 @@ and a new context.</p>
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
