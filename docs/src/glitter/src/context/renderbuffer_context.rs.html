@@ -300,6 +300,10 @@
 <span id="256">256</span>
 <span id="257">257</span>
 <span id="258">258</span>
+<span id="259">259</span>
+<span id="260">260</span>
+<span id="261">261</span>
+<span id="262">262</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! Contains all of the OpenGL state types related to renderbuffers.</span>
 
@@ -473,6 +477,10 @@
 
     <span class='doccomment'>/// Bind a renderbuffer to this context&#39;s renderbuffer,</span>
     <span class='doccomment'>/// returning a new context and a binding.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// # See also</span>
+    <span class='doccomment'>/// [`glBindRenderbuffer`](http://docs.gl/es2/glBindRenderbuffer)</span>
+    <span class='doccomment'>/// OpenGL docs</span>
     <span class='kw'>fn</span> <span class='ident'>bind_renderbuffer</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>rbo</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>Renderbuffer</span>)
         <span class='op'>-&gt;</span> (<span class='ident'>RenderbufferBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>, <span class='self'>Self</span>::<span class='ident'>Rest</span>)
         <span class='kw'>where</span> <span class='self'>Self</span>: <span class='ident'>Sized</span>

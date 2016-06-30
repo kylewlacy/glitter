@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1124' class='srclink' href='../../../src/glitter/src/context/renderbuffer_context.rs.html#161-180' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1124' class='srclink' href='../../../src/glitter/src/context/renderbuffer_context.rs.html#161-184' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait RenderbufferContext: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> {
     type <a href='#associatedtype.Binder' class='type'>Binder</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinder.html' title='glitter::context::renderbuffer_context::RenderbufferBinder'>RenderbufferBinder</a>&gt;;
     type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>;
@@ -69,6 +69,10 @@
             <div class='methods'>
         <h3 id='method.bind_renderbuffer' class='method stab '><code>fn <a href='#method.bind_renderbuffer' class='fnname'>bind_renderbuffer</a>&lt;'a&gt;(self, rbo: &amp;'a mut <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>&lt;'a&gt;, Self::<a class='trait' href='../../../glitter/context/renderbuffer_context/trait.RenderbufferContext.html' title='glitter::context::renderbuffer_context::RenderbufferContext'>Rest</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h3><div class='docblock'><p>Bind a renderbuffer to this context&#39;s renderbuffer,
 returning a new context and a binding.</p>
+
+<h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
+<p><a href="http://docs.gl/es2/glBindRenderbuffer"><code>glBindRenderbuffer</code></a>
+OpenGL docs</p>
 </div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
