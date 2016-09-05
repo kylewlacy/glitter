@@ -9,3 +9,4 @@ This project follows the [semantic versioning](http://semver.org) scheme.
 - Fixed issues/deprecations introduced after Rust 1.7
 - Fix examples for Windows
 - Update `cgmath` and `image`
+- **Breaking**: glitter now requires Rust 1.9 or later
