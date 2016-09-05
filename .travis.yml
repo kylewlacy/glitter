@@ -4,7 +4,7 @@ env:
     - ENCRYPTION_LABEL: "b4cae8414a91"
 matrix:
   include:
-    - rust: 1.8.0
+    - rust: 1.9.0
     - rust: stable
     - rust: beta
     - rust: nightly
