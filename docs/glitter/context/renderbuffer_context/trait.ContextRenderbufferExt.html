@@ -55,14 +55,14 @@
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.gen_renderbuffer' class='method stab '><code>unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></h3><div class='docblock'><p>Create a new renderbuffer object with no storage allocated.</p>
+        <h3 id='method.gen_renderbuffer' class='method stab '><span id='gen_renderbuffer.v' class='invisible'><code>unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></span></h3><div class='docblock'><p>Create a new renderbuffer object with no storage allocated.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>Many OpenGL function calls expect a renderbuffer to be
 <a href="https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness">attachment-complete</a>.
 Be sure to properly set up the renderbuffer&#39;s storage before passing
 the renderbuffer to such functions.</p>
-</div><h3 id='method.storage' class='method stab '><code>fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self, gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>, format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</code></h3><div class='docblock'><p>Initialize a renderbuffer object&#39;s storage.</p>
+</div><h3 id='method.storage' class='method stab '><span id='storage.v' class='invisible'><code>fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self, gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>, format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>, width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</code></span></h3><div class='docblock'><p>Initialize a renderbuffer object&#39;s storage.</p>
 
 <ul>
 <li><code>gl_rbo</code>: The binding of the renderbuffer to set up storage for.</li>

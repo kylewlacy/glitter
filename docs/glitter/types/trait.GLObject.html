@@ -50,19 +50,19 @@
                </span><a id='src-3920' class='srclink' href='../../src/glitter/src/types.rs.html#60-95' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GLObject {
     type <a href='#associatedtype.Id' class='type'>Id</a>;
-    unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self;
-    fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>;
+    unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::Id) -&gt; Self;
+    fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::Id;
 
-    fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
+    fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::Id <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
 }</pre><div class='docblock'><p>An OpenGL object.</p>
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Id' class='method stab '><code>type <a href='#associatedtype.Id' class='type'>Id</a></code></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
+        <h3 id='associatedtype.Id' class='method stab '><span id='Id.t' class='invisible'><code>type <a href='#associatedtype.Id' class='type'>Id</a></code></span></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.from_raw' class='method stab '><code>unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a>) -&gt; Self</code></h3><div class='docblock'><p>Get a new object from an OpenGL ID.</p>
+        <h3 id='tymethod.from_raw' class='method stab '><span id='from_raw.v' class='invisible'><code>unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::Id) -&gt; Self</code></span></h3><div class='docblock'><p>Get a new object from an OpenGL ID.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>The provided ID must correspond to an instance of the target
@@ -73,11 +73,11 @@ behavior in glitter.</p>
 objects that contain the same ID. Doing so will likely lead to
 the object being freed twice (which may not be catastrophic in
 OpenGL).</p>
-</div><h3 id='tymethod.id' class='method stab '><code>fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a></code></h3><div class='docblock'><p>Get the object&#39;s ID.</p>
+</div><h3 id='tymethod.id' class='method stab '><span id='id.v' class='invisible'><code>fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::Id</code></span></h3><div class='docblock'><p>Get the object&#39;s ID.</p>
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.into_raw' class='method stab '><code>fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>Id</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></h3><div class='docblock'><p>Consume the object without cleaning up its resources, returning the
+        <h3 id='method.into_raw' class='method stab '><span id='into_raw.v' class='invisible'><code>fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::Id <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></span></h3><div class='docblock'><p>Consume the object without cleaning up its resources, returning the
 object&#39;s ID.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>

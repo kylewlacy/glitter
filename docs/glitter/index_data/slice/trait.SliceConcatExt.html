@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3248' class='srclink' href='https://doc.rust-lang.org/nightly/collections/slice/trait.SliceConcatExt.html?gotosrc=3248' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-3314' class='srclink' href='https://doc.rust-lang.org/nightly/collections/slice/trait.SliceConcatExt.html?gotosrc=3314' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait SliceConcatExt&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
     fn <a href='#tymethod.concat' class='fnname'>concat</a>(&amp;self) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a>;
@@ -58,23 +58,23 @@
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Output' class='method stab unstable'><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></h3><div class='stability'><em class='stab unstable'>Unstable (<code>slice_concat_ext</code>)<p>: trait should not have to exist</p>
+        <h3 id='associatedtype.Output' class='method stab unstable'><span id='Output.t' class='invisible'><code>type <a href='#associatedtype.Output' class='type'>Output</a></code></span></h3><div class='stability'><em class='stab unstable'>Unstable (<code>slice_concat_ext</code>)<p>: trait should not have to exist</p>
 </em></div><div class='docblock'><p>The resulting type after concatenation</p>
 </div></div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.concat' class='method stab '><code>fn <a href='#tymethod.concat' class='fnname'>concat</a>(&amp;self) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h3><div class='docblock'><p>Flattens a slice of <code>T</code> into a single value <code>Self::Output</code>.</p>
+        <h3 id='tymethod.concat' class='method stab '><span id='concat.v' class='invisible'><code>fn <a href='#tymethod.concat' class='fnname'>concat</a>(&amp;self) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h3><div class='docblock'><p>Flattens a slice of <code>T</code> into a single value <code>Self::Output</code>.</p>
 
 <h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
 <pre class='rust rust-example-rendered'>
 <span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>concat</span>(), <span class='string'>&quot;helloworld&quot;</span>);</pre>
-</div><h3 id='tymethod.join' class='method stab '><code>fn <a href='#tymethod.join' class='fnname'>join</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div></h3><div class='docblock'><p>Flattens a slice of <code>T</code> into a single value <code>Self::Output</code>, placing a
+</div><h3 id='tymethod.join' class='method stab '><span id='join.v' class='invisible'><code>fn <a href='#tymethod.join' class='fnname'>join</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div></span></h3><div class='docblock'><p>Flattens a slice of <code>T</code> into a single value <code>Self::Output</code>, placing a
 given separator between each.</p>
 
 <h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
 <pre class='rust rust-example-rendered'>
 <span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>join</span>(<span class='string'>&quot; &quot;</span>), <span class='string'>&quot;hello world&quot;</span>);</pre>
-</div><h3 id='tymethod.connect' class='method stab  deprecated'><code>fn <a href='#tymethod.connect' class='fnname'>connect</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></h3><div class='stability'><em class='stab deprecated'>Deprecated since 1.3.0<p>: renamed to join</p>
+</div><h3 id='tymethod.connect' class='method stab  deprecated'><span id='connect.v' class='invisible'><code>fn <a href='#tymethod.connect' class='fnname'>connect</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h3><div class='stability'><em class='stab deprecated'>Deprecated since 1.3.0<p>: renamed to join</p>
 </em></div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>

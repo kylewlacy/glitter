@@ -58,7 +58,7 @@ adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><c
 </div>
             <h2 id='required-methods'>Required Methods</h2>
             <div class='methods'>
-        <h3 id='tymethod.build_shader' class='method stab '><code>fn <a href='#tymethod.build_shader' class='fnname'>build_shader</a>&lt;'a&gt;(&amp;'a self, ty: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></h3><div class='docblock'><p>Build a new shader with the provided shader type and shader source.</p>
+        <h3 id='tymethod.build_shader' class='method stab '><span id='build_shader.v' class='invisible'><code>fn <a href='#tymethod.build_shader' class='fnname'>build_shader</a>&lt;'a&gt;(&amp;'a self, ty: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></span></h3><div class='docblock'><p>Build a new shader with the provided shader type and shader source.</p>
 
 <h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
 <pre class='rust rust-example-rendered'>
@@ -79,7 +79,7 @@ adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><c
 </div></div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.build_fragment_shader' class='method stab '><code>fn <a href='#method.build_fragment_shader' class='fnname'>build_fragment_shader</a>&lt;'a&gt;(&amp;'a self, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></h3><div class='docblock'><p>Build a new fragment shader with the provided shader source.</p>
+        <h3 id='method.build_fragment_shader' class='method stab '><span id='build_fragment_shader.v' class='invisible'><code>fn <a href='#method.build_fragment_shader' class='fnname'>build_fragment_shader</a>&lt;'a&gt;(&amp;'a self, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></span></h3><div class='docblock'><p>Build a new fragment shader with the provided shader source.</p>
 
 <h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
 <pre class='rust rust-example-rendered'>
@@ -94,7 +94,7 @@ adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><c
 
 <span class='kw'>let</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
 <span class='kw'>let</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='ident'>gl</span>.<span class='ident'>build_fragment_shader</span>(<span class='ident'>fragment_source</span>).<span class='ident'>unwrap</span>();</pre>
-</div><h3 id='method.build_vertex_shader' class='method stab '><code>fn <a href='#method.build_vertex_shader' class='fnname'>build_vertex_shader</a>&lt;'a&gt;(&amp;'a self, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></h3><div class='docblock'><p>Build a new vertex shader with the provided shader source.</p>
+</div><h3 id='method.build_vertex_shader' class='method stab '><span id='build_vertex_shader.v' class='invisible'><code>fn <a href='#method.build_vertex_shader' class='fnname'>build_vertex_shader</a>&lt;'a&gt;(&amp;'a self, source: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a,&nbsp;Self&gt;</code></span></h3><div class='docblock'><p>Build a new vertex shader with the provided shader source.</p>
 
 <h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
 <pre class='rust rust-example-rendered'>

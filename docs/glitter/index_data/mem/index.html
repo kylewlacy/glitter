@@ -47,48 +47,12 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-6251' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/index.html?gotosrc=6251' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-6269' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/index.html?gotosrc=6269' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Basic functions for dealing with memory.</p>
 
 <p>This module contains functions for querying the size and alignment of
 types, initializing and manipulating memory.</p>
-</div><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
-<table>
-                       <tr class='unstable module-item'>
-                           <td><a class='constant' href='constant.POST_DROP_U16.html'
-                                  title='glitter::index_data::mem::POST_DROP_U16'>POST_DROP_U16</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] 
-                           </td>
-                       </tr>
-                       <tr class='unstable module-item'>
-                           <td><a class='constant' href='constant.POST_DROP_U32.html'
-                                  title='glitter::index_data::mem::POST_DROP_U32'>POST_DROP_U32</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] 
-                           </td>
-                       </tr>
-                       <tr class='unstable module-item'>
-                           <td><a class='constant' href='constant.POST_DROP_U64.html'
-                                  title='glitter::index_data::mem::POST_DROP_U64'>POST_DROP_U64</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] 
-                           </td>
-                       </tr>
-                       <tr class='unstable module-item'>
-                           <td><a class='constant' href='constant.POST_DROP_U8.html'
-                                  title='glitter::index_data::mem::POST_DROP_U8'>POST_DROP_U8</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] 
-                           </td>
-                       </tr>
-                       <tr class='unstable module-item'>
-                           <td><a class='constant' href='constant.POST_DROP_USIZE.html'
-                                  title='glitter::index_data::mem::POST_DROP_USIZE'>POST_DROP_USIZE</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] 
-                           </td>
-                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.align_of.html'
@@ -167,7 +131,9 @@ either one.</p>
                            <td><a class='fn' href='fn.transmute.html'
                                   title='glitter::index_data::mem::transmute'>transmute</a></td>
                            <td class='docblock short'>
-                                <p>Unsafely transforms a value of one type into a value of another type.</p>
+                                <p>Reinterprets the bits of a value of one type as another type; both types
+must have the same size. Neither the original, nor the result, may be an
+<a href="../../nomicon/meet-safe-and-unsafe.html">invalid value</a>.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -191,13 +157,6 @@ produce a value of type T, while doing nothing at all.</p>
                                   title='glitter::index_data::mem::zeroed'>zeroed</a></td>
                            <td class='docblock short'>
                                 <p>Creates a value initialized to zero.</p>
-                           </td>
-                       </tr>
-                       <tr class='unstable module-item'>
-                           <td><a class='fn' href='fn.dropped.html'
-                                  title='glitter::index_data::mem::dropped'>dropped</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab unstable'>Unstable</em>] <p>Creates a value initialized to an unspecified series of bytes.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
