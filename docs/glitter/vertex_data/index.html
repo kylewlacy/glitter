@@ -47,14 +47,14 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3488' class='srclink' href='../../src/glitter/src/vertex_data.rs.html#1-360' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2292' class='srclink' href='../../src/glitter/src/vertex_data.rs.html#1-360' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Contains types related to vertex data, which are used for <a href="../vertex_buffer/struct.VertexBuffer.html"><code>VertexBuffers</code></a>.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.VertexAttribute.html'
                                   title='glitter::vertex_data::VertexAttribute'>VertexAttribute</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Specifies the type, name, and memory layout of a vertex attribute.
 Generally, a &quot;vertex attribute&quot; corresponds to a field in a <a href="trait.VertexData.html"><code>VertexData</code></a> struct.</p>
                            </td>
@@ -62,7 +62,7 @@ Generally, a &quot;vertex attribute&quot; corresponds to a field in a <a href="t
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.VertexAttributeType.html'
                                   title='glitter::vertex_data::VertexAttributeType'>VertexAttributeType</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Used to specify type of a vertex attribute. The size of the vertex
 attribute is <code>size_of(data) * components</code>.</p>
                            </td>
@@ -71,7 +71,7 @@ attribute is <code>size_of(data) * components</code>.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VertexBytes.html'
                                   title='glitter::vertex_data::VertexBytes'>VertexBytes</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Indicates that a type can be coerced to a <code>u8</code> slice that can
 then be treated as a stream of vertex data.</p>
                            </td>
@@ -79,14 +79,14 @@ then be treated as a stream of vertex data.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VertexData.html'
                                   title='glitter::vertex_data::VertexData'>VertexData</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A type that has vertex data.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VertexDatum.html'
                                   title='glitter::vertex_data::VertexDatum'>VertexDatum</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A single value that can be treated as a part of a vertex. Implementors
 should map to a GLSL primitive that can be used as a vertex attribute.
 For example, <code>[f32; 2]</code> corresponds to <code>vec2</code> in memory layout
@@ -96,7 +96,7 @@ and structure.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VertexPrimitive.html'
                                   title='glitter::vertex_data::VertexPrimitive'>VertexPrimitive</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A single, basic value that can be composed to make a <a href="trait.VertexDatum.html"><code>VertexDatum</code></a>. Scalar values are an example of a
 <code>VertexPrimitive</code>.</p>
                            </td>
@@ -160,7 +160,7 @@ and structure.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

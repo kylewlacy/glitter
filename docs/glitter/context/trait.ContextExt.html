@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2443' class='srclink' href='../../src/glitter/src/context/mod.rs.html#476-577' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1952' class='srclink' href='../../src/glitter/src/context/mod.rs.html#476-577' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ContextExt: <a class='trait' href='../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
     fn <a href='#method.clear_color' class='fnname'>clear_color</a>(&amp;mut self, color: <a class='struct' href='../../glitter/types/struct.Color.html' title='glitter::types::Color'>Color</a>) { ... }
     fn <a href='#method.enable' class='fnname'>enable</a>(&amp;mut self, cap: <a class='enum' href='../../glitter/types/enum.Capability.html' title='glitter::types::Capability'>Capability</a>) { ... }
@@ -71,7 +71,7 @@ is enabled.</p>
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
 <span class='comment'>// Clear the screen with solid red</span>
 <span class='ident'>gl</span>.<span class='ident'>clear_color</span>(<span class='ident'>glitter</span>::<span class='ident'>Color</span> { <span class='ident'>r</span>: <span class='number'>1.0</span>, <span class='ident'>g</span>: <span class='number'>0.0</span>, <span class='ident'>b</span>: <span class='number'>0.0</span>, <span class='ident'>a</span>: <span class='number'>1.0</span> });
-<span class='ident'>gl</span>.<span class='ident'>clear</span>(<span class='ident'>glitter</span>::<span class='ident'>COLOR_BUFFER_BIT</span>);</pre>
+<span class='ident'>gl</span>.<span class='ident'>clear</span>(<span class='ident'>glitter</span>::<span class='ident'>COLOR_BUFFER_BIT</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h3 id='method.enable' class='method stab '><span id='enable.v' class='invisible'><code>fn <a href='#method.enable' class='fnname'>enable</a>(&amp;mut self, cap: <a class='enum' href='../../glitter/types/enum.Capability.html' title='glitter::types::Capability'>Capability</a>)</code></span></h3><div class='docblock'><p>Enable an OpenGL capability.</p>
 
 <h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
@@ -81,7 +81,7 @@ is enabled.</p>
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
 <span class='comment'>// Enable depth testing</span>
-<span class='ident'>gl</span>.<span class='ident'>enable</span>(<span class='ident'>glitter</span>::<span class='ident'>DEPTH_TEST</span>);</pre>
+<span class='ident'>gl</span>.<span class='ident'>enable</span>(<span class='ident'>glitter</span>::<span class='ident'>DEPTH_TEST</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h3 id='method.disable' class='method stab '><span id='disable.v' class='invisible'><code>fn <a href='#method.disable' class='fnname'>disable</a>(&amp;mut self, cap: <a class='enum' href='../../glitter/types/enum.Capability.html' title='glitter::types::Capability'>Capability</a>)</code></span></h3><div class='docblock'><p>Disable an OpenGL capability.</p>
 
 <h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
@@ -91,7 +91,7 @@ is enabled.</p>
 
 <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>glitter</span>::<span class='ident'>Context</span>::<span class='ident'>current_context</span>() };
 <span class='comment'>// Disable depth testing</span>
-<span class='ident'>gl</span>.<span class='ident'>disable</span>(<span class='ident'>glitter</span>::<span class='ident'>DEPTH_TEST</span>);</pre>
+<span class='ident'>gl</span>.<span class='ident'>disable</span>(<span class='ident'>glitter</span>::<span class='ident'>DEPTH_TEST</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h3 id='method.enable_vertex_attrib_array' class='method stab '><span id='enable_vertex_attrib_array.v' class='invisible'><code>fn <a href='#method.enable_vertex_attrib_array' class='fnname'>enable_vertex_attrib_array</a>(&amp;self, attrib: <a class='struct' href='../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>)</code></span></h3><div class='docblock'><p>Enable the vertex attribute array to be used while drawing with
 <a href="buffer_context/trait.ContextBufferExt.html#method.draw_arrays_range"><code>gl.draw_arrays_range</code></a>,
 <a href="buffer_context/trait.ContextBufferExt.html#method.draw_elements"><code>gl.draw_elements</code></a>,
@@ -168,7 +168,7 @@ to window coordinates.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

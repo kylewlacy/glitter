@@ -47,116 +47,128 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-6269' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/index.html?gotosrc=6269' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1736' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/index.html?gotosrc=1736' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Basic functions for dealing with memory.</p>
 
 <p>This module contains functions for querying the size and alignment of
 types, initializing and manipulating memory.</p>
-</div><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class='unstable module-item'>
+                           <td><a class='struct' href='struct.Discriminant.html'
+                                  title='glitter::index_data::mem::Discriminant'>Discriminant</a></td>
+                           <td class='docblock-short'>
+                               [<em class='stab unstable'>Unstable</em>] <p>Opaque type representing the discriminant of an enum.</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.align_of.html'
                                   title='glitter::index_data::mem::align_of'>align_of</a></td>
-                           <td class='docblock short'>
-                                <p>Returns the alignment in memory for a type.</p>
+                           <td class='docblock-short'>
+                                <p>Returns the <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>-required minimum alignment of a type.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.align_of_val.html'
                                   title='glitter::index_data::mem::align_of_val'>align_of_val</a></td>
-                           <td class='docblock short'>
-                                <p>Returns the ABI-required minimum alignment of the type of the value that <code>val</code> points to</p>
+                           <td class='docblock-short'>
+                                <p>Returns the <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>-required minimum alignment of the type of the value that <code>val</code> points to.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.drop.html'
                                   title='glitter::index_data::mem::drop'>drop</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Disposes of a value.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.forget.html'
                                   title='glitter::index_data::mem::forget'>forget</a></td>
-                           <td class='docblock short'>
-                                <p>Leaks a value into the void, consuming ownership and never running its
-destructor.</p>
+                           <td class='docblock-short'>
+                                <p>Leaks a value: takes ownership and &quot;forgets&quot; about the value <strong>without running
+its destructor</strong>.</p>
                            </td>
                        </tr>
                        <tr class=' deprecated module-item'>
                            <td><a class='fn' href='fn.min_align_of.html'
                                   title='glitter::index_data::mem::min_align_of'>min_align_of</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab deprecated'>Deprecated</em>] <p>Returns the ABI-required minimum alignment of a type</p>
+                           <td class='docblock-short'>
+                               [<em class='stab deprecated'>Deprecated</em>] <p>Returns the <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>-required minimum alignment of a type.</p>
                            </td>
                        </tr>
                        <tr class=' deprecated module-item'>
                            <td><a class='fn' href='fn.min_align_of_val.html'
                                   title='glitter::index_data::mem::min_align_of_val'>min_align_of_val</a></td>
-                           <td class='docblock short'>
-                               [<em class='stab deprecated'>Deprecated</em>] <p>Returns the ABI-required minimum alignment of the type of the value that <code>val</code> points to</p>
+                           <td class='docblock-short'>
+                               [<em class='stab deprecated'>Deprecated</em>] <p>Returns the <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>-required minimum alignment of the type of the value that <code>val</code> points to.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.replace.html'
                                   title='glitter::index_data::mem::replace'>replace</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Replaces the value at a mutable location with a new one, returning the old value, without
-deinitializing or copying either one.</p>
+deinitializing either one.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.size_of.html'
                                   title='glitter::index_data::mem::size_of'>size_of</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Returns the size of a type in bytes.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.size_of_val.html'
                                   title='glitter::index_data::mem::size_of_val'>size_of_val</a></td>
-                           <td class='docblock short'>
-                                <p>Returns the size of the given value in bytes.</p>
+                           <td class='docblock-short'>
+                                <p>Returns the size of the pointed-to value in bytes.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.swap.html'
                                   title='glitter::index_data::mem::swap'>swap</a></td>
-                           <td class='docblock short'>
-                                <p>Swap the values at two mutable locations of the same type, without deinitializing or copying
-either one.</p>
+                           <td class='docblock-short'>
+                                <p>Swaps the values at two mutable locations, without deinitializing either one.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.transmute.html'
                                   title='glitter::index_data::mem::transmute'>transmute</a></td>
-                           <td class='docblock short'>
-                                <p>Reinterprets the bits of a value of one type as another type; both types
-must have the same size. Neither the original, nor the result, may be an
-<a href="../../nomicon/meet-safe-and-unsafe.html">invalid value</a>.</p>
+                           <td class='docblock-short'>
+                                <p>Reinterprets the bits of a value of one type as another type.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.transmute_copy.html'
                                   title='glitter::index_data::mem::transmute_copy'>transmute_copy</a></td>
-                           <td class='docblock short'>
-                                <p>Interprets <code>src</code> as <code>&amp;U</code>, and then reads <code>src</code> without moving the contained
-value.</p>
+                           <td class='docblock-short'>
+                                <p>Interprets <code>src</code> as having type <code>&amp;U</code>, and then reads <code>src</code> without moving
+the contained value.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.uninitialized.html'
                                   title='glitter::index_data::mem::uninitialized'>uninitialized</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Bypasses Rust&#39;s normal memory-initialization checks by pretending to
-produce a value of type T, while doing nothing at all.</p>
+produce a value of type <code>T</code>, while doing nothing at all.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='fn' href='fn.zeroed.html'
                                   title='glitter::index_data::mem::zeroed'>zeroed</a></td>
-                           <td class='docblock short'>
-                                <p>Creates a value initialized to zero.</p>
+                           <td class='docblock-short'>
+                                <p>Creates a value whose bytes are all zero.</p>
+                           </td>
+                       </tr>
+                       <tr class='unstable module-item'>
+                           <td><a class='fn' href='fn.discriminant.html'
+                                  title='glitter::index_data::mem::discriminant'>discriminant</a></td>
+                           <td class='docblock-short'>
+                               [<em class='stab unstable'>Unstable</em>] <p>Returns a value uniquely identifying the enum variant in <code>v</code>.</p>
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>
@@ -218,7 +230,7 @@ produce a value of type T, while doing nothing at all.</p>
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

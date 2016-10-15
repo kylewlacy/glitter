@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3563' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#1-544' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2345' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#1-544' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Contains a higher-level abstraction for creating vertex and index
 buffer.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
@@ -55,7 +55,7 @@ buffer.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.AttribBinder.html'
                                   title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A type used to perform operations on a list of program attributes. An
 instance of an <code>AttribBinder</code> can be created with the <a href="../macro.attrib_pointers!.html"><code>attrib_pointers!</code></a> macro or with the <a href="struct.AttribBinder.html#method.new"><code>new</code></a> method.</p>
                            </td>
@@ -63,7 +63,7 @@ instance of an <code>AttribBinder</code> can be created with the <a href="../mac
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.AttribError.html'
                                   title='glitter::vertex_buffer::AttribError'>AttribError</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An error generated when trying to iterate over the lists of attributes
 in an <a href="struct.AttribBinder.html"><code>AttribBinder</code></a>.</p>
                            </td>
@@ -71,7 +71,7 @@ in an <a href="struct.AttribBinder.html"><code>AttribBinder</code></a>.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.IndexBuffer.html'
                                   title='glitter::vertex_buffer::IndexBuffer'>IndexBuffer</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A buffer that contains index data. In addition to storing a buffer, an
 <code>IndexBuffer</code> store a count of the amount of <code>IndexData</code> that has been
 buffered.</p>
@@ -80,7 +80,7 @@ buffered.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.IndexBufferBinding.html'
                                   title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Represents an <a href="struct.IndexBuffer.html"><code>IndexBuffer</code></a> that has been
 bound to a context.</p>
                            </td>
@@ -88,7 +88,7 @@ bound to a context.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.VertexBuffer.html'
                                   title='glitter::vertex_buffer::VertexBuffer'>VertexBuffer</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>A buffer that contains vertex data. In addition to storing a buffer,
 a <code>VertexBuffer</code> stores an <a href="struct.AttribBinder.html"><code>AttribBinder</code></a>
 and a count of the amount of <code>VertexData</code> that has been buffered.</p>
@@ -97,7 +97,7 @@ and a count of the amount of <code>VertexData</code> that has been buffered.</p>
                        <tr class=' module-item'>
                            <td><a class='struct' href='struct.VertexBufferBinding.html'
                                   title='glitter::vertex_buffer::VertexBufferBinding'>VertexBufferBinding</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>Represents a <a href="struct.VertexBuffer.html"><code>VertexBuffer</code></a> that has
 been bound to a context.</p>
                            </td>
@@ -106,14 +106,14 @@ been bound to a context.</p>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.AttribAddError.html'
                                   title='glitter::vertex_buffer::AttribAddError'>AttribAddError</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An error generated when trying add an attribute to an <a href="struct.AttribBinder.html"><code>AttribBinder</code></a> using the <a href="struct.AttribBinder.html#method.add"><code>AttribBinder::add</code></a> method.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='enum' href='enum.VertexBindError.html'
                                   title='glitter::vertex_buffer::VertexBindError'>VertexBindError</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An error generated when binding vertex attributes.</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
@@ -121,7 +121,7 @@ been bound to a context.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.ContextVertexBufferExt.html'
                                   title='glitter::vertex_buffer::ContextVertexBufferExt'>ContextVertexBufferExt</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An extension trait that adds vertex buffer and index buffer-related methods
 to OpenGL contexts.</p>
                            </td>
@@ -129,14 +129,14 @@ to OpenGL contexts.</p>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.IndexBufferContext.html'
                                   title='glitter::vertex_buffer::IndexBufferContext'>IndexBufferContext</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An OpenGL context that can have an index buffer bound.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
                            <td><a class='trait' href='trait.VertexBufferContext.html'
                                   title='glitter::vertex_buffer::VertexBufferContext'>VertexBufferContext</a></td>
-                           <td class='docblock short'>
+                           <td class='docblock-short'>
                                 <p>An OpenGL context that can have a vertex buffer bound.</p>
                            </td>
                        </tr></table></section>
@@ -199,7 +199,7 @@ to OpenGL contexts.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -47,10 +47,8 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-551' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#187-192' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct FramebufferBuilder&lt;'a,&nbsp;C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></span> {
-    // some fields omitted
-}</pre><div class='docblock'><p>Provides a safe interface for building a framebuffer object that
+               </span><a id='src-404' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#187-192' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct FramebufferBuilder&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>Provides a safe interface for building a framebuffer object that
 is checked to be framebuffer-complete. A <code>FramebufferBuilder</code> can
 be created using the <a href="trait.ContextFramebufferBuilderExt.html#method.build_framebuffer"><code>gl.build_framebuffer</code></a> method.</p>
 
@@ -59,8 +57,8 @@ be created using the <a href="trait.ContextFramebufferBuilderExt.html#method.bui
 during construction. This should be fixed in a future release, but
 consider falling back to the more direct <a href="trait.ContextFramebufferExt.html#method.gen_framebuffer"><code>gl.gen_framebuffer</code></a> if this ends
 up being problematic.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a,&nbsp;C&gt; <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBuilder.html' title='glitter::context::framebuffer_context::FramebufferBuilder'>FramebufferBuilder</a>&lt;'a,&nbsp;C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-556' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#194-297' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.texture_2d' class='method'><span id='texture_2d.v' class='invisible'><code>fn <a href='#method.texture_2d' class='fnname'>texture_2d</a>(self, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, texture: &amp;'a mut <a class='type' href='../../../glitter/texture/type.Texture2d.html' title='glitter::texture::Texture2d'>Texture2d</a>, level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>) -&gt; Self</code></span></h4>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, C&gt; <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBuilder.html' title='glitter::context::framebuffer_context::FramebufferBuilder'>FramebufferBuilder</a>&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-409' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#194-297' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.texture_2d' class='method'><span id='texture_2d.v' class='invisible'><code>fn <a href='#method.texture_2d' class='fnname'>texture_2d</a>(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; texture: &amp;'a mut <a class='type' href='../../../glitter/texture/type.Texture2d.html' title='glitter::texture::Texture2d'>Texture2d</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; level: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i32.html'>i32</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; Self</code></span></h4>
 <div class='docblock'><p>Add a 2D texture (at the mipmap level specified by <code>level</code>) to the
 framebuffer&#39;s attachment point.</p>
 
@@ -73,9 +71,9 @@ textures are supported using a <code>FramebufferBuilder</code>. To bind a differ
 type of texture, use <a href="trait.ContextFramebufferExt.html#method.framebuffer_texture_2d"><code>gl.framebuffer_texture_2d</code></a>
 on an existing framebuffer object instead (generated either with
 a <code>FramebufferBuilder</code> or with <a href="trait.ContextFramebufferExt.html#method.gen_framebuffer"><code>gl.gen_framebuffer</code></a>).</p>
-</div><h4 id='method.renderbuffer' class='method'><span id='renderbuffer.v' class='invisible'><code>fn <a href='#method.renderbuffer' class='fnname'>renderbuffer</a>(self, attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>, renderbuffer: &amp;'a mut <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a>) -&gt; Self</code></span></h4>
+</div><h4 id='method.renderbuffer' class='method'><span id='renderbuffer.v' class='invisible'><code>fn <a href='#method.renderbuffer' class='fnname'>renderbuffer</a>(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attachment: <a class='enum' href='../../../glitter/context/framebuffer_context/enum.FramebufferAttachment.html' title='glitter::context::framebuffer_context::FramebufferAttachment'>FramebufferAttachment</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; renderbuffer: &amp;'a mut <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; Self</code></span></h4>
 <div class='docblock'><p>Add a renderbuffer to the framebuffer&#39;s attachment point.</p>
-</div><h4 id='method.try_unwrap' class='method'><span id='try_unwrap.v' class='invisible'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>,&nbsp;<a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h4>
+</div><h4 id='method.try_unwrap' class='method'><span id='try_unwrap.v' class='invisible'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>, <a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Create and return a framebuffer with the specified options, or
 return an error.</p>
 
@@ -153,7 +151,7 @@ assertions enabled.</p>
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

@@ -47,20 +47,18 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3591' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#42-44' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct AttribBinder {
-    // some fields omitted
-}</pre><div class='docblock'><p>A type used to perform operations on a list of program attributes. An
+               </span><a id='src-2354' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#42-44' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct AttribBinder { /* fields omitted */ }</pre><div class='docblock'><p>A type used to perform operations on a list of program attributes. An
 instance of an <code>AttribBinder</code> can be created with the <a href="../macro.attrib_pointers!.html"><code>attrib_pointers!</code></a> macro or with the <a href="struct.AttribBinder.html#method.new"><code>new</code></a> method.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
 <p>Currently, <code>AttribBinder</code> when both adding vertex attributes and when
 operating on vertex attributes. Consider using the direct lower-level
 glitter API&#39;s if heap allocations become a performance bottleneck.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glitter/vertex_buffer/struct.AttribBinder.html' title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3593' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#46-167' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glitter/vertex_buffer/struct.AttribBinder.html' title='glitter::vertex_buffer::AttribBinder'>AttribBinder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2356' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#46-167' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; Self</code></span></h4>
 <div class='docblock'><p>Create a new, empty <code>AttribBinder</code>.</p>
-</div><h4 id='method.add' class='method'><span id='add.v' class='invisible'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;mut self, name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, attrib: <a class='struct' href='../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='enum' href='../../glitter/vertex_buffer/enum.AttribAddError.html' title='glitter::vertex_buffer::AttribAddError'>AttribAddError</a>&gt;</code></span></h4>
+</div><h4 id='method.add' class='method'><span id='add.v' class='invisible'><code>fn <a href='#method.add' class='fnname'>add</a>(&amp;mut self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; attrib: <a class='struct' href='../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/vertex_buffer/enum.AttribAddError.html' title='glitter::vertex_buffer::AttribAddError'>AttribAddError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Add an attribute to the <code>AttribBinder</code>.</p>
 
 <h1 id='failures' class='section-header'><a href='#failures'>Failures</a></h1>
@@ -69,7 +67,7 @@ present.</p>
 
 <h1 id='note-1' class='section-header'><a href='#note-1'>Note</a></h1>
 <p>Each call to <code>add</code> can potentially cause a heap allocation.</p>
-</div><h4 id='method.enable' class='method'><span id='enable.v' class='invisible'><code>fn <a href='#method.enable' class='fnname'>enable</a>&lt;V,&nbsp;C&gt;(&amp;self, gl: &amp;mut C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span></h4>
+</div><h4 id='method.enable' class='method'><span id='enable.v' class='invisible'><code>fn <a href='#method.enable' class='fnname'>enable</a>&lt;V, C&gt;(&amp;self, gl: &amp;mut C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span></h4>
 <div class='docblock'><p>Enable all of the vertex attributes contained within the <code>AttribBinder</code>.
 The provided type of <code>VertexData</code> is used to to verify the list
 of attributes.</p>
@@ -83,7 +81,7 @@ contained by the <code>AttribBinder</code>.</p>
 <p>Currently, calling <code>enable</code> will perform a heap allocation. Consider
 using <a href="../context/trait.ContextExt.html#method.enable_vertex_attrib_array"><code>gl.enable_vertex_attrib_array</code></a>
 if this becomes a performance concern.</p>
-</div><h4 id='method.bind' class='method'><span id='bind.v' class='invisible'><code>fn <a href='#method.bind' class='fnname'>bind</a>&lt;V,&nbsp;C&gt;(&amp;self, gl: &amp;C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span></h4>
+</div><h4 id='method.bind' class='method'><span id='bind.v' class='invisible'><code>fn <a href='#method.bind' class='fnname'>bind</a>&lt;V, C&gt;(&amp;self, gl: &amp;C) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='../../glitter/vertex_buffer/struct.AttribError.html' title='glitter::vertex_buffer::AttribError'>AttribError</a>&gt; <span class='where'>where V: <a class='trait' href='../../glitter/vertex_data/trait.VertexData.html' title='glitter::vertex_data::VertexData'>VertexData</a>, C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span></h4>
 <div class='docblock'><p>Set up each vertex attribute with the appropriate attribute options
 (using <a href="http://docs.gl/es2/glVertexAttribPointer"><code>glVertexAttribPointer</code></a>). The <code>VertexData</code> type
 parameter is used to get the attribute options for each attribute.</p>
@@ -157,7 +155,7 @@ if this becomes a performance concern.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

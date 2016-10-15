@@ -47,9 +47,11 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-6281' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/fn.min_align_of.html?gotosrc=6281' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-1753' class='srclink' href='https://doc.rust-lang.org/nightly/core/mem/fn.min_align_of.html?gotosrc=1753' title='goto source code'>[src]</a></span></h1>
 <pre class='rust fn'>pub fn min_align_of&lt;T&gt;() -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></pre><div class='stability'><em class='stab deprecated'>Deprecated since 1.2.0<p>: use <code>align_of</code> instead</p>
-</em></div><div class='docblock'><p>Returns the ABI-required minimum alignment of a type</p>
+</em></div><div class='docblock'><p>Returns the <a href="https://en.wikipedia.org/wiki/Application_binary_interface">ABI</a>-required minimum alignment of a type.</p>
+
+<p>Every valid address of a value of the type <code>T</code> must be a multiple of this number.</p>
 
 <p>This is the alignment used for struct fields. It may be smaller than the preferred alignment.</p>
 
@@ -57,7 +59,7 @@
 <pre class='rust rust-example-rendered'>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
 
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>mem</span>::<span class='ident'>min_align_of</span>::<span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>());</pre>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='number'>4</span>, <span class='ident'>mem</span>::<span class='ident'>min_align_of</span>::<span class='op'>&lt;</span><span class='ident'>i32</span><span class='op'>&gt;</span>());<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -118,7 +120,7 @@
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

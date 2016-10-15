@@ -47,17 +47,17 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2708' class='srclink' href='../../src/glitter/src/shader.rs.html#207-416' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-2072' class='srclink' href='../../src/glitter/src/shader.rs.html#207-416' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait ContextShaderExt: <a class='trait' href='../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
-    unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>,&nbsp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt; { ... }
+    unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt; { ... }
     fn <a href='#method.shader_source' class='fnname'>shader_source</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, source: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) { ... }
-    fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt; { ... }
+    fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt; { ... }
     fn <a href='#method.get_shader_info_log' class='fnname'>get_shader_info_log</a>(&amp;self, shader: &amp;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt; { ... }
 }</pre><div class='docblock'><p>An extension trait that includes shader-related OpenGL methods.</p>
 </div>
             <h2 id='provided-methods'>Provided Methods</h2>
             <div class='methods'>
-        <h3 id='method.create_shader' class='method stab '><span id='create_shader.v' class='invisible'><code>unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>,&nbsp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h3><div class='docblock'><p>Create a new, uninitialized shader.</p>
+        <h3 id='method.create_shader' class='method stab '><span id='create_shader.v' class='invisible'><code>unsafe fn <a href='#method.create_shader' class='fnname'>create_shader</a>(&amp;self, shader_type: <a class='enum' href='../../glitter/shader/enum.ShaderType.html' title='glitter::shader::ShaderType'>ShaderType</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h3><div class='docblock'><p>Create a new, uninitialized shader.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>Most OpenGL functions that take a shader expect the shader to have
@@ -87,7 +87,7 @@ handle proper setup and compilation automatically.</p>
     <span class='ident'>gl</span>.<span class='ident'>compile_shader</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>shader</span>).<span class='ident'>unwrap</span>();
 
     <span class='ident'>shader</span>
-};</pre>
+};<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 
 <h1 id='see-also' class='section-header'><a href='#see-also'>See also</a></h1>
 <p><a href="trait.ContextShaderBuilderExt.html#tymethod.build_shader"><code>gl.build_shader</code></a>,
@@ -112,7 +112,7 @@ The preferred way to create and compile a shader object, which skips
 the need to directly call <code>gl.shader_source</code>.</p>
 
 <p><a href="http://docs.gl/es2/glShaderSource"><code>glShaderSource</code></a> OpenGL docs</p>
-</div><h3 id='method.compile_shader' class='method stab '><span id='compile_shader.v' class='invisible'><code>fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>,&nbsp;<a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h3><div class='docblock'><p>Compile the shader&#39;s associated source.</p>
+</div><h3 id='method.compile_shader' class='method stab '><span id='compile_shader.v' class='invisible'><code>fn <a href='#method.compile_shader' class='fnname'>compile_shader</a>(&amp;self, shader: &amp;mut <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h3><div class='docblock'><p>Compile the shader&#39;s associated source.</p>
 
 <h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
 <p>This function will panic if an OpenGL error occurs while trying to
@@ -162,7 +162,7 @@ if no such diagnostic information was generated.</p>
     <span class='comment'>// &quot;Shader compilation info: unused variable `someValue` on line 3&quot;</span>
     <span class='comment'>// (or whatever other diagnostics your graphics device</span>
     <span class='comment'>//  decides to output)</span>
-}</pre>
+}<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 
 <h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glGetShaderInfoLog"><code>glGetShaderInfoLog</code></a> OpenGL docs</p>
@@ -232,7 +232,7 @@ if no such diagnostic information was generated.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

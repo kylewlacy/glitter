@@ -170,6 +170,8 @@
 <span id="126">126</span>
 <span id="127">127</span>
 <span id="128">128</span>
+<span id="129">129</span>
+<span id="130">130</span>
 </pre><pre class='rust '>
 <span class='attribute'>#<span class='op'>!</span>[<span class='ident'>deny</span>(<span class='ident'>missing_docs</span>)]</span>
 
@@ -235,6 +237,7 @@
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>gl</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;cgmath&quot;</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>cgmath</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;image&quot;</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>image</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;nalgebra&quot;</span>)]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>nalgebra</span>;
 
 <span class='kw'>mod</span> <span class='ident'>to_ref</span>;
 
@@ -255,6 +258,7 @@
 
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;cgmath&quot;</span>)]</span> <span class='kw'>mod</span> <span class='ident'>cgmath_features</span>;
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;image&quot;</span>)]</span> <span class='kw'>mod</span> <span class='ident'>image_features</span>;
+<span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>feature</span> <span class='op'>=</span> <span class='string'>&quot;nalgebra&quot;</span>)]</span> <span class='kw'>mod</span> <span class='ident'>nalgebra_features</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>context</span>::<span class='op'>*</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>buffer</span>::<span class='op'>*</span>;
@@ -360,7 +364,7 @@
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

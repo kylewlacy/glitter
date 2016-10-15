@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3314' class='srclink' href='https://doc.rust-lang.org/nightly/collections/slice/trait.SliceConcatExt.html?gotosrc=3314' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-3127' class='srclink' href='https://doc.rust-lang.org/nightly/collections/slice/trait.SliceConcatExt.html?gotosrc=3127' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait SliceConcatExt&lt;T&gt; <span class='where'>where T: ?<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> {
     type <a href='#associatedtype.Output' class='type'>Output</a>;
     fn <a href='#tymethod.concat' class='fnname'>concat</a>(&amp;self) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a>;
@@ -67,18 +67,18 @@
 
 <h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
 <pre class='rust rust-example-rendered'>
-<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>concat</span>(), <span class='string'>&quot;helloworld&quot;</span>);</pre>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>concat</span>(), <span class='string'>&quot;helloworld&quot;</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h3 id='tymethod.join' class='method stab '><span id='join.v' class='invisible'><code>fn <a href='#tymethod.join' class='fnname'>join</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div></span></h3><div class='docblock'><p>Flattens a slice of <code>T</code> into a single value <code>Self::Output</code>, placing a
 given separator between each.</p>
 
 <h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
 <pre class='rust rust-example-rendered'>
-<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>join</span>(<span class='string'>&quot; &quot;</span>), <span class='string'>&quot;hello world&quot;</span>);</pre>
+<span class='macro'>assert_eq</span><span class='macro'>!</span>([<span class='string'>&quot;hello&quot;</span>, <span class='string'>&quot;world&quot;</span>].<span class='ident'>join</span>(<span class='string'>&quot; &quot;</span>), <span class='string'>&quot;hello world&quot;</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
 </div><h3 id='tymethod.connect' class='method stab  deprecated'><span id='connect.v' class='invisible'><code>fn <a href='#tymethod.connect' class='fnname'>connect</a>(&amp;self, sep: &amp;T) -&gt; Self::<a class='trait' href='../../../glitter/index_data/slice/trait.SliceConcatExt.html' title='glitter::index_data::slice::SliceConcatExt'>Output</a></code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h3><div class='stability'><em class='stab deprecated'>Deprecated since 1.3.0<p>: renamed to join</p>
 </em></div></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T,&nbsp;V&gt; SliceConcatExt&lt;T&gt; for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>V<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a> <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html' title='core::borrow::Borrow'>Borrow</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</span></code></li>
+    <li><code>impl&lt;T, V&gt; SliceConcatExt&lt;T&gt; for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>V<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a> <span class='where'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html' title='core::borrow::Borrow'>Borrow</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>&gt;</span></code></li>
 <li><code>impl&lt;S&gt; SliceConcatExt&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt; for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>S<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a> <span class='where'>where S: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.Borrow.html' title='core::borrow::Borrow'>Borrow</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/collections/slice/trait.SliceConcatExt.js">
@@ -142,7 +142,7 @@ given separator between each.</p>
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

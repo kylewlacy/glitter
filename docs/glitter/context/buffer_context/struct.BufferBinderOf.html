@@ -47,22 +47,20 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-397' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#505-509' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct BufferBinderOf&lt;A,&nbsp;E&gt; {
-    // some fields omitted
-}</pre><div class='docblock'><p>This type holds all of the OpenGL-state-related buffer objects. See the
+               </span><a id='src-303' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#505-509' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct BufferBinderOf&lt;A, E&gt; { /* fields omitted */ }</pre><div class='docblock'><p>This type holds all of the OpenGL-state-related buffer objects. See the
 <a href="../struct.ContextOf.html"><code>ContextOf</code></a> docs for more details.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;A,&nbsp;E&gt; <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A,&nbsp;E&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-404' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#515-571' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;A, E&gt; <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A, E&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a id='src-310' class='srclink' href='../../../src/glitter/src/context/buffer_context.rs.html#515-571' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.current' class='method'><span id='current.v' class='invisible'><code>unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; <a class='type' href='../../../glitter/context/buffer_context/type.BufferBinder.html' title='glitter::context::buffer_context::BufferBinder'>BufferBinder</a></code></span></h4>
 <div class='docblock'><p>Get the current buffer-object binders.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>The same rules apply to this method as the
 <a href="../struct.ContextOf.html#method.current_context"><code>ContextOf::current_context()</code> method</a>.</p>
-</div><h4 id='method.swap_array' class='method'><span id='swap_array.v' class='invisible'><code>fn <a href='#method.swap_array' class='fnname'>swap_array</a>&lt;NA&gt;(self, new_array: NA) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>A, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;NA,&nbsp;E&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h4>
+</div><h4 id='method.swap_array' class='method'><span id='swap_array.v' class='invisible'><code>fn <a href='#method.swap_array' class='fnname'>swap_array</a>&lt;NA&gt;(self, new_array: NA) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>A, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;NA, E&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h4>
 <div class='docblock'><p>Replace the array-buffer-related context with a new value, returning
 the old value and a new buffer context.</p>
-</div><h4 id='method.swap_element_array' class='method'><span id='swap_element_array.v' class='invisible'><code>fn <a href='#method.swap_element_array' class='fnname'>swap_element_array</a>&lt;NE&gt;(self, new_element_array: NE) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>E, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A,&nbsp;NE&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h4>
+</div><h4 id='method.swap_element_array' class='method'><span id='swap_element_array.v' class='invisible'><code>fn <a href='#method.swap_element_array' class='fnname'>swap_element_array</a>&lt;NE&gt;(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; new_element_array: NE)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>E, <a class='struct' href='../../../glitter/context/buffer_context/struct.BufferBinderOf.html' title='glitter::context::buffer_context::BufferBinderOf'>BufferBinderOf</a>&lt;A, NE&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h4>
 <div class='docblock'><p>Replace the element-array-buffer-related context with a new value,
 returning the old value and a new buffer context.</p>
 </div></div></section>
@@ -125,7 +123,7 @@ returning the old value and a new buffer context.</p>
     </script>
     <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
+    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

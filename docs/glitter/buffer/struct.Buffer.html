@@ -47,10 +47,8 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2529' class='srclink' href='../../src/glitter/src/buffer.rs.html#28-31' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Buffer {
-    // some fields omitted
-}</pre><div class='docblock'><p>An OpenGL buffer object.</p>
+               </span><a id='src-1998' class='srclink' href='../../src/glitter/src/buffer.rs.html#28-31' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Buffer { /* fields omitted */ }</pre><div class='docblock'><p>An OpenGL buffer object.</p>
 
 <p>In OpenGL, a buffer is essentially untyped, and what data it can contain
 only depends on how it is used. A buffer can be used to store vertices,
@@ -69,10 +67,10 @@ that are more suitable for buffering vertex and index data, respectively.</p>
 <p><a href="../context/buffer_context/trait.ArrayBufferContext.html#method.bind_array_buffer"><code>gl.bind_array_buffer</code></a>:
 and <a href="../context/buffer_context/trait.ElementArrayBufferContext.html#tymethod.split_element_array_buffer"><code>gl.bind_element_array_buffer</code></a>:
 Bind a buffer to a target, returning a buffer binding type.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2532' class='srclink' href='../../src/glitter/src/buffer.rs.html#33-39' title='goto source code'>[src]</a></span></h3>
+</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html' title='core::ops::Drop'>Drop</a> for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2001' class='srclink' href='../../src/glitter/src/buffer.rs.html#33-39' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.drop' class='method'><span id='drop.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></span></h4>
 <div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2535' class='srclink' href='../../src/glitter/src/buffer.rs.html#41-54' title='goto source code'>[src]</a></span></h3>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a> for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2004' class='srclink' href='../../src/glitter/src/buffer.rs.html#41-54' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='associatedtype.Id' class='type'><span id='Id.t' class='invisible'><code>type <a href='../../glitter/types/trait.GLObject.html#associatedtype.Id' class='type'>Id</a> = GLuint</code></span></h4>
 <div class='docblock'><p>The type of the object&#39;s internal ID.</p>
 </div><h4 id='method.from_raw' class='method'><span id='from_raw.v' class='invisible'><code>unsafe fn <a href='../../glitter/types/trait.GLObject.html#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::Id) -&gt; Self</code></span></h4>
@@ -141,7 +139,7 @@ Bind a buffer to a target, returning a buffer binding type.</p>
     </script>
     <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
+    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>
