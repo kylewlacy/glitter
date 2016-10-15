@@ -62,6 +62,7 @@
 extern crate gl;
 #[cfg(feature = "cgmath")] extern crate cgmath;
 #[cfg(feature = "image")] extern crate image;
+#[cfg(feature = "nalgebra")] extern crate nalgebra;
 
 mod to_ref;
 
@@ -82,6 +83,7 @@ pub mod types;
 
 #[cfg(feature = "cgmath")] mod cgmath_features;
 #[cfg(feature = "image")] mod image_features;
+#[cfg(feature = "nalgebra")] mod nalgebra_features;
 
 pub use context::*;
 pub use buffer::*;
