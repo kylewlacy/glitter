@@ -9,13 +9,15 @@
 
     <title>texture_context.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -567,530 +569,530 @@
 <span id="524">524</span>
 <span id="525">525</span>
 <span id="526">526</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Contains all of the OpenGL state types related to texture bindings.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Contains all of the OpenGL state types related to texture bindings.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>context</span>::{<span class='ident'>BaseContext</span>, <span class='ident'>TextureUnit0Context</span>, <span class='ident'>TextureUnitBinding2d</span>};
-<span class='kw'>use</span> <span class='ident'>texture</span>::{<span class='ident'>TextureMipmapFilter</span>, <span class='ident'>TextureFilter</span>, <span class='ident'>TextureWrapMode</span>,
-              <span class='ident'>Texture</span>, <span class='ident'>Texture2d</span>, <span class='ident'>TextureCubeMap</span>,
-              <span class='ident'>Tx2d</span>, <span class='ident'>TxCubeMap</span>, <span class='ident'>TextureType</span>, <span class='ident'>Tx2dImageTarget</span>,
-              <span class='ident'>ImageTargetType</span>, <span class='ident'>TextureBindingTarget</span>};
-<span class='kw'>use</span> <span class='ident'>image_data</span>::{<span class='ident'>Image2d</span>, <span class='ident'>TexelFormat</span>, <span class='ident'>ImageFormat</span>};
-<span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>GLObject</span>, <span class='ident'>GLError</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
+<span class="kw">use</span> <span class="ident">gl</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">context</span>::{<span class="ident">BaseContext</span>, <span class="ident">TextureUnit0Context</span>, <span class="ident">TextureUnitBinding2d</span>};
+<span class="kw">use</span> <span class="ident">texture</span>::{<span class="ident">TextureMipmapFilter</span>, <span class="ident">TextureFilter</span>, <span class="ident">TextureWrapMode</span>,
+              <span class="ident">Texture</span>, <span class="ident">Texture2d</span>, <span class="ident">TextureCubeMap</span>,
+              <span class="ident">Tx2d</span>, <span class="ident">TxCubeMap</span>, <span class="ident">TextureType</span>, <span class="ident">Tx2dImageTarget</span>,
+              <span class="ident">ImageTargetType</span>, <span class="ident">TextureBindingTarget</span>};
+<span class="kw">use</span> <span class="ident">image_data</span>::{<span class="ident">Image2d</span>, <span class="ident">TexelFormat</span>, <span class="ident">ImageFormat</span>};
+<span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">GLObject</span>, <span class="ident">GLError</span>};
 
-<span class='doccomment'>/// Provide a safe interface for building a 2D texture</span>
-<span class='doccomment'>/// object that is checked to be complete. A `Texture2dBuilder`</span>
-<span class='doccomment'>/// can be created using the [`gl.build_texture_2d`]</span>
-<span class='doccomment'>/// (trait.ContextTextureBuilderExt.html#method.build_texture_2d)</span>
-<span class='doccomment'>/// method.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Texture2dBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>C</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>TextureUnit0Context</span>
+<span class="doccomment">/// Provide a safe interface for building a 2D texture</span>
+<span class="doccomment">/// object that is checked to be complete. A `Texture2dBuilder`</span>
+<span class="doccomment">/// can be created using the [`gl.build_texture_2d`]</span>
+<span class="doccomment">/// (trait.ContextTextureBuilderExt.html#method.build_texture_2d)</span>
+<span class="doccomment">/// method.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Texture2dBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">C</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">TextureUnit0Context</span>
 {
-    <span class='ident'>gl</span>: <span class='ident'>C</span>,
-    <span class='ident'>min_filter</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TextureMipmapFilter</span><span class='op'>&gt;</span>,
-    <span class='ident'>mag_filter</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TextureFilter</span><span class='op'>&gt;</span>,
-    <span class='ident'>wrap_s</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TextureWrapMode</span><span class='op'>&gt;</span>,
-    <span class='ident'>wrap_t</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>TextureWrapMode</span><span class='op'>&gt;</span>,
-    <span class='ident'>gen_mipmap</span>: <span class='ident'>bool</span>,
-    <span class='ident'>image</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Image2d</span><span class='op'>&gt;</span>,
-    <span class='ident'>empty_params</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span>(<span class='ident'>ImageFormat</span>, <span class='ident'>u32</span>, <span class='ident'>u32</span>)<span class='op'>&gt;</span>
+    <span class="ident">gl</span>: <span class="ident">C</span>,
+    <span class="ident">min_filter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TextureMipmapFilter</span><span class="op">&gt;</span>,
+    <span class="ident">mag_filter</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TextureFilter</span><span class="op">&gt;</span>,
+    <span class="ident">wrap_s</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TextureWrapMode</span><span class="op">&gt;</span>,
+    <span class="ident">wrap_t</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">TextureWrapMode</span><span class="op">&gt;</span>,
+    <span class="ident">gen_mipmap</span>: <span class="ident">bool</span>,
+    <span class="ident">image</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Image2d</span><span class="op">&gt;</span>,
+    <span class="ident">empty_params</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">ImageFormat</span>, <span class="ident">u32</span>, <span class="ident">u32</span>)<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span><span class='op'>&gt;</span> <span class='ident'>Texture2dBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>C</span>: <span class='ident'>TextureUnit0Context</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span> <span class="ident">Texture2dBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">C</span>: <span class="ident">TextureUnit0Context</span>
 {
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>gl</span>: <span class='ident'>C</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Texture2dBuilder</span> {
-            <span class='ident'>gl</span>: <span class='ident'>gl</span>,
-            <span class='ident'>min_filter</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>mag_filter</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>wrap_s</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>wrap_t</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>gen_mipmap</span>: <span class='boolval'>false</span>,
-            <span class='ident'>image</span>: <span class='prelude-val'>None</span>,
-            <span class='ident'>empty_params</span>: <span class='prelude-val'>None</span>
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">gl</span>: <span class="ident">C</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Texture2dBuilder</span> {
+            <span class="ident">gl</span>: <span class="ident">gl</span>,
+            <span class="ident">min_filter</span>: <span class="prelude-val">None</span>,
+            <span class="ident">mag_filter</span>: <span class="prelude-val">None</span>,
+            <span class="ident">wrap_s</span>: <span class="prelude-val">None</span>,
+            <span class="ident">wrap_t</span>: <span class="prelude-val">None</span>,
+            <span class="ident">gen_mipmap</span>: <span class="bool-val">false</span>,
+            <span class="ident">image</span>: <span class="prelude-val">None</span>,
+            <span class="ident">empty_params</span>: <span class="prelude-val">None</span>
         }
     }
 
-    <span class='doccomment'>/// Set the 2D image data to fill the texture with.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>image_2d</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>image</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Image2d</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='self'>self</span>.<span class='ident'>image</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>image</span>);
-        <span class='self'>self</span>
+    <span class="doccomment">/// Set the 2D image data to fill the texture with.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">image_2d</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">image</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">Image2d</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">image</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">image</span>);
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Set the parameters for creating an empty texture.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>empty</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>format</span>: <span class='ident'>ImageFormat</span>, <span class='ident'>width</span>: <span class='ident'>u32</span>, <span class='ident'>height</span>: <span class='ident'>u32</span>)
-        <span class='op'>-&gt;</span> <span class='kw'>Self</span>
+    <span class="doccomment">/// Set the parameters for creating an empty texture.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">empty</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">format</span>: <span class="ident">ImageFormat</span>, <span class="ident">width</span>: <span class="ident">u32</span>, <span class="ident">height</span>: <span class="ident">u32</span>)
+        <span class="op">-&gt;</span> <span class="self">Self</span>
     {
-        <span class='self'>self</span>.<span class='ident'>empty_params</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>((<span class='ident'>format</span>, <span class='ident'>width</span>, <span class='ident'>height</span>));
-        <span class='self'>self</span>
+        <span class="self">self</span>.<span class="ident">empty_params</span> <span class="op">=</span> <span class="prelude-val">Some</span>((<span class="ident">format</span>, <span class="ident">width</span>, <span class="ident">height</span>));
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Automatically generate mipamps for the texture.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>generate_mipmap</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='self'>self</span>.<span class='ident'>gen_mipmap</span> <span class='op'>=</span> <span class='boolval'>true</span>;
-        <span class='self'>self</span>
+    <span class="doccomment">/// Automatically generate mipmaps for the texture.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">generate_mipmap</span>(<span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">gen_mipmap</span> <span class="op">=</span> <span class="bool-val">true</span>;
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Set the texture&#39;s minifying filter.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>min_filter</span><span class='op'>&lt;</span><span class='ident'>I</span><span class='op'>&gt;</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>filter</span>: <span class='ident'>I</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>
-        <span class='kw'>where</span> <span class='ident'>I</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='ident'>TextureMipmapFilter</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Set the texture&#39;s minifying filter.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">min_filter</span><span class="op">&lt;</span><span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">filter</span>: <span class="ident">I</span>) <span class="op">-&gt;</span> <span class="self">Self</span>
+        <span class="kw">where</span> <span class="ident">I</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">TextureMipmapFilter</span><span class="op">&gt;</span>
     {
-        <span class='self'>self</span>.<span class='ident'>min_filter</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>filter</span>.<span class='ident'>into</span>());
-        <span class='self'>self</span>
+        <span class="self">self</span>.<span class="ident">min_filter</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">filter</span>.<span class="ident">into</span>());
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Set the texture&#39;s magnifying filter.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>mag_filter</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>filter</span>: <span class='ident'>TextureFilter</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='self'>self</span>.<span class='ident'>mag_filter</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>filter</span>);
-        <span class='self'>self</span>
+    <span class="doccomment">/// Set the texture&#39;s magnifying filter.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">mag_filter</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">filter</span>: <span class="ident">TextureFilter</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">mag_filter</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">filter</span>);
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Set the texture&#39;s wrap mode for the s-coordinate.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wrap_s</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>wrap</span>: <span class='ident'>TextureWrapMode</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='self'>self</span>.<span class='ident'>wrap_s</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>wrap</span>);
-        <span class='self'>self</span>
+    <span class="doccomment">/// Set the texture&#39;s wrap mode for the s-coordinate.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wrap_s</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">TextureWrapMode</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">wrap_s</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">wrap</span>);
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Set the texture&#39;s wrap mode for the t-coordinate.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>wrap_t</span>(<span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>wrap</span>: <span class='ident'>TextureWrapMode</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='self'>self</span>.<span class='ident'>wrap_t</span> <span class='op'>=</span> <span class='prelude-val'>Some</span>(<span class='ident'>wrap</span>);
-        <span class='self'>self</span>
+    <span class="doccomment">/// Set the texture&#39;s wrap mode for the t-coordinate.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">wrap_t</span>(<span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">wrap</span>: <span class="ident">TextureWrapMode</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="self">self</span>.<span class="ident">wrap_t</span> <span class="op">=</span> <span class="prelude-val">Some</span>(<span class="ident">wrap</span>);
+        <span class="self">self</span>
     }
 
-    <span class='doccomment'>/// Create and return a texture with the specified options,</span>
-    <span class='doccomment'>/// or return an error.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Failures</span>
-    <span class='doccomment'>/// If any of the following conditions are met, an error</span>
-    <span class='doccomment'>/// will be returned:</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// - The texture is not complete.</span>
-    <span class='doccomment'>/// - The texture was set to be empty, but either the width</span>
-    <span class='doccomment'>///   or height were 0.</span>
-    <span class='doccomment'>/// - The texture was neither set to be empty with [`empty`]</span>
-    <span class='doccomment'>///   (struct.Texture2dBuilder.html#method.empty), nor had</span>
-    <span class='doccomment'>///   any image data supplied with [`image_2d`]</span>
-    <span class='doccomment'>///   (struct.Texture2dBuilder.html#method.image_2d).</span>
-    <span class='doccomment'>/// - The texture had a mipmap filter set for the [`min_filter`]</span>
-    <span class='doccomment'>///   (struct.Texture2dBuilder.html#method.min_filter), but</span>
-    <span class='doccomment'>///   mimaps were not generated using [`generate_mipmaps`]</span>
-    <span class='doccomment'>///   (struct.Texture2dBuilder.html#method.generate_mipmap).</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>try_unwrap</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Texture2d</span>, <span class='ident'>GLError</span><span class='op'>&gt;</span> {
-        <span class='kw'>use</span> <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>MipmapFilter</span>;
+    <span class="doccomment">/// Create and return a texture with the specified options,</span>
+    <span class="doccomment">/// or return an error.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Failures</span>
+    <span class="doccomment">/// If any of the following conditions are met, an error</span>
+    <span class="doccomment">/// will be returned:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// - The texture is not complete.</span>
+    <span class="doccomment">/// - The texture was set to be empty, but either the width</span>
+    <span class="doccomment">///   or height were 0.</span>
+    <span class="doccomment">/// - The texture was neither set to be empty with [`empty`]</span>
+    <span class="doccomment">///   (struct.Texture2dBuilder.html#method.empty), nor had</span>
+    <span class="doccomment">///   any image data supplied with [`image_2d`]</span>
+    <span class="doccomment">///   (struct.Texture2dBuilder.html#method.image_2d).</span>
+    <span class="doccomment">/// - The texture had a mipmap filter set for the [`min_filter`]</span>
+    <span class="doccomment">///   (struct.Texture2dBuilder.html#method.min_filter), but</span>
+    <span class="doccomment">///   mimaps were not generated using [`generate_mipmaps`]</span>
+    <span class="doccomment">///   (struct.Texture2dBuilder.html#method.generate_mipmap).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_unwrap</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Texture2d</span>, <span class="ident">GLError</span><span class="op">&gt;</span> {
+        <span class="kw">use</span> <span class="ident">TextureMipmapFilter</span>::<span class="ident">MipmapFilter</span>;
 
-        <span class='kw'>let</span> <span class='ident'>gl</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>gl</span>;
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>texture</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { <span class='ident'>gl</span>.<span class='ident'>gen_texture</span>() };
+        <span class="kw">let</span> <span class="ident">gl</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">gl</span>;
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">texture</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="ident">gl</span>.<span class="ident">gen_texture</span>() };
 
         {
-            <span class='kw'>let</span> (<span class='ident'>gl_tex_unit</span>, <span class='ident'>gl</span>) <span class='op'>=</span> <span class='ident'>gl</span>.<span class='ident'>active_texture_0</span>();
-            <span class='kw'>let</span> (<span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>, _) <span class='op'>=</span> <span class='ident'>gl_tex_unit</span>.<span class='ident'>bind_texture_2d</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>texture</span>);
+            <span class="kw">let</span> (<span class="ident">gl_tex_unit</span>, <span class="ident">gl</span>) <span class="op">=</span> <span class="ident">gl</span>.<span class="ident">active_texture_0</span>();
+            <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">gl_tex</span>, _) <span class="op">=</span> <span class="ident">gl_tex_unit</span>.<span class="ident">bind_texture_2d</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">texture</span>);
 
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>min_filter</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>min_filter</span> {
-                <span class='ident'>gl</span>.<span class='ident'>set_min_filter</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>, <span class='ident'>min_filter</span>);
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">min_filter</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">min_filter</span> {
+                <span class="ident">gl</span>.<span class="ident">set_min_filter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>, <span class="ident">min_filter</span>);
             }
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>mag_filter</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>mag_filter</span> {
-                <span class='ident'>gl</span>.<span class='ident'>set_mag_filter</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>, <span class='ident'>mag_filter</span>);
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">mag_filter</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">mag_filter</span> {
+                <span class="ident">gl</span>.<span class="ident">set_mag_filter</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>, <span class="ident">mag_filter</span>);
             }
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>wrap_s</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>wrap_s</span> {
-                <span class='ident'>gl</span>.<span class='ident'>set_wrap_s</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>, <span class='ident'>wrap_s</span>);
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">wrap_s</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">wrap_s</span> {
+                <span class="ident">gl</span>.<span class="ident">set_wrap_s</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>, <span class="ident">wrap_s</span>);
             }
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>wrap_t</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>wrap_t</span> {
-                <span class='ident'>gl</span>.<span class='ident'>set_wrap_t</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>, <span class='ident'>wrap_t</span>);
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">wrap_t</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">wrap_t</span> {
+                <span class="ident">gl</span>.<span class="ident">set_wrap_t</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>, <span class="ident">wrap_t</span>);
             }
 
-            <span class='comment'>// TODO: Find out what conditions lead to a non-complete texture</span>
-            <span class='comment'>//       (e.g. if either width or height are 0)</span>
-            <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>image</span>) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>image</span> {
-                <span class='ident'>gl</span>.<span class='ident'>tex_image_2d</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>,
-                                <span class='ident'>Tx2dImageTarget</span>::<span class='ident'>Texture2d</span>,
-                                <span class='number'>0</span>,
-                                <span class='ident'>image</span>);
+            <span class="comment">// TODO: Find out what conditions lead to a non-complete texture</span>
+            <span class="comment">//       (e.g. if either width or height are 0)</span>
+            <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">image</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">image</span> {
+                <span class="ident">gl</span>.<span class="ident">tex_image_2d</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>,
+                                <span class="ident">Tx2dImageTarget</span>::<span class="ident">Texture2d</span>,
+                                <span class="number">0</span>,
+                                <span class="ident">image</span>);
             }
-            <span class='kw'>else</span> <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>((<span class='ident'>format</span>, <span class='ident'>width</span>, <span class='ident'>height</span>)) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>empty_params</span> {
-                <span class='ident'>gl</span>.<span class='ident'>tex_image_2d_empty</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>,
-                                      <span class='ident'>Tx2dImageTarget</span>::<span class='ident'>Texture2d</span>,
-                                      <span class='number'>0</span>,
-                                      <span class='ident'>format</span>,
-                                      <span class='ident'>width</span>,
-                                      <span class='ident'>height</span>);
+            <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>((<span class="ident">format</span>, <span class="ident">width</span>, <span class="ident">height</span>)) <span class="op">=</span> <span class="self">self</span>.<span class="ident">empty_params</span> {
+                <span class="ident">gl</span>.<span class="ident">tex_image_2d_empty</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>,
+                                      <span class="ident">Tx2dImageTarget</span>::<span class="ident">Texture2d</span>,
+                                      <span class="number">0</span>,
+                                      <span class="ident">format</span>,
+                                      <span class="ident">width</span>,
+                                      <span class="ident">height</span>);
 
-                <span class='kw'>if</span> <span class='op'>!</span>(<span class='ident'>width</span> <span class='op'>&gt;</span> <span class='number'>0</span> <span class='op'>&amp;&amp;</span> <span class='ident'>height</span> <span class='op'>&gt;</span> <span class='number'>0</span>) {
-                    <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='string'>&quot;Error building texture: texture must have positive dimensions&quot;</span>;
-                    <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='ident'>msg</span>.<span class='ident'>to_owned</span>()))
+                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">width</span> <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">height</span> <span class="op">&gt;</span> <span class="number">0</span>) {
+                    <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Error building texture: texture must have positive dimensions&quot;</span>;
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="ident">msg</span>.<span class="ident">to_owned</span>()))
                 }
             }
-            <span class='kw'>else</span> {
-                <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='string'>&quot;Error building texture: neither an image nor a format were provided&quot;</span>;
-                <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='ident'>msg</span>.<span class='ident'>to_owned</span>()))
+            <span class="kw">else</span> {
+                <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Error building texture: neither an image nor a format were provided&quot;</span>;
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="ident">msg</span>.<span class="ident">to_owned</span>()))
             }
 
-            <span class='kw'>if</span> <span class='self'>self</span>.<span class='ident'>gen_mipmap</span> {
-                <span class='ident'>gl</span>.<span class='ident'>generate_mipmap</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>gl_tex</span>);
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">gen_mipmap</span> {
+                <span class="ident">gl</span>.<span class="ident">generate_mipmap</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">gl_tex</span>);
             }
-            <span class='kw'>else</span> <span class='kw'>if</span> <span class='kw'>let</span> <span class='prelude-val'>Some</span>(<span class='ident'>MipmapFilter</span> {..}) <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>min_filter</span> {
-                    <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='string'>&quot;Error building texture: texture uses a mipmap filter but does not have a mipmap&quot;</span>;
-                    <span class='kw'>return</span> <span class='prelude-val'>Err</span>(<span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='ident'>msg</span>.<span class='ident'>to_owned</span>()));
+            <span class="kw">else</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">MipmapFilter</span> {..}) <span class="op">=</span> <span class="self">self</span>.<span class="ident">min_filter</span> {
+                    <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Error building texture: texture uses a mipmap filter but does not have a mipmap&quot;</span>;
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="ident">msg</span>.<span class="ident">to_owned</span>()));
             }
         }
 
-        <span class='prelude-val'>Ok</span>(<span class='ident'>texture</span>)
+        <span class="prelude-val">Ok</span>(<span class="ident">texture</span>)
     }
 
-    <span class='doccomment'>/// Create a texture with the specified options, or panic.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Panic</span>
-    <span class='doccomment'>/// See the [`try_unwrap`](struct.Texture2dBuilder.html#method.try_unwrap)</span>
-    <span class='doccomment'>/// method docs for all of the possible failure cases when building</span>
-    <span class='doccomment'>/// a texture.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>unwrap</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Texture2d</span> {
-        <span class='self'>self</span>.<span class='ident'>try_unwrap</span>().<span class='ident'>unwrap</span>()
-    }
-}
-
-<span class='comment'>// NOTE: There is currently no way to express &quot;a context with</span>
-<span class='comment'>//       one free texure unit&quot;; this design should be explored for</span>
-<span class='comment'>//       cases like this (where the actual unit number doesn&#39;t matter)</span>
-<span class='doccomment'>/// The extension trait for contexts that adds the `build_texture_2d` method.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Note</span>
-<span class='doccomment'>/// Currently, this trait is only implemented for contexts where the</span>
-<span class='doccomment'>/// 0th texture unit is free.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ContextTextureBuilderExt</span>: <span class='ident'>TextureUnit0Context</span> <span class='op'>+</span> <span class='ident'>Sized</span> {
-    <span class='doccomment'>/// Create a new 2D texture builder, providing a safe interface</span>
-    <span class='doccomment'>/// for constructing a 2D texture object. See the [`Texture2dBuilder`]</span>
-    <span class='doccomment'>/// (struct.Texture2dBuilder.html) docs for more details.</span>
-    <span class='kw'>fn</span> <span class='ident'>build_texture_2d</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Texture2dBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='kw'>Self</span><span class='op'>&gt;</span> {
-        <span class='ident'>Texture2dBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>)
+    <span class="doccomment">/// Create a texture with the specified options, or panic.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Panic</span>
+    <span class="doccomment">/// See the [`try_unwrap`](struct.Texture2dBuilder.html#method.try_unwrap)</span>
+    <span class="doccomment">/// method docs for all of the possible failure cases when building</span>
+    <span class="doccomment">/// a texture.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unwrap</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Texture2d</span> {
+        <span class="self">self</span>.<span class="ident">try_unwrap</span>().<span class="ident">unwrap</span>()
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span>: <span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>ContextTextureBuilderExt</span> <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>C</span>
-    <span class='kw'>where</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>C</span>: <span class='ident'>TextureUnit0Context</span>
+<span class="comment">// NOTE: There is currently no way to express &quot;a context with</span>
+<span class="comment">//       one free texure unit&quot;; this design should be explored for</span>
+<span class="comment">//       cases like this (where the actual unit number doesn&#39;t matter)</span>
+<span class="doccomment">/// The extension trait for contexts that adds the `build_texture_2d` method.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Note</span>
+<span class="doccomment">/// Currently, this trait is only implemented for contexts where the</span>
+<span class="doccomment">/// 0th texture unit is free.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextTextureBuilderExt</span>: <span class="ident">TextureUnit0Context</span> <span class="op">+</span> <span class="ident">Sized</span> {
+    <span class="doccomment">/// Create a new 2D texture builder, providing a safe interface</span>
+    <span class="doccomment">/// for constructing a 2D texture object. See the [`Texture2dBuilder`]</span>
+    <span class="doccomment">/// (struct.Texture2dBuilder.html) docs for more details.</span>
+    <span class="kw">fn</span> <span class="ident">build_texture_2d</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Texture2dBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span> {
+        <span class="ident">Texture2dBuilder</span>::<span class="ident">new</span>(<span class="self">self</span>)
+    }
+}
+
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ContextTextureBuilderExt</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">C</span>
+    <span class="kw">where</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">C</span>: <span class="ident">TextureUnit0Context</span>
 {
 
 }
 
 
 
-<span class='doccomment'>/// An extension trait that includes texture-related OpenGL methods.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ContextTextureExt</span>: <span class='ident'>BaseContext</span> {
-    <span class='doccomment'>/// Create a new texture with no storage or image data.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// Many OpenGL functions assume a texture object will be [texture-complete]</span>
-    <span class='doccomment'>/// (https://www.opengl.org/wiki/Texture_Storage#Texture_completeness).</span>
-    <span class='doccomment'>/// Violating this invariant is considered undefined behavior.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`gl.build_texture_2d`](trait.ContextTextureBuilderExt.html#method.build_texture_2d):</span>
-    <span class='doccomment'>/// A safe wrapper for building 2D textures.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`glGenTextures`](http://docs.gl/es2/glGenTextures) OpenGL docs</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>gen_texture</span><span class='op'>&lt;</span><span class='ident'>TX</span>: <span class='ident'>TextureType</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>TX</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>id</span> : <span class='ident'>GLuint</span> <span class='op'>=</span>  <span class='number'>0</span>;
+<span class="doccomment">/// An extension trait that includes texture-related OpenGL methods.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextTextureExt</span>: <span class="ident">BaseContext</span> {
+    <span class="doccomment">/// Create a new texture with no storage or image data.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// Many OpenGL functions assume a texture object will be [texture-complete]</span>
+    <span class="doccomment">/// (https://www.opengl.org/wiki/Texture_Storage#Texture_completeness).</span>
+    <span class="doccomment">/// Violating this invariant is considered undefined behavior.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`gl.build_texture_2d`](trait.ContextTextureBuilderExt.html#method.build_texture_2d):</span>
+    <span class="doccomment">/// A safe wrapper for building 2D textures.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`glGenTextures`](http://docs.gl/es2/glGenTextures) OpenGL docs</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">gen_texture</span><span class="op">&lt;</span><span class="ident">TX</span>: <span class="ident">TextureType</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">TX</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">id</span> : <span class="ident">GLuint</span> <span class="op">=</span>  <span class="number">0</span>;
 
-        <span class='ident'>gl</span>::<span class='ident'>GenTextures</span>(<span class='number'>1</span>, <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>id</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GLuint</span>);
-        <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`n` is negative&quot;</span>,
-            _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+        <span class="ident">gl</span>::<span class="ident">GenTextures</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">id</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GLuint</span>);
+        <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+            <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`n` is negative&quot;</span>,
+            _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
         }
 
-        <span class='ident'>Texture</span>::<span class='ident'>from_raw</span>(<span class='ident'>id</span>)
+        <span class="ident">Texture</span>::<span class="ident">from_raw</span>(<span class="ident">id</span>)
     }
 
-    <span class='doccomment'>/// Set a texture&#39;s minifying filter.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>set_min_filter</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>, <span class='ident'>filter</span>: <span class='ident'>F</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>, <span class='ident'>F</span>: <span class='ident'>Into</span><span class='op'>&lt;</span><span class='ident'>TextureMipmapFilter</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Set a texture&#39;s minifying filter.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">set_min_filter</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>, <span class="ident">filter</span>: <span class="ident">F</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>, <span class="ident">F</span>: <span class="ident">Into</span><span class="op">&lt;</span><span class="ident">TextureMipmapFilter</span><span class="op">&gt;</span>
     {
-        <span class='kw'>let</span> <span class='ident'>gl_int</span> <span class='op'>=</span> <span class='ident'>filter</span>.<span class='ident'>into</span>().<span class='ident'>gl_enum</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>;
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_parameter_iv</span>(<span class='ident'>gl_texture</span>.<span class='ident'>target</span>(),
-                              <span class='ident'>gl</span>::<span class='ident'>TEXTURE_MIN_FILTER</span>,
-                              <span class='kw-2'>&amp;</span><span class='ident'>gl_int</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>);
-        }
-    }
-
-    <span class='doccomment'>/// Set a texture&#39;s magnifying filter.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>set_mag_filter</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>, <span class='ident'>filter</span>: <span class='ident'>TextureFilter</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>
-    {
-        <span class='kw'>let</span> <span class='ident'>gl_int</span> <span class='op'>=</span> <span class='ident'>filter</span>.<span class='ident'>gl_enum</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>;
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_parameter_iv</span>(<span class='ident'>gl_texture</span>.<span class='ident'>target</span>(),
-                              <span class='ident'>gl</span>::<span class='ident'>TEXTURE_MAG_FILTER</span>,
-                              <span class='kw-2'>&amp;</span><span class='ident'>gl_int</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>);
+        <span class="kw">let</span> <span class="ident">gl_int</span> <span class="op">=</span> <span class="ident">filter</span>.<span class="ident">into</span>().<span class="ident">gl_enum</span>() <span class="kw">as</span> <span class="ident">GLint</span>;
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_parameter_iv</span>(<span class="ident">gl_texture</span>.<span class="ident">target</span>(),
+                              <span class="ident">gl</span>::<span class="ident">TEXTURE_MIN_FILTER</span>,
+                              <span class="kw-2">&amp;</span><span class="ident">gl_int</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>);
         }
     }
 
-    <span class='doccomment'>/// Set a texture&#39;s wrap mode for the s-coordinate.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>set_wrap_s</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>, <span class='ident'>wrap_mode</span>: <span class='ident'>TextureWrapMode</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>
+    <span class="doccomment">/// Set a texture&#39;s magnifying filter.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">set_mag_filter</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>, <span class="ident">filter</span>: <span class="ident">TextureFilter</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>
     {
-        <span class='kw'>let</span> <span class='ident'>gl_int</span> <span class='op'>=</span> <span class='ident'>wrap_mode</span>.<span class='ident'>gl_enum</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>;
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_parameter_iv</span>(<span class='ident'>gl_texture</span>.<span class='ident'>target</span>(),
-                              <span class='ident'>gl</span>::<span class='ident'>TEXTURE_WRAP_S</span>,
-                              <span class='kw-2'>&amp;</span><span class='ident'>gl_int</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>);
+        <span class="kw">let</span> <span class="ident">gl_int</span> <span class="op">=</span> <span class="ident">filter</span>.<span class="ident">gl_enum</span>() <span class="kw">as</span> <span class="ident">GLint</span>;
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_parameter_iv</span>(<span class="ident">gl_texture</span>.<span class="ident">target</span>(),
+                              <span class="ident">gl</span>::<span class="ident">TEXTURE_MAG_FILTER</span>,
+                              <span class="kw-2">&amp;</span><span class="ident">gl_int</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>);
         }
     }
 
-    <span class='doccomment'>/// Set a texture&#39;s wrap mode for the t-coordinate.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>set_wrap_t</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>, <span class='ident'>wrap_mode</span>: <span class='ident'>TextureWrapMode</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>
+    <span class="doccomment">/// Set a texture&#39;s wrap mode for the s-coordinate.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">set_wrap_s</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>, <span class="ident">wrap_mode</span>: <span class="ident">TextureWrapMode</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>
     {
-        <span class='kw'>let</span> <span class='ident'>gl_int</span> <span class='op'>=</span> <span class='ident'>wrap_mode</span>.<span class='ident'>gl_enum</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>;
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_parameter_iv</span>(<span class='ident'>gl_texture</span>.<span class='ident'>target</span>(),
-                              <span class='ident'>gl</span>::<span class='ident'>TEXTURE_WRAP_T</span>,
-                              <span class='kw-2'>&amp;</span><span class='ident'>gl_int</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>);
+        <span class="kw">let</span> <span class="ident">gl_int</span> <span class="op">=</span> <span class="ident">wrap_mode</span>.<span class="ident">gl_enum</span>() <span class="kw">as</span> <span class="ident">GLint</span>;
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_parameter_iv</span>(<span class="ident">gl_texture</span>.<span class="ident">target</span>(),
+                              <span class="ident">gl</span>::<span class="ident">TEXTURE_WRAP_S</span>,
+                              <span class="kw-2">&amp;</span><span class="ident">gl_int</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>);
         }
     }
 
-    <span class='doccomment'>/// Generate a set of mipmaps for a texture object.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glGenerateMipmap`](http://docs.gl/es2/glGenerateMipmap) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>generate_mipmap</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>
+    <span class="doccomment">/// Set a texture&#39;s wrap mode for the t-coordinate.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glTexParameter`](http://docs.gl/es2/glTexParameter) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">set_wrap_t</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>, <span class="ident">wrap_mode</span>: <span class="ident">TextureWrapMode</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>
     {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>GenerateMipmap</span>(<span class='ident'>gl_texture</span>.<span class='ident'>target</span>().<span class='ident'>gl_enum</span>())
+        <span class="kw">let</span> <span class="ident">gl_int</span> <span class="op">=</span> <span class="ident">wrap_mode</span>.<span class="ident">gl_enum</span>() <span class="kw">as</span> <span class="ident">GLint</span>;
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_parameter_iv</span>(<span class="ident">gl_texture</span>.<span class="ident">target</span>(),
+                              <span class="ident">gl</span>::<span class="ident">TEXTURE_WRAP_T</span>,
+                              <span class="kw-2">&amp;</span><span class="ident">gl_int</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>);
         }
     }
 
-    <span class='doccomment'>/// Upload 2D image data to a texture object&#39;s image target.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// - `_gl_texture`: The binding of the texture object.</span>
-    <span class='doccomment'>/// - `target`: The texture&#39;s 2D image target to upload the image data to.</span>
-    <span class='doccomment'>/// - `level`: The mipmap level to upload the image data to.</span>
-    <span class='doccomment'>/// - `img`: The image data to upload.</span>
-    <span class='kw'>fn</span> <span class='ident'>tex_image_2d</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>U</span>, <span class='ident'>I</span>: ?<span class='ident'>Sized</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>,
-                                     <span class='ident'>_gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>,
-                                     <span class='ident'>target</span>: <span class='ident'>U</span>,
-                                     <span class='ident'>level</span>: <span class='ident'>u32</span>,
-                                     <span class='ident'>img</span>: <span class='kw-2'>&amp;</span><span class='ident'>I</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>,
-              <span class='ident'>U</span>: <span class='ident'>Into</span><span class='op'>&lt;&lt;</span><span class='ident'>T</span>::<span class='ident'>TextureType</span> <span class='kw'>as</span> <span class='ident'>TextureType</span><span class='op'>&gt;</span>::<span class='ident'>ImageTargetType</span><span class='op'>&gt;</span>,
-              <span class='ident'>I</span>: <span class='ident'>Image2d</span>
+    <span class="doccomment">/// Generate a set of mipmaps for a texture object.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glGenerateMipmap`](http://docs.gl/es2/glGenerateMipmap) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">generate_mipmap</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>
     {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_image_2d</span>(<span class='ident'>target</span>.<span class='ident'>into</span>(),
-                          <span class='ident'>level</span>,
-                          <span class='ident'>img</span>.<span class='ident'>format</span>().<span class='ident'>texel_format</span>,
-                          <span class='ident'>img</span>.<span class='ident'>width</span>() <span class='kw'>as</span> <span class='ident'>u32</span>,
-                          <span class='ident'>img</span>.<span class='ident'>height</span>() <span class='kw'>as</span> <span class='ident'>u32</span>,
-                          <span class='number'>0</span>,
-                          <span class='ident'>img</span>.<span class='ident'>format</span>(),
-                          <span class='ident'>img</span>.<span class='ident'>texel_bytes</span>().<span class='ident'>as_ptr</span>());
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">GenerateMipmap</span>(<span class="ident">gl_texture</span>.<span class="ident">target</span>().<span class="ident">gl_enum</span>())
         }
     }
 
-    <span class='doccomment'>/// Set a texture object&#39;s image target to an empty image</span>
-    <span class='doccomment'>/// with the specified parameters.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// - `_gl_texture`: The binding of the texture object.</span>
-    <span class='doccomment'>/// - `target`: The texture&#39;s 2D image target to set.</span>
-    <span class='doccomment'>/// - `level`: The mipmap level to set.</span>
-    <span class='doccomment'>/// - `format`: The image format to use to use for the</span>
-    <span class='doccomment'>///             texture&#39;s data store.</span>
-    <span class='doccomment'>/// - `width`: The width to set for the texture&#39;s data store.</span>
-    <span class='doccomment'>/// - `height`: The height to set for the texture&#39;s data store.</span>
-    <span class='kw'>fn</span> <span class='ident'>tex_image_2d_empty</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>I</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>,
-                                <span class='ident'>_gl_texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>T</span>,
-                                <span class='ident'>target</span>: <span class='ident'>I</span>,
-                                <span class='ident'>level</span>: <span class='ident'>u32</span>,
-                                <span class='ident'>format</span>: <span class='ident'>ImageFormat</span>,
-                                <span class='ident'>width</span>: <span class='ident'>u32</span>,
-                                <span class='ident'>height</span>: <span class='ident'>u32</span>)
-        <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>TextureBinding</span>, <span class='ident'>I</span>: <span class='ident'>ImageTargetType</span>
+    <span class="doccomment">/// Upload 2D image data to a texture object&#39;s image target.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// - `_gl_texture`: The binding of the texture object.</span>
+    <span class="doccomment">/// - `target`: The texture&#39;s 2D image target to upload the image data to.</span>
+    <span class="doccomment">/// - `level`: The mipmap level to upload the image data to.</span>
+    <span class="doccomment">/// - `img`: The image data to upload.</span>
+    <span class="kw">fn</span> <span class="ident">tex_image_2d</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">U</span>, <span class="ident">I</span>: <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>,
+                                     <span class="ident">_gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>,
+                                     <span class="ident">target</span>: <span class="ident">U</span>,
+                                     <span class="ident">level</span>: <span class="ident">u32</span>,
+                                     <span class="ident">img</span>: <span class="kw-2">&amp;</span><span class="ident">I</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>,
+              <span class="ident">U</span>: <span class="ident">Into</span><span class="op">&lt;&lt;</span><span class="ident">T</span>::<span class="ident">TextureType</span> <span class="kw">as</span> <span class="ident">TextureType</span><span class="op">&gt;</span>::<span class="ident">ImageTargetType</span><span class="op">&gt;</span>,
+              <span class="ident">I</span>: <span class="ident">Image2d</span>
     {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_tex_image_2d</span>(<span class='ident'>target</span>,
-                          <span class='ident'>level</span>,
-                          <span class='ident'>format</span>.<span class='ident'>texel_format</span>,
-                          <span class='ident'>width</span>,
-                          <span class='ident'>height</span>,
-                          <span class='number'>0</span>,
-                          <span class='ident'>format</span>,
-                          <span class='ident'>ptr</span>::<span class='ident'>null</span>());
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_image_2d</span>(<span class="ident">target</span>.<span class="ident">into</span>(),
+                          <span class="ident">level</span>,
+                          <span class="ident">img</span>.<span class="ident">format</span>().<span class="ident">texel_format</span>,
+                          <span class="ident">img</span>.<span class="ident">width</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+                          <span class="ident">img</span>.<span class="ident">height</span>() <span class="kw">as</span> <span class="ident">u32</span>,
+                          <span class="number">0</span>,
+                          <span class="ident">img</span>.<span class="ident">format</span>(),
+                          <span class="ident">img</span>.<span class="ident">texel_bytes</span>().<span class="ident">as_ptr</span>());
+        }
+    }
+
+    <span class="doccomment">/// Set a texture object&#39;s image target to an empty image</span>
+    <span class="doccomment">/// with the specified parameters.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// - `_gl_texture`: The binding of the texture object.</span>
+    <span class="doccomment">/// - `target`: The texture&#39;s 2D image target to set.</span>
+    <span class="doccomment">/// - `level`: The mipmap level to set.</span>
+    <span class="doccomment">/// - `format`: The image format to use to use for the</span>
+    <span class="doccomment">///             texture&#39;s data store.</span>
+    <span class="doccomment">/// - `width`: The width to set for the texture&#39;s data store.</span>
+    <span class="doccomment">/// - `height`: The height to set for the texture&#39;s data store.</span>
+    <span class="kw">fn</span> <span class="ident">tex_image_2d_empty</span><span class="op">&lt;</span><span class="ident">T</span>, <span class="ident">I</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>,
+                                <span class="ident">_gl_texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">T</span>,
+                                <span class="ident">target</span>: <span class="ident">I</span>,
+                                <span class="ident">level</span>: <span class="ident">u32</span>,
+                                <span class="ident">format</span>: <span class="ident">ImageFormat</span>,
+                                <span class="ident">width</span>: <span class="ident">u32</span>,
+                                <span class="ident">height</span>: <span class="ident">u32</span>)
+        <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">TextureBinding</span>, <span class="ident">I</span>: <span class="ident">ImageTargetType</span>
+    {
+        <span class="kw">unsafe</span> {
+            <span class="ident">_tex_image_2d</span>(<span class="ident">target</span>,
+                          <span class="ident">level</span>,
+                          <span class="ident">format</span>.<span class="ident">texel_format</span>,
+                          <span class="ident">width</span>,
+                          <span class="ident">height</span>,
+                          <span class="number">0</span>,
+                          <span class="ident">format</span>,
+                          <span class="ident">ptr</span>::<span class="ident">null</span>());
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>BaseContext</span><span class='op'>&gt;</span> <span class='ident'>ContextTextureExt</span> <span class='kw'>for</span> <span class='ident'>C</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">BaseContext</span><span class="op">&gt;</span> <span class="ident">ContextTextureExt</span> <span class="kw">for</span> <span class="ident">C</span> {
 
 }
 
 
 
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>_tex_parameter_iv</span>(<span class='ident'>target</span>: <span class='ident'>TextureBindingTarget</span>,
-                            <span class='ident'>pname</span>: <span class='ident'>GLenum</span>,
-                            <span class='ident'>params</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>)
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_tex_parameter_iv</span>(<span class="ident">target</span>: <span class="ident">TextureBindingTarget</span>,
+                            <span class="ident">pname</span>: <span class="ident">GLenum</span>,
+                            <span class="ident">params</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>)
 {
-    <span class='ident'>gl</span>::<span class='ident'>TexParameteriv</span>(<span class='ident'>target</span>.<span class='ident'>gl_enum</span>(), <span class='ident'>pname</span>, <span class='ident'>params</span>);
-    <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`target` or `pname` is not an accepted defined value, or `params` should have defined a symbolic constant and does not&quot;</span>,
-        _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="ident">gl</span>::<span class="ident">TexParameteriv</span>(<span class="ident">target</span>.<span class="ident">gl_enum</span>(), <span class="ident">pname</span>, <span class="ident">params</span>);
+    <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+        <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`target` or `pname` is not an accepted defined value, or `params` should have defined a symbolic constant and does not&quot;</span>,
+        _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>_tex_image_2d</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>ImageTargetType</span><span class='op'>&gt;</span>(<span class='ident'>target</span>: <span class='ident'>T</span>,
-                                            <span class='ident'>level</span>: <span class='ident'>u32</span>,
-                                            <span class='ident'>internal_format</span>: <span class='ident'>TexelFormat</span>,
-                                            <span class='ident'>width</span>: <span class='ident'>u32</span>,
-                                            <span class='ident'>height</span>: <span class='ident'>u32</span>,
-                                            <span class='ident'>border</span>: <span class='ident'>u32</span>,
-                                            <span class='ident'>format</span>: <span class='ident'>ImageFormat</span>,
-                                            <span class='ident'>image_ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span>) {
-    <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>internal_format</span> <span class='op'>==</span> <span class='ident'>format</span>.<span class='ident'>texel_format</span>);
-    <span class='ident'>gl</span>::<span class='ident'>TexImage2D</span>(<span class='ident'>target</span>.<span class='ident'>gl_enum</span>(),
-                   <span class='ident'>level</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                   <span class='ident'>internal_format</span>.<span class='ident'>gl_enum</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                   <span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                   <span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                   <span class='ident'>border</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                   <span class='ident'>format</span>.<span class='ident'>texel_format</span>.<span class='ident'>gl_enum</span>(),
-                   <span class='ident'>format</span>.<span class='ident'>texel_type</span>.<span class='ident'>gl_enum</span>(),
-                   <span class='ident'>image_ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLvoid</span>);
-    <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`target`, `format`, or `type` is not an accepted value&quot;</span>,
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value&quot;</span>,
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`format` conflicts with either `internalformat` or `type`&quot;</span>,
-        _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_tex_image_2d</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">ImageTargetType</span><span class="op">&gt;</span>(<span class="ident">target</span>: <span class="ident">T</span>,
+                                            <span class="ident">level</span>: <span class="ident">u32</span>,
+                                            <span class="ident">internal_format</span>: <span class="ident">TexelFormat</span>,
+                                            <span class="ident">width</span>: <span class="ident">u32</span>,
+                                            <span class="ident">height</span>: <span class="ident">u32</span>,
+                                            <span class="ident">border</span>: <span class="ident">u32</span>,
+                                            <span class="ident">format</span>: <span class="ident">ImageFormat</span>,
+                                            <span class="ident">image_ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>) {
+    <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">internal_format</span> <span class="op">==</span> <span class="ident">format</span>.<span class="ident">texel_format</span>);
+    <span class="ident">gl</span>::<span class="ident">TexImage2D</span>(<span class="ident">target</span>.<span class="ident">gl_enum</span>(),
+                   <span class="ident">level</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                   <span class="ident">internal_format</span>.<span class="ident">gl_enum</span>() <span class="kw">as</span> <span class="ident">GLint</span>,
+                   <span class="ident">width</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                   <span class="ident">height</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                   <span class="ident">border</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                   <span class="ident">format</span>.<span class="ident">texel_format</span>.<span class="ident">gl_enum</span>(),
+                   <span class="ident">format</span>.<span class="ident">texel_type</span>.<span class="ident">gl_enum</span>(),
+                   <span class="ident">image_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLvoid</span>);
+    <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+        <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`target`, `format`, or `type` is not an accepted value&quot;</span>,
+        <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`target`, `level`, `internalformat`, `width`, `height`, or `border` is an invalid value&quot;</span>,
+        <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`format` conflicts with either `internalformat` or `type`&quot;</span>,
+        _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
     }
 }
 
-<span class='doccomment'>/// Represents a texture that has been bound to a texture unit.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TextureBinding</span> {
-    <span class='doccomment'>/// The type of texture that this binding represents.</span>
-    <span class='kw'>type</span> <span class='ident'>TextureType</span>: <span class='ident'>TextureType</span>;
+<span class="doccomment">/// Represents a texture that has been bound to a texture unit.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TextureBinding</span> {
+    <span class="doccomment">/// The type of texture that this binding represents.</span>
+    <span class="kw">type</span> <span class="ident">TextureType</span>: <span class="ident">TextureType</span>;
 
-    <span class='doccomment'>/// The OpenGL texture target of this binding.</span>
-    <span class='kw'>fn</span> <span class='ident'>target</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span>;
+    <span class="doccomment">/// The OpenGL texture target of this binding.</span>
+    <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span>;
 }
 
-<span class='doccomment'>/// Represents a texture that has been bound to the `GL_TEXTURE_2D` binding</span>
-<span class='doccomment'>/// target of a texture unit.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Texture2dBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-    <span class='ident'>_phantom_ref</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>Texture2d</span><span class='op'>&gt;</span>,
-    <span class='ident'>_phantom_ptr</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// Represents a texture that has been bound to the `GL_TEXTURE_2D` binding</span>
+<span class="doccomment">/// target of a texture unit.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Texture2dBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="ident">_phantom_ref</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Texture2d</span><span class="op">&gt;</span>,
+    <span class="ident">_phantom_ptr</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>TextureBinding</span> <span class='kw'>for</span> <span class='ident'>Texture2dBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-    <span class='kw'>type</span> <span class='ident'>TextureType</span> <span class='op'>=</span> <span class='ident'>Tx2d</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TextureBinding</span> <span class="kw">for</span> <span class="ident">Texture2dBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">TextureType</span> <span class="op">=</span> <span class="ident">Tx2d</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>target</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span> {
-        <span class='ident'>Tx2d</span>::<span class='ident'>target</span>()
+    <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span> {
+        <span class="ident">Tx2d</span>::<span class="ident">target</span>()
     }
 }
 
-<span class='doccomment'>/// Represents a texture that has been bound to the `GL_TEXTURE_CUBE_MAP`</span>
-<span class='doccomment'>/// binding target of a texture unit.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TextureCubeMapBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-    <span class='ident'>_phantom_ref</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>TextureCubeMap</span><span class='op'>&gt;</span>,
-    <span class='ident'>_phantom_ptr</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// Represents a texture that has been bound to the `GL_TEXTURE_CUBE_MAP`</span>
+<span class="doccomment">/// binding target of a texture unit.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextureCubeMapBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="ident">_phantom_ref</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">TextureCubeMap</span><span class="op">&gt;</span>,
+    <span class="ident">_phantom_ptr</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>TextureBinding</span> <span class='kw'>for</span> <span class='ident'>TextureCubeMapBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
-    <span class='kw'>type</span> <span class='ident'>TextureType</span> <span class='op'>=</span> <span class='ident'>TxCubeMap</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">TextureBinding</span> <span class="kw">for</span> <span class="ident">TextureCubeMapBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">TextureType</span> <span class="op">=</span> <span class="ident">TxCubeMap</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>target</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span> {
-        <span class='ident'>TxCubeMap</span>::<span class='ident'>target</span>()
+    <span class="kw">fn</span> <span class="ident">target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span> {
+        <span class="ident">TxCubeMap</span>::<span class="ident">target</span>()
     }
 }
 
 
 
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>_bind_texture</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>TextureType</span><span class='op'>&gt;</span>(<span class='ident'>texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>) {
-    <span class='ident'>gl</span>::<span class='ident'>BindTexture</span>(<span class='ident'>T</span>::<span class='ident'>target</span>().<span class='ident'>gl_enum</span>(), <span class='ident'>texture</span>.<span class='ident'>id</span>());
-    <span class='macro'>dbg_gl_error</span><span class='macro'>!</span> {
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`target` is not one of the allowed values&quot;</span>,
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`texture` was created with a target that doesn&#39;t match `target`&quot;</span>,
-        _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_bind_texture</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TextureType</span><span class="op">&gt;</span>(<span class="ident">texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>) {
+    <span class="ident">gl</span>::<span class="ident">BindTexture</span>(<span class="ident">T</span>::<span class="ident">target</span>().<span class="ident">gl_enum</span>(), <span class="ident">texture</span>.<span class="ident">id</span>());
+    <span class="macro">dbg_gl_error</span><span class="macro">!</span> {
+        <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`target` is not one of the allowed values&quot;</span>,
+        <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`texture` was created with a target that doesn&#39;t match `target`&quot;</span>,
+        _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
     }
 }
 
-<span class='doccomment'>/// The OpenGL texture unit state that represents the `GL_TEXTURE_2D`</span>
-<span class='doccomment'>/// target.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Texture2dBinder</span> {
-    <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// The OpenGL texture unit state that represents the `GL_TEXTURE_2D`</span>
+<span class="doccomment">/// target.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Texture2dBinder</span> {
+    <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Texture2dBinder</span> {
-    <span class='doccomment'>/// Get the current `GL_TEXTURE_2D` binder.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// The same rules apply to this method as the</span>
-    <span class='doccomment'>/// [`ContextOf::current_context()`]</span>
-    <span class='doccomment'>/// (../struct.ContextOf.html#method.current_context) method.</span>
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>current</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Texture2dBinder</span> {
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+<span class="kw">impl</span> <span class="ident">Texture2dBinder</span> {
+    <span class="doccomment">/// Get the current `GL_TEXTURE_2D` binder.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// The same rules apply to this method as the</span>
+    <span class="doccomment">/// [`ContextOf::current_context()`]</span>
+    <span class="doccomment">/// (../struct.ContextOf.html#method.current_context) method.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">current</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Texture2dBinder</span> {
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='doccomment'>/// Bind a texture to the `GL_TEXTURE_2D` target,</span>
-    <span class='doccomment'>/// returning a binding.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bind</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>texture</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Texture2d</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>Texture2dBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Bind a texture to the `GL_TEXTURE_2D` target,</span>
+    <span class="doccomment">/// returning a binding.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">texture</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Texture2d</span>)
+        <span class="op">-&gt;</span> <span class="ident">Texture2dBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
     {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_bind_texture</span>(<span class='ident'>texture</span>);
+        <span class="kw">unsafe</span> {
+            <span class="ident">_bind_texture</span>(<span class="ident">texture</span>);
         }
-        <span class='ident'>Texture2dBinding</span> {
-            <span class='ident'>_phantom_ref</span>: <span class='ident'>PhantomData</span>,
-            <span class='ident'>_phantom_ptr</span>: <span class='ident'>PhantomData</span>
+        <span class="ident">Texture2dBinding</span> {
+            <span class="ident">_phantom_ref</span>: <span class="ident">PhantomData</span>,
+            <span class="ident">_phantom_ptr</span>: <span class="ident">PhantomData</span>
         }
     }
 }
 
-<span class='doccomment'>/// The OpenGL texture unit state that represents the `GL_TEXTURE_CUBE_MAP`</span>
-<span class='doccomment'>/// target.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TextureCubeMapBinder</span> {
-    <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// The OpenGL texture unit state that represents the `GL_TEXTURE_CUBE_MAP`</span>
+<span class="doccomment">/// target.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TextureCubeMapBinder</span> {
+    <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>TextureCubeMapBinder</span> {
-    <span class='doccomment'>/// Get the current `GL_TEXTURE_CUBE_MAP` binder.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// The same rules apply to this method as the</span>
-    <span class='doccomment'>/// [`ContextOf::current_context()`]</span>
-    <span class='doccomment'>/// (../struct.ContextOf.html#method.current_context) method.</span>
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>current</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>TextureCubeMapBinder</span> {
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+<span class="kw">impl</span> <span class="ident">TextureCubeMapBinder</span> {
+    <span class="doccomment">/// Get the current `GL_TEXTURE_CUBE_MAP` binder.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// The same rules apply to this method as the</span>
+    <span class="doccomment">/// [`ContextOf::current_context()`]</span>
+    <span class="doccomment">/// (../struct.ContextOf.html#method.current_context) method.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">current</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">TextureCubeMapBinder</span> {
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='doccomment'>/// Bind a texture to the `GL_TEXTURE_CUBE_MAP` target,</span>
-    <span class='doccomment'>/// returning a binding.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>bind</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>texture</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>TextureCubeMap</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>TextureCubeMapBinding</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Bind a texture to the `GL_TEXTURE_CUBE_MAP` target,</span>
+    <span class="doccomment">/// returning a binding.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bind</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">texture</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">TextureCubeMap</span>)
+        <span class="op">-&gt;</span> <span class="ident">TextureCubeMapBinding</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
     {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>_bind_texture</span>(<span class='ident'>texture</span>);
+        <span class="kw">unsafe</span> {
+            <span class="ident">_bind_texture</span>(<span class="ident">texture</span>);
         }
-        <span class='ident'>TextureCubeMapBinding</span> {
-            <span class='ident'>_phantom_ref</span>: <span class='ident'>PhantomData</span>,
-            <span class='ident'>_phantom_ptr</span>: <span class='ident'>PhantomData</span>
+        <span class="ident">TextureCubeMapBinding</span> {
+            <span class="ident">_phantom_ref</span>: <span class="ident">PhantomData</span>,
+            <span class="ident">_phantom_ptr</span>: <span class="ident">PhantomData</span>
         }
     }
 }
@@ -1112,12 +1114,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1138,7 +1144,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -1149,11 +1155,8 @@
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

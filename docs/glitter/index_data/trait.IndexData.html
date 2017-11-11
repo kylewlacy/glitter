@@ -9,6 +9,7 @@
 
     <title>glitter::index_data::IndexData - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>index_data</a></p><script>window.sidebarCurrent = {name: 'IndexData', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait IndexData</p><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.index_datum_type">index_datum_type</a><a href="#tymethod.index_bytes">index_bytes</a><a href="#tymethod.index_elements">index_elements</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-IndexData">[T]</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>index_data</a></p><script>window.sidebarCurrent = {name: 'IndexData', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,29 +43,40 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>index_data</a>::<wbr><a class='trait' href=''>IndexData</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>index_data</a>::<wbr><a class="trait" href=''>IndexData</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2536' class='srclink' href='../../src/glitter/src/index_data.rs.html#18-27' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/index_data.rs.html#18-27' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait IndexData {
-    fn <a href='#tymethod.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class='enum' href='../../glitter/index_data/enum.IndexDatumType.html' title='glitter::index_data::IndexDatumType'>IndexDatumType</a>;
-    fn <a href='#tymethod.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>;
-    fn <a href='#tymethod.index_elements' class='fnname'>index_elements</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class="enum" href="../../glitter/index_data/enum.IndexDatumType.html" title="enum glitter::index_data::IndexDatumType">IndexDatumType</a>;
+<div class='item-spacer'></div>    fn <a href='#tymethod.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>;
+<div class='item-spacer'></div>    fn <a href='#tymethod.index_elements' class='fnname'>index_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>;
 }</pre><div class='docblock'><p>Indicates that a type can be coerced to a <code>u8</code> slice that can
 be treated as a stream of index data.</p>
 </div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.index_datum_type' class='method stab '><span id='index_datum_type.v' class='invisible'><code>fn <a href='#tymethod.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class='enum' href='../../glitter/index_data/enum.IndexDatumType.html' title='glitter::index_data::IndexDatumType'>IndexDatumType</a></code></span></h3><div class='docblock'><p>Return the data type that this index data should be treated as.</p>
-</div><h3 id='tymethod.index_bytes' class='method stab '><span id='index_bytes.v' class='invisible'><code>fn <a href='#tymethod.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></span></h3><div class='docblock'><p>Create a byte slice of index data from <code>self</code>.</p>
-</div><h3 id='tymethod.index_elements' class='method stab '><span id='index_elements.v' class='invisible'><code>fn <a href='#tymethod.index_elements' class='fnname'>index_elements</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h3><div class='docblock'><p>Return the number of index elements that <code>self</code> contains.</p>
+        <h3 id='tymethod.index_datum_type' class='method'><span id='index_datum_type.v' class='invisible'><code>fn <a href='#tymethod.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class="enum" href="../../glitter/index_data/enum.IndexDatumType.html" title="enum glitter::index_data::IndexDatumType">IndexDatumType</a></code></span></h3><div class='docblock'><p>Return the data type that this index data should be treated as.</p>
+</div><h3 id='tymethod.index_bytes' class='method'><span id='index_bytes.v' class='invisible'><code>fn <a href='#tymethod.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span></h3><div class='docblock'><p>Create a byte slice of index data from <code>self</code>.</p>
+</div><h3 id='tymethod.index_elements' class='method'><span id='index_elements.v' class='invisible'><code>fn <a href='#tymethod.index_elements' class='fnname'>index_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span></h3><div class='docblock'><p>Return the number of index elements that <code>self</code> contains.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+                <h2 id='foreign-impls' class='small-section-header'>
+                  Implementations on Foreign Types<a href='#foreign-impls' class='anchor'></a>
+                </h2>
+            <h3 id='impl-IndexData' class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class="trait" href="../../glitter/index_data/trait.IndexDatum.html" title="trait glitter::index_data::IndexDatum">IndexDatum</a>&gt; <a class="trait" href="../../glitter/index_data/trait.IndexData.html" title="trait glitter::index_data::IndexData">IndexData</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a>T<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code><a href='#impl-IndexData' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/index_data.rs.html#53-68' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.index_datum_type' class="method"><span id='index_datum_type.v-1' class='invisible'><code>fn <a href='#method.index_datum_type' class='fnname'>index_datum_type</a>() -&gt; <a class="enum" href="../../glitter/index_data/enum.IndexDatumType.html" title="enum glitter::index_data::IndexDatumType">IndexDatumType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/index_data.rs.html#54-56' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.index_bytes' class="method"><span id='index_bytes.v-1' class='invisible'><code>fn <a href='#method.index_bytes' class='fnname'>index_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/index_data.rs.html#58-63' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.index_elements' class="method"><span id='index_elements.v-1' class='invisible'><code>fn <a href='#method.index_elements' class='fnname'>index_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/index_data.rs.html#65-67' title='goto source code'>[src]</a></span></h4>
+</div></span>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a>&gt; IndexData for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></li>
-</ul><script type="text/javascript" async
+    </ul><script type="text/javascript" async
                          src="../../implementors/glitter/index_data/trait.IndexData.js">
                  </script></section>
     <section id='search' class="content hidden"></section>
@@ -83,13 +95,15 @@ be treated as a stream of index data.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -122,11 +136,8 @@ be treated as a stream of index data.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

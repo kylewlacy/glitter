@@ -9,13 +9,15 @@
 
     <title>texture.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -461,425 +463,425 @@
 <span id="418">418</span>
 <span id="419">419</span>
 <span id="420">420</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Exposes the OpenGL [`Texture`](struct.Texture.html) family of objects and</span>
-<span class='doccomment'>//! related types.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Exposes the OpenGL [`Texture`](struct.Texture.html) family of objects and</span>
+<span class="doccomment">//! related types.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>GLObject</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
+<span class="kw">use</span> <span class="ident">gl</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">types</span>::<span class="ident">GLObject</span>;
 
-<span class='doccomment'>/// A type of OpenGL texture.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// OpenGL supports a multitude of different types of textures. The simplest</span>
-<span class='doccomment'>/// of these is a [`Texture2d`](type.Texture2d.html), which is, as the name</span>
-<span class='doccomment'>/// suggests, a flat, 2-dimensional image. Textures serve two primary purposes</span>
-<span class='doccomment'>/// in OpenGL: to be used in a [`Shader`](../shader/struct.Shader.html) to</span>
-<span class='doccomment'>/// be used while drawing (such as to paint a polygon with an image), or</span>
-<span class='doccomment'>/// to be used as an attachment for a [`Framebuffer`]</span>
-<span class='doccomment'>/// (../framebuffer/struct.Framebuffer.html), which can be used for</span>
-<span class='doccomment'>/// postprocessing effects (such as applying a gaussian blur to a scene).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// In glitter, the `Texture` type has a generic type parameter, which is used</span>
-<span class='doccomment'>/// to represent, at the type level, what type of image data a specific</span>
-<span class='doccomment'>/// texture contains. For simplicity, the [`Texture2d`](type.Texture2d.html)</span>
-<span class='doccomment'>/// and [`TextureCubeMap`](type.TextureCubeMap.html) type aliases are provided.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// All textures will be automatically deleted after going out of scope.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// For details about the different types of textures</span>
-<span class='doccomment'>/// read the documentation for the [`TextureBindingTarget`]</span>
-<span class='doccomment'>/// (enum.TextureBindingTarget.html) enum. For more details about the</span>
-<span class='doccomment'>/// generic type parameter of the `Texture` type, read the documentation for</span>
-<span class='doccomment'>/// the [`TextureType`](trait.TextureType.html) trait.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # See also</span>
-<span class='doccomment'>/// [`gl.build_texture_2d`](trait.ContextTextureBuilderExt.html#method.build_texture_2d):</span>
-<span class='doccomment'>/// Build a new [`Texture2d`](type.Texture2d.html).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [`gl.gen_texture`](../context/texture_context/trait.ContextTextureExt.html#method.gen_texture):</span>
-<span class='doccomment'>/// Create a new, uninitialized texture. Note that this is currently the only</span>
-<span class='doccomment'>/// way to create textures that aren&#39;t 2D.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [`context::texture_units`](../context/texture_units/index.html): The module</span>
-<span class='doccomment'>/// with details details about binding a texture in a context.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>TextureType</span><span class='op'>&gt;</span> {
-    <span class='ident'>gl_id</span>: <span class='ident'>GLuint</span>,
-    <span class='ident'>phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>T</span><span class='op'>&gt;</span>
+<span class="doccomment">/// A type of OpenGL texture.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// OpenGL supports a multitude of different types of textures. The simplest</span>
+<span class="doccomment">/// of these is a [`Texture2d`](type.Texture2d.html), which is, as the name</span>
+<span class="doccomment">/// suggests, a flat, 2-dimensional image. Textures serve two primary purposes</span>
+<span class="doccomment">/// in OpenGL: to be used in a [`Shader`](../shader/struct.Shader.html) to</span>
+<span class="doccomment">/// be used while drawing (such as to paint a polygon with an image), or</span>
+<span class="doccomment">/// to be used as an attachment for a [`Framebuffer`]</span>
+<span class="doccomment">/// (../framebuffer/struct.Framebuffer.html), which can be used for</span>
+<span class="doccomment">/// postprocessing effects (such as applying a gaussian blur to a scene).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// In glitter, the `Texture` type has a generic type parameter, which is used</span>
+<span class="doccomment">/// to represent, at the type level, what type of image data a specific</span>
+<span class="doccomment">/// texture contains. For simplicity, the [`Texture2d`](type.Texture2d.html)</span>
+<span class="doccomment">/// and [`TextureCubeMap`](type.TextureCubeMap.html) type aliases are provided.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// All textures will be automatically deleted after going out of scope.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// For details about the different types of textures</span>
+<span class="doccomment">/// read the documentation for the [`TextureBindingTarget`]</span>
+<span class="doccomment">/// (enum.TextureBindingTarget.html) enum. For more details about the</span>
+<span class="doccomment">/// generic type parameter of the `Texture` type, read the documentation for</span>
+<span class="doccomment">/// the [`TextureType`](trait.TextureType.html) trait.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # See also</span>
+<span class="doccomment">/// [`gl.build_texture_2d`](trait.ContextTextureBuilderExt.html#method.build_texture_2d):</span>
+<span class="doccomment">/// Build a new [`Texture2d`](type.Texture2d.html).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`gl.gen_texture`](../context/texture_context/trait.ContextTextureExt.html#method.gen_texture):</span>
+<span class="doccomment">/// Create a new, uninitialized texture. Note that this is currently the only</span>
+<span class="doccomment">/// way to create textures that aren&#39;t 2D.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`context::texture_units`](../context/texture_units/index.html): The module</span>
+<span class="doccomment">/// with details details about binding a texture in a context.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TextureType</span><span class="op">&gt;</span> {
+    <span class="ident">gl_id</span>: <span class="ident">GLuint</span>,
+    <span class="ident">phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">T</span><span class="op">&gt;</span>
 }
 
-<span class='doccomment'>/// An OpenGL texture with 2-dimensional image data.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// See the documentation for [`Texture`](struct.Texture.html) for</span>
-<span class='doccomment'>/// more details about textures in glitter, and [`TextureBindingTarget`]</span>
-<span class='doccomment'>/// (enum.TextureBindingTarget) for details about the different types</span>
-<span class='doccomment'>/// of textures.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Texture2d</span> <span class='op'>=</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>Tx2d</span><span class='op'>&gt;</span>;
+<span class="doccomment">/// An OpenGL texture with 2-dimensional image data.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See the documentation for [`Texture`](struct.Texture.html) for</span>
+<span class="doccomment">/// more details about textures in glitter, and [`TextureBindingTarget`]</span>
+<span class="doccomment">/// (enum.TextureBindingTarget) for details about the different types</span>
+<span class="doccomment">/// of textures.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Texture2d</span> <span class="op">=</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">Tx2d</span><span class="op">&gt;</span>;
 
-<span class='doccomment'>/// An OpenGL texture used to hold a cubemap texture, made up of 6</span>
-<span class='doccomment'>/// 2-dimensional images (one for each face of a cube).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// See the documentation for [`Texture`](struct.Texture.html) for</span>
-<span class='doccomment'>/// more details about textures in glitter, and [`TextureBindingTarget`]</span>
-<span class='doccomment'>/// (enum.TextureBindingTarget) for details about the different types</span>
-<span class='doccomment'>/// of textures.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>TextureCubeMap</span> <span class='op'>=</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>TxCubeMap</span><span class='op'>&gt;</span>;
+<span class="doccomment">/// An OpenGL texture used to hold a cubemap texture, made up of 6</span>
+<span class="doccomment">/// 2-dimensional images (one for each face of a cube).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See the documentation for [`Texture`](struct.Texture.html) for</span>
+<span class="doccomment">/// more details about textures in glitter, and [`TextureBindingTarget`]</span>
+<span class="doccomment">/// (enum.TextureBindingTarget) for details about the different types</span>
+<span class="doccomment">/// of textures.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">TextureCubeMap</span> <span class="op">=</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">TxCubeMap</span><span class="op">&gt;</span>;
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>TextureType</span><span class='op'>&gt;</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>DeleteTextures</span>(<span class='number'>1</span>, <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>gl_id</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLuint</span>);
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TextureType</span><span class="op">&gt;</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">DeleteTextures</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">gl_id</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLuint</span>);
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>TextureType</span><span class='op'>&gt;</span> <span class='ident'>GLObject</span> <span class='kw'>for</span> <span class='ident'>Texture</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='kw'>type</span> <span class='ident'>Id</span> <span class='op'>=</span> <span class='ident'>GLuint</span>;
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">TextureType</span><span class="op">&gt;</span> <span class="ident">GLObject</span> <span class="kw">for</span> <span class="ident">Texture</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="kw">type</span> <span class="ident">Id</span> <span class="op">=</span> <span class="ident">GLuint</span>;
 
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>id</span>: <span class='ident'>Self</span>::<span class='ident'>Id</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Texture</span> {
-            <span class='ident'>gl_id</span>: <span class='ident'>id</span>,
-            <span class='ident'>phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">id</span>: <span class="self">Self</span>::<span class="ident">Id</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Texture</span> {
+            <span class="ident">gl_id</span>: <span class="ident">id</span>,
+            <span class="ident">phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Id</span> {
-        <span class='self'>self</span>.<span class='ident'>gl_id</span>
+    <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Id</span> {
+        <span class="self">self</span>.<span class="ident">gl_id</span>
     }
 }
 
 
 
-<span class='doccomment'>/// A trait implemented for types that are used to represent all of the</span>
-<span class='doccomment'>/// possible 2D images that make up a specific implementation of</span>
-<span class='doccomment'>/// [`TextureType`](trait.TextureType.html). For more details, read the</span>
-<span class='doccomment'>/// [`TextureType`](trait.TextureType.html) documentation.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ImageTargetType</span> {
-    <span class='doccomment'>/// Get the raw OpenGL enum value for an image target.</span>
-    <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span>;
+<span class="doccomment">/// A trait implemented for types that are used to represent all of the</span>
+<span class="doccomment">/// possible 2D images that make up a specific implementation of</span>
+<span class="doccomment">/// [`TextureType`](trait.TextureType.html). For more details, read the</span>
+<span class="doccomment">/// [`TextureType`](trait.TextureType.html) documentation.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ImageTargetType</span> {
+    <span class="doccomment">/// Get the raw OpenGL enum value for an image target.</span>
+    <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span>;
 }
 
-<span class='doccomment'>/// A trait implemented for a type that represent a type of texture (such</span>
-<span class='doccomment'>/// as 2D textures or cube map textures).  For example, [`TxCubeMap`]</span>
-<span class='doccomment'>/// (struct.TxCubeMap.html) is a type that implements `TextureType`, and</span>
-<span class='doccomment'>/// it represents cube map textures.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>TextureType</span> {
-    <span class='doccomment'>/// The type that is used to indicate all of the possible target 2D images</span>
-    <span class='doccomment'>/// for this type of texture. The associated `ImageTargetType` in the impl</span>
-    <span class='doccomment'>/// for [`TxCubeMap`](struct.TxCubeMap.html), for example, is</span>
-    <span class='doccomment'>/// [`TxCubeMapImageTarget`] (enum.TxCubeMapImageTarget.html), which is an</span>
-    <span class='doccomment'>/// enum with six variants, one for each of the six 2-dimensional images</span>
-    <span class='doccomment'>/// that make up a cube map.</span>
-    <span class='kw'>type</span> <span class='ident'>ImageTargetType</span>: <span class='ident'>ImageTargetType</span>;
+<span class="doccomment">/// A trait implemented for a type that represent a type of texture (such</span>
+<span class="doccomment">/// as 2D textures or cube map textures).  For example, [`TxCubeMap`]</span>
+<span class="doccomment">/// (struct.TxCubeMap.html) is a type that implements `TextureType`, and</span>
+<span class="doccomment">/// it represents cube map textures.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">TextureType</span> {
+    <span class="doccomment">/// The type that is used to indicate all of the possible target 2D images</span>
+    <span class="doccomment">/// for this type of texture. The associated `ImageTargetType` in the impl</span>
+    <span class="doccomment">/// for [`TxCubeMap`](struct.TxCubeMap.html), for example, is</span>
+    <span class="doccomment">/// [`TxCubeMapImageTarget`] (enum.TxCubeMapImageTarget.html), which is an</span>
+    <span class="doccomment">/// enum with six variants, one for each of the six 2-dimensional images</span>
+    <span class="doccomment">/// that make up a cube map.</span>
+    <span class="kw">type</span> <span class="ident">ImageTargetType</span>: <span class="ident">ImageTargetType</span>;
 
-    <span class='doccomment'>/// The actual variant that represents this type of texture. The</span>
-    <span class='doccomment'>/// `target()` method impl for [`TxCubeMap`](struct.TxCubeMap.html), for</span>
-    <span class='doccomment'>/// example, returns `TextureBindingTarget::CubeMap`.</span>
-    <span class='kw'>fn</span> <span class='ident'>target</span>() <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span>;
+    <span class="doccomment">/// The actual variant that represents this type of texture. The</span>
+    <span class="doccomment">/// `target()` method impl for [`TxCubeMap`](struct.TxCubeMap.html), for</span>
+    <span class="doccomment">/// example, returns `TextureBindingTarget::CubeMap`.</span>
+    <span class="kw">fn</span> <span class="ident">target</span>() <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span>;
 }
 
-<span class='doccomment'>/// The [`TextureType`](trait.TextureType.html) for 2-dimensional textures.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Tx2d</span>;
+<span class="doccomment">/// The [`TextureType`](trait.TextureType.html) for 2-dimensional textures.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Tx2d</span>;
 
-<span class='doccomment'>/// The possible image targets for `GL_TEXTURE_2D` (only one variant,</span>
-<span class='doccomment'>/// since this *is* the 2D texture).</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>Tx2dImageTarget</span> {
-    <span class='doccomment'>/// The only possible target for a 2-dimensional texture.</span>
-    <span class='ident'>Texture2d</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TEXTURE_2D</span> <span class='kw'>as</span> <span class='ident'>isize</span>
+<span class="doccomment">/// The possible image targets for `GL_TEXTURE_2D` (only one variant,</span>
+<span class="doccomment">/// since this *is* the 2D texture).</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">Tx2dImageTarget</span> {
+    <span class="doccomment">/// The only possible target for a 2-dimensional texture.</span>
+    <span class="ident">Texture2d</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TEXTURE_2D</span> <span class="kw">as</span> <span class="ident">isize</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>ImageTargetType</span> <span class='kw'>for</span> <span class='ident'>Tx2dImageTarget</span> {
-    <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>GLenum</span>
+<span class="kw">impl</span> <span class="ident">ImageTargetType</span> <span class="kw">for</span> <span class="ident">Tx2dImageTarget</span> {
+    <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">GLenum</span>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>TextureType</span> <span class='kw'>for</span> <span class='ident'>Tx2d</span> {
-    <span class='kw'>type</span> <span class='ident'>ImageTargetType</span> <span class='op'>=</span> <span class='ident'>Tx2dImageTarget</span>;
+<span class="kw">impl</span> <span class="ident">TextureType</span> <span class="kw">for</span> <span class="ident">Tx2d</span> {
+    <span class="kw">type</span> <span class="ident">ImageTargetType</span> <span class="op">=</span> <span class="ident">Tx2dImageTarget</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>target</span>() <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span> {
-        <span class='ident'>TextureBindingTarget</span>::<span class='ident'>Texture2d</span>
+    <span class="kw">fn</span> <span class="ident">target</span>() <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span> {
+        <span class="ident">TextureBindingTarget</span>::<span class="ident">Texture2d</span>
     }
 }
 
-<span class='doccomment'>/// The [`TextureType`](trait.TextureType.html) for cubemap textures.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>TxCubeMap</span>;
+<span class="doccomment">/// The [`TextureType`](trait.TextureType.html) for cubemap textures.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">TxCubeMap</span>;
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The possible 2D image targets for a cubemap texture.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>TxCubeMapImageTarget</span> {
-        <span class='doccomment'>/// The positive-X image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapPositiveX</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_X</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_X</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The possible 2D image targets for a cubemap texture.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">TxCubeMapImageTarget</span> {
+        <span class="doccomment">/// The positive-X image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapPositiveX</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_POSITIVE_X</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_POSITIVE_X</span>,
 
-        <span class='doccomment'>/// The negative-X image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapNegativeX</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_X</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_X</span>,
+        <span class="doccomment">/// The negative-X image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapNegativeX</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_X</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_X</span>,
 
-        <span class='doccomment'>/// The positive-Y image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapPositiveY</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_Y</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_Y</span>,
+        <span class="doccomment">/// The positive-Y image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapPositiveY</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_POSITIVE_Y</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_POSITIVE_Y</span>,
 
-        <span class='doccomment'>/// The negative-Y image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapNegativeY</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_Y</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_Y</span>,
+        <span class="doccomment">/// The negative-Y image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapNegativeY</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_Y</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_Y</span>,
 
-        <span class='doccomment'>/// The positive-Z image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapPositiveZ</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_Z</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_POSITIVE_Z</span>,
+        <span class="doccomment">/// The positive-Z image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapPositiveZ</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_POSITIVE_Z</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_POSITIVE_Z</span>,
 
-        <span class='doccomment'>/// The negative-Z image target face of a cubemap.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CubeMapNegativeZ</span> <span class='kw'>as</span> <span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_Z</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP_NEGATIVE_Z</span>
+        <span class="doccomment">/// The negative-Z image target face of a cubemap.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CubeMapNegativeZ</span> <span class="kw">as</span> <span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_Z</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP_NEGATIVE_Z</span>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>ImageTargetType</span> <span class='kw'>for</span> <span class='ident'>TxCubeMapImageTarget</span> {
-    <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='self'>self</span>.<span class='ident'>gl_enum</span>()
+<span class="kw">impl</span> <span class="ident">ImageTargetType</span> <span class="kw">for</span> <span class="ident">TxCubeMapImageTarget</span> {
+    <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="self">self</span>.<span class="ident">gl_enum</span>()
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>TextureType</span> <span class='kw'>for</span> <span class='ident'>TxCubeMap</span> {
-    <span class='kw'>type</span> <span class='ident'>ImageTargetType</span> <span class='op'>=</span> <span class='ident'>TxCubeMapImageTarget</span>;
+<span class="kw">impl</span> <span class="ident">TextureType</span> <span class="kw">for</span> <span class="ident">TxCubeMap</span> {
+    <span class="kw">type</span> <span class="ident">ImageTargetType</span> <span class="op">=</span> <span class="ident">TxCubeMapImageTarget</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>target</span>() <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span> {
-        <span class='ident'>TextureBindingTarget</span>::<span class='ident'>TextureCubeMap</span>
+    <span class="kw">fn</span> <span class="ident">target</span>() <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span> {
+        <span class="ident">TextureBindingTarget</span>::<span class="ident">TextureCubeMap</span>
     }
 }
 
 
 
-<span class='doccomment'>/// Represents all of the possible types of OpenGL textures.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>, <span class='ident'>PartialEq</span>, <span class='ident'>Eq</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>TextureBindingTarget</span> {
-    <span class='doccomment'>/// A 2-dimensional texture, which can be thought of as a 2D grid of colors.</span>
-    <span class='ident'>Texture2d</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TEXTURE_2D</span> <span class='kw'>as</span> <span class='ident'>isize</span>,
+<span class="doccomment">/// Represents all of the possible types of OpenGL textures.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TextureBindingTarget</span> {
+    <span class="doccomment">/// A 2-dimensional texture, which can be thought of as a 2D grid of colors.</span>
+    <span class="ident">Texture2d</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TEXTURE_2D</span> <span class="kw">as</span> <span class="ident">isize</span>,
 
-    <span class='doccomment'>/// A cubemap texture, which is a texture made up of six 2-dimensional</span>
-    <span class='doccomment'>/// images, each of which represent a face of a cube. This type of texture</span>
-    <span class='doccomment'>/// is especially useful for skyboxes.</span>
-    <span class='ident'>TextureCubeMap</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TEXTURE_CUBE_MAP</span> <span class='kw'>as</span> <span class='ident'>isize</span>
+    <span class="doccomment">/// A cubemap texture, which is a texture made up of six 2-dimensional</span>
+    <span class="doccomment">/// images, each of which represent a face of a cube. This type of texture</span>
+    <span class="doccomment">/// is especially useful for skyboxes.</span>
+    <span class="ident">TextureCubeMap</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TEXTURE_CUBE_MAP</span> <span class="kw">as</span> <span class="ident">isize</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>TextureBindingTarget</span> {
-    <span class='doccomment'>/// Convert a `TextureBindingTarget` into a raw OpenGL enum value.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='op'>*</span><span class='self'>self</span> <span class='kw'>as</span> <span class='ident'>GLenum</span>
+<span class="kw">impl</span> <span class="ident">TextureBindingTarget</span> {
+    <span class="doccomment">/// Convert a `TextureBindingTarget` into a raw OpenGL enum value.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="kw-2">*</span><span class="self">self</span> <span class="kw">as</span> <span class="ident">GLenum</span>
     }
 }
 
-<span class='doccomment'>/// This is a unit type that is used to be coerced into select enum variants.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// In OpenGL, the `GL_TEXTURE_2D` enum value is used for multiple purposes. In</span>
-<span class='doccomment'>/// particular, it can be used as *both* a valid argument for [`glBindTexture`]</span>
-<span class='doccomment'>/// (http://docs.gl/es2/glBindTexture) (where it represents a possible texture</span>
-<span class='doccomment'>/// binding, which maps to [`TextureBindingTarget::Texture2d`]</span>
-<span class='doccomment'>/// (enum.TextureBindingTarget.html) in glitter) *and* for [`glTexImage2D`]</span>
-<span class='doccomment'>/// (http://docs.gl/es2/glTexImage2D) (where it represents the possible</span>
-<span class='doccomment'>/// *2D images* that make up a particular texture type, which maps to</span>
-<span class='doccomment'>/// the [`ImageTargetType`](trait.ImageTargetType.html) trait and</span>
-<span class='doccomment'>/// the [`Tx2dImageTarget`](enum.Tx2dImageTarget.html) enum in glitter).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Thus, in order to be able to use the constant `glitter::TEXTURE_2D` as an</span>
-<span class='doccomment'>/// argument to the [`image_2d`](../context/texture_context/trait.ContextTextureExt.html#method.image_2d)</span>
-<span class='doccomment'>/// method, `glitter::TEXTURE_2D` must be of type [`TextureBindingTarget`]</span>
-<span class='doccomment'>/// (enum.TextureBindingTarget.html). But, in order to be able to it as an</span>
-<span class='doccomment'>/// argument to a method that takes [`Tx2dImageTarget`]</span>
-<span class='doccomment'>/// (enum.Tx2dImageTarget.html), it must be of type [`Tx2dImageTarget`]</span>
-<span class='comment'>// / (enum.Tx2dImageTarget.html). Obviously, glitter::TEXTURE_2D` can&#39;t be</span>
-<span class='doccomment'>/// *both* types, so this type exists solely to be the type of</span>
-<span class='doccomment'>/// `glitter::TEXTURE_2D`, and it implements `From` so that it can be converted</span>
-<span class='doccomment'>/// to either type freely.</span>
+<span class="doccomment">/// This is a unit type that is used to be coerced into select enum variants.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// In OpenGL, the `GL_TEXTURE_2D` enum value is used for multiple purposes. In</span>
+<span class="doccomment">/// particular, it can be used as *both* a valid argument for [`glBindTexture`]</span>
+<span class="doccomment">/// (http://docs.gl/es2/glBindTexture) (where it represents a possible texture</span>
+<span class="doccomment">/// binding, which maps to [`TextureBindingTarget::Texture2d`]</span>
+<span class="doccomment">/// (enum.TextureBindingTarget.html) in glitter) *and* for [`glTexImage2D`]</span>
+<span class="doccomment">/// (http://docs.gl/es2/glTexImage2D) (where it represents the possible</span>
+<span class="doccomment">/// *2D images* that make up a particular texture type, which maps to</span>
+<span class="doccomment">/// the [`ImageTargetType`](trait.ImageTargetType.html) trait and</span>
+<span class="doccomment">/// the [`Tx2dImageTarget`](enum.Tx2dImageTarget.html) enum in glitter).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Thus, in order to be able to use the constant `glitter::TEXTURE_2D` as an</span>
+<span class="doccomment">/// argument to the [`image_2d`](../context/texture_context/trait.ContextTextureExt.html#method.image_2d)</span>
+<span class="doccomment">/// method, `glitter::TEXTURE_2D` must be of type [`TextureBindingTarget`]</span>
+<span class="doccomment">/// (enum.TextureBindingTarget.html). But, in order to be able to it as an</span>
+<span class="doccomment">/// argument to a method that takes [`Tx2dImageTarget`]</span>
+<span class="doccomment">/// (enum.Tx2dImageTarget.html), it must be of type [`Tx2dImageTarget`]</span>
+<span class="comment">// / (enum.Tx2dImageTarget.html). Obviously, glitter::TEXTURE_2D` can&#39;t be</span>
+<span class="doccomment">/// *both* types, so this type exists solely to be the type of</span>
+<span class="doccomment">/// `glitter::TEXTURE_2D`, and it implements `From` so that it can be converted</span>
+<span class="doccomment">/// to either type freely.</span>
 
-<span class='comment'>// HACK: Done to allow glitter::TEXTURE_2D as both a</span>
-<span class='comment'>//       TextureBindingTarget and Tx2dImageTarget</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>VariantTexture2d</span>;
+<span class="comment">// HACK: Done to allow glitter::TEXTURE_2D as both a</span>
+<span class="comment">//       TextureBindingTarget and Tx2dImageTarget</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VariantTexture2d</span>;
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>VariantTexture2d</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>TextureBindingTarget</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(_: <span class='ident'>VariantTexture2d</span>) <span class='op'>-&gt;</span> <span class='ident'>TextureBindingTarget</span> {
-        <span class='ident'>TextureBindingTarget</span>::<span class='ident'>Texture2d</span>
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VariantTexture2d</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TextureBindingTarget</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(_: <span class="ident">VariantTexture2d</span>) <span class="op">-&gt;</span> <span class="ident">TextureBindingTarget</span> {
+        <span class="ident">TextureBindingTarget</span>::<span class="ident">Texture2d</span>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>VariantTexture2d</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Tx2dImageTarget</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(_: <span class='ident'>VariantTexture2d</span>) <span class='op'>-&gt;</span> <span class='ident'>Tx2dImageTarget</span> {
-        <span class='ident'>Tx2dImageTarget</span>::<span class='ident'>Texture2d</span>
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">VariantTexture2d</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Tx2dImageTarget</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(_: <span class="ident">VariantTexture2d</span>) <span class="op">-&gt;</span> <span class="ident">Tx2dImageTarget</span> {
+        <span class="ident">Tx2dImageTarget</span>::<span class="ident">Texture2d</span>
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>ImageTargetType</span> <span class='kw'>for</span> <span class='ident'>VariantTexture2d</span> {
-    <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='ident'>gl</span>::<span class='ident'>TEXTURE_2D</span>
+<span class="kw">impl</span> <span class="ident">ImageTargetType</span> <span class="kw">for</span> <span class="ident">VariantTexture2d</span> {
+    <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="ident">gl</span>::<span class="ident">TEXTURE_2D</span>
     }
 }
 
-<span class='doccomment'>/// This constant is designed to be used in glitter wherever the constant</span>
-<span class='doccomment'>/// `GL_TEXTURE_CUBE_MAP` is used in plain OpenGL code.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TEXTURE_CUBE_MAP</span> : <span class='ident'>TextureBindingTarget</span> <span class='op'>=</span>
-    <span class='ident'>TextureBindingTarget</span>::<span class='ident'>TextureCubeMap</span>;
+<span class="doccomment">/// This constant is designed to be used in glitter wherever the constant</span>
+<span class="doccomment">/// `GL_TEXTURE_CUBE_MAP` is used in plain OpenGL code.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TEXTURE_CUBE_MAP</span> : <span class="ident">TextureBindingTarget</span> <span class="op">=</span>
+    <span class="ident">TextureBindingTarget</span>::<span class="ident">TextureCubeMap</span>;
 
 
-<span class='doccomment'>/// This constant is designed to be used in glitter wherever the constant</span>
-<span class='doccomment'>/// `GL_TEXTURE_2D` is used in plain OpenGL code.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// See the documentation for [`VariantTexture2d`](struct.VariantTexture2d.html)</span>
-<span class='doccomment'>/// for details about how this works.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TEXTURE_2D</span> : <span class='ident'>VariantTexture2d</span> <span class='op'>=</span> <span class='ident'>VariantTexture2d</span>;
+<span class="doccomment">/// This constant is designed to be used in glitter wherever the constant</span>
+<span class="doccomment">/// `GL_TEXTURE_2D` is used in plain OpenGL code.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See the documentation for [`VariantTexture2d`](struct.VariantTexture2d.html)</span>
+<span class="doccomment">/// for details about how this works.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TEXTURE_2D</span> : <span class="ident">VariantTexture2d</span> <span class="op">=</span> <span class="ident">VariantTexture2d</span>;
 
 
-<span class='doccomment'>/// Represents the different forms of texture filtering, which determines</span>
-<span class='doccomment'>/// how a texture will be sampled when drawn.</span>
+<span class="doccomment">/// Represents the different forms of texture filtering, which determines</span>
+<span class="doccomment">/// how a texture will be sampled when drawn.</span>
 
-<span class='comment'>// TODO: Use type refinements someday...</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>TextureFilter</span> {
-    <span class='doccomment'>/// When texturing a pixel, return the texel that is nearest to the center</span>
-    <span class='doccomment'>/// of the pixel.</span>
-    <span class='ident'>Nearest</span>,
+<span class="comment">// TODO: Use type refinements someday...</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TextureFilter</span> {
+    <span class="doccomment">/// When texturing a pixel, return the texel that is nearest to the center</span>
+    <span class="doccomment">/// of the pixel.</span>
+    <span class="ident">Nearest</span>,
 
-    <span class='doccomment'>/// When texturing a pixel, return a weighted average of the four texels</span>
-    <span class='doccomment'>/// nearest to center of the pixel.</span>
-    <span class='ident'>Linear</span>
+    <span class="doccomment">/// When texturing a pixel, return a weighted average of the four texels</span>
+    <span class="doccomment">/// nearest to center of the pixel.</span>
+    <span class="ident">Linear</span>
 }
 
-<span class='doccomment'>/// Represents the different forms of texture filtering when using mipmaps.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>TextureMipmapFilter</span> {
-    <span class='doccomment'>/// Ignore mipmap values, and texture a pixel using a standard</span>
-    <span class='doccomment'>/// [`TextureFilter`](enum.TextureFilter.html).</span>
-    <span class='ident'>Filter</span>(<span class='ident'>TextureFilter</span>),
+<span class="doccomment">/// Represents the different forms of texture filtering when using mipmaps.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">PartialEq</span>, <span class="ident">Eq</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">TextureMipmapFilter</span> {
+    <span class="doccomment">/// Ignore mipmap values, and texture a pixel using a standard</span>
+    <span class="doccomment">/// [`TextureFilter`](enum.TextureFilter.html).</span>
+    <span class="ident">Filter</span>(<span class="ident">TextureFilter</span>),
 
-    <span class='doccomment'>/// Select the two mipmaps that are closest to the size of pixel</span>
-    <span class='doccomment'>/// being filled, and sample each one according to `criterion`.</span>
-    <span class='doccomment'>/// Finally, the result will be computed either by taking the</span>
-    <span class='doccomment'>/// weighted average of each texel, or by selecting the value</span>
-    <span class='doccomment'>/// from the closer texel, according to `mipmap`.</span>
-    <span class='ident'>MipmapFilter</span> {
-        <span class='doccomment'>/// The method to use to select the texels from a mipmap.</span>
-        <span class='ident'>criterion</span>: <span class='ident'>TextureFilter</span>,
+    <span class="doccomment">/// Select the two mipmaps that are closest to the size of pixel</span>
+    <span class="doccomment">/// being filled, and sample each one according to `criterion`.</span>
+    <span class="doccomment">/// Finally, the result will be computed either by taking the</span>
+    <span class="doccomment">/// weighted average of each texel, or by selecting the value</span>
+    <span class="doccomment">/// from the closer texel, according to `mipmap`.</span>
+    <span class="ident">MipmapFilter</span> {
+        <span class="doccomment">/// The method to use to select the texels from a mipmap.</span>
+        <span class="ident">criterion</span>: <span class="ident">TextureFilter</span>,
 
-        <span class='doccomment'>/// The method to use to select the mipmaps.</span>
-        <span class='ident'>mipmap</span>: <span class='ident'>TextureFilter</span>
+        <span class="doccomment">/// The method to use to select the mipmaps.</span>
+        <span class="ident">mipmap</span>: <span class="ident">TextureFilter</span>
     }
 }
 
-<span class='doccomment'>/// When texturing a pixel, select the texel that is closest</span>
-<span class='doccomment'>/// to the center of the pixel.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>NEAREST</span> : <span class='ident'>TextureFilter</span> <span class='op'>=</span> <span class='ident'>TextureFilter</span>::<span class='ident'>Nearest</span>;
+<span class="doccomment">/// When texturing a pixel, select the texel that is closest</span>
+<span class="doccomment">/// to the center of the pixel.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NEAREST</span> : <span class="ident">TextureFilter</span> <span class="op">=</span> <span class="ident">TextureFilter</span>::<span class="ident">Nearest</span>;
 
-<span class='doccomment'>/// When texturing a pixel, select the four texels that</span>
-<span class='doccomment'>/// are closest to the center of the pixel, and compute the</span>
-<span class='doccomment'>/// result by taking a weighted average of each texel.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LINEAR</span> : <span class='ident'>TextureFilter</span> <span class='op'>=</span> <span class='ident'>TextureFilter</span>::<span class='ident'>Linear</span>;
+<span class="doccomment">/// When texturing a pixel, select the four texels that</span>
+<span class="doccomment">/// are closest to the center of the pixel, and compute the</span>
+<span class="doccomment">/// result by taking a weighted average of each texel.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LINEAR</span> : <span class="ident">TextureFilter</span> <span class="op">=</span> <span class="ident">TextureFilter</span>::<span class="ident">Linear</span>;
 
-<span class='doccomment'>/// When texturing a pixel, select the mipmap that is nearest</span>
-<span class='doccomment'>/// in size to the pixel, and select the texel that is</span>
-<span class='doccomment'>/// closest to the center of the pixel.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>NEAREST_MIPMAP_NEAREST</span> : <span class='ident'>TextureMipmapFilter</span> <span class='op'>=</span>
-    <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>MipmapFilter</span> {
-        <span class='ident'>criterion</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Nearest</span>,
-        <span class='ident'>mipmap</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Nearest</span>
+<span class="doccomment">/// When texturing a pixel, select the mipmap that is nearest</span>
+<span class="doccomment">/// in size to the pixel, and select the texel that is</span>
+<span class="doccomment">/// closest to the center of the pixel.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NEAREST_MIPMAP_NEAREST</span> : <span class="ident">TextureMipmapFilter</span> <span class="op">=</span>
+    <span class="ident">TextureMipmapFilter</span>::<span class="ident">MipmapFilter</span> {
+        <span class="ident">criterion</span>: <span class="ident">TextureFilter</span>::<span class="ident">Nearest</span>,
+        <span class="ident">mipmap</span>: <span class="ident">TextureFilter</span>::<span class="ident">Nearest</span>
     };
 
-<span class='doccomment'>/// When texturing a pixel, select the mipmap that is nearest</span>
-<span class='doccomment'>/// in size to the pixel, select the four texels that are closest</span>
-<span class='doccomment'>/// to the center of the pixel, and compute the result by taking</span>
-<span class='doccomment'>/// the weighted average of each texel.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LINEAR_MIPMAP_NEAREST</span> : <span class='ident'>TextureMipmapFilter</span> <span class='op'>=</span>
-    <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>MipmapFilter</span> {
-        <span class='ident'>criterion</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Linear</span>,
-        <span class='ident'>mipmap</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Nearest</span>
+<span class="doccomment">/// When texturing a pixel, select the mipmap that is nearest</span>
+<span class="doccomment">/// in size to the pixel, select the four texels that are closest</span>
+<span class="doccomment">/// to the center of the pixel, and compute the result by taking</span>
+<span class="doccomment">/// the weighted average of each texel.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LINEAR_MIPMAP_NEAREST</span> : <span class="ident">TextureMipmapFilter</span> <span class="op">=</span>
+    <span class="ident">TextureMipmapFilter</span>::<span class="ident">MipmapFilter</span> {
+        <span class="ident">criterion</span>: <span class="ident">TextureFilter</span>::<span class="ident">Linear</span>,
+        <span class="ident">mipmap</span>: <span class="ident">TextureFilter</span>::<span class="ident">Nearest</span>
     };
 
-<span class='doccomment'>/// When texturing a pixel, select the two mipmaps that are nearest</span>
-<span class='doccomment'>/// in size to the pixel, select the texel in each that is closest</span>
-<span class='doccomment'>/// to the center of the pixel, and compute the result by taking</span>
-<span class='doccomment'>/// the weighted average of each texel.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>NEAREST_MIPMAP_LINEAR</span> : <span class='ident'>TextureMipmapFilter</span> <span class='op'>=</span>
-    <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>MipmapFilter</span> {
-        <span class='ident'>criterion</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Nearest</span>,
-        <span class='ident'>mipmap</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Linear</span>
+<span class="doccomment">/// When texturing a pixel, select the two mipmaps that are nearest</span>
+<span class="doccomment">/// in size to the pixel, select the texel in each that is closest</span>
+<span class="doccomment">/// to the center of the pixel, and compute the result by taking</span>
+<span class="doccomment">/// the weighted average of each texel.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NEAREST_MIPMAP_LINEAR</span> : <span class="ident">TextureMipmapFilter</span> <span class="op">=</span>
+    <span class="ident">TextureMipmapFilter</span>::<span class="ident">MipmapFilter</span> {
+        <span class="ident">criterion</span>: <span class="ident">TextureFilter</span>::<span class="ident">Nearest</span>,
+        <span class="ident">mipmap</span>: <span class="ident">TextureFilter</span>::<span class="ident">Linear</span>
     };
 
-<span class='doccomment'>/// When texturing a pixel, select the two mipmaps that are nearest</span>
-<span class='doccomment'>/// in size to the pixel. For each, select the four texels that are</span>
-<span class='doccomment'>/// closest to the center of the pixel, and compute the weighted average.</span>
-<span class='doccomment'>/// Finally, take the resulting two weighted averages of the texels,</span>
-<span class='doccomment'>/// and take the weighted average of both based on the mipmaps.</span>
-<span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LINEAR_MIPMAP_LINEAR</span> : <span class='ident'>TextureMipmapFilter</span> <span class='op'>=</span>
-    <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>MipmapFilter</span> {
-        <span class='ident'>criterion</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Linear</span>,
-        <span class='ident'>mipmap</span>: <span class='ident'>TextureFilter</span>::<span class='ident'>Linear</span>
+<span class="doccomment">/// When texturing a pixel, select the two mipmaps that are nearest</span>
+<span class="doccomment">/// in size to the pixel. For each, select the four texels that are</span>
+<span class="doccomment">/// closest to the center of the pixel, and compute the weighted average.</span>
+<span class="doccomment">/// Finally, take the resulting two weighted averages of the texels,</span>
+<span class="doccomment">/// and take the weighted average of both based on the mipmaps.</span>
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LINEAR_MIPMAP_LINEAR</span> : <span class="ident">TextureMipmapFilter</span> <span class="op">=</span>
+    <span class="ident">TextureMipmapFilter</span>::<span class="ident">MipmapFilter</span> {
+        <span class="ident">criterion</span>: <span class="ident">TextureFilter</span>::<span class="ident">Linear</span>,
+        <span class="ident">mipmap</span>: <span class="ident">TextureFilter</span>::<span class="ident">Linear</span>
     };
 
-<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-<span class='kw'>impl</span> <span class='ident'>TextureFilter</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_gl</span>(<span class='ident'>gl_enum</span>: <span class='ident'>GLenum</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw'>Self</span>, ()<span class='op'>&gt;</span> {
-        <span class='kw'>match</span> <span class='ident'>gl_enum</span> {
-            <span class='ident'>gl</span>::<span class='ident'>NEAREST</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>NEAREST</span>) },
-            <span class='ident'>gl</span>::<span class='ident'>LINEAR</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>LINEAR</span>) },
-            _ <span class='op'>=&gt;</span> { <span class='prelude-val'>Err</span>(()) }
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+<span class="kw">impl</span> <span class="ident">TextureFilter</span> {
+    <span class="kw">fn</span> <span class="ident">from_gl</span>(<span class="ident">gl_enum</span>: <span class="ident">GLenum</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, ()<span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="ident">gl_enum</span> {
+            <span class="ident">gl</span>::<span class="ident">NEAREST</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">NEAREST</span>) },
+            <span class="ident">gl</span>::<span class="ident">LINEAR</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">LINEAR</span>) },
+            _ <span class="op">=&gt;</span> { <span class="prelude-val">Err</span>(()) }
         }
     }
 
-    <span class='doccomment'>/// Convert a `TextureFilter` into a raw OpenGL enum value</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='self'>self</span>::<span class='ident'>NEAREST</span> <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>NEAREST</span>,
-            <span class='self'>self</span>::<span class='ident'>LINEAR</span> <span class='op'>=&gt;</span> <span class='ident'>gl</span>::<span class='ident'>LINEAR</span>
+    <span class="doccomment">/// Convert a `TextureFilter` into a raw OpenGL enum value</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="self">self</span>::<span class="ident">NEAREST</span> <span class="op">=&gt;</span> <span class="ident">gl</span>::<span class="ident">NEAREST</span>,
+            <span class="self">self</span>::<span class="ident">LINEAR</span> <span class="op">=&gt;</span> <span class="ident">gl</span>::<span class="ident">LINEAR</span>
         }
     }
 }
 
-<span class='attribute'>#[<span class='ident'>allow</span>(<span class='ident'>dead_code</span>)]</span>
-<span class='kw'>impl</span> <span class='ident'>TextureMipmapFilter</span> {
-    <span class='kw'>fn</span> <span class='ident'>from_gl</span>(<span class='ident'>gl_enum</span>: <span class='ident'>GLenum</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='kw'>Self</span>, ()<span class='op'>&gt;</span> {
-        <span class='kw'>match</span> <span class='ident'>gl_enum</span> {
-            <span class='ident'>gl</span>::<span class='ident'>NEAREST</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='ident'>TextureMipmapFilter</span>::<span class='ident'>Filter</span>(<span class='self'>self</span>::<span class='ident'>NEAREST</span>)) },
-            <span class='ident'>gl</span>::<span class='ident'>LINEAR</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='ident'>TextureMipmapFilter</span>::<span class='ident'>Filter</span>(<span class='self'>self</span>::<span class='ident'>LINEAR</span>)) },
-            <span class='ident'>gl</span>::<span class='ident'>NEAREST_MIPMAP_NEAREST</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>NEAREST_MIPMAP_NEAREST</span>) },
-            <span class='ident'>gl</span>::<span class='ident'>LINEAR_MIPMAP_NEAREST</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>LINEAR_MIPMAP_NEAREST</span>) },
-            <span class='ident'>gl</span>::<span class='ident'>NEAREST_MIPMAP_LINEAR</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>NEAREST_MIPMAP_LINEAR</span>) },
-            <span class='ident'>gl</span>::<span class='ident'>LINEAR_MIPMAP_LINEAR</span> <span class='op'>=&gt;</span> { <span class='prelude-val'>Ok</span>(<span class='self'>self</span>::<span class='ident'>LINEAR_MIPMAP_LINEAR</span>) },
-            _ <span class='op'>=&gt;</span> { <span class='prelude-val'>Err</span>(()) }
+<span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
+<span class="kw">impl</span> <span class="ident">TextureMipmapFilter</span> {
+    <span class="kw">fn</span> <span class="ident">from_gl</span>(<span class="ident">gl_enum</span>: <span class="ident">GLenum</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, ()<span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="ident">gl_enum</span> {
+            <span class="ident">gl</span>::<span class="ident">NEAREST</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="ident">TextureMipmapFilter</span>::<span class="ident">Filter</span>(<span class="self">self</span>::<span class="ident">NEAREST</span>)) },
+            <span class="ident">gl</span>::<span class="ident">LINEAR</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="ident">TextureMipmapFilter</span>::<span class="ident">Filter</span>(<span class="self">self</span>::<span class="ident">LINEAR</span>)) },
+            <span class="ident">gl</span>::<span class="ident">NEAREST_MIPMAP_NEAREST</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">NEAREST_MIPMAP_NEAREST</span>) },
+            <span class="ident">gl</span>::<span class="ident">LINEAR_MIPMAP_NEAREST</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">LINEAR_MIPMAP_NEAREST</span>) },
+            <span class="ident">gl</span>::<span class="ident">NEAREST_MIPMAP_LINEAR</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">NEAREST_MIPMAP_LINEAR</span>) },
+            <span class="ident">gl</span>::<span class="ident">LINEAR_MIPMAP_LINEAR</span> <span class="op">=&gt;</span> { <span class="prelude-val">Ok</span>(<span class="self">self</span>::<span class="ident">LINEAR_MIPMAP_LINEAR</span>) },
+            _ <span class="op">=&gt;</span> { <span class="prelude-val">Err</span>(()) }
         }
     }
 
-    <span class='doccomment'>/// Convert a `TextureMipmapFilter` into a raw OpenGL enum value</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>gl_enum</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>GLenum</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>Filter</span>(<span class='self'>self</span>::<span class='ident'>LINEAR</span>) <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>LINEAR</span> },
-            <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>Filter</span>(<span class='self'>self</span>::<span class='ident'>NEAREST</span>) <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>NEAREST</span> },
-            <span class='self'>self</span>::<span class='ident'>NEAREST_MIPMAP_NEAREST</span> <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>NEAREST_MIPMAP_NEAREST</span> },
-            <span class='self'>self</span>::<span class='ident'>LINEAR_MIPMAP_NEAREST</span> <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>LINEAR_MIPMAP_NEAREST</span> },
-            <span class='self'>self</span>::<span class='ident'>NEAREST_MIPMAP_LINEAR</span> <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>NEAREST_MIPMAP_LINEAR</span> },
-            <span class='self'>self</span>::<span class='ident'>LINEAR_MIPMAP_LINEAR</span> <span class='op'>=&gt;</span> { <span class='ident'>gl</span>::<span class='ident'>LINEAR_MIPMAP_LINEAR</span> }
+    <span class="doccomment">/// Convert a `TextureMipmapFilter` into a raw OpenGL enum value</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">gl_enum</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">GLenum</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">TextureMipmapFilter</span>::<span class="ident">Filter</span>(<span class="self">self</span>::<span class="ident">LINEAR</span>) <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">LINEAR</span> },
+            <span class="ident">TextureMipmapFilter</span>::<span class="ident">Filter</span>(<span class="self">self</span>::<span class="ident">NEAREST</span>) <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">NEAREST</span> },
+            <span class="self">self</span>::<span class="ident">NEAREST_MIPMAP_NEAREST</span> <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">NEAREST_MIPMAP_NEAREST</span> },
+            <span class="self">self</span>::<span class="ident">LINEAR_MIPMAP_NEAREST</span> <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">LINEAR_MIPMAP_NEAREST</span> },
+            <span class="self">self</span>::<span class="ident">NEAREST_MIPMAP_LINEAR</span> <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">NEAREST_MIPMAP_LINEAR</span> },
+            <span class="self">self</span>::<span class="ident">LINEAR_MIPMAP_LINEAR</span> <span class="op">=&gt;</span> { <span class="ident">gl</span>::<span class="ident">LINEAR_MIPMAP_LINEAR</span> }
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>TextureFilter</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>TextureMipmapFilter</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>filter</span>: <span class='ident'>TextureFilter</span>) <span class='op'>-&gt;</span> <span class='ident'>TextureMipmapFilter</span> {
-        <span class='ident'>TextureMipmapFilter</span>::<span class='ident'>Filter</span>(<span class='ident'>filter</span>)
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">TextureFilter</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">TextureMipmapFilter</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">filter</span>: <span class="ident">TextureFilter</span>) <span class="op">-&gt;</span> <span class="ident">TextureMipmapFilter</span> {
+        <span class="ident">TextureMipmapFilter</span>::<span class="ident">Filter</span>(<span class="ident">filter</span>)
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The wrapping modes when drawing a texture.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>TextureWrapMode</span> {
-        <span class='doccomment'>/// Wrap a texture by clamping it within the range `[1/2x, 1 - 1/2x]`,</span>
-        <span class='doccomment'>/// where `x` is the dimension of the texture being clamped.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ClampToEdge</span> <span class='kw'>as</span> <span class='ident'>CLAMP_TO_EDGE</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>CLAMP_TO_EDGE</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The wrapping modes when drawing a texture.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">TextureWrapMode</span> {
+        <span class="doccomment">/// Wrap a texture by clamping it within the range `[1/2x, 1 - 1/2x]`,</span>
+        <span class="doccomment">/// where `x` is the dimension of the texture being clamped.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ClampToEdge</span> <span class="kw">as</span> <span class="ident">CLAMP_TO_EDGE</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">CLAMP_TO_EDGE</span>,
 
-        <span class='doccomment'>/// Wrap a texture by repeating it front-to-back, then back-to-front,</span>
-        <span class='doccomment'>/// then repeating.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>MirroredRepeat</span> <span class='kw'>as</span> <span class='ident'>MIRRORED_REPEAT</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>MIRRORED_REPEAT</span>,
+        <span class="doccomment">/// Wrap a texture by repeating it front-to-back, then back-to-front,</span>
+        <span class="doccomment">/// then repeating.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MirroredRepeat</span> <span class="kw">as</span> <span class="ident">MIRRORED_REPEAT</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">MIRRORED_REPEAT</span>,
 
-        <span class='doccomment'>/// Wrap a texture by repeating it over and over again.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Repeat</span> <span class='kw'>as</span> <span class='ident'>REPEAT</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>REPEAT</span>
+        <span class="doccomment">/// Wrap a texture by repeating it over and over again.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Repeat</span> <span class="kw">as</span> <span class="ident">REPEAT</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">REPEAT</span>
     }
 }
 </pre>
@@ -900,12 +902,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -926,7 +932,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -937,11 +943,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

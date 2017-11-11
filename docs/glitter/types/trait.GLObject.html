@@ -9,6 +9,7 @@
 
     <title>glitter::types::GLObject - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'GLObject', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait GLObject</p><div class="block items"><a class="sidebar-title" href="#associated-types">Associated Types</a><div class="sidebar-links"><a href="#associatedtype.Id">Id</a></div><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.from_raw">from_raw</a><a href="#tymethod.id">id</a></div><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.into_raw">into_raw</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'GLObject', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,27 +43,32 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class='trait' href=''>GLObject</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class="trait" href=''>GLObject</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2656' class='srclink' href='../../src/glitter/src/types.rs.html#60-95' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/types.rs.html#60-95' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait GLObject {
-    type <a href='#associatedtype.Id' class='type'>Id</a>;
-    unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::Id) -&gt; Self;
-    fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::Id;
+    type <a href='#associatedtype.Id' class="type">Id</a>;
+    unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a>) -&gt; Self;
+<div class='item-spacer'></div>    fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a>;
 
-    fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::Id <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
+    fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a><br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span>,
+    { ... }
 }</pre><div class='docblock'><p>An OpenGL object.</p>
 </div>
-            <h2 id='associated-types'>Associated Types</h2>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='associatedtype.Id' class='method stab '><span id='Id.t' class='invisible'><code>type <a href='#associatedtype.Id' class='type'>Id</a></code></span></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
+        <h3 id='associatedtype.Id' class='method'><span id='Id.t' class='invisible'><code>type <a href='#associatedtype.Id' class="type">Id</a></code></span></h3><div class='docblock'><p>The type of the object&#39;s internal ID.</p>
 </div></div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.from_raw' class='method stab '><span id='from_raw.v' class='invisible'><code>unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::Id) -&gt; Self</code></span></h3><div class='docblock'><p>Get a new object from an OpenGL ID.</p>
+        <h3 id='tymethod.from_raw' class='method'><span id='from_raw.v' class='invisible'><code>unsafe fn <a href='#tymethod.from_raw' class='fnname'>from_raw</a>(id: Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a>) -&gt; Self</code></span></h3><div class='docblock'><p>Get a new object from an OpenGL ID.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>The provided ID must correspond to an instance of the target
@@ -73,11 +79,13 @@ behavior in glitter.</p>
 objects that contain the same ID. Doing so will likely lead to
 the object being freed twice (which may not be catastrophic in
 OpenGL).</p>
-</div><h3 id='tymethod.id' class='method stab '><span id='id.v' class='invisible'><code>fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::Id</code></span></h3><div class='docblock'><p>Get the object&#39;s ID.</p>
+</div><h3 id='tymethod.id' class='method'><span id='id.v' class='invisible'><code>fn <a href='#tymethod.id' class='fnname'>id</a>(&amp;self) -&gt; Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a></code></span></h3><div class='docblock'><p>Get the object&#39;s ID.</p>
 </div></div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.into_raw' class='method stab '><span id='into_raw.v' class='invisible'><code>fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::Id <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></span></h3><div class='docblock'><p>Consume the object without cleaning up its resources, returning the
+        <h3 id='method.into_raw' class='method'><span id='into_raw.v' class='invisible'><code>fn <a href='#method.into_raw' class='fnname'>into_raw</a>(self) -&gt; Self::<a class="type" href="../../glitter/types/trait.GLObject.html#associatedtype.Id" title="type glitter::types::GLObject::Id">Id</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Consume the object without cleaning up its resources, returning the
 object&#39;s ID.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
@@ -85,14 +93,16 @@ object&#39;s ID.</p>
 should be passed to <a href="trait.GLObject.html#tymethod.from_raw"><code>GLObject::from_raw</code></a> so that the object
 will be properly destroyed.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl GLObject for <a class='struct' href='../../glitter/buffer/struct.Buffer.html' title='glitter::buffer::Buffer'>Buffer</a></code></li>
-<li><code>impl GLObject for <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></li>
-<li><code>impl GLObject for <a class='struct' href='../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a></code></li>
-<li><code>impl GLObject for <a class='struct' href='../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a></code></li>
-<li><code>impl GLObject for <a class='struct' href='../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></li>
-<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a>&gt; GLObject for <a class='struct' href='../../glitter/texture/struct.Texture.html' title='glitter::texture::Texture'>Texture</a>&lt;T&gt;</code></li>
+    <li><div class='out-of-band'><a class='srclink' href='../../src/glitter/buffer.rs.html#41-54' title='goto source code'>[src]</a></div><code>impl GLObject for <a class="struct" href="../../glitter/buffer/struct.Buffer.html" title="struct glitter::buffer::Buffer">Buffer</a><span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../src/glitter/shader.rs.html#43-56' title='goto source code'>[src]</a></div><code>impl GLObject for <a class="struct" href="../../glitter/shader/struct.Shader.html" title="struct glitter::shader::Shader">Shader</a><span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../src/glitter/program.rs.html#40-53' title='goto source code'>[src]</a></div><code>impl GLObject for <a class="struct" href="../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a><span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../src/glitter/framebuffer.rs.html#46-59' title='goto source code'>[src]</a></div><code>impl GLObject for <a class="struct" href="../../glitter/framebuffer/struct.Framebuffer.html" title="struct glitter::framebuffer::Framebuffer">Framebuffer</a><span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../src/glitter/renderbuffer.rs.html#45-58' title='goto source code'>[src]</a></div><code>impl GLObject for <a class="struct" href="../../glitter/renderbuffer/struct.Renderbuffer.html" title="struct glitter::renderbuffer::Renderbuffer">Renderbuffer</a><span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../src/glitter/texture.rs.html#73-86' title='goto source code'>[src]</a></div><code>impl&lt;T:&nbsp;<a class="trait" href="../../glitter/texture/trait.TextureType.html" title="trait glitter::texture::TextureType">TextureType</a>&gt; GLObject for <a class="struct" href="../../glitter/texture/struct.Texture.html" title="struct glitter::texture::Texture">Texture</a>&lt;T&gt;<span class="where fmt-newline">  type <a href='#associatedtype.Id' class="type">Id</a> = GLuint;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/glitter/types/trait.GLObject.js">
                  </script></section>
@@ -112,13 +122,15 @@ will be properly destroyed.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -151,11 +163,8 @@ will be properly destroyed.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

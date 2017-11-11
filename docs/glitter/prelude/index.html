@@ -9,6 +9,7 @@
 
     <title>glitter::prelude - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a></p><script>window.sidebarCurrent = {name: 'prelude', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module prelude</p><div class="block items"><ul><li><a href="#reexports">Reexports</a></li></ul></div><p class='location'><a href='../index.html'>glitter</a></p><script>window.sidebarCurrent = {name: 'prelude', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,23 +43,23 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class='mod' href=''>prelude</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class="mod" href=''>prelude</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2758' class='srclink' href='../../src/glitter/src/lib.rs.html#112-130' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/lib.rs.html#112-130' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Re-exports essential extension traits. Everything exported in this module
 should be used anywhere that glitter is used.</p>
 
 <p>Generally, this means that most modules that use glitter will start
 with the following:</p>
 
-<pre class='rust rust-example-rendered'>
-<span class='kw'>use</span> <span class='ident'>glitter</span>;
-<span class='kw'>use</span> <span class='ident'>glitter</span>::<span class='ident'>prelude</span>::<span class='op'>*</span>;<a class='test-arrow' target='_blank' href=''>Run</a></pre>
+<pre class="rust rust-example-rendered">
+<span class="kw">use</span> <span class="ident">glitter</span>;
+<span class="kw">use</span> <span class="ident">glitter</span>::<span class="ident">prelude</span>::<span class="kw-2">*</span>;</pre>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use context::{<a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>, <a class='trait' href='../../glitter/context/buffer_context/trait.BufferContext.html' title='glitter::context::buffer_context::BufferContext'>BufferContext</a>, <a class='trait' href='../../glitter/context/buffer_context/trait.ArrayBufferContext.html' title='glitter::context::buffer_context::ArrayBufferContext'>ArrayBufferContext</a>, <a class='trait' href='../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html' title='glitter::context::buffer_context::ElementArrayBufferContext'>ElementArrayBufferContext</a>, <a class='trait' href='../../glitter/context/framebuffer_context/trait.FramebufferContext.html' title='glitter::context::framebuffer_context::FramebufferContext'>FramebufferContext</a>, <a class='trait' href='../../glitter/context/framebuffer_context/trait.ContextFramebufferBuilderExt.html' title='glitter::context::framebuffer_context::ContextFramebufferBuilderExt'>ContextFramebufferBuilderExt</a>, <a class='trait' href='../../glitter/context/program_context/trait.ProgramContext.html' title='glitter::context::program_context::ProgramContext'>ProgramContext</a>, <a class='trait' href='../../glitter/context/program_context/trait.ContextProgramBuilderExt.html' title='glitter::context::program_context::ContextProgramBuilderExt'>ContextProgramBuilderExt</a>, <a class='trait' href='../../glitter/context/renderbuffer_context/trait.RenderbufferContext.html' title='glitter::context::renderbuffer_context::RenderbufferContext'>RenderbufferContext</a>, <a class='trait' href='../../glitter/context/renderbuffer_context/trait.ContextRenderbufferBuilderExt.html' title='glitter::context::renderbuffer_context::ContextRenderbufferBuilderExt'>ContextRenderbufferBuilderExt</a>, <a class='trait' href='../../glitter/context/texture_context/trait.TextureBinding.html' title='glitter::context::texture_context::TextureBinding'>TextureBinding</a>, <a class='trait' href='../../glitter/context/texture_context/trait.ContextTextureBuilderExt.html' title='glitter::context::texture_context::ContextTextureBuilderExt'>ContextTextureBuilderExt</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit.html' title='glitter::context::texture_units::TextureUnit'>TextureUnit</a>, <a class='type' href='../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a>, <a class='trait' href='../../glitter/context/texture_units/trait.ATextureUnitBinding.html' title='glitter::context::texture_units::ATextureUnitBinding'>ATextureUnitBinding</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnitBinding2d.html' title='glitter::context::texture_units::TextureUnitBinding2d'>TextureUnitBinding2d</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html' title='glitter::context::texture_units::TextureUnitBindingCubeMap'>TextureUnitBindingCubeMap</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit0Context.html' title='glitter::context::texture_units::TextureUnit0Context'>TextureUnit0Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit1Context.html' title='glitter::context::texture_units::TextureUnit1Context'>TextureUnit1Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit2Context.html' title='glitter::context::texture_units::TextureUnit2Context'>TextureUnit2Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit3Context.html' title='glitter::context::texture_units::TextureUnit3Context'>TextureUnit3Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit4Context.html' title='glitter::context::texture_units::TextureUnit4Context'>TextureUnit4Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit5Context.html' title='glitter::context::texture_units::TextureUnit5Context'>TextureUnit5Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit6Context.html' title='glitter::context::texture_units::TextureUnit6Context'>TextureUnit6Context</a>, <a class='trait' href='../../glitter/context/texture_units/trait.TextureUnit7Context.html' title='glitter::context::texture_units::TextureUnit7Context'>TextureUnit7Context</a>};</code></td></tr><tr><td><code>pub use context::<a class='mod' href='../../glitter/context/ext/index.html' title='glitter::context::ext'>ext</a>::*;</code></td></tr><tr><td><code>pub use shader::<a class='trait' href='../../glitter/shader/trait.ContextShaderBuilderExt.html' title='glitter::shader::ContextShaderBuilderExt'>ContextShaderBuilderExt</a>;</code></td></tr><tr><td><code>pub use vertex_buffer::{<a class='trait' href='../../glitter/vertex_buffer/trait.VertexBufferContext.html' title='glitter::vertex_buffer::VertexBufferContext'>VertexBufferContext</a>, <a class='trait' href='../../glitter/vertex_buffer/trait.IndexBufferContext.html' title='glitter::vertex_buffer::IndexBufferContext'>IndexBufferContext</a>, <a class='trait' href='../../glitter/vertex_buffer/trait.ContextVertexBufferExt.html' title='glitter::vertex_buffer::ContextVertexBufferExt'>ContextVertexBufferExt</a>};</code></td></tr><tr><td><code>pub use types::<a class='trait' href='../../glitter/types/trait.GLObject.html' title='glitter::types::GLObject'>GLObject</a>;</code></td></tr></table></section>
+<table><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/buffer_context/trait.BufferContext.html" title="trait glitter::context::buffer_context::BufferContext">BufferContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/buffer_context/trait.ArrayBufferContext.html" title="trait glitter::context::buffer_context::ArrayBufferContext">ArrayBufferContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html" title="trait glitter::context::buffer_context::ElementArrayBufferContext">ElementArrayBufferContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/framebuffer_context/trait.FramebufferContext.html" title="trait glitter::context::framebuffer_context::FramebufferContext">FramebufferContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/framebuffer_context/trait.ContextFramebufferBuilderExt.html" title="trait glitter::context::framebuffer_context::ContextFramebufferBuilderExt">ContextFramebufferBuilderExt</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/program_context/trait.ProgramContext.html" title="trait glitter::context::program_context::ProgramContext">ProgramContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/program_context/trait.ContextProgramBuilderExt.html" title="trait glitter::context::program_context::ContextProgramBuilderExt">ContextProgramBuilderExt</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/renderbuffer_context/trait.RenderbufferContext.html" title="trait glitter::context::renderbuffer_context::RenderbufferContext">RenderbufferContext</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/renderbuffer_context/trait.ContextRenderbufferBuilderExt.html" title="trait glitter::context::renderbuffer_context::ContextRenderbufferBuilderExt">ContextRenderbufferBuilderExt</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_context/trait.TextureBinding.html" title="trait glitter::context::texture_context::TextureBinding">TextureBinding</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_context/trait.ContextTextureBuilderExt.html" title="trait glitter::context::texture_context::ContextTextureBuilderExt">ContextTextureBuilderExt</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit.html" title="trait glitter::context::texture_units::TextureUnit">TextureUnit</a>;</code></td></tr><tr><td><code>pub use context::<a class="type" href="../../glitter/context/texture_units/type.TextureUnitBinding.html" title="type glitter::context::texture_units::TextureUnitBinding">TextureUnitBinding</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.ATextureUnitBinding.html" title="trait glitter::context::texture_units::ATextureUnitBinding">ATextureUnitBinding</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnitBinding2d.html" title="trait glitter::context::texture_units::TextureUnitBinding2d">TextureUnitBinding2d</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html" title="trait glitter::context::texture_units::TextureUnitBindingCubeMap">TextureUnitBindingCubeMap</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit0Context.html" title="trait glitter::context::texture_units::TextureUnit0Context">TextureUnit0Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit1Context.html" title="trait glitter::context::texture_units::TextureUnit1Context">TextureUnit1Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit2Context.html" title="trait glitter::context::texture_units::TextureUnit2Context">TextureUnit2Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit3Context.html" title="trait glitter::context::texture_units::TextureUnit3Context">TextureUnit3Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit4Context.html" title="trait glitter::context::texture_units::TextureUnit4Context">TextureUnit4Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit5Context.html" title="trait glitter::context::texture_units::TextureUnit5Context">TextureUnit5Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit6Context.html" title="trait glitter::context::texture_units::TextureUnit6Context">TextureUnit6Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="trait" href="../../glitter/context/texture_units/trait.TextureUnit7Context.html" title="trait glitter::context::texture_units::TextureUnit7Context">TextureUnit7Context</a>;</code></td></tr><tr><td><code>pub use context::<a class="mod" href="../../glitter/context/ext/index.html" title="mod glitter::context::ext">ext</a>::*;</code></td></tr><tr><td><code>pub use shader::<a class="trait" href="../../glitter/shader/trait.ContextShaderBuilderExt.html" title="trait glitter::shader::ContextShaderBuilderExt">ContextShaderBuilderExt</a>;</code></td></tr><tr><td><code>pub use vertex_buffer::<a class="trait" href="../../glitter/vertex_buffer/trait.VertexBufferContext.html" title="trait glitter::vertex_buffer::VertexBufferContext">VertexBufferContext</a>;</code></td></tr><tr><td><code>pub use vertex_buffer::<a class="trait" href="../../glitter/vertex_buffer/trait.IndexBufferContext.html" title="trait glitter::vertex_buffer::IndexBufferContext">IndexBufferContext</a>;</code></td></tr><tr><td><code>pub use vertex_buffer::<a class="trait" href="../../glitter/vertex_buffer/trait.ContextVertexBufferExt.html" title="trait glitter::vertex_buffer::ContextVertexBufferExt">ContextVertexBufferExt</a>;</code></td></tr><tr><td><code>pub use types::<a class="trait" href="../../glitter/types/trait.GLObject.html" title="trait glitter::types::GLObject">GLObject</a>;</code></td></tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -75,13 +76,15 @@ with the following:</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -114,11 +117,8 @@ with the following:</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

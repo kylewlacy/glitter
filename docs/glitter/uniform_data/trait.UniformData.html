@@ -9,6 +9,7 @@
 
     <title>glitter::uniform_data::UniformData - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a></p><script>window.sidebarCurrent = {name: 'UniformData', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait UniformData</p><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.uniform_datum_type">uniform_datum_type</a><a href="#tymethod.uniform_bytes">uniform_bytes</a><a href="#tymethod.uniform_elements">uniform_elements</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-UniformData">[T]</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a></p><script>window.sidebarCurrent = {name: 'UniformData', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,32 +43,43 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a>::<wbr><a class='trait' href=''>UniformData</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>uniform_data</a>::<wbr><a class="trait" href=''>UniformData</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2574' class='srclink' href='../../src/glitter/src/uniform_data.rs.html#49-58' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/uniform_data.rs.html#49-58' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait UniformData {
-    fn <a href='#tymethod.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class='enum' href='../../glitter/uniform_data/enum.UniformDatumType.html' title='glitter::uniform_data::UniformDatumType'>UniformDatumType</a>;
-    fn <a href='#tymethod.uniform_bytes' class='fnname'>uniform_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>;
-    fn <a href='#tymethod.uniform_elements' class='fnname'>uniform_elements</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>;
+    fn <a href='#tymethod.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class="enum" href="../../glitter/uniform_data/enum.UniformDatumType.html" title="enum glitter::uniform_data::UniformDatumType">UniformDatumType</a>;
+<div class='item-spacer'></div>    fn <a href='#tymethod.uniform_bytes' class='fnname'>uniform_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a>;
+<div class='item-spacer'></div>    fn <a href='#tymethod.uniform_elements' class='fnname'>uniform_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>;
 }</pre><div class='docblock'><p>A type that can be set to a uniform value in a program object, using
 the <a href="../context/program_context/trait.ContextProgramExt.html#method.set_uniform"><code>gl.set_uniform</code></a>
 method. A <code>UniformData</code> type can be composed of one or more
 <a href="trait.UniformDatum.html"><code>UniformDatums</code></a>, and this is likely the type
 that user types will implement.</p>
 </div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.uniform_datum_type' class='method stab '><span id='uniform_datum_type.v' class='invisible'><code>fn <a href='#tymethod.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class='enum' href='../../glitter/uniform_data/enum.UniformDatumType.html' title='glitter::uniform_data::UniformDatumType'>UniformDatumType</a></code></span></h3><div class='docblock'><p>Return the type that this uniform data should be treated as.</p>
-</div><h3 id='tymethod.uniform_bytes' class='method stab '><span id='uniform_bytes.v' class='invisible'><code>fn <a href='#tymethod.uniform_bytes' class='fnname'>uniform_bytes</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></span></h3><div class='docblock'><p>Create a byte slice of uniform data from <code>self</code>.</p>
-</div><h3 id='tymethod.uniform_elements' class='method stab '><span id='uniform_elements.v' class='invisible'><code>fn <a href='#tymethod.uniform_elements' class='fnname'>uniform_elements</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a></code></span></h3><div class='docblock'><p>Return the number of uniform data elements that <code>self</code> contains.</p>
+        <h3 id='tymethod.uniform_datum_type' class='method'><span id='uniform_datum_type.v' class='invisible'><code>fn <a href='#tymethod.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class="enum" href="../../glitter/uniform_data/enum.UniformDatumType.html" title="enum glitter::uniform_data::UniformDatumType">UniformDatumType</a></code></span></h3><div class='docblock'><p>Return the type that this uniform data should be treated as.</p>
+</div><h3 id='tymethod.uniform_bytes' class='method'><span id='uniform_bytes.v' class='invisible'><code>fn <a href='#tymethod.uniform_bytes' class='fnname'>uniform_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span></h3><div class='docblock'><p>Create a byte slice of uniform data from <code>self</code>.</p>
+</div><h3 id='tymethod.uniform_elements' class='method'><span id='uniform_elements.v' class='invisible'><code>fn <a href='#tymethod.uniform_elements' class='fnname'>uniform_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span></h3><div class='docblock'><p>Return the number of uniform data elements that <code>self</code> contains.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+                <h2 id='foreign-impls' class='small-section-header'>
+                  Implementations on Foreign Types<a href='#foreign-impls' class='anchor'></a>
+                </h2>
+            <h3 id='impl-UniformData' class='impl'><span class='in-band'><code>impl&lt;T:&nbsp;<a class="trait" href="../../glitter/uniform_data/trait.UniformDatum.html" title="trait glitter::uniform_data::UniformDatum">UniformDatum</a>&gt; <a class="trait" href="../../glitter/uniform_data/trait.UniformData.html" title="trait glitter::uniform_data::UniformData">UniformData</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">[</a>T<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code><a href='#impl-UniformData' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/uniform_data.rs.html#178-193' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.uniform_datum_type' class="method"><span id='uniform_datum_type.v-1' class='invisible'><code>fn <a href='#method.uniform_datum_type' class='fnname'>uniform_datum_type</a>() -&gt; <a class="enum" href="../../glitter/uniform_data/enum.UniformDatumType.html" title="enum glitter::uniform_data::UniformDatumType">UniformDatumType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/uniform_data.rs.html#179-181' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.uniform_bytes' class="method"><span id='uniform_bytes.v-1' class='invisible'><code>fn <a href='#method.uniform_bytes' class='fnname'>uniform_bytes</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;[</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">]</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/uniform_data.rs.html#183-188' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.uniform_elements' class="method"><span id='uniform_elements.v-1' class='invisible'><code>fn <a href='#method.uniform_elements' class='fnname'>uniform_elements</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/uniform_data.rs.html#190-192' title='goto source code'>[src]</a></span></h4>
+</div></span>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a>&gt; UniformData for T</code></li>
-<li><code>impl&lt;T:&nbsp;<a class='trait' href='../../glitter/uniform_data/trait.UniformDatum.html' title='glitter::uniform_data::UniformDatum'>UniformDatum</a>&gt; UniformData for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>[</a>T<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a></code></li>
+    <li><code>impl&lt;T:&nbsp;<a class="trait" href="../../glitter/uniform_data/trait.UniformDatum.html" title="trait glitter::uniform_data::UniformDatum">UniformDatum</a>&gt; UniformData for T</code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/glitter/uniform_data/trait.UniformData.js">
                  </script></section>
@@ -87,13 +99,15 @@ that user types will implement.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -126,11 +140,8 @@ that user types will implement.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

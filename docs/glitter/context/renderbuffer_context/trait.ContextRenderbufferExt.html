@@ -9,6 +9,7 @@
 
     <title>glitter::context::renderbuffer_context::ContextRenderbufferExt - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a></p><script>window.sidebarCurrent = {name: 'ContextRenderbufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait ContextRenderbufferExt</p><div class="block items"><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.gen_renderbuffer">gen_renderbuffer</a><a href="#method.storage">storage</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a></p><script>window.sidebarCurrent = {name: 'ContextRenderbufferExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,27 +43,29 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a>::<wbr><a class='trait' href=''>ContextRenderbufferExt</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>renderbuffer_context</a>::<wbr><a class="trait" href=''>ContextRenderbufferExt</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-707' class='srclink' href='../../../src/glitter/src/context/renderbuffer_context.rs.html#102-152' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait ContextRenderbufferExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
-    unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a> { ... }
-    fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) { ... }
+               </span><a class='srclink' href='../../../src/glitter/context/renderbuffer_context.rs.html#102-152' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextRenderbufferExt: <a class="trait" href="../../../glitter/context/trait.BaseContext.html" title="trait glitter::context::BaseContext">BaseContext</a> {
+    unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class="struct" href="../../../glitter/renderbuffer/struct.Renderbuffer.html" title="struct glitter::renderbuffer::Renderbuffer">Renderbuffer</a> { ... }
+<div class='item-spacer'></div>    fn <a href='#method.storage' class='fnname'>storage</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gl_rbo: &amp;mut <a class="struct" href="../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html" title="struct glitter::context::renderbuffer_context::RenderbufferBinding">RenderbufferBinding</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;format: <a class="enum" href="../../../glitter/image_data/enum.RenderbufferFormat.html" title="enum glitter::image_data::RenderbufferFormat">RenderbufferFormat</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><br>&nbsp;&nbsp;&nbsp;&nbsp;) { ... }
 }</pre><div class='docblock'><p>An extension trait that includes renderbuffer-related OpenGL methods.</p>
 </div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.gen_renderbuffer' class='method stab '><span id='gen_renderbuffer.v' class='invisible'><code>unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class='struct' href='../../../glitter/renderbuffer/struct.Renderbuffer.html' title='glitter::renderbuffer::Renderbuffer'>Renderbuffer</a></code></span></h3><div class='docblock'><p>Create a new renderbuffer object with no storage allocated.</p>
+        <h3 id='method.gen_renderbuffer' class='method'><span id='gen_renderbuffer.v' class='invisible'><code>unsafe fn <a href='#method.gen_renderbuffer' class='fnname'>gen_renderbuffer</a>(&amp;self) -&gt; <a class="struct" href="../../../glitter/renderbuffer/struct.Renderbuffer.html" title="struct glitter::renderbuffer::Renderbuffer">Renderbuffer</a></code></span></h3><div class='docblock'><p>Create a new renderbuffer object with no storage allocated.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>Many OpenGL function calls expect a renderbuffer to be
 <a href="https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness">attachment-complete</a>.
 Be sure to properly set up the renderbuffer&#39;s storage before passing
 the renderbuffer to such functions.</p>
-</div><h3 id='method.storage' class='method stab '><span id='storage.v' class='invisible'><code>fn <a href='#method.storage' class='fnname'>storage</a>(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; gl_rbo: &amp;mut <a class='struct' href='../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html' title='glitter::context::renderbuffer_context::RenderbufferBinding'>RenderbufferBinding</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; format: <a class='enum' href='../../../glitter/image_data/enum.RenderbufferFormat.html' title='glitter::image_data::RenderbufferFormat'>RenderbufferFormat</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; width: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; height: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>)</code></span></h3><div class='docblock'><p>Initialize a renderbuffer object&#39;s storage.</p>
+</div><h3 id='method.storage' class='method'><span id='storage.v' class='invisible'><code>fn <a href='#method.storage' class='fnname'>storage</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;gl_rbo: &amp;mut <a class="struct" href="../../../glitter/context/renderbuffer_context/struct.RenderbufferBinding.html" title="struct glitter::context::renderbuffer_context::RenderbufferBinding">RenderbufferBinding</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;format: <a class="enum" href="../../../glitter/image_data/enum.RenderbufferFormat.html" title="enum glitter::image_data::RenderbufferFormat">RenderbufferFormat</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;width: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;height: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><br>)</code></span></h3><div class='docblock'><p>Initialize a renderbuffer object&#39;s storage.</p>
 
 <ul>
 <li><code>gl_rbo</code>: The binding of the renderbuffer to set up storage for.</li>
@@ -75,9 +78,11 @@ the renderbuffer to such functions.</p>
 <p><a href="http://docs.gl/es2/glRenderbufferStorage"><code>glRenderbufferStorage</code></a>
 OpenGL docs</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a>&gt; ContextRenderbufferExt for C</code></li>
+    <li><code>impl&lt;C:&nbsp;<a class="trait" href="../../../glitter/context/trait.BaseContext.html" title="trait glitter::context::BaseContext">BaseContext</a>&gt; ContextRenderbufferExt for C</code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/glitter/context/renderbuffer_context/trait.ContextRenderbufferExt.js">
                  </script></section>
@@ -97,13 +102,15 @@ OpenGL docs</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -136,11 +143,8 @@ OpenGL docs</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

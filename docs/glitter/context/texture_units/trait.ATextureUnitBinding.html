@@ -9,6 +9,7 @@
 
     <title>glitter::context::texture_units::ATextureUnitBinding - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'ATextureUnitBinding', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait ATextureUnitBinding</p><div class="block items"><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'ATextureUnitBinding', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,12 +43,12 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class='trait' href=''>ATextureUnitBinding</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class="trait" href=''>ATextureUnitBinding</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1788' class='srclink' href='../../../src/glitter/src/context/texture_units.rs.html#1444-1446' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1444-1446' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub unsafe trait ATextureUnitBinding { }</pre><div class='docblock'><p>A marker trait for types that represent an active texture unit binding.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
@@ -55,10 +56,12 @@
 that an active texture unit will be bound for the lifetime of an
 instance of this type.</p>
 </div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T2, TC&gt; ATextureUnitBinding for <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html' title='glitter::context::texture_units::TextureUnitBindingOf'>TextureUnitBindingOf</a>&lt;T2, TC&gt;</code></li>
-<li><code>impl&lt;'a, T2, TC&gt; ATextureUnitBinding for &amp;'a mut <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html' title='glitter::context::texture_units::TextureUnitBindingOf'>TextureUnitBindingOf</a>&lt;T2, TC&gt;</code></li>
+    <li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1448-1450' title='goto source code'>[src]</a></div><code>impl&lt;T2, TC&gt; ATextureUnitBinding for <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;T2, TC&gt;</code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1452-1456' title='goto source code'>[src]</a></div><code>impl&lt;'a, T2, TC&gt; ATextureUnitBinding for &amp;'a mut <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;T2, TC&gt;</code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/glitter/context/texture_units/trait.ATextureUnitBinding.js">
                  </script></section>
@@ -78,13 +81,15 @@ instance of this type.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -117,11 +122,8 @@ instance of this type.</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

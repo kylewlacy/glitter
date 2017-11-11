@@ -9,13 +9,15 @@
 
     <title>vertex_data.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -401,363 +403,363 @@
 <span id="358">358</span>
 <span id="359">359</span>
 <span id="360">360</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Contains types related to vertex data, which are used for [`VertexBuffers`]</span>
-<span class='doccomment'>//! (../vertex_buffer/struct.VertexBuffer.html).</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Contains types related to vertex data, which are used for [`VertexBuffers`]</span>
+<span class="doccomment">//! (../vertex_buffer/struct.VertexBuffer.html).</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>DataType</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">types</span>::<span class="ident">DataType</span>;
 
-<span class='doccomment'>/// A type that has vertex data.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Safety</span>
-<span class='doccomment'>/// Implementors must properly implement the [`visit_attributes`]</span>
-<span class='doccomment'>/// (trait.VertexData.html#tymethod.visit_attributes) method. Implementing</span>
-<span class='doccomment'>/// this method incorrectly will lead to memory unsafety in some safe</span>
-<span class='doccomment'>/// API&#39;s in glitter.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Example</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-<span class='doccomment'>/// use glitter::prelude::*;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// #[derive(Clone, Copy)] // `VertexData` types must implement `Copy`</span>
-<span class='doccomment'>/// #[repr(C)] // Use a predictable data layout (for our field offsets)</span>
-<span class='doccomment'>/// struct MyVertex {</span>
-<span class='doccomment'>///     position: [f32; 3],</span>
-<span class='doccomment'>///     color: [f32; 3]</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// // Manually implement the `VertexData` trait</span>
-<span class='doccomment'>/// unsafe impl glitter::VertexData for MyVertex {</span>
-<span class='doccomment'>///     fn visit_attributes&lt;F&gt;(mut f: F)</span>
-<span class='doccomment'>///         where F: FnMut(glitter::VertexAttribute)</span>
-<span class='doccomment'>///     {</span>
-<span class='doccomment'>///         use std::mem;</span>
-<span class='doccomment'>///         use glitter::{VertexAttribute, VertexAttributeType, VertexDatum};</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         // The vertex attribute type for an `[f32; 3]`, or `vec3`</span>
-<span class='doccomment'>///         let vec3 = &lt;[f32; 3] as VertexDatum&gt;::attrib_type();</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         // let vec3 = VertexAttributeType {</span>
-<span class='doccomment'>///         //     data: glitter::FLOAT,</span>
-<span class='doccomment'>///         //     components: 3,</span>
-<span class='doccomment'>///         //     normalize: false</span>
-<span class='doccomment'>///         // };</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         let stride = mem::size_of::&lt;MyVertex&gt;();</span>
-<span class='doccomment'>///         let position_offset = 0;</span>
-<span class='doccomment'>///         let position_size = mem::size_of::&lt;[f32; 3]&gt;();</span>
-<span class='doccomment'>///         let color_offset = position_offset + position_size;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         let position = VertexAttribute {</span>
-<span class='doccomment'>///             ty: vec3.clone(),</span>
-<span class='doccomment'>///             name: &quot;position&quot;.into(),</span>
-<span class='doccomment'>///             offset: position_offset,</span>
-<span class='doccomment'>///             stride: stride</span>
-<span class='doccomment'>///         };</span>
-<span class='doccomment'>///         let color = VertexAttribute {</span>
-<span class='doccomment'>///             ty: vec3,</span>
-<span class='doccomment'>///             name: &quot;color&quot;.into(),</span>
-<span class='doccomment'>///             offset: color_offset,</span>
-<span class='doccomment'>///             stride: stride</span>
-<span class='doccomment'>///         };</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         // Call the function with the &quot;position&quot; and &quot;color&quot; attributes</span>
-<span class='doccomment'>///         f(position);</span>
-<span class='doccomment'>///         f(color);</span>
-<span class='doccomment'>///     }</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// #     // TODO: Add `VertexData` implementation test</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # See also</span>
-<span class='doccomment'>/// [`impl_vertx_data!`](../macro.impl_vertex_data!.html): A macro that</span>
-<span class='doccomment'>/// automatically implements `VertexData` for structs.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>VertexData</span>: <span class='ident'>Copy</span> {
-    <span class='doccomment'>/// Call the given function with each attribute that this</span>
-    <span class='doccomment'>/// vertex data is composed of.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// The function must only be called once per attribute, and</span>
-    <span class='doccomment'>/// the provided values of the [`VertexAttribute`]</span>
-    <span class='doccomment'>/// (struct.VertexAttribute.html) passed to the function *must*</span>
-    <span class='doccomment'>/// be correct. See the [`VertexAttribute`](struct.VertexAttribute.html)</span>
-    <span class='doccomment'>/// docs for more details on what each field means.</span>
-    <span class='kw'>fn</span> <span class='ident'>visit_attributes</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='ident'>f</span>: <span class='ident'>F</span>) <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='ident'>VertexAttribute</span>);
+<span class="doccomment">/// A type that has vertex data.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">/// Implementors must properly implement the [`visit_attributes`]</span>
+<span class="doccomment">/// (trait.VertexData.html#tymethod.visit_attributes) method. Implementing</span>
+<span class="doccomment">/// this method incorrectly will lead to memory unsafety in some safe</span>
+<span class="doccomment">/// API&#39;s in glitter.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+<span class="doccomment">/// use glitter::prelude::*;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// #[derive(Clone, Copy)] // `VertexData` types must implement `Copy`</span>
+<span class="doccomment">/// #[repr(C)] // Use a predictable data layout (for our field offsets)</span>
+<span class="doccomment">/// struct MyVertex {</span>
+<span class="doccomment">///     position: [f32; 3],</span>
+<span class="doccomment">///     color: [f32; 3]</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// // Manually implement the `VertexData` trait</span>
+<span class="doccomment">/// unsafe impl glitter::VertexData for MyVertex {</span>
+<span class="doccomment">///     fn visit_attributes&lt;F&gt;(mut f: F)</span>
+<span class="doccomment">///         where F: FnMut(glitter::VertexAttribute)</span>
+<span class="doccomment">///     {</span>
+<span class="doccomment">///         use std::mem;</span>
+<span class="doccomment">///         use glitter::{VertexAttribute, VertexAttributeType, VertexDatum};</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         // The vertex attribute type for an `[f32; 3]`, or `vec3`</span>
+<span class="doccomment">///         let vec3 = &lt;[f32; 3] as VertexDatum&gt;::attrib_type();</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         // let vec3 = VertexAttributeType {</span>
+<span class="doccomment">///         //     data: glitter::FLOAT,</span>
+<span class="doccomment">///         //     components: 3,</span>
+<span class="doccomment">///         //     normalize: false</span>
+<span class="doccomment">///         // };</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         let stride = mem::size_of::&lt;MyVertex&gt;();</span>
+<span class="doccomment">///         let position_offset = 0;</span>
+<span class="doccomment">///         let position_size = mem::size_of::&lt;[f32; 3]&gt;();</span>
+<span class="doccomment">///         let color_offset = position_offset + position_size;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         let position = VertexAttribute {</span>
+<span class="doccomment">///             ty: vec3.clone(),</span>
+<span class="doccomment">///             name: &quot;position&quot;.into(),</span>
+<span class="doccomment">///             offset: position_offset,</span>
+<span class="doccomment">///             stride: stride</span>
+<span class="doccomment">///         };</span>
+<span class="doccomment">///         let color = VertexAttribute {</span>
+<span class="doccomment">///             ty: vec3,</span>
+<span class="doccomment">///             name: &quot;color&quot;.into(),</span>
+<span class="doccomment">///             offset: color_offset,</span>
+<span class="doccomment">///             stride: stride</span>
+<span class="doccomment">///         };</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         // Call the function with the &quot;position&quot; and &quot;color&quot; attributes</span>
+<span class="doccomment">///         f(position);</span>
+<span class="doccomment">///         f(color);</span>
+<span class="doccomment">///     }</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// #     // TODO: Add `VertexData` implementation test</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # See also</span>
+<span class="doccomment">/// [`impl_vertx_data!`](../macro.impl_vertex_data!.html): A macro that</span>
+<span class="doccomment">/// automatically implements `VertexData` for structs.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">VertexData</span>: <span class="ident">Copy</span> {
+    <span class="doccomment">/// Call the given function with each attribute that this</span>
+    <span class="doccomment">/// vertex data is composed of.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// The function must only be called once per attribute, and</span>
+    <span class="doccomment">/// the provided values of the [`VertexAttribute`]</span>
+    <span class="doccomment">/// (struct.VertexAttribute.html) passed to the function *must*</span>
+    <span class="doccomment">/// be correct. See the [`VertexAttribute`](struct.VertexAttribute.html)</span>
+    <span class="doccomment">/// docs for more details on what each field means.</span>
+    <span class="kw">fn</span> <span class="ident">visit_attributes</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="ident">f</span>: <span class="ident">F</span>) <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="ident">VertexAttribute</span>);
 }
 
-<span class='doccomment'>/// A single value that can be treated as a part of a vertex. Implementors</span>
-<span class='doccomment'>/// should map to a GLSL primitive that can be used as a vertex attribute.</span>
-<span class='doccomment'>/// For example, `[f32; 2]` corresponds to `vec2` in memory layout</span>
-<span class='doccomment'>/// and structure.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Safety</span>
-<span class='doccomment'>/// This type will be transmuted to a slice according to the value returned</span>
-<span class='doccomment'>/// by the [`attrib_type`](trait.VertexDatum.html#tymethod.attrib_type) method.</span>
-<span class='doccomment'>/// Implementing this method incorrectly will lead to memory unsafety.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>VertexDatum</span>: <span class='ident'>Copy</span> {
-    <span class='doccomment'>/// Return the data type this datum corresponds to.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// An instance of this type must match the size and memory layout</span>
-    <span class='doccomment'>/// specified by the returned [`VertexAttributeType`]</span>
-    <span class='doccomment'>/// (struct.VertexAttributeType.html). Additionally **this function</span>
-    <span class='doccomment'>/// must not painc**. Safe code must be able to rely on this property.</span>
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span>;
+<span class="doccomment">/// A single value that can be treated as a part of a vertex. Implementors</span>
+<span class="doccomment">/// should map to a GLSL primitive that can be used as a vertex attribute.</span>
+<span class="doccomment">/// For example, `[f32; 2]` corresponds to `vec2` in memory layout</span>
+<span class="doccomment">/// and structure.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">/// This type will be transmuted to a slice according to the value returned</span>
+<span class="doccomment">/// by the [`attrib_type`](trait.VertexDatum.html#tymethod.attrib_type) method.</span>
+<span class="doccomment">/// Implementing this method incorrectly will lead to memory unsafety.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">VertexDatum</span>: <span class="ident">Copy</span> {
+    <span class="doccomment">/// Return the data type this datum corresponds to.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// An instance of this type must match the size and memory layout</span>
+    <span class="doccomment">/// specified by the returned [`VertexAttributeType`]</span>
+    <span class="doccomment">/// (struct.VertexAttributeType.html). Additionally **this function</span>
+    <span class="doccomment">/// must not painc**. Safe code must be able to rely on this property.</span>
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span>;
 }
 
-<span class='doccomment'>/// A single, basic value that can be composed to make a [`VertexDatum`]</span>
-<span class='doccomment'>/// (trait.VertexDatum.html). Scalar values are an example of a</span>
-<span class='doccomment'>/// `VertexPrimitive`.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Safety</span>
-<span class='doccomment'>/// This type will be transmuted to a slice according to the value returned</span>
-<span class='doccomment'>/// by the [`data_type`](trait.VertexPrimitive.html#tymethod.data_type) method.</span>
-<span class='doccomment'>/// Implementing this method incorrectly will lead to memory unsafety.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>VertexPrimitive</span>: <span class='ident'>Copy</span> {
-    <span class='doccomment'>/// Return the data type this primitive corresponds to.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// An instance of this type must be the size of the [`DataType`]</span>
-    <span class='doccomment'>/// (../types/enum.DataType.html) returned by this function.</span>
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span>;
+<span class="doccomment">/// A single, basic value that can be composed to make a [`VertexDatum`]</span>
+<span class="doccomment">/// (trait.VertexDatum.html). Scalar values are an example of a</span>
+<span class="doccomment">/// `VertexPrimitive`.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">/// This type will be transmuted to a slice according to the value returned</span>
+<span class="doccomment">/// by the [`data_type`](trait.VertexPrimitive.html#tymethod.data_type) method.</span>
+<span class="doccomment">/// Implementing this method incorrectly will lead to memory unsafety.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">VertexPrimitive</span>: <span class="ident">Copy</span> {
+    <span class="doccomment">/// Return the data type this primitive corresponds to.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// An instance of this type must be the size of the [`DataType`]</span>
+    <span class="doccomment">/// (../types/enum.DataType.html) returned by this function.</span>
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span>;
 }
 
-<span class='doccomment'>/// Specifies the type, name, and memory layout of a vertex attribute.</span>
-<span class='doccomment'>/// Generally, a &quot;vertex attribute&quot; corresponds to a field in a [`VertexData`]</span>
-<span class='doccomment'>/// (trait.VertexData.html) struct.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>VertexAttribute</span> {
-    <span class='doccomment'>/// The type of the vertex attribute. This also specifies the number</span>
-    <span class='doccomment'>/// of bytes that make up a vertex attribute.</span>
-    <span class='kw'>pub</span> <span class='ident'>ty</span>: <span class='ident'>VertexAttributeType</span>,
+<span class="doccomment">/// Specifies the type, name, and memory layout of a vertex attribute.</span>
+<span class="doccomment">/// Generally, a &quot;vertex attribute&quot; corresponds to a field in a [`VertexData`]</span>
+<span class="doccomment">/// (trait.VertexData.html) struct.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VertexAttribute</span> {
+    <span class="doccomment">/// The type of the vertex attribute. This also specifies the number</span>
+    <span class="doccomment">/// of bytes that make up a vertex attribute.</span>
+    <span class="kw">pub</span> <span class="ident">ty</span>: <span class="ident">VertexAttributeType</span>,
 
-    <span class='doccomment'>/// The name of the vertex attribute. This value is used</span>
-    <span class='doccomment'>/// as the `$field_name` when binding vertex attribute</span>
-    <span class='doccomment'>/// pointers with the [`attrib_pointers!`](macro.attrib_pointers!.html)</span>
-    <span class='doccomment'>/// macro.</span>
-    <span class='kw'>pub</span> <span class='ident'>name</span>: <span class='ident'>String</span>,
+    <span class="doccomment">/// The name of the vertex attribute. This value is used</span>
+    <span class="doccomment">/// as the `$field_name` when binding vertex attribute</span>
+    <span class="doccomment">/// pointers with the [`attrib_pointers!`](macro.attrib_pointers!.html)</span>
+    <span class="doccomment">/// macro.</span>
+    <span class="kw">pub</span> <span class="ident">name</span>: <span class="ident">String</span>,
 
-    <span class='doccomment'>/// The number of bytes to &quot;move&quot; from the start of the vertex data</span>
-    <span class='doccomment'>/// to reach this vertex attribute.</span>
-    <span class='kw'>pub</span> <span class='ident'>offset</span>: <span class='ident'>usize</span>,
+    <span class="doccomment">/// The number of bytes to &quot;move&quot; from the start of the vertex data</span>
+    <span class="doccomment">/// to reach this vertex attribute.</span>
+    <span class="kw">pub</span> <span class="ident">offset</span>: <span class="ident">usize</span>,
 
-    <span class='doccomment'>/// The number of bytes between consecutive vertex attributes. 0 indicates</span>
-    <span class='doccomment'>/// that the vertex data is tightly packed.</span>
-    <span class='kw'>pub</span> <span class='ident'>stride</span>: <span class='ident'>usize</span>
+    <span class="doccomment">/// The number of bytes between consecutive vertex attributes. 0 indicates</span>
+    <span class="doccomment">/// that the vertex data is tightly packed.</span>
+    <span class="kw">pub</span> <span class="ident">stride</span>: <span class="ident">usize</span>
 }
 
-<span class='doccomment'>/// Used to specify type of a vertex attribute. The size of the vertex</span>
-<span class='doccomment'>/// attribute is `size_of(data) * components`.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>VertexAttributeType</span> {
-    <span class='doccomment'>/// The type of data that makes up this vertex attribute.</span>
-    <span class='kw'>pub</span> <span class='ident'>data</span>: <span class='ident'>DataType</span>,
+<span class="doccomment">/// Used to specify type of a vertex attribute. The size of the vertex</span>
+<span class="doccomment">/// attribute is `size_of(data) * components`.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">VertexAttributeType</span> {
+    <span class="doccomment">/// The type of data that makes up this vertex attribute.</span>
+    <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">DataType</span>,
 
-    <span class='doccomment'>/// The number of `data` components that make up this vertex attribute.</span>
-    <span class='kw'>pub</span> <span class='ident'>components</span>: <span class='ident'>i8</span>,
+    <span class="doccomment">/// The number of `data` components that make up this vertex attribute.</span>
+    <span class="kw">pub</span> <span class="ident">components</span>: <span class="ident">i8</span>,
 
-    <span class='doccomment'>/// If the `data` type is fixed-point data, indicates if the data</span>
-    <span class='doccomment'>/// should be normalized when being accessed. `true` indicates</span>
-    <span class='doccomment'>/// that the vertex attribute **should** be normalized when being</span>
-    <span class='doccomment'>/// accessed.</span>
-    <span class='kw'>pub</span> <span class='ident'>normalize</span>: <span class='ident'>bool</span>
+    <span class="doccomment">/// If the `data` type is fixed-point data, indicates if the data</span>
+    <span class="doccomment">/// should be normalized when being accessed. `true` indicates</span>
+    <span class="doccomment">/// that the vertex attribute **should** be normalized when being</span>
+    <span class="doccomment">/// accessed.</span>
+    <span class="kw">pub</span> <span class="ident">normalize</span>: <span class="ident">bool</span>
 }
 
 
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='ident'>VertexPrimitive</span> <span class='kw'>for</span> <span class='ident'>i8</span> {
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span> { <span class='ident'>DataType</span>::<span class='ident'>Byte</span> }
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">VertexPrimitive</span> <span class="kw">for</span> <span class="ident">i8</span> {
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span> { <span class="ident">DataType</span>::<span class="ident">Byte</span> }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='ident'>VertexPrimitive</span> <span class='kw'>for</span> <span class='ident'>u8</span> {
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span> { <span class='ident'>DataType</span>::<span class='ident'>UnsignedByte</span> }
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">VertexPrimitive</span> <span class="kw">for</span> <span class="ident">u8</span> {
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span> { <span class="ident">DataType</span>::<span class="ident">UnsignedByte</span> }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='ident'>VertexPrimitive</span> <span class='kw'>for</span> <span class='ident'>i16</span> {
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span> { <span class='ident'>DataType</span>::<span class='ident'>Short</span> }
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">VertexPrimitive</span> <span class="kw">for</span> <span class="ident">i16</span> {
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span> { <span class="ident">DataType</span>::<span class="ident">Short</span> }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='ident'>VertexPrimitive</span> <span class='kw'>for</span> <span class='ident'>u16</span> {
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span> { <span class='ident'>DataType</span>::<span class='ident'>UnsignedShort</span> }
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">VertexPrimitive</span> <span class="kw">for</span> <span class="ident">u16</span> {
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span> { <span class="ident">DataType</span>::<span class="ident">UnsignedShort</span> }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='ident'>VertexPrimitive</span> <span class='kw'>for</span> <span class='ident'>f32</span> {
-    <span class='kw'>fn</span> <span class='ident'>data_type</span>() <span class='op'>-&gt;</span> <span class='ident'>DataType</span> { <span class='ident'>DataType</span>::<span class='ident'>Float</span> }
+<span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">VertexPrimitive</span> <span class="kw">for</span> <span class="ident">f32</span> {
+    <span class="kw">fn</span> <span class="ident">data_type</span>() <span class="op">-&gt;</span> <span class="ident">DataType</span> { <span class="ident">DataType</span>::<span class="ident">Float</span> }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>VertexPrimitive</span><span class='op'>&gt;</span> <span class='ident'>VertexDatum</span> <span class='kw'>for</span> <span class='ident'>T</span> {
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span> {
-        <span class='ident'>VertexAttributeType</span> {
-            <span class='ident'>data</span>: <span class='ident'>T</span>::<span class='ident'>data_type</span>(),
-            <span class='ident'>components</span>: <span class='number'>1</span>,
-            <span class='ident'>normalize</span>: <span class='boolval'>false</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">VertexPrimitive</span><span class="op">&gt;</span> <span class="ident">VertexDatum</span> <span class="kw">for</span> <span class="ident">T</span> {
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span> {
+        <span class="ident">VertexAttributeType</span> {
+            <span class="ident">data</span>: <span class="ident">T</span>::<span class="ident">data_type</span>(),
+            <span class="ident">components</span>: <span class="number">1</span>,
+            <span class="ident">normalize</span>: <span class="bool-val">false</span>
         }
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>VertexPrimitive</span><span class='op'>&gt;</span> <span class='ident'>VertexDatum</span> <span class='kw'>for</span> [<span class='ident'>T</span>; <span class='number'>1</span>] {
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span> {
-        <span class='ident'>VertexAttributeType</span> {
-            <span class='ident'>data</span>: <span class='ident'>T</span>::<span class='ident'>data_type</span>(),
-            <span class='ident'>components</span>: <span class='number'>1</span>,
-            <span class='ident'>normalize</span>: <span class='boolval'>false</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">VertexPrimitive</span><span class="op">&gt;</span> <span class="ident">VertexDatum</span> <span class="kw">for</span> [<span class="ident">T</span>; <span class="number">1</span>] {
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span> {
+        <span class="ident">VertexAttributeType</span> {
+            <span class="ident">data</span>: <span class="ident">T</span>::<span class="ident">data_type</span>(),
+            <span class="ident">components</span>: <span class="number">1</span>,
+            <span class="ident">normalize</span>: <span class="bool-val">false</span>
         }
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>VertexPrimitive</span><span class='op'>&gt;</span> <span class='ident'>VertexDatum</span> <span class='kw'>for</span> [<span class='ident'>T</span>; <span class='number'>2</span>] {
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span> {
-        <span class='ident'>VertexAttributeType</span> {
-            <span class='ident'>data</span>: <span class='ident'>T</span>::<span class='ident'>data_type</span>(),
-            <span class='ident'>components</span>: <span class='number'>2</span>,
-            <span class='ident'>normalize</span>: <span class='boolval'>false</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">VertexPrimitive</span><span class="op">&gt;</span> <span class="ident">VertexDatum</span> <span class="kw">for</span> [<span class="ident">T</span>; <span class="number">2</span>] {
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span> {
+        <span class="ident">VertexAttributeType</span> {
+            <span class="ident">data</span>: <span class="ident">T</span>::<span class="ident">data_type</span>(),
+            <span class="ident">components</span>: <span class="number">2</span>,
+            <span class="ident">normalize</span>: <span class="bool-val">false</span>
         }
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>VertexPrimitive</span><span class='op'>&gt;</span> <span class='ident'>VertexDatum</span> <span class='kw'>for</span> [<span class='ident'>T</span>; <span class='number'>3</span>] {
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span> {
-        <span class='ident'>VertexAttributeType</span> {
-            <span class='ident'>data</span>: <span class='ident'>T</span>::<span class='ident'>data_type</span>(),
-            <span class='ident'>components</span>: <span class='number'>3</span>,
-            <span class='ident'>normalize</span>: <span class='boolval'>false</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">VertexPrimitive</span><span class="op">&gt;</span> <span class="ident">VertexDatum</span> <span class="kw">for</span> [<span class="ident">T</span>; <span class="number">3</span>] {
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span> {
+        <span class="ident">VertexAttributeType</span> {
+            <span class="ident">data</span>: <span class="ident">T</span>::<span class="ident">data_type</span>(),
+            <span class="ident">components</span>: <span class="number">3</span>,
+            <span class="ident">normalize</span>: <span class="bool-val">false</span>
         }
     }
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='ident'>VertexPrimitive</span><span class='op'>&gt;</span> <span class='ident'>VertexDatum</span> <span class='kw'>for</span> [<span class='ident'>T</span>; <span class='number'>4</span>] {
-    <span class='kw'>fn</span> <span class='ident'>attrib_type</span>() <span class='op'>-&gt;</span> <span class='ident'>VertexAttributeType</span> {
-        <span class='ident'>VertexAttributeType</span> {
-            <span class='ident'>data</span>: <span class='ident'>T</span>::<span class='ident'>data_type</span>(),
-            <span class='ident'>components</span>: <span class='number'>4</span>,
-            <span class='ident'>normalize</span>: <span class='boolval'>false</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="ident">VertexPrimitive</span><span class="op">&gt;</span> <span class="ident">VertexDatum</span> <span class="kw">for</span> [<span class="ident">T</span>; <span class="number">4</span>] {
+    <span class="kw">fn</span> <span class="ident">attrib_type</span>() <span class="op">-&gt;</span> <span class="ident">VertexAttributeType</span> {
+        <span class="ident">VertexAttributeType</span> {
+            <span class="ident">data</span>: <span class="ident">T</span>::<span class="ident">data_type</span>(),
+            <span class="ident">components</span>: <span class="number">4</span>,
+            <span class="ident">normalize</span>: <span class="bool-val">false</span>
         }
     }
 }
 
 
 
-<span class='doccomment'>/// Indicates that a type can be coerced to a `u8` slice that can</span>
-<span class='doccomment'>/// then be treated as a stream of vertex data.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>VertexBytes</span> {
-    <span class='doccomment'>/// Create a byte slice of vertex data from `self`.</span>
-    <span class='kw'>fn</span> <span class='ident'>vertex_bytes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>];
+<span class="doccomment">/// Indicates that a type can be coerced to a `u8` slice that can</span>
+<span class="doccomment">/// then be treated as a stream of vertex data.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">VertexBytes</span> {
+    <span class="doccomment">/// Create a byte slice of vertex data from `self`.</span>
+    <span class="kw">fn</span> <span class="ident">vertex_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>];
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>VertexBytes</span> <span class='kw'>for</span> <span class='ident'>T</span> <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>VertexData</span> {
-    <span class='kw'>fn</span> <span class='ident'>vertex_bytes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='self'>self</span>), <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='kw'>Self</span><span class='op'>&gt;</span>())
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">VertexBytes</span> <span class="kw">for</span> <span class="ident">T</span> <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">VertexData</span> {
+    <span class="kw">fn</span> <span class="ident">vertex_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="kw">unsafe</span> {
+            <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="self">self</span>), <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>())
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>VertexBytes</span> <span class='kw'>for</span> [<span class='ident'>T</span>] <span class='kw'>where</span> <span class='ident'>T</span>: <span class='ident'>VertexData</span> {
-    <span class='kw'>fn</span> <span class='ident'>vertex_bytes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] {
-        <span class='kw'>let</span> <span class='ident'>size</span> <span class='op'>=</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>() <span class='op'>*</span> <span class='self'>self</span>.<span class='ident'>len</span>();
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>[<span class='number'>0</span>]), <span class='ident'>size</span>)
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> <span class="ident">VertexBytes</span> <span class="kw">for</span> [<span class="ident">T</span>] <span class="kw">where</span> <span class="ident">T</span>: <span class="ident">VertexData</span> {
+    <span class="kw">fn</span> <span class="ident">vertex_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="kw">let</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>() <span class="op">*</span> <span class="self">self</span>.<span class="ident">len</span>();
+        <span class="kw">unsafe</span> {
+            <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>[<span class="number">0</span>]), <span class="ident">size</span>)
         }
     }
 }
 
-<span class='comment'>// TODO: Use a proper compiler intrinsic/macro (when available)</span>
-<span class='comment'>// see: https://github.com/rust-lang/rust/issues/24111</span>
-<span class='doccomment'>/// Compute the offset of a field within a struct type.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Examples</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// # #[macro_use] extern crate glitter;</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// #[repr(C, packed)]</span>
-<span class='doccomment'>/// struct MyStruct {</span>
-<span class='doccomment'>///     foo: u32,</span>
-<span class='doccomment'>///     bar: u32,</span>
-<span class='doccomment'>///     baz: u32</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// assert_eq!(offset_of!(MyStruct, foo), 0);</span>
-<span class='doccomment'>/// assert_eq!(offset_of!(MyStruct, bar), 4);</span>
-<span class='doccomment'>/// assert_eq!(offset_of!(MyStruct, baz), 8);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>offset_of</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>T</span>:<span class='ident'>ty</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>:<span class='ident'>ident</span>) <span class='op'>=&gt;</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='ident'>obj</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>T</span> <span class='op'>=</span> ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>uninitialized</span>();
-            <span class='kw'>let</span> <span class='ident'>obj_ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span> <span class='op'>=</span> ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='ident'>obj</span>);
-            <span class='kw'>let</span> <span class='ident'>member_ptr</span>: <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>u8</span> <span class='op'>=</span> ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='ident'>obj</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field</span>);
+<span class="comment">// TODO: Use a proper compiler intrinsic/macro (when available)</span>
+<span class="comment">// see: https://github.com/rust-lang/rust/issues/24111</span>
+<span class="doccomment">/// Compute the offset of a field within a struct type.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// # #[macro_use] extern crate glitter;</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// #[repr(C, packed)]</span>
+<span class="doccomment">/// struct MyStruct {</span>
+<span class="doccomment">///     foo: u32,</span>
+<span class="doccomment">///     bar: u32,</span>
+<span class="doccomment">///     baz: u32</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// assert_eq!(offset_of!(MyStruct, foo), 0);</span>
+<span class="doccomment">/// assert_eq!(offset_of!(MyStruct, bar), 4);</span>
+<span class="doccomment">/// assert_eq!(offset_of!(MyStruct, baz), 8);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">offset_of</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">T</span>:<span class="ident">ty</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">obj</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">T</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>();
+            <span class="kw">let</span> <span class="ident">obj_ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>);
+            <span class="kw">let</span> <span class="ident">member_ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span> <span class="op">=</span> ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="kw-2">&amp;</span><span class="ident">obj</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field</span>);
 
-            ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='ident'>obj</span>);
+            ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">forget</span>(<span class="ident">obj</span>);
 
-            (<span class='ident'>member_ptr</span> <span class='kw'>as</span> <span class='ident'>usize</span>) <span class='op'>-</span> (<span class='ident'>obj_ptr</span> <span class='kw'>as</span> <span class='ident'>usize</span>)
+            (<span class="ident">member_ptr</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">-</span> (<span class="ident">obj_ptr</span> <span class="kw">as</span> <span class="ident">usize</span>)
         }
     }
 }
 
-<span class='doccomment'>/// Implement the [`VertexData`](vertex_data/trait.VertexData.html) trait</span>
-<span class='doccomment'>/// for a struct. Each field of the struct must that is part of the</span>
-<span class='doccomment'>/// `VertexData` implementation must be a type that implements [`VertexDatum`]</span>
-<span class='doccomment'>/// (vertex_data/trait.VertexDatum.html).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Note</span>
-<span class='doccomment'>/// The generated implementation will **not** be panic safe with regards</span>
-<span class='doccomment'>/// to the [`VertexDatum::attrib_type`]</span>
-<span class='doccomment'>/// (trait.VertexDatum.html#tymethod.attrib_type) method of the vertex</span>
-<span class='doccomment'>/// attribute fields. However, as the documenation of</span>
-<span class='comment'>// [`VertexDatum::attrib_type`](trait.VertexDatum.html#tymethod.attrib_type)</span>
-<span class='doccomment'>/// notes, implementors should be aware of this already.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Examples</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// // A type must implement `Copy` to implement `VertexData`</span>
-<span class='doccomment'>/// #[derive(Clone, Copy)]</span>
-<span class='doccomment'>/// struct MyVertex {</span>
-<span class='doccomment'>///     position: [f32; 3],</span>
-<span class='doccomment'>///     color: [f32; 3]</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// // Implement `VertexData`, using the &quot;position&quot; and &quot;color&quot; fields</span>
-<span class='doccomment'>/// // as vertex attributes.</span>
-<span class='doccomment'>/// impl_vertex_data!(MyVertex, position, color);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>macro_export</span>]</span>
-<span class='macro'>macro_rules</span><span class='macro'>!</span> <span class='ident'>impl_vertex_data</span> {
-    (<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>:<span class='ident'>ty</span>, $(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>:<span class='ident'>ident</span>),<span class='op'>*</span>) <span class='op'>=&gt;</span> {
-        <span class='kw'>unsafe</span> <span class='kw'>impl</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>VertexData</span> <span class='kw'>for</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span> {
-            <span class='kw'>fn</span> <span class='ident'>visit_attributes</span><span class='op'>&lt;</span><span class='ident'>F</span><span class='op'>&gt;</span>(<span class='kw-2'>mut</span> <span class='ident'>f</span>: <span class='ident'>F</span>)
-                <span class='kw'>where</span> <span class='ident'>F</span>: <span class='ident'>FnMut</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>VertexAttribute</span>)
+<span class="doccomment">/// Implement the [`VertexData`](vertex_data/trait.VertexData.html) trait</span>
+<span class="doccomment">/// for a struct. Each field of the struct must that is part of the</span>
+<span class="doccomment">/// `VertexData` implementation must be a type that implements [`VertexDatum`]</span>
+<span class="doccomment">/// (vertex_data/trait.VertexDatum.html).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Note</span>
+<span class="doccomment">/// The generated implementation will **not** be panic safe with regards</span>
+<span class="doccomment">/// to the [`VertexDatum::attrib_type`]</span>
+<span class="doccomment">/// (trait.VertexDatum.html#tymethod.attrib_type) method of the vertex</span>
+<span class="doccomment">/// attribute fields. However, as the documentation of</span>
+<span class="comment">// [`VertexDatum::attrib_type`](trait.VertexDatum.html#tymethod.attrib_type)</span>
+<span class="doccomment">/// notes, implementors should be aware of this already.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Examples</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// // A type must implement `Copy` to implement `VertexData`</span>
+<span class="doccomment">/// #[derive(Clone, Copy)]</span>
+<span class="doccomment">/// struct MyVertex {</span>
+<span class="doccomment">///     position: [f32; 3],</span>
+<span class="doccomment">///     color: [f32; 3]</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// // Implement `VertexData`, using the &quot;position&quot; and &quot;color&quot; fields</span>
+<span class="doccomment">/// // as vertex attributes.</span>
+<span class="doccomment">/// impl_vertex_data!(MyVertex, position, color);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">macro_export</span>]</span>
+<span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">impl_vertex_data</span> {
+    (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>:<span class="ident">ty</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field_name</span>:<span class="ident">ident</span>),<span class="kw-2">*</span>) <span class="op">=&gt;</span> {
+        <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">VertexData</span> <span class="kw">for</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> {
+            <span class="kw">fn</span> <span class="ident">visit_attributes</span><span class="op">&lt;</span><span class="ident">F</span><span class="op">&gt;</span>(<span class="kw-2">mut</span> <span class="ident">f</span>: <span class="ident">F</span>)
+                <span class="kw">where</span> <span class="ident">F</span>: <span class="ident">FnMut</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">VertexAttribute</span>)
             {
-                <span class='comment'>// TODO: A better way of iterating over field types</span>
-                <span class='comment'>// TODO: Panic safety (using `catch_panic`/`recover`)</span>
-                <span class='kw'>let</span> <span class='ident'>_data</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span> <span class='op'>=</span> <span class='kw'>unsafe</span> { ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>uninitialized</span>() };
-                <span class='kw'>fn</span> <span class='ident'>get_attribute_type</span><span class='op'>&lt;</span><span class='ident'>T</span>: <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>VertexDatum</span><span class='op'>&gt;</span>(_: <span class='kw-2'>&amp;</span><span class='ident'>T</span>)
-                    <span class='op'>-&gt;</span> <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>VertexAttributeType</span>
+                <span class="comment">// TODO: A better way of iterating over field types</span>
+                <span class="comment">// TODO: Panic safety (using `catch_panic`/`recover`)</span>
+                <span class="kw">let</span> <span class="ident">_data</span>: <span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span> <span class="op">=</span> <span class="kw">unsafe</span> { ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">uninitialized</span>() };
+                <span class="kw">fn</span> <span class="ident">get_attribute_type</span><span class="op">&lt;</span><span class="ident">T</span>: <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">VertexDatum</span><span class="op">&gt;</span>(_: <span class="kw-2">&amp;</span><span class="ident">T</span>)
+                    <span class="op">-&gt;</span> <span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">VertexAttributeType</span>
                 {
-                    <span class='ident'>T</span>::<span class='ident'>attrib_type</span>()
+                    <span class="ident">T</span>::<span class="ident">attrib_type</span>()
                 }
                 $(
-                    <span class='ident'>f</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>crate</span>::<span class='ident'>VertexAttribute</span> {
-                        <span class='ident'>ty</span>: <span class='ident'>get_attribute_type</span>(<span class='kw-2'>&amp;</span><span class='ident'>_data</span>.<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>),
-                        <span class='ident'>name</span>: <span class='macro'>stringify</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>).<span class='ident'>into</span>(),
-                        <span class='ident'>stride</span>: ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span><span class='op'>&gt;</span>(),
-                        <span class='ident'>offset</span>: <span class='macro'>offset_of</span><span class='macro'>!</span>(<span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>name</span>, <span class='macro-nonterminal'>$</span><span class='macro-nonterminal'>field_name</span>)
+                    <span class="ident">f</span>(<span class="macro-nonterminal">$</span><span class="kw">crate</span>::<span class="macro-nonterminal">VertexAttribute</span> {
+                        <span class="ident">ty</span>: <span class="ident">get_attribute_type</span>(<span class="kw-2">&amp;</span><span class="ident">_data</span>.<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field_name</span>),
+                        <span class="ident">name</span>: <span class="macro">stringify</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">field_name</span>).<span class="ident">into</span>(),
+                        <span class="ident">stride</span>: ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span><span class="op">&gt;</span>(),
+                        <span class="ident">offset</span>: <span class="macro">offset_of</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">name</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">field_name</span>)
                     });
-                )<span class='op'>*</span>
+                )<span class="op">*</span>
 
-                ::<span class='ident'>std</span>::<span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='ident'>_data</span>);
+                ::<span class="ident">std</span>::<span class="ident">mem</span>::<span class="ident">forget</span>(<span class="ident">_data</span>);
             }
         }
     };
@@ -780,12 +782,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -806,7 +812,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -817,11 +823,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

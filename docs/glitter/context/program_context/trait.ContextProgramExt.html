@@ -9,6 +9,7 @@
 
     <title>glitter::context::program_context::ContextProgramExt - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a></p><script>window.sidebarCurrent = {name: 'ContextProgramExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait ContextProgramExt</p><div class="block items"><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.create_program">create_program</a><a href="#method.attach_shader">attach_shader</a><a href="#method.link_program">link_program</a><a href="#method.get_program_info_log">get_program_info_log</a><a href="#method.get_attrib_location">get_attrib_location</a><a href="#method.get_uniform_location">get_uniform_location</a><a href="#method.set_uniform">set_uniform</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a></p><script>window.sidebarCurrent = {name: 'ContextProgramExt', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,25 +43,28 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a>::<wbr><a class='trait' href=''>ContextProgramExt</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>program_context</a>::<wbr><a class="trait" href=''>ContextProgramExt</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-546' class='srclink' href='../../../src/glitter/src/context/program_context.rs.html#107-407' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait ContextProgramExt: <a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a> {
-    unsafe fn <a href='#method.create_program' class='fnname'>create_program</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt; { ... }
-    fn <a href='#method.attach_shader' class='fnname'>attach_shader</a>(&amp;self, program: &amp;mut <a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>, shader: &amp;<a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>) { ... }
-    fn <a href='#method.link_program' class='fnname'>link_program</a>(&amp;self, program: &amp;mut <a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt; { ... }
-    fn <a href='#method.get_program_info_log' class='fnname'>get_program_info_log</a>(&amp;self, program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt; { ... }
-    fn <a href='#method.get_attrib_location' class='fnname'>get_attrib_location</a>&lt;'a&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>, <a class='struct' href='../../../glitter/context/program_context/struct.UnknownProgramAttrib.html' title='glitter::context::program_context::UnknownProgramAttrib'>UnknownProgramAttrib</a>&lt;'a&gt;&gt; { ... }
-    fn <a href='#method.get_uniform_location' class='fnname'>get_uniform_location</a>&lt;'a&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.ProgramUniform.html' title='glitter::program::ProgramUniform'>ProgramUniform</a>, <a class='struct' href='../../../glitter/context/program_context/struct.UnknownProgramUniform.html' title='glitter::context::program_context::UnknownProgramUniform'>UnknownProgramUniform</a>&lt;'a&gt;&gt; { ... }
-    fn <a href='#method.set_uniform' class='fnname'>set_uniform</a>&lt;T&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _gl_program: &amp;<a class='struct' href='../../../glitter/context/program_context/struct.ProgramBinding.html' title='glitter::context::program_context::ProgramBinding'>ProgramBinding</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uniform: <a class='struct' href='../../../glitter/program/struct.ProgramUniform.html' title='glitter::program::ProgramUniform'>ProgramUniform</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; val: T) <span class='where'>where T: <a class='trait' href='../../../glitter/uniform_data/trait.UniformData.html' title='glitter::uniform_data::UniformData'>UniformData</a></span> { ... }
+               </span><a class='srclink' href='../../../src/glitter/context/program_context.rs.html#107-407' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait ContextProgramExt: <a class="trait" href="../../../glitter/context/trait.BaseContext.html" title="trait glitter::context::BaseContext">BaseContext</a> {
+    unsafe fn <a href='#method.create_program' class='fnname'>create_program</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt; { ... }
+<div class='item-spacer'></div>    fn <a href='#method.attach_shader' class='fnname'>attach_shader</a>(&amp;self, program: &amp;mut <a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, shader: &amp;<a class="struct" href="../../../glitter/shader/struct.Shader.html" title="struct glitter::shader::Shader">Shader</a>) { ... }
+<div class='item-spacer'></div>    fn <a href='#method.link_program' class='fnname'>link_program</a>(&amp;self, program: &amp;mut <a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="enum" href="../../../glitter/types/enum.GLError.html" title="enum glitter::types::GLError">GLError</a>&gt; { ... }
+<div class='item-spacer'></div>    fn <a href='#method.get_program_info_log' class='fnname'>get_program_info_log</a>(&amp;self, program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt; { ... }
+<div class='item-spacer'></div>    fn <a href='#method.get_attrib_location' class='fnname'>get_attrib_location</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.ProgramAttrib.html" title="struct glitter::program::ProgramAttrib">ProgramAttrib</a>, <a class="struct" href="../../../glitter/context/program_context/struct.UnknownProgramAttrib.html" title="struct glitter::context::program_context::UnknownProgramAttrib">UnknownProgramAttrib</a>&lt;'a&gt;&gt; { ... }
+<div class='item-spacer'></div>    fn <a href='#method.get_uniform_location' class='fnname'>get_uniform_location</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.ProgramUniform.html" title="struct glitter::program::ProgramUniform">ProgramUniform</a>, <a class="struct" href="../../../glitter/context/program_context/struct.UnknownProgramUniform.html" title="struct glitter::context::program_context::UnknownProgramUniform">UnknownProgramUniform</a>&lt;'a&gt;&gt; { ... }
+<div class='item-spacer'></div>    fn <a href='#method.set_uniform' class='fnname'>set_uniform</a>&lt;T&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_gl_program: &amp;<a class="struct" href="../../../glitter/context/program_context/struct.ProgramBinding.html" title="struct glitter::context::program_context::ProgramBinding">ProgramBinding</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;uniform: <a class="struct" href="../../../glitter/program/struct.ProgramUniform.html" title="struct glitter::program::ProgramUniform">ProgramUniform</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;val: T<br>&nbsp;&nbsp;&nbsp;&nbsp;)<br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../../glitter/uniform_data/trait.UniformData.html" title="trait glitter::uniform_data::UniformData">UniformData</a></span>,
+    { ... }
 }</pre><div class='docblock'><p>An extension trait that includes program-related OpenGL methods.</p>
 </div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.create_program' class='method stab '><span id='create_program.v' class='invisible'><code>unsafe fn <a href='#method.create_program' class='fnname'>create_program</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h3><div class='docblock'><p>Create a new program object that has no shaders attached, or return
+        <h3 id='method.create_program' class='method'><span id='create_program.v' class='invisible'><code>unsafe fn <a href='#method.create_program' class='fnname'>create_program</a>(&amp;self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;</code></span></h3><div class='docblock'><p>Create a new program object that has no shaders attached, or return
 an error if a shader object could not be created.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
@@ -75,7 +79,7 @@ behavior in glitter.</p>
 
 <p><a href="trait.ContextProgramBuilderExt.html#method.build_program"><code>gl.build_program</code></a>:
 A safe wrapper for creating a program object.</p>
-</div><h3 id='method.attach_shader' class='method stab '><span id='attach_shader.v' class='invisible'><code>fn <a href='#method.attach_shader' class='fnname'>attach_shader</a>(&amp;self, program: &amp;mut <a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>, shader: &amp;<a class='struct' href='../../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>)</code></span></h3><div class='docblock'><p>Attach a shader to a program object.</p>
+</div><h3 id='method.attach_shader' class='method'><span id='attach_shader.v' class='invisible'><code>fn <a href='#method.attach_shader' class='fnname'>attach_shader</a>(&amp;self, program: &amp;mut <a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, shader: &amp;<a class="struct" href="../../../glitter/shader/struct.Shader.html" title="struct glitter::shader::Shader">Shader</a>)</code></span></h3><div class='docblock'><p>Attach a shader to a program object.</p>
 
 <h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
 <p>This function will panic if the provided shader is already attached
@@ -83,7 +87,7 @@ to the program object.</p>
 
 <h1 id='see-also-1' class='section-header'><a href='#see-also-1'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glAttachShader"><code>glAttachShader</code></a> OpenGL docs</p>
-</div><h3 id='method.link_program' class='method stab '><span id='link_program.v' class='invisible'><code>fn <a href='#method.link_program' class='fnname'>link_program</a>(&amp;self, program: &amp;mut <a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='enum' href='../../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h3><div class='docblock'><p>Link the program object, so that it can be used for rendering. Returns
+</div><h3 id='method.link_program' class='method'><span id='link_program.v' class='invisible'><code>fn <a href='#method.link_program' class='fnname'>link_program</a>(&amp;self, program: &amp;mut <a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="enum" href="../../../glitter/types/enum.GLError.html" title="enum glitter::types::GLError">GLError</a>&gt;</code></span></h3><div class='docblock'><p>Link the program object, so that it can be used for rendering. Returns
 an error if the program could not be linked.</p>
 
 <h1 id='failures' class='section-header'><a href='#failures'>Failures</a></h1>
@@ -98,7 +102,7 @@ assertions are enabled.</p>
 
 <h1 id='see-also-2' class='section-header'><a href='#see-also-2'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glLinkProgram"><code>glLinkProgram</code></a> OpenGL docs</p>
-</div><h3 id='method.get_program_info_log' class='method stab '><span id='get_program_info_log.v' class='invisible'><code>fn <a href='#method.get_program_info_log' class='fnname'>get_program_info_log</a>(&amp;self, program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></span></h3><div class='docblock'><p>Return the information log for the program object, if any is
+</div><h3 id='method.get_program_info_log' class='method'><span id='get_program_info_log.v' class='invisible'><code>fn <a href='#method.get_program_info_log' class='fnname'>get_program_info_log</a>(&amp;self, program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/string/struct.String.html" title="struct alloc::string::String">String</a>&gt;</code></span></h3><div class='docblock'><p>Return the information log for the program object, if any is
 available.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
@@ -107,7 +111,7 @@ UTF-8 sequence, <code>None</code> will be returned.</p>
 
 <h1 id='see-also-3' class='section-header'><a href='#see-also-3'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glGetProgramInfoLog"><code>glGetProgramInfoLog</code></a> OpenGL docs</p>
-</div><h3 id='method.get_attrib_location' class='method stab '><span id='get_attrib_location.v' class='invisible'><code>fn <a href='#method.get_attrib_location' class='fnname'>get_attrib_location</a>&lt;'a&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.ProgramAttrib.html' title='glitter::program::ProgramAttrib'>ProgramAttrib</a>, <a class='struct' href='../../../glitter/context/program_context/struct.UnknownProgramAttrib.html' title='glitter::context::program_context::UnknownProgramAttrib'>UnknownProgramAttrib</a>&lt;'a&gt;&gt;</code></span></h3><div class='docblock'><p>Retrieve a program attribute&#39;s index by name, or return an error
+</div><h3 id='method.get_attrib_location' class='method'><span id='get_attrib_location.v' class='invisible'><code>fn <a href='#method.get_attrib_location' class='fnname'>get_attrib_location</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.ProgramAttrib.html" title="struct glitter::program::ProgramAttrib">ProgramAttrib</a>, <a class="struct" href="../../../glitter/context/program_context/struct.UnknownProgramAttrib.html" title="struct glitter::context::program_context::UnknownProgramAttrib">UnknownProgramAttrib</a>&lt;'a&gt;&gt;</code></span></h3><div class='docblock'><p>Retrieve a program attribute&#39;s index by name, or return an error
 if the attribute was not found in the program.</p>
 
 <h1 id='panics-2' class='section-header'><a href='#panics-2'>Panics</a></h1>
@@ -117,7 +121,7 @@ debug assertions are enabled.</p>
 <h1 id='see-also-4' class='section-header'><a href='#see-also-4'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glGetAttribLocation"><code>glGetAttribLocation</code></a> OpenGL
 docs</p>
-</div><h3 id='method.get_uniform_location' class='method stab '><span id='get_uniform_location.v' class='invisible'><code>fn <a href='#method.get_uniform_location' class='fnname'>get_uniform_location</a>&lt;'a&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; program: &amp;<a class='struct' href='../../../glitter/program/struct.Program.html' title='glitter::program::Program'>Program</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; name: &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../../glitter/program/struct.ProgramUniform.html' title='glitter::program::ProgramUniform'>ProgramUniform</a>, <a class='struct' href='../../../glitter/context/program_context/struct.UnknownProgramUniform.html' title='glitter::context::program_context::UnknownProgramUniform'>UnknownProgramUniform</a>&lt;'a&gt;&gt;</code></span></h3><div class='docblock'><p>Retrieve a program uniform&#39;s index by name, or return an error
+</div><h3 id='method.get_uniform_location' class='method'><span id='get_uniform_location.v' class='invisible'><code>fn <a href='#method.get_uniform_location' class='fnname'>get_uniform_location</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;program: &amp;<a class="struct" href="../../../glitter/program/struct.Program.html" title="struct glitter::program::Program">Program</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;name: &amp;'a <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a><br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../../glitter/program/struct.ProgramUniform.html" title="struct glitter::program::ProgramUniform">ProgramUniform</a>, <a class="struct" href="../../../glitter/context/program_context/struct.UnknownProgramUniform.html" title="struct glitter::context::program_context::UnknownProgramUniform">UnknownProgramUniform</a>&lt;'a&gt;&gt;</code></span></h3><div class='docblock'><p>Retrieve a program uniform&#39;s index by name, or return an error
 if the uniform was not found within the program.</p>
 
 <h1 id='panics-3' class='section-header'><a href='#panics-3'>Panics</a></h1>
@@ -127,7 +131,7 @@ debug assertions are enabled.</p>
 <h1 id='see-also-5' class='section-header'><a href='#see-also-5'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glGetUniformLocation"><code>glGetUniformLocation</code></a>
 OpenGL docs</p>
-</div><h3 id='method.set_uniform' class='method stab '><span id='set_uniform.v' class='invisible'><code>fn <a href='#method.set_uniform' class='fnname'>set_uniform</a>&lt;T&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; _gl_program: &amp;<a class='struct' href='../../../glitter/context/program_context/struct.ProgramBinding.html' title='glitter::context::program_context::ProgramBinding'>ProgramBinding</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; uniform: <a class='struct' href='../../../glitter/program/struct.ProgramUniform.html' title='glitter::program::ProgramUniform'>ProgramUniform</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; val: T) <span class='where'>where T: <a class='trait' href='../../../glitter/uniform_data/trait.UniformData.html' title='glitter::uniform_data::UniformData'>UniformData</a></span></code></span></h3><div class='docblock'><p>Set the value of a uniform variable within the provided program
+</div><h3 id='method.set_uniform' class='method'><span id='set_uniform.v' class='invisible'><code>fn <a href='#method.set_uniform' class='fnname'>set_uniform</a>&lt;T&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;_gl_program: &amp;<a class="struct" href="../../../glitter/context/program_context/struct.ProgramBinding.html" title="struct glitter::context::program_context::ProgramBinding">ProgramBinding</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;uniform: <a class="struct" href="../../../glitter/program/struct.ProgramUniform.html" title="struct glitter::program::ProgramUniform">ProgramUniform</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;val: T<br>) <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T: <a class="trait" href="../../../glitter/uniform_data/trait.UniformData.html" title="trait glitter::uniform_data::UniformData">UniformData</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Set the value of a uniform variable within the provided program
 object binding.</p>
 
 <ul>
@@ -147,9 +151,11 @@ debug assertions are enabled.</p>
 <h1 id='see-also-6' class='section-header'><a href='#see-also-6'>See also</a></h1>
 <p><a href="http://docs.gl/es2/glUniform"><code>glUniform</code></a> OpenGL docs</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../../glitter/context/trait.BaseContext.html' title='glitter::context::BaseContext'>BaseContext</a>&gt; ContextProgramExt for C</code></li>
+    <li><code>impl&lt;C:&nbsp;<a class="trait" href="../../../glitter/context/trait.BaseContext.html" title="trait glitter::context::BaseContext">BaseContext</a>&gt; ContextProgramExt for C</code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/glitter/context/program_context/trait.ContextProgramExt.js">
                  </script></section>
@@ -169,13 +175,15 @@ debug assertions are enabled.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -208,11 +216,8 @@ debug assertions are enabled.</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

@@ -9,13 +9,15 @@
 
     <title>image_data.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -361,324 +363,324 @@
 <span id="318">318</span>
 <span id="319">319</span>
 <span id="320">320</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Contains types related to 2D image data.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Contains types related to 2D image data.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ops</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>slice</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ops</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">slice</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
 
-<span class='doccomment'>/// A trait for types that that contain 2D image data, which can</span>
-<span class='doccomment'>/// be uploaded to a texture using a [`Texture2dBuilder`]</span>
-<span class='doccomment'>/// (../context/texture_context/struct.Texture2dBuilder)</span>
-<span class='doccomment'>/// or using the [`gl.image_2d`]</span>
-<span class='doccomment'>/// (../context/texture_context/trait.ContextTextureExt.html#method.image_2d)</span>
-<span class='doccomment'>/// method.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// See [`Pixels`](struct.Pixels.html) for a simple `Image2d`.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>Image2d</span> {
-    <span class='doccomment'>/// Get the width of the image, in texels.</span>
-    <span class='kw'>fn</span> <span class='ident'>width</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>;
+<span class="doccomment">/// A trait for types that that contain 2D image data, which can</span>
+<span class="doccomment">/// be uploaded to a texture using a [`Texture2dBuilder`]</span>
+<span class="doccomment">/// (../context/texture_context/struct.Texture2dBuilder)</span>
+<span class="doccomment">/// or using the [`gl.image_2d`]</span>
+<span class="doccomment">/// (../context/texture_context/trait.ContextTextureExt.html#method.image_2d)</span>
+<span class="doccomment">/// method.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// See [`Pixels`](struct.Pixels.html) for a simple `Image2d`.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">Image2d</span> {
+    <span class="doccomment">/// Get the width of the image, in texels.</span>
+    <span class="kw">fn</span> <span class="ident">width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>;
 
-    <span class='doccomment'>/// Get the height of the image, in texels.</span>
-    <span class='kw'>fn</span> <span class='ident'>height</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span>;
+    <span class="doccomment">/// Get the height of the image, in texels.</span>
+    <span class="kw">fn</span> <span class="ident">height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>;
 
-    <span class='doccomment'>/// Get the format of the image data that is returned by the</span>
-    <span class='doccomment'>/// [`texel_bytes`](trait.Image2d.html#tymethod.texel_bytes) method.</span>
-    <span class='kw'>fn</span> <span class='ident'>format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ImageFormat</span>;
+    <span class="doccomment">/// Get the format of the image data that is returned by the</span>
+    <span class="doccomment">/// [`texel_bytes`](trait.Image2d.html#tymethod.texel_bytes) method.</span>
+    <span class="kw">fn</span> <span class="ident">format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ImageFormat</span>;
 
-    <span class='doccomment'>/// Get the raw texel data of the image data, as a `u8` slice.</span>
-    <span class='kw'>fn</span> <span class='ident'>texel_bytes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>];
+    <span class="doccomment">/// Get the raw texel data of the image data, as a `u8` slice.</span>
+    <span class="kw">fn</span> <span class="ident">texel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>];
 }
 
-<span class='doccomment'>/// A single OpenGL color value, with `u8` components laid out</span>
-<span class='doccomment'>/// as a C struct in RGBA order. This type is the simplest implementation</span>
-<span class='doccomment'>/// of [`Image2d`](trait.Image2d.html), which allows it to be uploaded</span>
-<span class='doccomment'>/// to a texture.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>, <span class='ident'>Default</span>)]</span>
-<span class='attribute'>#[<span class='ident'>repr</span>(<span class='ident'>C</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Pixel</span> {
-    <span class='doccomment'>/// The red component.</span>
-    <span class='kw'>pub</span> <span class='ident'>r</span>: <span class='ident'>u8</span>,
+<span class="doccomment">/// A single OpenGL color value, with `u8` components laid out</span>
+<span class="doccomment">/// as a C struct in RGBA order. This type is the simplest implementation</span>
+<span class="doccomment">/// of [`Image2d`](trait.Image2d.html), which allows it to be uploaded</span>
+<span class="doccomment">/// to a texture.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Default</span>)]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pixel</span> {
+    <span class="doccomment">/// The red component.</span>
+    <span class="kw">pub</span> <span class="ident">r</span>: <span class="ident">u8</span>,
 
-    <span class='doccomment'>/// The green component.</span>
-    <span class='kw'>pub</span> <span class='ident'>g</span>: <span class='ident'>u8</span>,
+    <span class="doccomment">/// The green component.</span>
+    <span class="kw">pub</span> <span class="ident">g</span>: <span class="ident">u8</span>,
 
-    <span class='doccomment'>/// The blue component.</span>
-    <span class='kw'>pub</span> <span class='ident'>b</span>: <span class='ident'>u8</span>,
+    <span class="doccomment">/// The blue component.</span>
+    <span class="kw">pub</span> <span class="ident">b</span>: <span class="ident">u8</span>,
 
-    <span class='doccomment'>/// The alpha component.</span>
-    <span class='kw'>pub</span> <span class='ident'>a</span>: <span class='ident'>u8</span>
+    <span class="doccomment">/// The alpha component.</span>
+    <span class="kw">pub</span> <span class="ident">a</span>: <span class="ident">u8</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Pixel</span> {
-    <span class='doccomment'>/// Create an RGBA color, provided each color component.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::r_g_b_a(0xAA, 0xBB, 0xCC, 0xDD);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xDD);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>r_g_b_a</span>(<span class='ident'>r</span>: <span class='ident'>u8</span>, <span class='ident'>g</span>: <span class='ident'>u8</span>, <span class='ident'>b</span>: <span class='ident'>u8</span>, <span class='ident'>a</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Pixel</span> { <span class='ident'>r</span>: <span class='ident'>r</span>, <span class='ident'>g</span>: <span class='ident'>g</span>, <span class='ident'>b</span>: <span class='ident'>b</span>, <span class='ident'>a</span>: <span class='ident'>a</span> }
+<span class="kw">impl</span> <span class="ident">Pixel</span> {
+    <span class="doccomment">/// Create an RGBA color, provided each color component.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::r_g_b_a(0xAA, 0xBB, 0xCC, 0xDD);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xDD);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">r_g_b_a</span>(<span class="ident">r</span>: <span class="ident">u8</span>, <span class="ident">g</span>: <span class="ident">u8</span>, <span class="ident">b</span>: <span class="ident">u8</span>, <span class="ident">a</span>: <span class="ident">u8</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Pixel</span> { <span class="ident">r</span>: <span class="ident">r</span>, <span class="ident">g</span>: <span class="ident">g</span>, <span class="ident">b</span>: <span class="ident">b</span>, <span class="ident">a</span>: <span class="ident">a</span> }
     }
 
-    <span class='doccomment'>/// Create an RGBA color, provided the RGB components and using</span>
-    <span class='doccomment'>/// `0xFF` as the A value.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::r_g_b(0xAA, 0xBB, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xFF);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>r_g_b</span>(<span class='ident'>r</span>: <span class='ident'>u8</span>, <span class='ident'>g</span>: <span class='ident'>u8</span>, <span class='ident'>b</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Pixel</span>::<span class='ident'>r_g_b_a</span>(<span class='ident'>r</span>, <span class='ident'>g</span>, <span class='ident'>b</span>, <span class='number'>0xFF</span>)
+    <span class="doccomment">/// Create an RGBA color, provided the RGB components and using</span>
+    <span class="doccomment">/// `0xFF` as the A value.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::r_g_b(0xAA, 0xBB, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xFF);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">r_g_b</span>(<span class="ident">r</span>: <span class="ident">u8</span>, <span class="ident">g</span>: <span class="ident">u8</span>, <span class="ident">b</span>: <span class="ident">u8</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Pixel</span>::<span class="ident">r_g_b_a</span>(<span class="ident">r</span>, <span class="ident">g</span>, <span class="ident">b</span>, <span class="number">0xFF</span>)
     }
 
-    <span class='doccomment'>/// Create an RGBA color, provided the RGB components as a packed</span>
-    <span class='doccomment'>/// `u32` value. The `u32` value will be read as `0x00RRGGBB`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// // The `0x55` component gets discared</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::rgb(0x55AABBCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xFF);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rgb</span>(<span class='ident'>rgb</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Pixel</span>::<span class='ident'>rgb_a</span>(<span class='ident'>rgb</span>, <span class='number'>0xFF</span>)
+    <span class="doccomment">/// Create an RGBA color, provided the RGB components as a packed</span>
+    <span class="doccomment">/// `u32` value. The `u32` value will be read as `0x00RRGGBB`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// // The `0x55` component gets discared</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::rgb(0x55AABBCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xFF);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rgb</span>(<span class="ident">rgb</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Pixel</span>::<span class="ident">rgb_a</span>(<span class="ident">rgb</span>, <span class="number">0xFF</span>)
     }
 
-    <span class='doccomment'>/// Create an RGBA color value, provided the components as a packed</span>
-    <span class='doccomment'>/// `u32` value. The `u32` value will be read as `0xAARRGGBB`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::argb(0xDDAABBCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xDD);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>argb</span>(<span class='ident'>argb</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span> (<span class='ident'>argb</span> <span class='kw-2'>&amp;</span> <span class='number'>0xFF000000</span>) <span class='op'>&gt;&gt;</span> <span class='number'>24</span>;
-        <span class='ident'>Pixel</span>::<span class='ident'>rgb_a</span>(<span class='ident'>argb</span>, <span class='ident'>a</span> <span class='kw'>as</span> <span class='ident'>u8</span>)
+    <span class="doccomment">/// Create an RGBA color value, provided the components as a packed</span>
+    <span class="doccomment">/// `u32` value. The `u32` value will be read as `0xAARRGGBB`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::argb(0xDDAABBCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xDD);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">argb</span>(<span class="ident">argb</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span> (<span class="ident">argb</span> <span class="op">&amp;</span> <span class="number">0xFF000000</span>) <span class="op">&gt;&gt;</span> <span class="number">24</span>;
+        <span class="ident">Pixel</span>::<span class="ident">rgb_a</span>(<span class="ident">argb</span>, <span class="ident">a</span> <span class="kw">as</span> <span class="ident">u8</span>)
     }
 
-    <span class='doccomment'>/// Create an RGBA color, provided the RGB components as a packed</span>
-    <span class='doccomment'>/// `u32` value. The `u32` value will be read as `0xRRGGBBAA`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::rgba(0xAABBCCDD);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xDD);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rgba</span>(<span class='ident'>rgba</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='kw'>let</span> <span class='ident'>r</span> <span class='op'>=</span> (<span class='ident'>rgba</span> <span class='kw-2'>&amp;</span> <span class='number'>0xFF000000</span>) <span class='op'>&gt;&gt;</span> <span class='number'>24</span>;
-        <span class='kw'>let</span> <span class='ident'>g</span> <span class='op'>=</span> (<span class='ident'>rgba</span> <span class='kw-2'>&amp;</span> <span class='number'>0x00FF0000</span>) <span class='op'>&gt;&gt;</span> <span class='number'>16</span>;
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span> (<span class='ident'>rgba</span> <span class='kw-2'>&amp;</span> <span class='number'>0x0000FF00</span>) <span class='op'>&gt;&gt;</span> <span class='number'>8</span>;
-        <span class='kw'>let</span> <span class='ident'>a</span> <span class='op'>=</span>  <span class='ident'>rgba</span> <span class='kw-2'>&amp;</span> <span class='number'>0x000000FF</span>;
-        <span class='ident'>Pixel</span>::<span class='ident'>r_g_b_a</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>a</span> <span class='kw'>as</span> <span class='ident'>u8</span>)
+    <span class="doccomment">/// Create an RGBA color, provided the RGB components as a packed</span>
+    <span class="doccomment">/// `u32` value. The `u32` value will be read as `0xRRGGBBAA`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::rgba(0xAABBCCDD);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xDD);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rgba</span>(<span class="ident">rgba</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> (<span class="ident">rgba</span> <span class="op">&amp;</span> <span class="number">0xFF000000</span>) <span class="op">&gt;&gt;</span> <span class="number">24</span>;
+        <span class="kw">let</span> <span class="ident">g</span> <span class="op">=</span> (<span class="ident">rgba</span> <span class="op">&amp;</span> <span class="number">0x00FF0000</span>) <span class="op">&gt;&gt;</span> <span class="number">16</span>;
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span> (<span class="ident">rgba</span> <span class="op">&amp;</span> <span class="number">0x0000FF00</span>) <span class="op">&gt;&gt;</span> <span class="number">8</span>;
+        <span class="kw">let</span> <span class="ident">a</span> <span class="op">=</span>  <span class="ident">rgba</span> <span class="op">&amp;</span> <span class="number">0x000000FF</span>;
+        <span class="ident">Pixel</span>::<span class="ident">r_g_b_a</span>(<span class="ident">r</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">g</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">b</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">a</span> <span class="kw">as</span> <span class="ident">u8</span>)
     }
 
-    <span class='doccomment'>/// Create an RGBA color, provided the RGB components as a packed</span>
-    <span class='doccomment'>/// `u32` value, and a separate A component. The `u32` value</span>
-    <span class='doccomment'>/// will be read as `0x00RRGGBB`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Examples</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>/// // The `0x55` component gets discarded</span>
-    <span class='doccomment'>/// let pixel = glitter::Pixel::rgb_a(0x55AABBCC, 0xDD);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.r, 0xAA);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.g, 0xBB);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.b, 0xCC);</span>
-    <span class='doccomment'>/// assert_eq!(pixel.a, 0xDD);</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rgb_a</span>(<span class='ident'>rgb</span>: <span class='ident'>u32</span>, <span class='ident'>a</span>: <span class='ident'>u8</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='kw'>let</span> <span class='ident'>r</span> <span class='op'>=</span> (<span class='ident'>rgb</span> <span class='kw-2'>&amp;</span> <span class='number'>0xFF0000</span>) <span class='op'>&gt;&gt;</span> <span class='number'>16</span>;
-        <span class='kw'>let</span> <span class='ident'>g</span> <span class='op'>=</span> (<span class='ident'>rgb</span> <span class='kw-2'>&amp;</span> <span class='number'>0x00FF00</span>) <span class='op'>&gt;&gt;</span> <span class='number'>8</span>;
-        <span class='kw'>let</span> <span class='ident'>b</span> <span class='op'>=</span>  <span class='ident'>rgb</span> <span class='kw-2'>&amp;</span> <span class='number'>0x0000FF</span>;
-        <span class='ident'>Pixel</span>::<span class='ident'>r_g_b_a</span>(<span class='ident'>r</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>g</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>b</span> <span class='kw'>as</span> <span class='ident'>u8</span>, <span class='ident'>a</span>)
+    <span class="doccomment">/// Create an RGBA color, provided the RGB components as a packed</span>
+    <span class="doccomment">/// `u32` value, and a separate A component. The `u32` value</span>
+    <span class="doccomment">/// will be read as `0x00RRGGBB`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// // The `0x55` component gets discarded</span>
+    <span class="doccomment">/// let pixel = glitter::Pixel::rgb_a(0x55AABBCC, 0xDD);</span>
+    <span class="doccomment">/// assert_eq!(pixel.r, 0xAA);</span>
+    <span class="doccomment">/// assert_eq!(pixel.g, 0xBB);</span>
+    <span class="doccomment">/// assert_eq!(pixel.b, 0xCC);</span>
+    <span class="doccomment">/// assert_eq!(pixel.a, 0xDD);</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rgb_a</span>(<span class="ident">rgb</span>: <span class="ident">u32</span>, <span class="ident">a</span>: <span class="ident">u8</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> (<span class="ident">rgb</span> <span class="op">&amp;</span> <span class="number">0xFF0000</span>) <span class="op">&gt;&gt;</span> <span class="number">16</span>;
+        <span class="kw">let</span> <span class="ident">g</span> <span class="op">=</span> (<span class="ident">rgb</span> <span class="op">&amp;</span> <span class="number">0x00FF00</span>) <span class="op">&gt;&gt;</span> <span class="number">8</span>;
+        <span class="kw">let</span> <span class="ident">b</span> <span class="op">=</span>  <span class="ident">rgb</span> <span class="op">&amp;</span> <span class="number">0x0000FF</span>;
+        <span class="ident">Pixel</span>::<span class="ident">r_g_b_a</span>(<span class="ident">r</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">g</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">b</span> <span class="kw">as</span> <span class="ident">u8</span>, <span class="ident">a</span>)
     }
 }
 
-<span class='doccomment'>/// A (heap-allocated) 2D image composed of a list of pixels.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Example</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>/// // Draw a red circle with a 50px radius in a 100px * 100px black image.</span>
-<span class='doccomment'>/// extern crate glitter;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// let width = 100;</span>
-<span class='doccomment'>/// let height = 100;</span>
-<span class='doccomment'>/// let radius = 50.0;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// let (center_x, center_y) = (width as f32/2.0, height as f32/2.0);</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// let mut pixels = glitter::Pixels::new(width, height);</span>
-<span class='doccomment'>/// for x in 0..width {</span>
-<span class='doccomment'>///     for y in 0..height {</span>
-<span class='doccomment'>///         let dx = center_x - x as f32;</span>
-<span class='doccomment'>///         let dy = center_y - y as f32;</span>
-<span class='doccomment'>///         let distance = (dx*dx + dy*dy).sqrt();</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>///         let color = if distance &lt; radius {</span>
-<span class='doccomment'>///             // The point is within the circle, so it should be red</span>
-<span class='doccomment'>///             glitter::Pixel::rgb(0xFF0000)</span>
-<span class='doccomment'>///         }</span>
-<span class='doccomment'>///         else {</span>
-<span class='doccomment'>///             // The point is outside the circle, so it should be black</span>
-<span class='doccomment'>///             glitter::Pixel::rgb(0x000000)</span>
-<span class='doccomment'>///         };</span>
-<span class='doccomment'>///         pixels[y][x] = color;</span>
-<span class='doccomment'>///     }</span>
-<span class='doccomment'>/// }</span>
-<span class='doccomment'>/// ```</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Pixels</span> {
-    <span class='ident'>width</span>: <span class='ident'>usize</span>,
-    <span class='ident'>height</span>: <span class='ident'>usize</span>,
-    <span class='ident'>pixels</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Pixel</span><span class='op'>&gt;</span>
+<span class="doccomment">/// A (heap-allocated) 2D image composed of a list of pixels.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Example</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">/// // Draw a red circle with a 50px radius in a 100px * 100px black image.</span>
+<span class="doccomment">/// extern crate glitter;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let width = 100;</span>
+<span class="doccomment">/// let height = 100;</span>
+<span class="doccomment">/// let radius = 50.0;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let (center_x, center_y) = (width as f32/2.0, height as f32/2.0);</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// let mut pixels = glitter::Pixels::new(width, height);</span>
+<span class="doccomment">/// for x in 0..width {</span>
+<span class="doccomment">///     for y in 0..height {</span>
+<span class="doccomment">///         let dx = center_x - x as f32;</span>
+<span class="doccomment">///         let dy = center_y - y as f32;</span>
+<span class="doccomment">///         let distance = (dx*dx + dy*dy).sqrt();</span>
+<span class="doccomment">///</span>
+<span class="doccomment">///         let color = if distance &lt; radius {</span>
+<span class="doccomment">///             // The point is within the circle, so it should be red</span>
+<span class="doccomment">///             glitter::Pixel::rgb(0xFF0000)</span>
+<span class="doccomment">///         }</span>
+<span class="doccomment">///         else {</span>
+<span class="doccomment">///             // The point is outside the circle, so it should be black</span>
+<span class="doccomment">///             glitter::Pixel::rgb(0x000000)</span>
+<span class="doccomment">///         };</span>
+<span class="doccomment">///         pixels[y][x] = color;</span>
+<span class="doccomment">///     }</span>
+<span class="doccomment">/// }</span>
+<span class="doccomment">/// ```</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pixels</span> {
+    <span class="ident">width</span>: <span class="ident">usize</span>,
+    <span class="ident">height</span>: <span class="ident">usize</span>,
+    <span class="ident">pixels</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Pixel</span><span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Pixels</span> {
-    <span class='doccomment'>/// Create a new image with the desired width and height. Pixels</span>
-    <span class='doccomment'>/// are initialized with [`Pixel::default()`]</span>
-    <span class='doccomment'>/// (https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default).</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>width</span>: <span class='ident'>usize</span>, <span class='ident'>height</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Pixels</span> {
-            <span class='ident'>width</span>: <span class='ident'>width</span>,
-            <span class='ident'>height</span>: <span class='ident'>height</span>,
-            <span class='ident'>pixels</span>: <span class='macro'>vec</span><span class='macro'>!</span>[<span class='ident'>Pixel</span>::<span class='ident'>default</span>(); <span class='ident'>width</span> <span class='op'>*</span> <span class='ident'>height</span>]
+<span class="kw">impl</span> <span class="ident">Pixels</span> {
+    <span class="doccomment">/// Create a new image with the desired width and height. Pixels</span>
+    <span class="doccomment">/// are initialized with [`Pixel::default()`]</span>
+    <span class="doccomment">/// (https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">width</span>: <span class="ident">usize</span>, <span class="ident">height</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Pixels</span> {
+            <span class="ident">width</span>: <span class="ident">width</span>,
+            <span class="ident">height</span>: <span class="ident">height</span>,
+            <span class="ident">pixels</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="ident">Pixel</span>::<span class="ident">default</span>(); <span class="ident">width</span> <span class="op">*</span> <span class="ident">height</span>]
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>ops</span>::<span class='ident'>Index</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Pixels</span> {
-    <span class='kw'>type</span> <span class='ident'>Output</span> <span class='op'>=</span> [<span class='ident'>Pixel</span>];
+<span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">Index</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pixels</span> {
+    <span class="kw">type</span> <span class="ident">Output</span> <span class="op">=</span> [<span class="ident">Pixel</span>];
 
-    <span class='kw'>fn</span> <span class='ident'>index</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>row</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>Pixel</span>] {
-        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>row</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>height</span>);
+    <span class="kw">fn</span> <span class="ident">index</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">Pixel</span>] {
+        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">row</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">height</span>);
 
-        <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>pixels</span>[(<span class='ident'>row</span><span class='op'>*</span><span class='self'>self</span>.<span class='ident'>width</span>)..((<span class='ident'>row</span><span class='op'>+</span><span class='number'>1</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>width</span>)]
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pixels</span>[(<span class="ident">row</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">width</span>)..((<span class="ident">row</span><span class="op">+</span><span class="number">1</span>)<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">width</span>)]
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>ops</span>::<span class='ident'>IndexMut</span><span class='op'>&lt;</span><span class='ident'>usize</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>Pixels</span> {
-    <span class='kw'>fn</span> <span class='ident'>index_mut</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>row</span>: <span class='ident'>usize</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> [<span class='ident'>Pixel</span>] {
-        <span class='macro'>debug_assert</span><span class='macro'>!</span>(<span class='ident'>row</span> <span class='op'>&lt;</span> <span class='self'>self</span>.<span class='ident'>height</span>);
+<span class="kw">impl</span> <span class="ident">ops</span>::<span class="ident">IndexMut</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Pixels</span> {
+    <span class="kw">fn</span> <span class="ident">index_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">row</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">Pixel</span>] {
+        <span class="macro">debug_assert</span><span class="macro">!</span>(<span class="ident">row</span> <span class="op">&lt;</span> <span class="self">self</span>.<span class="ident">height</span>);
 
-        <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>.<span class='ident'>pixels</span>[(<span class='ident'>row</span><span class='op'>*</span><span class='self'>self</span>.<span class='ident'>width</span>)..((<span class='ident'>row</span><span class='op'>+</span><span class='number'>1</span>)<span class='op'>*</span><span class='self'>self</span>.<span class='ident'>width</span>)]
+        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">pixels</span>[(<span class="ident">row</span><span class="kw-2">*</span><span class="self">self</span>.<span class="ident">width</span>)..((<span class="ident">row</span><span class="op">+</span><span class="number">1</span>)<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">width</span>)]
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>Image2d</span> <span class='kw'>for</span> <span class='ident'>Pixels</span> {
-    <span class='kw'>fn</span> <span class='ident'>width</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-        <span class='self'>self</span>.<span class='ident'>width</span>
+<span class="kw">impl</span> <span class="ident">Image2d</span> <span class="kw">for</span> <span class="ident">Pixels</span> {
+    <span class="kw">fn</span> <span class="ident">width</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">width</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>height</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>usize</span> {
-        <span class='self'>self</span>.<span class='ident'>height</span>
+    <span class="kw">fn</span> <span class="ident">height</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">height</span>
     }
 
-    <span class='kw'>fn</span> <span class='ident'>format</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>ImageFormat</span> {
-        <span class='ident'>ImageFormat</span>::<span class='ident'>rgba8</span>()
+    <span class="kw">fn</span> <span class="ident">format</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ImageFormat</span> {
+        <span class="ident">ImageFormat</span>::<span class="ident">rgba8</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>texel_bytes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span>[<span class='ident'>u8</span>] {
-        <span class='kw'>let</span> <span class='ident'>len</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>pixels</span>.<span class='ident'>len</span>() <span class='op'>*</span> <span class='ident'>mem</span>::<span class='ident'>size_of</span>::<span class='op'>&lt;</span><span class='ident'>Pixel</span><span class='op'>&gt;</span>();
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>slice</span>::<span class='ident'>from_raw_parts</span>(<span class='ident'>mem</span>::<span class='ident'>transmute</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>pixels</span>[<span class='number'>0</span>]), <span class='ident'>len</span>)
+    <span class="kw">fn</span> <span class="ident">texel_bytes</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">pixels</span>.<span class="ident">len</span>() <span class="op">*</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">Pixel</span><span class="op">&gt;</span>();
+        <span class="kw">unsafe</span> {
+            <span class="ident">slice</span>::<span class="ident">from_raw_parts</span>(<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">pixels</span>[<span class="number">0</span>]), <span class="ident">len</span>)
         }
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The data types for a texel.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>TexelType</span> {
-        <span class='doccomment'>/// Each texel is 4 * 8 bits.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedByte</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_BYTE_TEXEL</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_BYTE</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The data types for a texel.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">TexelType</span> {
+        <span class="doccomment">/// Each texel is 4 * 8 bits.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedByte</span> <span class="kw">as</span> <span class="ident">UNSIGNED_BYTE_TEXEL</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">UNSIGNED_BYTE</span>,
 
-        <span class='doccomment'>/// Each texel is 16 bits, with 5-bit/6-bit/5-bit components.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedShort565</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_SHORT_5_6_5</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_SHORT_5_6_5</span>,
+        <span class="doccomment">/// Each texel is 16 bits, with 5-bit/6-bit/5-bit components.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedShort565</span> <span class="kw">as</span> <span class="ident">UNSIGNED_SHORT_5_6_5</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">UNSIGNED_SHORT_5_6_5</span>,
 
-        <span class='doccomment'>/// Each texel is 16 bits, with 4, 4-bit components.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedShort4444</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_SHORT_4_4_4_4</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_SHORT_4_4_4_4</span>,
+        <span class="doccomment">/// Each texel is 16 bits, with 4, 4-bit components.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedShort4444</span> <span class="kw">as</span> <span class="ident">UNSIGNED_SHORT_4_4_4_4</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">UNSIGNED_SHORT_4_4_4_4</span>,
 
-        <span class='doccomment'>/// Each texel is 16 bits, with 5-bit/5-bit/5-bit/1-bit components.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedShort5551</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_SHORT_5_5_5_1</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_SHORT_5_5_5_1</span>
+        <span class="doccomment">/// Each texel is 16 bits, with 5-bit/5-bit/5-bit/1-bit components.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedShort5551</span> <span class="kw">as</span> <span class="ident">UNSIGNED_SHORT_5_5_5_1</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">UNSIGNED_SHORT_5_5_5_1</span>
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The different texel formats.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>TexelFormat</span> {
-        <span class='doccomment'>/// A texel contains only an alpha component.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Alpha</span> <span class='kw'>as</span> <span class='ident'>ALPHA</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>ALPHA</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The different texel formats.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">TexelFormat</span> {
+        <span class="doccomment">/// A texel contains only an alpha component.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Alpha</span> <span class="kw">as</span> <span class="ident">ALPHA</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">ALPHA</span>,
 
-        <span class='doccomment'>/// A texel contains red, green, and blue components.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>RGB</span> <span class='kw'>as</span> <span class='ident'>RGB</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RGB</span>,
+        <span class="doccomment">/// A texel contains red, green, and blue components.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">RGB</span> <span class="kw">as</span> <span class="ident">RGB</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RGB</span>,
 
-        <span class='doccomment'>/// A texel contains red, green, blue, and alpha components.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>RGBA</span> <span class='kw'>as</span> <span class='ident'>RGBA</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RGBA</span>
+        <span class="doccomment">/// A texel contains red, green, blue, and alpha components.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">RGBA</span> <span class="kw">as</span> <span class="ident">RGBA</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RGBA</span>
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The various image formats of a renderbuffer.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>RenderbufferFormat</span> {
-        <span class='doccomment'>/// The red, green, blue, and alpha channels are all stored with 4 bits.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>RGBA4</span> <span class='kw'>as</span> <span class='ident'>RGBA4</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RGBA4</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The various image formats of a renderbuffer.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">RenderbufferFormat</span> {
+        <span class="doccomment">/// The red, green, blue, and alpha channels are all stored with 4 bits.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">RGBA4</span> <span class="kw">as</span> <span class="ident">RGBA4</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RGBA4</span>,
 
-        <span class='doccomment'>/// The red, green, and blue channels are stored with 5 bits, 6 bits,</span>
-        <span class='doccomment'>/// and 5 bits, respectively.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>RGB565</span> <span class='kw'>as</span> <span class='ident'>RGB565</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RGB565</span>,
+        <span class="doccomment">/// The red, green, and blue channels are stored with 5 bits, 6 bits,</span>
+        <span class="doccomment">/// and 5 bits, respectively.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">RGB565</span> <span class="kw">as</span> <span class="ident">RGB565</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RGB565</span>,
 
-        <span class='doccomment'>/// The red, green, and blue channels are stored with 5 bits, and the</span>
-        <span class='doccomment'>/// alpha channel is stored with 1 bit.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>RGB5A1</span> <span class='kw'>as</span> <span class='ident'>RGB5_A1</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RGB5_A1</span>,
+        <span class="doccomment">/// The red, green, and blue channels are stored with 5 bits, and the</span>
+        <span class="doccomment">/// alpha channel is stored with 1 bit.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">RGB5A1</span> <span class="kw">as</span> <span class="ident">RGB5_A1</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RGB5_A1</span>,
 
-        <span class='doccomment'>/// The renderbuffer stores a 16-bit depth component.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DepthComponent16</span> <span class='kw'>as</span> <span class='ident'>DEPTH_COMPONENT16</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>DEPTH_COMPONENT16</span>,
+        <span class="doccomment">/// The renderbuffer stores a 16-bit depth component.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DepthComponent16</span> <span class="kw">as</span> <span class="ident">DEPTH_COMPONENT16</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">DEPTH_COMPONENT16</span>,
 
-        <span class='doccomment'>/// The renderbuffer stores an 8-bit stencil component.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>StencilIndex8</span> <span class='kw'>as</span> <span class='ident'>STENCIL_INDEX8</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>STENCIL_INDEX8</span>
+        <span class="doccomment">/// The renderbuffer stores an 8-bit stencil component.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">StencilIndex8</span> <span class="kw">as</span> <span class="ident">STENCIL_INDEX8</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">STENCIL_INDEX8</span>
     }
 }
 
-<span class='doccomment'>/// A type that contains the texel type and format that make up a 2D image.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ImageFormat</span> {
-    <span class='doccomment'>/// The texel type of the image.</span>
-    <span class='kw'>pub</span> <span class='ident'>texel_type</span>: <span class='ident'>TexelType</span>,
+<span class="doccomment">/// A type that contains the texel type and format that make up a 2D image.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ImageFormat</span> {
+    <span class="doccomment">/// The texel type of the image.</span>
+    <span class="kw">pub</span> <span class="ident">texel_type</span>: <span class="ident">TexelType</span>,
 
-        <span class='doccomment'>/// The texel format of the image.</span>
-    <span class='kw'>pub</span> <span class='ident'>texel_format</span>: <span class='ident'>TexelFormat</span>
+        <span class="doccomment">/// The texel format of the image.</span>
+    <span class="kw">pub</span> <span class="ident">texel_format</span>: <span class="ident">TexelFormat</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>ImageFormat</span> {
-    <span class='doccomment'>/// Returns the RGBA image format with 8 bits per component.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rgba8</span>() <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>ImageFormat</span> {
-            <span class='ident'>texel_type</span>: <span class='ident'>TexelType</span>::<span class='ident'>UnsignedByte</span>,
-            <span class='ident'>texel_format</span>: <span class='ident'>TexelFormat</span>::<span class='ident'>RGBA</span>
+<span class="kw">impl</span> <span class="ident">ImageFormat</span> {
+    <span class="doccomment">/// Returns the RGBA image format with 8 bits per component.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rgba8</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">ImageFormat</span> {
+            <span class="ident">texel_type</span>: <span class="ident">TexelType</span>::<span class="ident">UnsignedByte</span>,
+            <span class="ident">texel_format</span>: <span class="ident">TexelFormat</span>::<span class="ident">RGBA</span>
         }
     }
 }
@@ -700,12 +702,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -726,7 +732,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -737,11 +743,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

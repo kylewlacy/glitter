@@ -9,6 +9,7 @@
 
     <title>glitter::context::texture_units::TextureUnit6Context - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'TextureUnit6Context', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait TextureUnit6Context</p><div class="block items"><a class="sidebar-title" href="#associated-types">Associated Types</a><div class="sidebar-links"><a href="#associatedtype.Unit">Unit</a><a href="#associatedtype.Rest">Rest</a></div><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.split_tex_unit_6">split_tex_unit_6</a></div><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.active_texture_6">active_texture_6</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'TextureUnit6Context', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,41 +43,50 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class='trait' href=''>TextureUnit6Context</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class="trait" href=''>TextureUnit6Context</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1168' class='srclink' href='../../../src/glitter/src/context/texture_units.rs.html#539-559' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait TextureUnit6Context: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a> {
-    type <a href='#associatedtype.Unit' class='type'>Unit</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit6.html' title='glitter::context::texture_units::TextureUnit6'>TextureUnit6</a>&gt;;
-    type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a>;
-    fn <a href='#tymethod.split_tex_unit_6' class='fnname'>split_tex_unit_6</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::Unit, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>;
+               </span><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#539-559' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait TextureUnit6Context: <a class="trait" href="../../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a> {
+    type <a href='#associatedtype.Unit' class="type">Unit</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>&gt;;
+    type <a href='#associatedtype.Rest' class="type">Rest</a>: <a class="trait" href="../../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a>;
+    fn <a href='#tymethod.split_tex_unit_6' class='fnname'>split_tex_unit_6</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Unit" title="type glitter::context::texture_units::TextureUnit6Context::Unit">Unit</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnit6Context::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>;
 
-    fn <a href='#method.active_texture_6' class='fnname'>active_texture_6</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='type' href='../../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a>, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
+    fn <a href='#method.active_texture_6' class='fnname'>active_texture_6</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="type" href="../../../glitter/context/texture_units/type.TextureUnitBinding.html" title="type glitter::context::texture_units::TextureUnitBinding">TextureUnitBinding</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnit6Context::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a><br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span>,
+    { ... }
 }</pre><div class='docblock'><p>An OpenGL context with the 6th texture unit free.</p>
 </div>
-            <h2 id='associated-types'>Associated Types</h2>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='associatedtype.Unit' class='method stab '><span id='Unit.t' class='invisible'><code>type <a href='#associatedtype.Unit' class='type'>Unit</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit6.html' title='glitter::context::texture_units::TextureUnit6'>TextureUnit6</a>&gt;</code></span></h3><div class='docblock'><p>The type of unit this context contains.</p>
-</div><h3 id='associatedtype.Rest' class='method stab '><span id='Rest.t' class='invisible'><code>type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></code></span></h3><div class='docblock'><p>The OpenGL context that will be returned after making the
+        <h3 id='associatedtype.Unit' class='method'><span id='Unit.t' class='invisible'><code>type <a href='#associatedtype.Unit' class="type">Unit</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>&gt;</code></span></h3><div class='docblock'><p>The type of unit this context contains.</p>
+</div><h3 id='associatedtype.Rest' class='method'><span id='Rest.t' class='invisible'><code>type <a href='#associatedtype.Rest' class="type">Rest</a>: <a class="trait" href="../../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a></code></span></h3><div class='docblock'><p>The OpenGL context that will be returned after making the
 texture unit active.</p>
 </div></div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.split_tex_unit_6' class='method stab '><span id='split_tex_unit_6.v' class='invisible'><code>fn <a href='#tymethod.split_tex_unit_6' class='fnname'>split_tex_unit_6</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::Unit, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h3><div class='docblock'><p>Split the 6th texture unit from the context, returning the unit
+        <h3 id='tymethod.split_tex_unit_6' class='method'><span id='split_tex_unit_6.v' class='invisible'><code>fn <a href='#tymethod.split_tex_unit_6' class='fnname'>split_tex_unit_6</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Unit" title="type glitter::context::texture_units::TextureUnit6Context::Unit">Unit</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnit6Context::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></span></h3><div class='docblock'><p>Split the 6th texture unit from the context, returning the unit
 and the remaining context.</p>
 </div></div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.active_texture_6' class='method stab '><span id='active_texture_6.v' class='invisible'><code>fn <a href='#method.active_texture_6' class='fnname'>active_texture_6</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='type' href='../../../glitter/context/texture_units/type.TextureUnitBinding.html' title='glitter::context::texture_units::TextureUnitBinding'>TextureUnitBinding</a>, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></span></h3><div class='docblock'><p>Make the 6th texture unit active, returning a binding and the
+        <h3 id='method.active_texture_6' class='method'><span id='active_texture_6.v' class='invisible'><code>fn <a href='#method.active_texture_6' class='fnname'>active_texture_6</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="type" href="../../../glitter/context/texture_units/type.TextureUnitBinding.html" title="type glitter::context::texture_units::TextureUnitBinding">TextureUnitBinding</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnit6Context.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnit6Context::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Make the 6th texture unit active, returning a binding and the
 remaining context</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class='where'>where T6: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit6.html' title='glitter::context::texture_units::TextureUnit6'>TextureUnit6</a>&gt;</span></code></li>
-<li><code>impl&lt;'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class='where'>where T6: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit6.html' title='glitter::context::texture_units::TextureUnit6'>TextureUnit6</a>&gt;</span></code></li>
-<li><code>impl&lt;'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for &amp;'a mut <a class='struct' href='../../../glitter/context/struct.ContextOf.html' title='glitter::context::ContextOf'>ContextOf</a>&lt;B, F, P, R, &amp;'a mut <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitsOf.html' title='glitter::context::texture_units::TextureUnitsOf'>TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class='where'>where T6: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnit6.html' title='glitter::context::texture_units::TextureUnit6'>TextureUnit6</a>&gt;, B: ToMut&lt;'a&gt;, F: ToMut&lt;'a&gt;, P: ToMut&lt;'a&gt;, R: ToMut&lt;'a&gt;</span></code></li>
+    <li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1166-1187' title='goto source code'>[src]</a></div><code>impl&lt;B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;B, F, P, R, <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T6: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Unit' class="type">Unit</a> = T6;</span><span class="where fmt-newline">  type <a href='#associatedtype.Rest' class="type">Rest</a> = <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;B, F, P, R, <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, T7&gt;&gt;;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1189-1223' title='goto source code'>[src]</a></div><code>impl&lt;'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for &amp;'a mut <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;B, F, P, R, <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T6: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Unit' class="type">Unit</a> = &amp;'a mut <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.Rest' class="type">Rest</a> = <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>B, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>F, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>P, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>R, <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T0, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T1, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T2, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T3, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T4, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T5, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T7&gt;&gt;;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1225-1261' title='goto source code'>[src]</a></div><code>impl&lt;'a, B, F, P, R, T0, T1, T2, T3, T4, T5, T6, T7&gt; TextureUnit6Context for &amp;'a mut <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;B, F, P, R, &amp;'a mut <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;T0, T1, T2, T3, T4, T5, T6, T7&gt;&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;T6: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;B: ToMut&lt;'a&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;F: ToMut&lt;'a&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;P: ToMut&lt;'a&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;R: ToMut&lt;'a&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Unit' class="type">Unit</a> = &amp;'a mut <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnit6.html" title="struct glitter::context::texture_units::TextureUnit6">TextureUnit6</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.Rest' class="type">Rest</a> = <a class="struct" href="../../../glitter/context/struct.ContextOf.html" title="struct glitter::context::ContextOf">ContextOf</a>&lt;B::Mut, F::Mut, P::Mut, R::Mut, <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitsOf.html" title="struct glitter::context::texture_units::TextureUnitsOf">TextureUnitsOf</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T0, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T1, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T2, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T3, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T4, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T5, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T7&gt;&gt;;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/glitter/context/texture_units/trait.TextureUnit6Context.js">
                  </script></section>
@@ -96,13 +106,15 @@ remaining context</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -135,11 +147,8 @@ remaining context</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

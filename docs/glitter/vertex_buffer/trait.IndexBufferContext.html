@@ -9,6 +9,7 @@
 
     <title>glitter::vertex_buffer::IndexBufferContext - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a></p><script>window.sidebarCurrent = {name: 'IndexBufferContext', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait IndexBufferContext</p><div class="block items"><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.bind_index_buffer">bind_index_buffer</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a></p><script>window.sidebarCurrent = {name: 'IndexBufferContext', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,14 +43,15 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class='trait' href=''>IndexBufferContext</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_buffer</a>::<wbr><a class="trait" href=''>IndexBufferContext</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2494' class='srclink' href='../../src/glitter/src/vertex_buffer.rs.html#448-465' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait IndexBufferContext: <a class='trait' href='../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html' title='glitter::context::buffer_context::ElementArrayBufferContext'>ElementArrayBufferContext</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a> {
-    fn <a href='#method.bind_index_buffer' class='fnname'>bind_index_buffer</a>&lt;'a, I&gt;(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ibo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBuffer.html' title='glitter::vertex_buffer::IndexBuffer'>IndexBuffer</a>&lt;I&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span> { ... }
+               </span><a class='srclink' href='../../src/glitter/vertex_buffer.rs.html#448-465' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait IndexBufferContext: <a class="trait" href="../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html" title="trait glitter::context::buffer_context::ElementArrayBufferContext">ElementArrayBufferContext</a> + <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a> {
+    fn <a href='#method.bind_index_buffer' class='fnname'>bind_index_buffer</a>&lt;'a, I&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ibo: &amp;'a mut <a class="struct" href="../../glitter/vertex_buffer/struct.IndexBuffer.html" title="struct glitter::vertex_buffer::IndexBuffer">IndexBuffer</a>&lt;I&gt;<br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../glitter/vertex_buffer/struct.IndexBufferBinding.html" title="struct glitter::vertex_buffer::IndexBufferBinding">IndexBufferBinding</a>&lt;I&gt;, Self::<a class="type" href="../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html#associatedtype.Rest" title="type glitter::context::buffer_context::ElementArrayBufferContext::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a><br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="../../glitter/index_data/trait.IndexDatum.html" title="trait glitter::index_data::IndexDatum">IndexDatum</a></span>,
+    { ... }
 }</pre><div class='docblock'><p>An OpenGL context that can have an index buffer bound.</p>
 
 <h1 id='note' class='section-header'><a href='#note'>Note</a></h1>
@@ -57,14 +59,18 @@
 binding, so any context that has a free <code>GL_ELEMENT_ARRAY_BUFFER</code> is
 an <code>IndexBufferContext</code>.</p>
 </div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.bind_index_buffer' class='method stab '><span id='bind_index_buffer.v' class='invisible'><code>fn <a href='#method.bind_index_buffer' class='fnname'>bind_index_buffer</a>&lt;'a, I&gt;(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ibo: &amp;'a mut <a class='struct' href='../../glitter/vertex_buffer/struct.IndexBuffer.html' title='glitter::vertex_buffer::IndexBuffer'>IndexBuffer</a>&lt;I&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../glitter/vertex_buffer/struct.IndexBufferBinding.html' title='glitter::vertex_buffer::IndexBufferBinding'>IndexBufferBinding</a>&lt;I&gt;, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where I: <a class='trait' href='../../glitter/index_data/trait.IndexDatum.html' title='glitter::index_data::IndexDatum'>IndexDatum</a></span></code></span></h3><div class='docblock'><p>Bind an index buffer to this context, returning a binding
+        <h3 id='method.bind_index_buffer' class='method'><span id='bind_index_buffer.v' class='invisible'><code>fn <a href='#method.bind_index_buffer' class='fnname'>bind_index_buffer</a>&lt;'a, I&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;ibo: &amp;'a mut <a class="struct" href="../../glitter/vertex_buffer/struct.IndexBuffer.html" title="struct glitter::vertex_buffer::IndexBuffer">IndexBuffer</a>&lt;I&gt;<br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../glitter/vertex_buffer/struct.IndexBufferBinding.html" title="struct glitter::vertex_buffer::IndexBufferBinding">IndexBufferBinding</a>&lt;I&gt;, Self::<a class="type" href="../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html#associatedtype.Rest" title="type glitter::context::buffer_context::ElementArrayBufferContext::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;I: <a class="trait" href="../../glitter/index_data/trait.IndexDatum.html" title="trait glitter::index_data::IndexDatum">IndexDatum</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Bind an index buffer to this context, returning a binding
 and the remaining context.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;C:&nbsp;<a class='trait' href='../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html' title='glitter::context::buffer_context::ElementArrayBufferContext'>ElementArrayBufferContext</a>&gt; IndexBufferContext for C</code></li>
+    <li><code>impl&lt;C:&nbsp;<a class="trait" href="../../glitter/context/buffer_context/trait.ElementArrayBufferContext.html" title="trait glitter::context::buffer_context::ElementArrayBufferContext">ElementArrayBufferContext</a>&gt; IndexBufferContext for C</code></li>
 </ul><script type="text/javascript" async
                          src="../../implementors/glitter/vertex_buffer/trait.IndexBufferContext.js">
                  </script></section>
@@ -84,13 +90,15 @@ and the remaining context.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -123,11 +131,8 @@ and the remaining context.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

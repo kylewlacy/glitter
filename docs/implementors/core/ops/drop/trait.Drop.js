@@ -1,0 +1,10 @@
+(function() {var implementors = {};
+implementors["glitter"] = ["impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/buffer/struct.Buffer.html\" title=\"struct glitter::buffer::Buffer\">Buffer</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/shader/struct.Shader.html\" title=\"struct glitter::shader::Shader\">Shader</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/program/struct.Program.html\" title=\"struct glitter::program::Program\">Program</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/framebuffer/struct.Framebuffer.html\" title=\"struct glitter::framebuffer::Framebuffer\">Framebuffer</a>","impl <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/renderbuffer/struct.Renderbuffer.html\" title=\"struct glitter::renderbuffer::Renderbuffer\">Renderbuffer</a>","impl&lt;T:&nbsp;<a class=\"trait\" href=\"glitter/texture/trait.TextureType.html\" title=\"trait glitter::texture::TextureType\">TextureType</a>&gt; <a class=\"trait\" href=\"https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html\" title=\"trait core::ops::drop::Drop\">Drop</a> for <a class=\"struct\" href=\"glitter/texture/struct.Texture.html\" title=\"struct glitter::texture::Texture\">Texture</a>&lt;T&gt;",];
+
+            if (window.register_implementors) {
+                window.register_implementors(implementors);
+            } else {
+                window.pending_implementors = implementors;
+            }
+        
+})()

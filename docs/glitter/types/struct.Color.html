@@ -9,6 +9,7 @@
 
     <title>glitter::types::Color - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'Color', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Color</p><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.r">r</a><a href="#structfield.g">g</a><a href="#structfield.b">b</a><a href="#structfield.a">a</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.rgba">rgba</a></div></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a></p><script>window.sidebarCurrent = {name: 'Color', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,36 +43,45 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class='struct' href=''>Color</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>types</a>::<wbr><a class="struct" href=''>Color</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2639' class='srclink' href='../../src/glitter/src/types.rs.html#9-21' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/types.rs.html#9-21' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Color {
-    pub r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>,
-    pub g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>,
-    pub b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>,
-    pub a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>,
+    pub r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>,
+    pub g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>,
+    pub b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>,
+    pub a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>,
 }</pre><div class='docblock'><p>A color, with floating-point RGBA components.</p>
-</div><h2 class='fields'>Fields</h2><span id='structfield.r' class='structfield'>
-                           <span id='r.v' class='invisible'>
-                           <code>r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The color&#39;s red component.</p>
-</div><span id='structfield.g' class='structfield'>
-                           <span id='g.v' class='invisible'>
-                           <code>g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The color&#39;s green component.</p>
-</div><span id='structfield.b' class='structfield'>
-                           <span id='b.v' class='invisible'>
-                           <code>b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The color&#39;s blue component.</p>
-</div><span id='structfield.a' class='structfield'>
-                           <span id='a.v' class='invisible'>
-                           <code>a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The color&#39;s alpha component.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glitter/types/struct.Color.html' title='glitter::types::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2644' class='srclink' href='../../src/glitter/src/types.rs.html#23-28' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.rgba' class='method'><span id='rgba.v' class='invisible'><code>fn <a href='#method.rgba' class='fnname'>rgba</a>(r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>, a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a>) -&gt; Self</code></span></h4>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.r" class="structfield small-section-header">
+                           <a href="#structfield.r" class="anchor field"></a>
+                           <span id="r.v" class='invisible'>
+                           <code>r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code>
+                           </span></span><div class='docblock'><p>The color&#39;s red component.</p>
+</div><span id="structfield.g" class="structfield small-section-header">
+                           <a href="#structfield.g" class="anchor field"></a>
+                           <span id="g.v" class='invisible'>
+                           <code>g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code>
+                           </span></span><div class='docblock'><p>The color&#39;s green component.</p>
+</div><span id="structfield.b" class="structfield small-section-header">
+                           <a href="#structfield.b" class="anchor field"></a>
+                           <span id="b.v" class='invisible'>
+                           <code>b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code>
+                           </span></span><div class='docblock'><p>The color&#39;s blue component.</p>
+</div><span id="structfield.a" class="structfield small-section-header">
+                           <a href="#structfield.a" class="anchor field"></a>
+                           <span id="a.v" class='invisible'>
+                           <code>a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code>
+                           </span></span><div class='docblock'><p>The color&#39;s alpha component.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../../glitter/types/struct.Color.html" title="struct glitter::types::Color">Color</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/types.rs.html#23-28' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.rgba' class="method"><span id='rgba.v' class='invisible'><code>pub fn <a href='#method.rgba' class='fnname'>rgba</a>(r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>, g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>, b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>, a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/types.rs.html#25-27' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create a new color, with the specified RGBA values.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -90,13 +100,15 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -129,11 +141,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

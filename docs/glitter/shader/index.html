@@ -9,6 +9,7 @@
 
     <title>glitter::shader - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc mod">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a></p><script>window.sidebarCurrent = {name: 'shader', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module shader</p><div class="block items"><ul><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#constants">Constants</a></li><li><a href="#traits">Traits</a></li></ul></div><p class='location'><a href='../index.html'>glitter</a></p><script>window.sidebarCurrent = {name: 'shader', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,25 +43,25 @@
         </form>
     </nav>
 
-    <section id='main' class="content mod">
-<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class='mod' href=''>shader</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Module <a href='../index.html'>glitter</a>::<wbr><a class="mod" href=''>shader</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2010' class='srclink' href='../../src/glitter/src/shader.rs.html#1-432' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/shader.rs.html#1-432' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Exposes the OpenGL <a href="struct.Shader.html"><code>Shader</code></a> object and related types.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.Shader.html'
-                                  title='glitter::shader::Shader'>Shader</a></td>
+                           <td><a class="struct" href="struct.Shader.html"
+                                  title='struct glitter::shader::Shader'>Shader</a></td>
                            <td class='docblock-short'>
                                 <p>An OpenGL shader object.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='struct' href='struct.ShaderBuilder.html'
-                                  title='glitter::shader::ShaderBuilder'>ShaderBuilder</a></td>
+                           <td><a class="struct" href="struct.ShaderBuilder.html"
+                                  title='struct glitter::shader::ShaderBuilder'>ShaderBuilder</a></td>
                            <td class='docblock-short'>
                                 <p>A safe interface for creating a shader with a source, and returning an error
 or panicking if there is an error.</p>
@@ -68,40 +69,40 @@ or panicking if there is an error.</p>
                        </tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='enum' href='enum.ShaderType.html'
-                                  title='glitter::shader::ShaderType'>ShaderType</a></td>
+                           <td><a class="enum" href="enum.ShaderType.html"
+                                  title='enum glitter::shader::ShaderType'>ShaderType</a></td>
                            <td class='docblock-short'>
                                 <p>The possible types of shader objects.</p>
                            </td>
                        </tr></table><h2 id='constants' class='section-header'><a href="#constants">Constants</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='constant' href='constant.FRAGMENT_SHADER.html'
-                                  title='glitter::shader::FRAGMENT_SHADER'>FRAGMENT_SHADER</a></td>
+                           <td><a class="constant" href="constant.FRAGMENT_SHADER.html"
+                                  title='constant glitter::shader::FRAGMENT_SHADER'>FRAGMENT_SHADER</a></td>
                            <td class='docblock-short'>
                                 <p>A shader that is used for processing per-fragment (per-pixel)
 data.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='constant' href='constant.VERTEX_SHADER.html'
-                                  title='glitter::shader::VERTEX_SHADER'>VERTEX_SHADER</a></td>
+                           <td><a class="constant" href="constant.VERTEX_SHADER.html"
+                                  title='constant glitter::shader::VERTEX_SHADER'>VERTEX_SHADER</a></td>
                            <td class='docblock-short'>
                                 <p>A shader that is used for processing per-vertex data.</p>
                            </td>
                        </tr></table><h2 id='traits' class='section-header'><a href="#traits">Traits</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.ContextShaderBuilderExt.html'
-                                  title='glitter::shader::ContextShaderBuilderExt'>ContextShaderBuilderExt</a></td>
+                           <td><a class="trait" href="trait.ContextShaderBuilderExt.html"
+                                  title='trait glitter::shader::ContextShaderBuilderExt'>ContextShaderBuilderExt</a></td>
                            <td class='docblock-short'>
                                 <p>An extension trait for <a href="../context/struct.ContextOf.html"><code>ContextOf</code></a> that
 adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><code>ShaderBuilder</code></a> interface.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='trait' href='trait.ContextShaderExt.html'
-                                  title='glitter::shader::ContextShaderExt'>ContextShaderExt</a></td>
+                           <td><a class="trait" href="trait.ContextShaderExt.html"
+                                  title='trait glitter::shader::ContextShaderExt'>ContextShaderExt</a></td>
                            <td class='docblock-short'>
                                 <p>An extension trait that includes shader-related OpenGL methods.</p>
                            </td>
@@ -122,13 +123,15 @@ adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><c
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -161,11 +164,8 @@ adds functions to build shaders using the <a href="struct.ShaderBuilder.html"><c
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@
 
     <title>glitter::vertex_data::VertexPrimitive - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a></p><script>window.sidebarCurrent = {name: 'VertexPrimitive', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait VertexPrimitive</p><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.data_type">data_type</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-VertexPrimitive">i8</a><a href="#impl-VertexPrimitive">u8</a><a href="#impl-VertexPrimitive">i16</a><a href="#impl-VertexPrimitive">u16</a><a href="#impl-VertexPrimitive">f32</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a></p><script>window.sidebarCurrent = {name: 'VertexPrimitive', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,14 +43,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a>::<wbr><a class='trait' href=''>VertexPrimitive</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>vertex_data</a>::<wbr><a class="trait" href=''>VertexPrimitive</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2302' class='srclink' href='../../src/glitter/src/vertex_data.rs.html#117-124' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub unsafe trait VertexPrimitive: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> {
-    fn <a href='#tymethod.data_type' class='fnname'>data_type</a>() -&gt; <a class='enum' href='../../glitter/types/enum.DataType.html' title='glitter::types::DataType'>DataType</a>;
+               </span><a class='srclink' href='../../src/glitter/vertex_data.rs.html#117-124' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub unsafe trait VertexPrimitive: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> {
+    fn <a href='#tymethod.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a>;
 }</pre><div class='docblock'><p>A single, basic value that can be composed to make a <a href="trait.VertexDatum.html"><code>VertexDatum</code></a>. Scalar values are an example of a
 <code>VertexPrimitive</code>.</p>
 
@@ -58,21 +59,34 @@
 by the <a href="trait.VertexPrimitive.html#tymethod.data_type"><code>data_type</code></a> method.
 Implementing this method incorrectly will lead to memory unsafety.</p>
 </div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.data_type' class='method stab '><span id='data_type.v' class='invisible'><code>fn <a href='#tymethod.data_type' class='fnname'>data_type</a>() -&gt; <a class='enum' href='../../glitter/types/enum.DataType.html' title='glitter::types::DataType'>DataType</a></code></span></h3><div class='docblock'><p>Return the data type this primitive corresponds to.</p>
+        <h3 id='tymethod.data_type' class='method'><span id='data_type.v' class='invisible'><code>fn <a href='#tymethod.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span></h3><div class='docblock'><p>Return the data type this primitive corresponds to.</p>
 
 <h1 id='safety-1' class='section-header'><a href='#safety-1'>Safety</a></h1>
 <p>An instance of this type must be the size of the <a href="../types/enum.DataType.html"><code>DataType</code></a> returned by this function.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+                <h2 id='foreign-impls' class='small-section-header'>
+                  Implementations on Foreign Types<a href='#foreign-impls' class='anchor'></a>
+                </h2>
+            <h3 id='impl-VertexPrimitive' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/vertex_data/trait.VertexPrimitive.html" title="trait glitter::vertex_data::VertexPrimitive">VertexPrimitive</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i8.html">i8</a></code><a href='#impl-VertexPrimitive' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#169-171' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.data_type' class="method"><span id='data_type.v-1' class='invisible'><code>fn <a href='#method.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#170' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-VertexPrimitive-1' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/vertex_data/trait.VertexPrimitive.html" title="trait glitter::vertex_data::VertexPrimitive">VertexPrimitive</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code><a href='#impl-VertexPrimitive-1' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#173-175' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.data_type-1' class="method"><span id='data_type.v-2' class='invisible'><code>fn <a href='#method.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#174' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-VertexPrimitive-2' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/vertex_data/trait.VertexPrimitive.html" title="trait glitter::vertex_data::VertexPrimitive">VertexPrimitive</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.i16.html">i16</a></code><a href='#impl-VertexPrimitive-2' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#177-179' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.data_type-2' class="method"><span id='data_type.v-3' class='invisible'><code>fn <a href='#method.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#178' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-VertexPrimitive-3' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/vertex_data/trait.VertexPrimitive.html" title="trait glitter::vertex_data::VertexPrimitive">VertexPrimitive</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a></code><a href='#impl-VertexPrimitive-3' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#181-183' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.data_type-3' class="method"><span id='data_type.v-4' class='invisible'><code>fn <a href='#method.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#182' title='goto source code'>[src]</a></span></h4>
+</div></span><h3 id='impl-VertexPrimitive-4' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/vertex_data/trait.VertexPrimitive.html" title="trait glitter::vertex_data::VertexPrimitive">VertexPrimitive</a> for <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.f32.html">f32</a></code><a href='#impl-VertexPrimitive-4' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#185-187' title='goto source code'>[src]</a></span></h3>
+<span class='docblock autohide'><div class='impl-items'><h4 id='method.data_type-4' class="method"><span id='data_type.v-5' class='invisible'><code>fn <a href='#method.data_type' class='fnname'>data_type</a>() -&gt; <a class="enum" href="../../glitter/types/enum.DataType.html" title="enum glitter::types::DataType">DataType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/vertex_data.rs.html#186' title='goto source code'>[src]</a></span></h4>
+</div></span>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl VertexPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i8.html'>i8</a></code></li>
-<li><code>impl VertexPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code></li>
-<li><code>impl VertexPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.i16.html'>i16</a></code></li>
-<li><code>impl VertexPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code></li>
-<li><code>impl VertexPrimitive for <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.f32.html'>f32</a></code></li>
-</ul><script type="text/javascript" async
+    </ul><script type="text/javascript" async
                          src="../../implementors/glitter/vertex_data/trait.VertexPrimitive.js">
                  </script></section>
     <section id='search' class="content hidden"></section>
@@ -91,13 +105,15 @@ Implementing this method incorrectly will lead to memory unsafety.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -130,11 +146,8 @@ Implementing this method incorrectly will lead to memory unsafety.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

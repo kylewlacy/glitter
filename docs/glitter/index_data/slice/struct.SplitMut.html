@@ -9,6 +9,7 @@
 
     <title>glitter::index_data::slice::SplitMut - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a></p><script>window.sidebarCurrent = {name: 'SplitMut', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct SplitMut</p><div class="block items"><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-FusedIterator">FusedIterator</a><a href="#impl-Iterator">Iterator</a><a href="#impl-DoubleEndedIterator">DoubleEndedIterator</a></div></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a></p><script>window.sidebarCurrent = {name: 'SplitMut', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,24 +43,30 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a>::<wbr><a class='struct' href=''>SplitMut</a></span><span class='out-of-band'><span class='since' title='Stable since Rust version 1.0.0'>1.0.0</span><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>index_data</a>::<wbr><a href='index.html'>slice</a>::<wbr><a class="struct" href=''>SplitMut</a></span><span class='out-of-band'><span class='since' title='Stable since Rust version 1.0.0'>1.0.0</span><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-5784' class='srclink' href='https://doc.rust-lang.org/nightly/core/slice/struct.SplitMut.html?gotosrc=5784' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct SplitMut&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, T: 'a</span> { /* fields omitted */ }</pre><div class='docblock'><p>An iterator over the subslices of the vector which are separated
+               </span><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1729-1733' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SplitMut&lt;'a, T, P&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;T: 'a,&nbsp;</span> { /* fields omitted */ }</pre><div class='docblock'><p>An iterator over the subslices of the vector which are separated
 by elements that match <code>pred</code>.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html' title='core::iter::traits::DoubleEndedIterator'>DoubleEndedIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.SplitMut.html' title='glitter::index_data::slice::SplitMut'>SplitMut</a>&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></span></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'><h4 id='method.next_back' class='method'><span id='next_back.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html#tymethod.next_back' class='fnname'>next_back</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a>&gt;</code></span></h4>
-</div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.SplitMut.html' title='glitter::index_data::slice::SplitMut'>SplitMut</a>&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a>, T: 'a + <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a></span></code></span><span class='out-of-band'><div class='since' title='Stable since Rust version 1.9.0'>1.9.0</div></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>, <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html' title='core::fmt::Error'>Error</a>&gt;</code></span></h4>
-<div class='docblock'><p>Formats the value using the given formatter.</p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.FusedIterator.html' title='core::iter::traits::FusedIterator'>FusedIterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.SplitMut.html' title='glitter::index_data::slice::SplitMut'>SplitMut</a>&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></span></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html' title='core::iter::iterator::Iterator'>Iterator</a> for <a class='struct' href='../../../glitter/index_data/slice/struct.SplitMut.html' title='glitter::index_data::slice::SplitMut'>SplitMut</a>&lt;'a, T, P&gt; <span class='where'>where P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnMut.html' title='core::ops::FnMut'>FnMut</a>(&amp;T) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></span></code></span><span class='out-of-band'></span></h3>
-<div class='impl-items'><h4 id='associatedtype.Item' class='type'><span id='Item.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item' class='type'>Item</a> = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a></code></span></h4>
-<h4 id='method.next' class='method'><span id='next.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#tymethod.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;'a mut [T]</a>&gt;</code></span></h4>
-<h4 id='method.size_hint' class='method'><span id='size_hint.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>, <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>&gt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h4>
+
+<p>This struct is created by the <a href="../../std/primitive.slice.html#method.split_mut"><code>split_mut</code></a> method on <a href="../../std/primitive.slice.html">slices</a>.</p>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../../../glitter/index_data/slice/struct.SplitMut.html" title="struct glitter::index_data::slice::SplitMut">SplitMut</a>&lt;'a, T, P&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;T: 'a + <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a>,&nbsp;</span></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.9.0'>1.9.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1736-1743' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>, <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Error.html" title="struct core::fmt::Error">Error</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1737-1742' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-FusedIterator' class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.FusedIterator.html" title="trait core::iter::traits::FusedIterator">FusedIterator</a> for <a class="struct" href="../../../glitter/index_data/slice/struct.SplitMut.html" title="struct glitter::index_data::slice::SplitMut">SplitMut</a>&lt;'a, T, P&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,&nbsp;</span></code><a href='#impl-FusedIterator' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1817' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Iterator' class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html" title="trait core::iter::iterator::Iterator">Iterator</a> for <a class="struct" href="../../../glitter/index_data/slice/struct.SplitMut.html" title="struct glitter::index_data::slice::SplitMut">SplitMut</a>&lt;'a, T, P&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,&nbsp;</span></code><a href='#impl-Iterator' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1758-1790' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Item' class="type"><span id='Item.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#associatedtype.Item' class="type">Item</a> = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;'a mut [T]</a></code></span></h4>
+<h4 id='method.next' class="method"><span id='next.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#tymethod.next' class='fnname'>next</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;'a mut [T]</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1762-1778' title='goto source code'>[src]</a></span></h4>
+<h4 id='method.size_hint' class="method"><span id='size_hint.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html#method.size_hint' class='fnname'>size_hint</a>(&amp;self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>, <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.usize.html">usize</a>&gt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1781-1789' title='goto source code'>[src]</a></span></h4>
+</div><h3 id='impl-DoubleEndedIterator' class='impl'><span class='in-band'><code>impl&lt;'a, T, P&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html" title="trait core::iter::traits::DoubleEndedIterator">DoubleEndedIterator</a> for <a class="struct" href="../../../glitter/index_data/slice/struct.SplitMut.html" title="struct glitter::index_data::slice::SplitMut">SplitMut</a>&lt;'a, T, P&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;P: <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="trait core::ops::function::FnMut">FnMut</a>(<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>T) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,&nbsp;</span></code><a href='#impl-DoubleEndedIterator' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1793-1814' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.next_back' class="method"><span id='next_back.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/iter/traits/trait.DoubleEndedIterator.html#tymethod.next_back' class='fnname'>next_back</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.slice.html">&amp;'a mut [T]</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/slice/mod.rs.html#1797-1813' title='goto source code'>[src]</a></span></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -77,13 +84,15 @@ by elements that match <code>pred</code>.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -116,11 +125,8 @@ by elements that match <code>pred</code>.</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

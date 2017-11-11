@@ -9,6 +9,7 @@
 
     <title>glitter::context::texture_units::TextureUnitBindingCubeMap - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc trait">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'TextureUnitBindingCubeMap', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait TextureUnitBindingCubeMap</p><div class="block items"><a class="sidebar-title" href="#associated-types">Associated Types</a><div class="sidebar-links"><a href="#associatedtype.Binder">Binder</a><a href="#associatedtype.Rest">Rest</a></div><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.split_texture_cube_map">split_texture_cube_map</a></div><a class="sidebar-title" href="#provided-methods">Provided Methods</a><div class="sidebar-links"><a href="#method.bind_texture_cube_map">bind_texture_cube_map</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a></p><script>window.sidebarCurrent = {name: 'TextureUnitBindingCubeMap', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,38 +43,47 @@
         </form>
     </nav>
 
-    <section id='main' class="content trait">
-<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class='trait' href=''>TextureUnitBindingCubeMap</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Trait <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>texture_units</a>::<wbr><a class="trait" href=''>TextureUnitBindingCubeMap</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-1807' class='srclink' href='../../../src/glitter/src/context/texture_units.rs.html#1481-1500' title='goto source code'>[src]</a></span></h1>
-<pre class='rust trait'>pub trait TextureUnitBindingCubeMap: <a class='trait' href='../../../glitter/context/texture_units/trait.ATextureUnitBinding.html' title='glitter::context::texture_units::ATextureUnitBinding'>ATextureUnitBinding</a> {
-    type <a href='#associatedtype.Binder' class='type'>Binder</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html' title='glitter::context::texture_context::TextureCubeMapBinder'>TextureCubeMapBinder</a>&gt;;
-    type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/texture_units/trait.ATextureUnitBinding.html' title='glitter::context::texture_units::ATextureUnitBinding'>ATextureUnitBinding</a>;
-    fn <a href='#tymethod.split_texture_cube_map' class='fnname'>split_texture_cube_map</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::Binder, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>;
+               </span><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1481-1500' title='goto source code'>[src]</a></span></h1>
+<pre class='rust trait'>pub trait TextureUnitBindingCubeMap: <a class="trait" href="../../../glitter/context/texture_units/trait.ATextureUnitBinding.html" title="trait glitter::context::texture_units::ATextureUnitBinding">ATextureUnitBinding</a> {
+    type <a href='#associatedtype.Binder' class="type">Binder</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html" title="struct glitter::context::texture_context::TextureCubeMapBinder">TextureCubeMapBinder</a>&gt;;
+    type <a href='#associatedtype.Rest' class="type">Rest</a>: <a class="trait" href="../../../glitter/context/texture_units/trait.ATextureUnitBinding.html" title="trait glitter::context::texture_units::ATextureUnitBinding">ATextureUnitBinding</a>;
+    fn <a href='#tymethod.split_texture_cube_map' class='fnname'>split_texture_cube_map</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Binder" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Binder">Binder</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>;
 
-    fn <a href='#method.bind_texture_cube_map' class='fnname'>bind_texture_cube_map</a>&lt;'a&gt;(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tex: &amp;'a mut <a class='type' href='../../../glitter/texture/type.TextureCubeMap.html' title='glitter::texture::TextureCubeMap'>TextureCubeMap</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinding.html' title='glitter::context::texture_context::TextureCubeMapBinding'>TextureCubeMapBinding</a>&lt;'a&gt;, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span> { ... }
+    fn <a href='#method.bind_texture_cube_map' class='fnname'>bind_texture_cube_map</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tex: &amp;'a mut <a class="type" href="../../../glitter/texture/type.TextureCubeMap.html" title="type glitter::texture::TextureCubeMap">TextureCubeMap</a><br>&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinding.html" title="struct glitter::context::texture_context::TextureCubeMapBinding">TextureCubeMapBinding</a>&lt;'a&gt;, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a><br>&nbsp;&nbsp;&nbsp; <span class="where">where<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a></span>,
+    { ... }
 }</pre><div class='docblock'><p>A texture unit binding that has a free <code>GL_TEXTURE_CUBE_MAP</code> binding.</p>
 </div>
-            <h2 id='associated-types'>Associated Types</h2>
+            <h2 id='associated-types' class='small-section-header'>
+              Associated Types<a href='#associated-types' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='associatedtype.Binder' class='method stab '><span id='Binder.t' class='invisible'><code>type <a href='#associatedtype.Binder' class='type'>Binder</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html' title='glitter::context::texture_context::TextureCubeMapBinder'>TextureCubeMapBinder</a>&gt;</code></span></h3><div class='docblock'><p>The type of binder this texture unit contains.</p>
-</div><h3 id='associatedtype.Rest' class='method stab '><span id='Rest.t' class='invisible'><code>type <a href='#associatedtype.Rest' class='type'>Rest</a>: <a class='trait' href='../../../glitter/context/texture_units/trait.ATextureUnitBinding.html' title='glitter::context::texture_units::ATextureUnitBinding'>ATextureUnitBinding</a></code></span></h3><div class='docblock'><p>The texture unit that will be returned after binding the texture.</p>
+        <h3 id='associatedtype.Binder' class='method'><span id='Binder.t' class='invisible'><code>type <a href='#associatedtype.Binder' class="type">Binder</a>: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html" title="struct glitter::context::texture_context::TextureCubeMapBinder">TextureCubeMapBinder</a>&gt;</code></span></h3><div class='docblock'><p>The type of binder this texture unit contains.</p>
+</div><h3 id='associatedtype.Rest' class='method'><span id='Rest.t' class='invisible'><code>type <a href='#associatedtype.Rest' class="type">Rest</a>: <a class="trait" href="../../../glitter/context/texture_units/trait.ATextureUnitBinding.html" title="trait glitter::context::texture_units::ATextureUnitBinding">ATextureUnitBinding</a></code></span></h3><div class='docblock'><p>The texture unit that will be returned after binding the texture.</p>
 </div></div>
-            <h2 id='required-methods'>Required Methods</h2>
+            <h2 id='required-methods' class='small-section-header'>
+              Required Methods<a href='#required-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='tymethod.split_texture_cube_map' class='method stab '><span id='split_texture_cube_map.v' class='invisible'><code>fn <a href='#tymethod.split_texture_cube_map' class='fnname'>split_texture_cube_map</a>(self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>Self::Binder, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a></code></span></h3><div class='docblock'><p>Split the texture unit into a binder and the remaining texture unit.</p>
+        <h3 id='tymethod.split_texture_cube_map' class='method'><span id='split_texture_cube_map.v' class='invisible'><code>fn <a href='#tymethod.split_texture_cube_map' class='fnname'>split_texture_cube_map</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Binder" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Binder">Binder</a>, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a></code></span></h3><div class='docblock'><p>Split the texture unit into a binder and the remaining texture unit.</p>
 </div></div>
-            <h2 id='provided-methods'>Provided Methods</h2>
+            <h2 id='provided-methods' class='small-section-header'>
+              Provided Methods<a href='#provided-methods' class='anchor'></a>
+            </h2>
             <div class='methods'>
-        <h3 id='method.bind_texture_cube_map' class='method stab '><span id='bind_texture_cube_map.v' class='invisible'><code>fn <a href='#method.bind_texture_cube_map' class='fnname'>bind_texture_cube_map</a>&lt;'a&gt;(self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tex: &amp;'a mut <a class='type' href='../../../glitter/texture/type.TextureCubeMap.html' title='glitter::texture::TextureCubeMap'>TextureCubeMap</a>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a><a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinding.html' title='glitter::context::texture_context::TextureCubeMapBinding'>TextureCubeMapBinding</a>&lt;'a&gt;, Self::Rest<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a> <span class='where'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html' title='core::marker::Sized'>Sized</a></span></code></span></h3><div class='docblock'><p>Bind a cubemap texture to this texture unit, returning a binding
+        <h3 id='method.bind_texture_cube_map' class='method'><span id='bind_texture_cube_map.v' class='invisible'><code>fn <a href='#method.bind_texture_cube_map' class='fnname'>bind_texture_cube_map</a>&lt;'a&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;tex: &amp;'a mut <a class="type" href="../../../glitter/texture/type.TextureCubeMap.html" title="type glitter::texture::TextureCubeMap">TextureCubeMap</a><br>) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a><a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinding.html" title="struct glitter::context::texture_context::TextureCubeMapBinding">TextureCubeMapBinding</a>&lt;'a&gt;, Self::<a class="type" href="../../../glitter/context/texture_units/trait.TextureUnitBindingCubeMap.html#associatedtype.Rest" title="type glitter::context::texture_units::TextureUnitBindingCubeMap::Rest">Rest</a><a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a> <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Self: <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Sized.html" title="trait core::marker::Sized">Sized</a>,&nbsp;</span></code></span></h3><div class='docblock'><p>Bind a cubemap texture to this texture unit, returning a binding
 and the remaining texture unit.</p>
 </div></div>
-        <h2 id='implementors'>Implementors</h2>
+        <h2 id='implementors' class='small-section-header'>
+          Implementors<a href='#implementors' class='anchor'></a>
+        </h2>
         <ul class='item-list' id='implementors-list'>
-    <li><code>impl&lt;T2, TC&gt; TextureUnitBindingCubeMap for <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html' title='glitter::context::texture_units::TextureUnitBindingOf'>TextureUnitBindingOf</a>&lt;T2, TC&gt; <span class='where'>where TC: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html' title='glitter::context::texture_context::TextureCubeMapBinder'>TextureCubeMapBinder</a>&gt;</span></code></li>
-<li><code>impl&lt;'a, T2, TC&gt; TextureUnitBindingCubeMap for &amp;'a mut <a class='struct' href='../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html' title='glitter::context::texture_units::TextureUnitBindingOf'>TextureUnitBindingOf</a>&lt;T2, TC&gt; <span class='where'>where TC: <a class='trait' href='https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html' title='core::borrow::BorrowMut'>BorrowMut</a>&lt;<a class='struct' href='../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html' title='glitter::context::texture_context::TextureCubeMapBinder'>TextureCubeMapBinder</a>&gt;</span></code></li>
+    <li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1526-1535' title='goto source code'>[src]</a></div><code>impl&lt;T2, TC&gt; TextureUnitBindingCubeMap for <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;T2, TC&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;TC: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html" title="struct glitter::context::texture_context::TextureCubeMapBinder">TextureCubeMapBinder</a>&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Binder' class="type">Binder</a> = TC;</span><span class="where fmt-newline">  type <a href='#associatedtype.Rest' class="type">Rest</a> = <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;T2, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;;</span></code></li>
+<li><div class='out-of-band'><a class='srclink' href='../../../src/glitter/context/texture_units.rs.html#1537-1548' title='goto source code'>[src]</a></div><code>impl&lt;'a, T2, TC&gt; TextureUnitBindingCubeMap for &amp;'a mut <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;T2, TC&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;TC: <a class="trait" href="https://doc.rust-lang.org/nightly/core/borrow/trait.BorrowMut.html" title="trait core::borrow::BorrowMut">BorrowMut</a>&lt;<a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html" title="struct glitter::context::texture_context::TextureCubeMapBinder">TextureCubeMapBinder</a>&gt;,&nbsp;</span><span class="where fmt-newline">  type <a href='#associatedtype.Binder' class="type">Binder</a> = &amp;'a mut <a class="struct" href="../../../glitter/context/texture_context/struct.TextureCubeMapBinder.html" title="struct glitter::context::texture_context::TextureCubeMapBinder">TextureCubeMapBinder</a>;</span><span class="where fmt-newline">  type <a href='#associatedtype.Rest' class="type">Rest</a> = <a class="struct" href="../../../glitter/context/texture_units/struct.TextureUnitBindingOf.html" title="struct glitter::context::texture_units::TextureUnitBindingOf">TextureUnitBindingOf</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;'a mut </a>T2, <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.unit.html">()</a>&gt;;</span></code></li>
 </ul><script type="text/javascript" async
                          src="../../../implementors/glitter/context/texture_units/trait.TextureUnitBindingCubeMap.js">
                  </script></section>
@@ -93,13 +103,15 @@ and the remaining texture unit.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -132,11 +144,8 @@ and the remaining texture unit.</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

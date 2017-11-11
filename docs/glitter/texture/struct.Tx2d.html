@@ -9,6 +9,7 @@
 
     <title>glitter::texture::Tx2d - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a></p><script>window.sidebarCurrent = {name: 'Tx2d', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Tx2d</p><div class="block items"><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-TextureType">TextureType</a></div></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a></p><script>window.sidebarCurrent = {name: 'Tx2d', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,17 +43,21 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class='struct' href=''>Tx2d</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>texture</a>::<wbr><a class="struct" href=''>Tx2d</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2177' class='srclink' href='../../src/glitter/src/texture.rs.html#119' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../src/glitter/texture.rs.html#119' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct Tx2d;</pre><div class='docblock'><p>The <a href="trait.TextureType.html"><code>TextureType</code></a> for 2-dimensional textures.</p>
-</div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../../glitter/texture/trait.TextureType.html' title='glitter::texture::TextureType'>TextureType</a> for <a class='struct' href='../../glitter/texture/struct.Tx2d.html' title='glitter::texture::Tx2d'>Tx2d</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2182' class='srclink' href='../../src/glitter/src/texture.rs.html#135-141' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='associatedtype.ImageTargetType' class='type'><span id='ImageTargetType.t' class='invisible'><code>type <a href='../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType' class='type'>ImageTargetType</a> = <a class='enum' href='../../glitter/texture/enum.Tx2dImageTarget.html' title='glitter::texture::Tx2dImageTarget'>Tx2dImageTarget</a></code></span></h4>
-<div class='docblock'><p>The type that is used to indicate all of the possible target 2D images for this type of texture. The associated <code>ImageTargetType</code> in the impl for <code>TxCubeMap</code>, for example, is <code>TxCubeMapImageTarget</code>, which is an enum with six variants, one for each of the six 2-dimensional images that make up a cube map. <a href="../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType">Read more</a></p>
-</div><h4 id='method.target' class='method'><span id='target.v' class='invisible'><code>fn <a href='../../glitter/texture/trait.TextureType.html#tymethod.target' class='fnname'>target</a>() -&gt; <a class='enum' href='../../glitter/texture/enum.TextureBindingTarget.html' title='glitter::texture::TextureBindingTarget'>TextureBindingTarget</a></code></span></h4>
+</div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-TextureType' class='impl'><span class='in-band'><code>impl <a class="trait" href="../../glitter/texture/trait.TextureType.html" title="trait glitter::texture::TextureType">TextureType</a> for <a class="struct" href="../../glitter/texture/struct.Tx2d.html" title="struct glitter::texture::Tx2d">Tx2d</a></code><a href='#impl-TextureType' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/texture.rs.html#135-141' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.ImageTargetType' class="type"><span id='ImageTargetType.t' class='invisible'><code>type <a href='../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType' class="type">ImageTargetType</a> = <a class="enum" href="../../glitter/texture/enum.Tx2dImageTarget.html" title="enum glitter::texture::Tx2dImageTarget">Tx2dImageTarget</a></code></span></h4>
+<div class='docblock'><p>The type that is used to indicate all of the possible target 2D images for this type of texture. The associated <code>ImageTargetType</code> in the impl for <code>TxCubeMap</code>, for example, is <a href="enum.TxCubeMapImageTarget.html"><code>TxCubeMapImageTarget</code></a>, which is an enum with six variants, one for each of the six 2-dimensional images that make up a cube map. <a href="../../glitter/texture/trait.TextureType.html#associatedtype.ImageTargetType">Read more</a></p>
+</div><h4 id='method.target' class="method"><span id='target.v' class='invisible'><code>fn <a href='../../glitter/texture/trait.TextureType.html#tymethod.target' class='fnname'>target</a>() -&gt; <a class="enum" href="../../glitter/texture/enum.TextureBindingTarget.html" title="enum glitter::texture::TextureBindingTarget">TextureBindingTarget</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/texture.rs.html#138-140' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>The actual variant that represents this type of texture. The <code>target()</code> method impl for <code>TxCubeMap</code>, for example, returns <code>TextureBindingTarget::CubeMap</code>. <a href="../../glitter/texture/trait.TextureType.html#tymethod.target">Read more</a></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -71,13 +76,15 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -110,11 +117,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

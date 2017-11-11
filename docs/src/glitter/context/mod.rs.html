@@ -9,13 +9,15 @@
 
     <title>mod.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -657,623 +659,621 @@
 <span id="614">614</span>
 <span id="615">615</span>
 <span id="616">616</span>
-<span id="617">617</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Home of [`ContextOf`](struct.ContextOf.html), which is the type that</span>
-<span class='doccomment'>//! represents &quot;the OpenGL state machine&quot;, and the type you use to make</span>
-<span class='doccomment'>//! OpenGL calls.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Home of [`ContextOf`](struct.ContextOf.html), which is the type that</span>
+<span class="doccomment">//! represents &quot;the OpenGL state machine&quot;, and the type you use to make</span>
+<span class="doccomment">//! OpenGL calls.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>borrow</span>::{<span class='ident'>Borrow</span>, <span class='ident'>BorrowMut</span>};
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>Color</span>, <span class='ident'>Viewport</span>, <span class='ident'>Capability</span>, <span class='ident'>GLError</span>};
-<span class='kw'>use</span> <span class='ident'>program</span>::<span class='ident'>ProgramAttrib</span>;
-<span class='kw'>use</span> <span class='ident'>shader</span>::<span class='ident'>ContextShaderExt</span>;
-<span class='kw'>use</span> <span class='ident'>to_ref</span>::{<span class='ident'>ToRef</span>, <span class='ident'>ToMut</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">borrow</span>::{<span class="ident">Borrow</span>, <span class="ident">BorrowMut</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
+<span class="kw">use</span> <span class="ident">gl</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">Color</span>, <span class="ident">Viewport</span>, <span class="ident">Capability</span>, <span class="ident">GLError</span>};
+<span class="kw">use</span> <span class="ident">program</span>::<span class="ident">ProgramAttrib</span>;
+<span class="kw">use</span> <span class="ident">shader</span>::<span class="ident">ContextShaderExt</span>;
+<span class="kw">use</span> <span class="ident">to_ref</span>::{<span class="ident">ToRef</span>, <span class="ident">ToMut</span>};
 
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>buffer_context</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>framebuffer_context</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>program_context</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>renderbuffer_context</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>texture_context</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>texture_units</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">buffer_context</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">framebuffer_context</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">program_context</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">renderbuffer_context</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">texture_context</span>;
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">texture_units</span>;
 
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>buffer_context</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>framebuffer_context</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>program_context</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>renderbuffer_context</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>texture_context</span>::<span class='op'>*</span>;
-<span class='kw'>pub</span> <span class='kw'>use</span> <span class='self'>self</span>::<span class='ident'>texture_units</span>::<span class='op'>*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">buffer_context</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">framebuffer_context</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">program_context</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">renderbuffer_context</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">texture_context</span>::<span class="kw-2">*</span>;
+<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">texture_units</span>::<span class="kw-2">*</span>;
 
-<span class='doccomment'>/// A &quot;fresh&quot; OpenGL context: one that essentially has no active bindings.</span>
-<span class='doccomment'>/// See the [`ContextOf`](struct.ContextOf.html) docs for more details.</span>
-<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Context</span> <span class='op'>=</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>BufferBinder</span>,
-                             <span class='ident'>FramebufferBinder</span>,
-                             <span class='ident'>ProgramBinder</span>,
-                             <span class='ident'>RenderbufferBinder</span>,
-                             <span class='ident'>TextureUnits</span><span class='op'>&gt;</span>;
+<span class="doccomment">/// A &quot;fresh&quot; OpenGL context: one that essentially has no active bindings.</span>
+<span class="doccomment">/// See the [`ContextOf`](struct.ContextOf.html) docs for more details.</span>
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">Context</span> <span class="op">=</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">BufferBinder</span>,
+                             <span class="ident">FramebufferBinder</span>,
+                             <span class="ident">ProgramBinder</span>,
+                             <span class="ident">RenderbufferBinder</span>,
+                             <span class="ident">TextureUnits</span><span class="op">&gt;</span>;
 
-<span class='doccomment'>/// The type that represents the whole &quot;OpenGL state machine&quot;. This is the core</span>
-<span class='doccomment'>/// of glitter&#39;s design, and what enables the notion of safety.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// To understand how it works, let&#39;s look at some code snippets:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// This code will compile without errors:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```no_run</span>
-<span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-<span class='doccomment'>/// use glitter::prelude::*;</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # fn main() {</span>
-<span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-<span class='doccomment'>/// let mut buffer = gl.gen_buffer();</span>
-<span class='doccomment'>/// let (mut gl_buffer, gl) = gl.bind_array_buffer(&amp;mut buffer);</span>
-<span class='doccomment'>/// gl.buffer_bytes(&amp;mut gl_buffer, &amp;[1, 2, 3], glitter::STATIC_DRAW);</span>
-<span class='doccomment'>/// # }</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ...and this code won&#39;t:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// ```ignore</span>
-<span class='doccomment'>/// let gl: glitter::ContextOf&lt;BufferBinder, _, _, _, _&gt; = unsafe {</span>
-<span class='doccomment'>///     glitter::Context::current_context()</span>
-<span class='doccomment'>/// };</span>
-<span class='doccomment'>/// let mut buffer_1 = unsafe { gl.gen_buffer() };</span>
-<span class='doccomment'>/// let mut buffer_2 = unsafe { gl.gen_buffer() };</span>
-<span class='doccomment'>/// let (mut gl_buffer_1, gl): (_, ContextOf&lt;BufferBinderOf&lt;(), _&gt;, _, _, _, _&gt;) = gl.bind_array_buffer(&amp;mut buffer_1);</span>
-<span class='doccomment'>/// unsafe { gl.buffer_byte(&amp;mut gl_buffer_1); }</span>
-<span class='doccomment'>/// let (mut gl_buffer_2, gl) = gl.bind_array_buffer(&amp;mut buffer_2);</span>
-<span class='doccomment'>/// //                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
-<span class='doccomment'>/// // error: no method named `bind_array_buffer` found for type `...` found in</span>
-<span class='doccomment'>/// //        the current scope</span>
-<span class='doccomment'>/// // note: the method `bind_array_buffer` exists but the following trait</span>
-<span class='doccomment'>/// //       bounds were not satisfied: `() : BorrowMut&lt;ArrayBufferBinder&gt;`,</span>
-<span class='doccomment'>/// //       `() : BorrowMut&lt;ArrayBufferBinder&gt;`</span>
-<span class='doccomment'>/// ```</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// The magic of glitter lies in the two return values of [`bind_array_buffer`]</span>
-<span class='doccomment'>/// (buffer_context/trait.ArrayBufferContext.html#method.bind_array_buffer):</span>
-<span class='doccomment'>/// it returns both a &quot;buffer binding&quot; (something that represents that we</span>
-<span class='doccomment'>/// have a buffer currently bound, so we can send data to it), as well as a new</span>
-<span class='doccomment'>/// context, which doesn&#39;t have the `bind_array_buffer` method. How can we</span>
-<span class='doccomment'>/// achieve this type-level magic? Well, by using generic type parameters,</span>
-<span class='doccomment'>/// of course!</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Generic Type Parameters</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// Each of the generic type parameters represents a distinct &#39;piece&#39; of OpenGL</span>
-<span class='doccomment'>/// state. Here&#39;s the state that each type parameter encapsulates:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// - `B`: Buffer state (`GL_ARRAY_BUFFER`, `GL_ELEMENT_ARRAY_BUFFER`)</span>
-<span class='doccomment'>/// - `F`: Framebuffer state (`GL_FRAMEBUFFER`)</span>
-<span class='doccomment'>/// - `P`: Program state (the binding set by `glUseProgram`)</span>
-<span class='doccomment'>/// - `R`: Renderbuffer state (`GL_RENDERBUFFER`)</span>
-<span class='doccomment'>/// - `T`: Texture unit state (the texture number set by `glActiveTexture`)</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// As we saw with the above snippet, each type parameter can take on one of two</span>
-<span class='doccomment'>/// types: either a `Binding` type (meaning that it has an unbound target</span>
-<span class='doccomment'>/// that can be bound to), or the `()` type (meaning that the target has</span>
-<span class='doccomment'>/// already been used in a binding).</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// When a generic parameter is present (i.e., when it isn&#39;t just `()`), that</span>
-<span class='doccomment'>/// means that that &#39;part&#39; of OpenGL state is free to be bound.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Generic Code</span>
-<span class='doccomment'>/// In some circumstances, taking a concrete `Context` by value will be too</span>
-<span class='doccomment'>/// strict. Additionally, being generic over all of the type parameters adds</span>
-<span class='doccomment'>/// a great deal of complexity, and still isn&#39;t sufficient for all</span>
-<span class='doccomment'>/// circumstnaces. For these cases, there are a number of traits that exist,</span>
-<span class='doccomment'>/// which allow for much more flexibility than using a `ContextOf` instance</span>
-<span class='doccomment'>/// directly. The traits in question are:</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// - [`AContext`](trait.AContext.html)</span>
-<span class='doccomment'>/// - [`ArrayBufferContext`](buffer_context/trait.BufferContext.html),</span>
-<span class='doccomment'>/// [`ElementArrayBufferContext`](trait.ElementArrayBufferContext.html), and</span>
-<span class='doccomment'>/// [`BufferContext`](buffer_context/trait.BufferContext.html)</span>
-<span class='doccomment'>/// - [`FramebufferContext`](framebuffer_context/trait.FramebufferContext.html)</span>
-<span class='doccomment'>/// - [`RenderbufferContext`](renderbuffer_context/trait.RenderbufferContext.html)</span>
-<span class='doccomment'>/// - [`TextureUnit0Context`](texture_units/trait.TextureUnit0Context.html)</span>
-<span class='doccomment'>/// through [`TextureUnit7Context`](texture_units/trait.TextureUnit7Context.html)</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='ident'>buffers</span>: <span class='ident'>B</span>,
-    <span class='ident'>framebuffer</span>: <span class='ident'>F</span>,
-    <span class='ident'>program</span>: <span class='ident'>P</span>,
-    <span class='ident'>renderbuffer</span>: <span class='ident'>R</span>,
-    <span class='ident'>tex_units</span>: <span class='ident'>T</span>,
-    <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// The type that represents the whole &quot;OpenGL state machine&quot;. This is the core</span>
+<span class="doccomment">/// of glitter&#39;s design, and what enables the notion of safety.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// To understand how it works, let&#39;s look at some code snippets:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// This code will compile without errors:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```no_run</span>
+<span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+<span class="doccomment">/// use glitter::prelude::*;</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # fn main() {</span>
+<span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+<span class="doccomment">/// let mut buffer = gl.gen_buffer();</span>
+<span class="doccomment">/// let (mut gl_buffer, gl) = gl.bind_array_buffer(&amp;mut buffer);</span>
+<span class="doccomment">/// gl.buffer_bytes(&amp;mut gl_buffer, &amp;[1, 2, 3], glitter::STATIC_DRAW);</span>
+<span class="doccomment">/// # }</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ...and this code won&#39;t:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// ```ignore</span>
+<span class="doccomment">/// let gl: glitter::ContextOf&lt;BufferBinder, _, _, _, _&gt; = unsafe {</span>
+<span class="doccomment">///     glitter::Context::current_context()</span>
+<span class="doccomment">/// };</span>
+<span class="doccomment">/// let mut buffer_1 = unsafe { gl.gen_buffer() };</span>
+<span class="doccomment">/// let mut buffer_2 = unsafe { gl.gen_buffer() };</span>
+<span class="doccomment">/// let (mut gl_buffer_1, gl): (_, ContextOf&lt;BufferBinderOf&lt;(), _&gt;, _, _, _, _&gt;) = gl.bind_array_buffer(&amp;mut buffer_1);</span>
+<span class="doccomment">/// unsafe { gl.buffer_byte(&amp;mut gl_buffer_1); }</span>
+<span class="doccomment">/// let (mut gl_buffer_2, gl) = gl.bind_array_buffer(&amp;mut buffer_2);</span>
+<span class="doccomment">/// //                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span>
+<span class="doccomment">/// // error: no method named `bind_array_buffer` found for type `...` found in</span>
+<span class="doccomment">/// //        the current scope</span>
+<span class="doccomment">/// // note: the method `bind_array_buffer` exists but the following trait</span>
+<span class="doccomment">/// //       bounds were not satisfied: `() : BorrowMut&lt;ArrayBufferBinder&gt;`,</span>
+<span class="doccomment">/// //       `() : BorrowMut&lt;ArrayBufferBinder&gt;`</span>
+<span class="doccomment">/// ```</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// The magic of glitter lies in the two return values of [`bind_array_buffer`]</span>
+<span class="doccomment">/// (buffer_context/trait.ArrayBufferContext.html#method.bind_array_buffer):</span>
+<span class="doccomment">/// it returns both a &quot;buffer binding&quot; (something that represents that we</span>
+<span class="doccomment">/// have a buffer currently bound, so we can send data to it), as well as a new</span>
+<span class="doccomment">/// context, which doesn&#39;t have the `bind_array_buffer` method. How can we</span>
+<span class="doccomment">/// achieve this type-level magic? Well, by using generic type parameters,</span>
+<span class="doccomment">/// of course!</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Generic Type Parameters</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// Each of the generic type parameters represents a distinct &#39;piece&#39; of OpenGL</span>
+<span class="doccomment">/// state. Here&#39;s the state that each type parameter encapsulates:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// - `B`: Buffer state (`GL_ARRAY_BUFFER`, `GL_ELEMENT_ARRAY_BUFFER`)</span>
+<span class="doccomment">/// - `F`: Framebuffer state (`GL_FRAMEBUFFER`)</span>
+<span class="doccomment">/// - `P`: Program state (the binding set by `glUseProgram`)</span>
+<span class="doccomment">/// - `R`: Renderbuffer state (`GL_RENDERBUFFER`)</span>
+<span class="doccomment">/// - `T`: Texture unit state (the texture number set by `glActiveTexture`)</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// As we saw with the above snippet, each type parameter can take on one of two</span>
+<span class="doccomment">/// types: either a `Binding` type (meaning that it has an unbound target</span>
+<span class="doccomment">/// that can be bound to), or the `()` type (meaning that the target has</span>
+<span class="doccomment">/// already been used in a binding).</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// When a generic parameter is present (i.e., when it isn&#39;t just `()`), that</span>
+<span class="doccomment">/// means that that &#39;part&#39; of OpenGL state is free to be bound.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Generic Code</span>
+<span class="doccomment">/// In some circumstances, taking a concrete `Context` by value will be too</span>
+<span class="doccomment">/// strict. Additionally, being generic over all of the type parameters adds</span>
+<span class="doccomment">/// a great deal of complexity, and still isn&#39;t sufficient for all</span>
+<span class="doccomment">/// circumstances. For these cases, there are a number of traits that exist,</span>
+<span class="doccomment">/// which allow for much more flexibility than using a `ContextOf` instance</span>
+<span class="doccomment">/// directly. The traits in question are:</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// - [`AContext`](trait.AContext.html)</span>
+<span class="doccomment">/// - [`ArrayBufferContext`](buffer_context/trait.BufferContext.html),</span>
+<span class="doccomment">/// [`ElementArrayBufferContext`](trait.ElementArrayBufferContext.html), and</span>
+<span class="doccomment">/// [`BufferContext`](buffer_context/trait.BufferContext.html)</span>
+<span class="doccomment">/// - [`FramebufferContext`](framebuffer_context/trait.FramebufferContext.html)</span>
+<span class="doccomment">/// - [`RenderbufferContext`](renderbuffer_context/trait.RenderbufferContext.html)</span>
+<span class="doccomment">/// - [`TextureUnit0Context`](texture_units/trait.TextureUnit0Context.html)</span>
+<span class="doccomment">/// through [`TextureUnit7Context`](texture_units/trait.TextureUnit7Context.html)</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="ident">buffers</span>: <span class="ident">B</span>,
+    <span class="ident">framebuffer</span>: <span class="ident">F</span>,
+    <span class="ident">program</span>: <span class="ident">P</span>,
+    <span class="ident">renderbuffer</span>: <span class="ident">R</span>,
+    <span class="ident">tex_units</span>: <span class="ident">T</span>,
+    <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
-    <span class='doccomment'>/// Use a function to load OpenGL function pointers. This function must</span>
-    <span class='doccomment'>/// be called before calling [`ContextOf::current_context`]</span>
-    <span class='doccomment'>/// (struct.ContextOf.html#method.current_context).</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// `load_fn` takes an OpenGL function name, and must return a function</span>
-    <span class='doccomment'>/// pointer that can be used as this OpenGL function.</span>
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>load_with</span><span class='op'>&lt;</span><span class='ident'>L</span><span class='op'>&gt;</span>(<span class='ident'>load_fn</span>: <span class='ident'>L</span>)
-        <span class='kw'>where</span> <span class='ident'>L</span>: <span class='ident'>FnMut</span>(<span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLvoid</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> {
+    <span class="doccomment">/// Use a function to load OpenGL function pointers. This function must</span>
+    <span class="doccomment">/// be called before calling [`ContextOf::current_context`]</span>
+    <span class="doccomment">/// (struct.ContextOf.html#method.current_context).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// `load_fn` takes an OpenGL function name, and must return a function</span>
+    <span class="doccomment">/// pointer that can be used as this OpenGL function.</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">load_with</span><span class="op">&lt;</span><span class="ident">L</span><span class="op">&gt;</span>(<span class="ident">load_fn</span>: <span class="ident">L</span>)
+        <span class="kw">where</span> <span class="ident">L</span>: <span class="ident">FnMut</span>(<span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLvoid</span>
     {
-        <span class='ident'>gl</span>::<span class='ident'>load_with</span>(<span class='ident'>load_fn</span>);
+        <span class="ident">gl</span>::<span class="ident">load_with</span>(<span class="ident">load_fn</span>);
     }
 
-    <span class='doccomment'>/// Get the current OpenGL context.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// Before calling this function, **a context must be created and</span>
-    <span class='doccomment'>/// set** within the current thread, and **an OpenGL library needs</span>
-    <span class='doccomment'>/// to be loaded** by calling the [`ContextOf::load_with`]</span>
-    <span class='doccomment'>/// (struct.ContextOf.html#method.load_with) function.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// Additionally, special care needs to be taken with this function to</span>
-    <span class='doccomment'>/// maintain the invariants about bindings and targets. Here&#39;s an</span>
-    <span class='doccomment'>/// example of how this function can be abused:</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// ```ignore</span>
-    <span class='doccomment'>/// // Get a fresh version the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Create a buffer</span>
-    <span class='doccomment'>/// let mut buffer_1 = gl.gen_buffer();</span>
-    <span class='doccomment'>/// // Bind the buffer to the `GL_ARRAY_BUFFER` taret</span>
-    <span class='doccomment'>/// let (gl_buffer_1, gl) = gl.bind_array_buffer(&amp;mut buffer_1);</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// // Get a fresh version of the current context again</span>
-    <span class='doccomment'>/// let gl_2 = unsafe { Context::current_context() };</span>
-    <span class='doccomment'>/// // Create a new buffer</span>
-    <span class='doccomment'>/// let mut buffer_2 = gl_2.gen_buffer();</span>
-    <span class='doccomment'>/// // Bind the new buffer to `GL_ARRAY_BUFFER` (*replacing the</span>
-    <span class='doccomment'>/// // old binding*)</span>
-    <span class='doccomment'>/// let (gl_buffer_2, gl_2) = gl_2.bind_array_buffer(&amp;mut buffer_2);</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// // Send some data to the buffers:</span>
-    <span class='doccomment'>/// gl_buffer_2.buffer_bytes(&amp;[1, 2, 3], glitter::STATIC_DRAW);</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// // Current data:</span>
-    <span class='doccomment'>/// // buffer_1: {uninitialized}</span>
-    <span class='doccomment'>/// // buffer_2: [1, 2, 3]</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// gl_buffer_1.buffer_bytes(&amp;[4, 5, 6], glitter::STATIC_DRAW);</span>
-    <span class='doccomment'>/// ^~~~~~~~~~~~~~~~~~~~~~~~</span>
-    <span class='doccomment'>///  UNSOUNDNESS: gl_buffer_1 refers to GL_ARRAY_BUFFER, which was</span>
-    <span class='doccomment'>///               invalidated by gl_buffer_2. This call overwrites buffer_2</span>
-    <span class='doccomment'>///               and leaves buffer_1 uninitalized.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// // Current data:</span>
-    <span class='doccomment'>/// // buffer_1: {uninitialized}</span>
-    <span class='doccomment'>/// // buffer_2: [4, 5, 6]</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>current_context</span>() <span class='op'>-&gt;</span> <span class='ident'>Context</span> {
-        <span class='ident'>ContextOf</span> {
-            <span class='ident'>buffers</span>: <span class='ident'>BufferBinder</span>::<span class='ident'>current</span>(),
-            <span class='ident'>framebuffer</span>: <span class='ident'>FramebufferBinder</span>::<span class='ident'>current</span>(),
-            <span class='ident'>program</span>: <span class='ident'>ProgramBinder</span>::<span class='ident'>current</span>(),
-            <span class='ident'>renderbuffer</span>: <span class='ident'>RenderbufferBinder</span>::<span class='ident'>current</span>(),
-            <span class='ident'>tex_units</span>: <span class='ident'>TextureUnits</span>::<span class='ident'>current</span>(),
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="doccomment">/// Get the current OpenGL context.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// Before calling this function, **a context must be created and</span>
+    <span class="doccomment">/// set** within the current thread, and **an OpenGL library needs</span>
+    <span class="doccomment">/// to be loaded** by calling the [`ContextOf::load_with`]</span>
+    <span class="doccomment">/// (struct.ContextOf.html#method.load_with) function.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Additionally, special care needs to be taken with this function to</span>
+    <span class="doccomment">/// maintain the invariants about bindings and targets. Here&#39;s an</span>
+    <span class="doccomment">/// example of how this function can be abused:</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```ignore</span>
+    <span class="doccomment">/// // Get a fresh version the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Create a buffer</span>
+    <span class="doccomment">/// let mut buffer_1 = gl.gen_buffer();</span>
+    <span class="doccomment">/// // Bind the buffer to the `GL_ARRAY_BUFFER` taret</span>
+    <span class="doccomment">/// let (gl_buffer_1, gl) = gl.bind_array_buffer(&amp;mut buffer_1);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// // Get a fresh version of the current context again</span>
+    <span class="doccomment">/// let gl_2 = unsafe { Context::current_context() };</span>
+    <span class="doccomment">/// // Create a new buffer</span>
+    <span class="doccomment">/// let mut buffer_2 = gl_2.gen_buffer();</span>
+    <span class="doccomment">/// // Bind the new buffer to `GL_ARRAY_BUFFER` (*replacing the</span>
+    <span class="doccomment">/// // old binding*)</span>
+    <span class="doccomment">/// let (gl_buffer_2, gl_2) = gl_2.bind_array_buffer(&amp;mut buffer_2);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// // Send some data to the buffers:</span>
+    <span class="doccomment">/// gl_buffer_2.buffer_bytes(&amp;[1, 2, 3], glitter::STATIC_DRAW);</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// // Current data:</span>
+    <span class="doccomment">/// // buffer_1: {uninitialized}</span>
+    <span class="doccomment">/// // buffer_2: [1, 2, 3]</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// gl_buffer_1.buffer_bytes(&amp;[4, 5, 6], glitter::STATIC_DRAW);</span>
+    <span class="doccomment">/// ^~~~~~~~~~~~~~~~~~~~~~~~</span>
+    <span class="doccomment">///  UNSOUNDNESS: gl_buffer_1 refers to GL_ARRAY_BUFFER, which was</span>
+    <span class="doccomment">///               invalidated by gl_buffer_2. This call overwrites buffer_2</span>
+    <span class="doccomment">///               and leaves buffer_1 uninitialized.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// // Current data:</span>
+    <span class="doccomment">/// // buffer_1: {uninitialized}</span>
+    <span class="doccomment">/// // buffer_2: [4, 5, 6]</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">current_context</span>() <span class="op">-&gt;</span> <span class="ident">Context</span> {
+        <span class="ident">ContextOf</span> {
+            <span class="ident">buffers</span>: <span class="ident">BufferBinder</span>::<span class="ident">current</span>(),
+            <span class="ident">framebuffer</span>: <span class="ident">FramebufferBinder</span>::<span class="ident">current</span>(),
+            <span class="ident">program</span>: <span class="ident">ProgramBinder</span>::<span class="ident">current</span>(),
+            <span class="ident">renderbuffer</span>: <span class="ident">RenderbufferBinder</span>::<span class="ident">current</span>(),
+            <span class="ident">tex_units</span>: <span class="ident">TextureUnits</span>::<span class="ident">current</span>(),
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='doccomment'>/// Get an OpenGL error that was generated since the last call to</span>
-    <span class='doccomment'>/// `ContextOf::get_error()`, or `None` is none occurred.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Note</span>
-    <span class='doccomment'>/// When the `debug_assertions` configuration option is set,</span>
-    <span class='doccomment'>/// `ContextOf::get_error` is automatically called after most OpenGL</span>
-    <span class='doccomment'>/// function calls (and the program will often panic if an error</span>
-    <span class='doccomment'>/// was generated).</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>get_error</span>() <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>GLError</span><span class='op'>&gt;</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>match</span> <span class='ident'>gl</span>::<span class='ident'>GetError</span>() {
-                <span class='ident'>gl</span>::<span class='ident'>INVALID_ENUM</span> <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>Some</span>(<span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span>),
-                <span class='ident'>gl</span>::<span class='ident'>INVALID_VALUE</span> <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>Some</span>(<span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span>),
-                <span class='ident'>gl</span>::<span class='ident'>INVALID_OPERATION</span> <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>Some</span>(<span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span>),
-                <span class='ident'>gl</span>::<span class='ident'>INVALID_FRAMEBUFFER_OPERATION</span> <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>Some</span>(<span class='ident'>GLError</span>::<span class='ident'>InvalidFramebufferOperation</span>),
-                <span class='ident'>gl</span>::<span class='ident'>OUT_OF_MEMORY</span> <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>Some</span>(<span class='ident'>GLError</span>::<span class='ident'>OutOfMemory</span>),
-                _ <span class='op'>=&gt;</span>
-                    <span class='prelude-val'>None</span>
+    <span class="doccomment">/// Get an OpenGL error that was generated since the last call to</span>
+    <span class="doccomment">/// `ContextOf::get_error()`, or `None` is none occurred.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Note</span>
+    <span class="doccomment">/// When the `debug_assertions` configuration option is set,</span>
+    <span class="doccomment">/// `ContextOf::get_error` is automatically called after most OpenGL</span>
+    <span class="doccomment">/// function calls (and the program will often panic if an error</span>
+    <span class="doccomment">/// was generated).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_error</span>() <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">GLError</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">match</span> <span class="ident">gl</span>::<span class="ident">GetError</span>() {
+                <span class="ident">gl</span>::<span class="ident">INVALID_ENUM</span> <span class="op">=&gt;</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">GLError</span>::<span class="ident">InvalidEnum</span>),
+                <span class="ident">gl</span>::<span class="ident">INVALID_VALUE</span> <span class="op">=&gt;</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">GLError</span>::<span class="ident">InvalidValue</span>),
+                <span class="ident">gl</span>::<span class="ident">INVALID_OPERATION</span> <span class="op">=&gt;</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">GLError</span>::<span class="ident">InvalidOperation</span>),
+                <span class="ident">gl</span>::<span class="ident">INVALID_FRAMEBUFFER_OPERATION</span> <span class="op">=&gt;</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">GLError</span>::<span class="ident">InvalidFramebufferOperation</span>),
+                <span class="ident">gl</span>::<span class="ident">OUT_OF_MEMORY</span> <span class="op">=&gt;</span>
+                    <span class="prelude-val">Some</span>(<span class="ident">GLError</span>::<span class="ident">OutOfMemory</span>),
+                _ <span class="op">=&gt;</span>
+                    <span class="prelude-val">None</span>
             }
         }
     }
 
-    <span class='doccomment'>/// Return a new `ContextOf`, where the type parameters of the new context</span>
-    <span class='doccomment'>/// are borrows of the current context. This function shouldn&#39;t be</span>
-    <span class='doccomment'>/// necessary in most circumstances, and will likely be removed from</span>
-    <span class='doccomment'>/// the public API in a future release.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>borrowed</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>BB</span> <span class='op'>=</span> <span class='ident'>B</span>, <span class='ident'>BF</span> <span class='op'>=</span> <span class='ident'>F</span>, <span class='ident'>BP</span> <span class='op'>=</span> <span class='ident'>P</span>, <span class='ident'>BR</span> <span class='op'>=</span> <span class='ident'>R</span>, <span class='ident'>BT</span> <span class='op'>=</span> <span class='ident'>T</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>BB</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>BF</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>BP</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>BR</span>, <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>BT</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>B</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>BB</span><span class='op'>&gt;</span>,
-              <span class='ident'>F</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>BF</span><span class='op'>&gt;</span>,
-              <span class='ident'>P</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>BP</span><span class='op'>&gt;</span>,
-              <span class='ident'>R</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>BR</span><span class='op'>&gt;</span>,
-              <span class='ident'>T</span>: <span class='ident'>Borrow</span><span class='op'>&lt;</span><span class='ident'>BT</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Return a new `ContextOf`, where the type parameters of the new context</span>
+    <span class="doccomment">/// are borrows of the current context. This function shouldn&#39;t be</span>
+    <span class="doccomment">/// necessary in most circumstances, and will likely be removed from</span>
+    <span class="doccomment">/// the public API in a future release.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">borrowed</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">BB</span>, <span class="ident">BF</span>, <span class="ident">BP</span>, <span class="ident">BR</span>, <span class="ident">BT</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>)
+        <span class="op">-&gt;</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BB</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BF</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BP</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BR</span>, <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BT</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">B</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">BB</span><span class="op">&gt;</span>,
+              <span class="ident">F</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">BF</span><span class="op">&gt;</span>,
+              <span class="ident">P</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">BP</span><span class="op">&gt;</span>,
+              <span class="ident">R</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">BR</span><span class="op">&gt;</span>,
+              <span class="ident">T</span>: <span class="ident">Borrow</span><span class="op">&lt;</span><span class="ident">BT</span><span class="op">&gt;</span>
     {
-        <span class='ident'>ContextOf</span> {
-            <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>.<span class='ident'>borrow</span>(),
-            <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>.<span class='ident'>borrow</span>(),
-            <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>.<span class='ident'>borrow</span>(),
-            <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>.<span class='ident'>borrow</span>(),
-            <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>.<span class='ident'>borrow</span>(),
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+        <span class="ident">ContextOf</span> {
+            <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>.<span class="ident">borrow</span>(),
+            <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>.<span class="ident">borrow</span>(),
+            <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>.<span class="ident">borrow</span>(),
+            <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>.<span class="ident">borrow</span>(),
+            <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>.<span class="ident">borrow</span>(),
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='doccomment'>/// Return a new `ContextOf`, where the type parameters of the new context</span>
-    <span class='doccomment'>/// are mutabel borrows of the current context. This function shouldn&#39;t</span>
-    <span class='doccomment'>/// be necessary in most circumstances, and will likely be removed from</span>
-    <span class='doccomment'>/// the public API in a future release.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>borrowed_mut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>BB</span> <span class='op'>=</span> <span class='ident'>B</span>, <span class='ident'>BF</span> <span class='op'>=</span> <span class='ident'>F</span>, <span class='ident'>BP</span> <span class='op'>=</span> <span class='ident'>P</span>, <span class='ident'>BR</span> <span class='op'>=</span> <span class='ident'>R</span>, <span class='ident'>BT</span> <span class='op'>=</span> <span class='ident'>T</span><span class='op'>&gt;</span>
-                       (<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>BB</span>,
-                     <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>BF</span>,
-                     <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>BP</span>,
-                     <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>BR</span>,
-                     <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>BT</span><span class='op'>&gt;</span>
-        <span class='kw'>where</span> <span class='ident'>B</span>: <span class='ident'>BorrowMut</span><span class='op'>&lt;</span><span class='ident'>BB</span><span class='op'>&gt;</span>,
-              <span class='ident'>F</span>: <span class='ident'>BorrowMut</span><span class='op'>&lt;</span><span class='ident'>BF</span><span class='op'>&gt;</span>,
-              <span class='ident'>P</span>: <span class='ident'>BorrowMut</span><span class='op'>&lt;</span><span class='ident'>BP</span><span class='op'>&gt;</span>,
-              <span class='ident'>R</span>: <span class='ident'>BorrowMut</span><span class='op'>&lt;</span><span class='ident'>BR</span><span class='op'>&gt;</span>,
-              <span class='ident'>T</span>: <span class='ident'>BorrowMut</span><span class='op'>&lt;</span><span class='ident'>BT</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Return a new `ContextOf`, where the type parameters of the new context</span>
+    <span class="doccomment">/// are mutable borrows of the current context. This function shouldn&#39;t</span>
+    <span class="doccomment">/// be necessary in most circumstances, and will likely be removed from</span>
+    <span class="doccomment">/// the public API in a future release.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">borrowed_mut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">BB</span>, <span class="ident">BF</span>, <span class="ident">BP</span>, <span class="ident">BR</span>, <span class="ident">BT</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>)
+        <span class="op">-&gt;</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">BB</span>,
+                     <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">BF</span>,
+                     <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">BP</span>,
+                     <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">BR</span>,
+                     <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">BT</span><span class="op">&gt;</span>
+        <span class="kw">where</span> <span class="ident">B</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">BB</span><span class="op">&gt;</span>,
+              <span class="ident">F</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">BF</span><span class="op">&gt;</span>,
+              <span class="ident">P</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">BP</span><span class="op">&gt;</span>,
+              <span class="ident">R</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">BR</span><span class="op">&gt;</span>,
+              <span class="ident">T</span>: <span class="ident">BorrowMut</span><span class="op">&lt;</span><span class="ident">BT</span><span class="op">&gt;</span>
     {
-        <span class='ident'>ContextOf</span> {
-            <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>.<span class='ident'>borrow_mut</span>(),
-            <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>.<span class='ident'>borrow_mut</span>(),
-            <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>.<span class='ident'>borrow_mut</span>(),
-            <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>.<span class='ident'>borrow_mut</span>(),
-            <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>.<span class='ident'>borrow_mut</span>(),
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+        <span class="ident">ContextOf</span> {
+            <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>.<span class="ident">borrow_mut</span>(),
+            <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>.<span class="ident">borrow_mut</span>(),
+            <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>.<span class="ident">borrow_mut</span>(),
+            <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>.<span class="ident">borrow_mut</span>(),
+            <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>.<span class="ident">borrow_mut</span>(),
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='doccomment'>/// Replace the current context&#39;s internal `buffers` field (of type `B`)</span>
-    <span class='doccomment'>/// with a new value, returning the old value and a new context. This</span>
-    <span class='doccomment'>/// function will likely be removed from the public API in the future.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// // Get the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Replace the context&#39;s buffer binder with `()`</span>
-    <span class='doccomment'>/// let (gl_buffer_binder, gl) = gl.swap_buffers(());</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>swap_buffers</span><span class='op'>&lt;</span><span class='ident'>NB</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>new_buffer</span>: <span class='ident'>NB</span>)
-        <span class='op'>-&gt;</span> (<span class='ident'>B</span>, <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>NB</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>)
+    <span class="doccomment">/// Replace the current context&#39;s internal `buffers` field (of type `B`)</span>
+    <span class="doccomment">/// with a new value, returning the old value and a new context. This</span>
+    <span class="doccomment">/// function will likely be removed from the public API in the future.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// // Get the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Replace the context&#39;s buffer binder with `()`</span>
+    <span class="doccomment">/// let (gl_buffer_binder, gl) = gl.swap_buffers(());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_buffers</span><span class="op">&lt;</span><span class="ident">NB</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">new_buffer</span>: <span class="ident">NB</span>)
+        <span class="op">-&gt;</span> (<span class="ident">B</span>, <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">NB</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>)
     {
         (
-            <span class='self'>self</span>.<span class='ident'>buffers</span>,
-            <span class='ident'>ContextOf</span> {
-                <span class='ident'>buffers</span>: <span class='ident'>new_buffer</span>,
-                <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>,
-                <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>,
-                <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>,
-                <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>,
-                <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+            <span class="self">self</span>.<span class="ident">buffers</span>,
+            <span class="ident">ContextOf</span> {
+                <span class="ident">buffers</span>: <span class="ident">new_buffer</span>,
+                <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>,
+                <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>,
+                <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>,
+                <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>,
+                <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
             }
         )
     }
 
-    <span class='doccomment'>/// Replace the current context&#39;s internal `framebuffer` field (of type `F`)</span>
-    <span class='doccomment'>/// with a new value, returning the old value and a new context. This</span>
-    <span class='doccomment'>/// function will likely be removed from the public API in the future.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// // Get the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Replace the context&#39;s framebuffer binder with `()`</span>
-    <span class='doccomment'>/// let (gl_framebuffer_binder, gl) = gl.swap_framebuffer(());</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>swap_framebuffer</span><span class='op'>&lt;</span><span class='ident'>NF</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>new_framebuffer</span>: <span class='ident'>NF</span>)
-        <span class='op'>-&gt;</span> (<span class='ident'>F</span>, <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>NF</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>)
+    <span class="doccomment">/// Replace the current context&#39;s internal `framebuffer` field (of type `F`)</span>
+    <span class="doccomment">/// with a new value, returning the old value and a new context. This</span>
+    <span class="doccomment">/// function will likely be removed from the public API in the future.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// // Get the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Replace the context&#39;s framebuffer binder with `()`</span>
+    <span class="doccomment">/// let (gl_framebuffer_binder, gl) = gl.swap_framebuffer(());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_framebuffer</span><span class="op">&lt;</span><span class="ident">NF</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">new_framebuffer</span>: <span class="ident">NF</span>)
+        <span class="op">-&gt;</span> (<span class="ident">F</span>, <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">NF</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>)
     {
         (
-            <span class='self'>self</span>.<span class='ident'>framebuffer</span>,
-            <span class='ident'>ContextOf</span> {
-                <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>,
-                <span class='ident'>framebuffer</span>: <span class='ident'>new_framebuffer</span>,
-                <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>,
-                <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>,
-                <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>,
-                <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+            <span class="self">self</span>.<span class="ident">framebuffer</span>,
+            <span class="ident">ContextOf</span> {
+                <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>,
+                <span class="ident">framebuffer</span>: <span class="ident">new_framebuffer</span>,
+                <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>,
+                <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>,
+                <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>,
+                <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
             }
         )
     }
 
-    <span class='doccomment'>/// Replace the current context&#39;s internal `program` field (of type `P`)</span>
-    <span class='doccomment'>/// with a new value, returning the old value and a new context. This</span>
-    <span class='doccomment'>/// function will likely be removed from the public API in the future.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// // Get the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Replace the context&#39;s program binder with `()`</span>
-    <span class='doccomment'>/// let (gl_program_binder, gl) = gl.swap_program(());</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>swap_program</span><span class='op'>&lt;</span><span class='ident'>NP</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>new_program</span>: <span class='ident'>NP</span>)
-        <span class='op'>-&gt;</span> (<span class='ident'>P</span>, <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>NP</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>)
+    <span class="doccomment">/// Replace the current context&#39;s internal `program` field (of type `P`)</span>
+    <span class="doccomment">/// with a new value, returning the old value and a new context. This</span>
+    <span class="doccomment">/// function will likely be removed from the public API in the future.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// // Get the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Replace the context&#39;s program binder with `()`</span>
+    <span class="doccomment">/// let (gl_program_binder, gl) = gl.swap_program(());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_program</span><span class="op">&lt;</span><span class="ident">NP</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">new_program</span>: <span class="ident">NP</span>)
+        <span class="op">-&gt;</span> (<span class="ident">P</span>, <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">NP</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>)
     {
         (
-            <span class='self'>self</span>.<span class='ident'>program</span>,
-            <span class='ident'>ContextOf</span> {
-                <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>,
-                <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>,
-                <span class='ident'>program</span>: <span class='ident'>new_program</span>,
-                <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>,
-                <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>,
-                <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+            <span class="self">self</span>.<span class="ident">program</span>,
+            <span class="ident">ContextOf</span> {
+                <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>,
+                <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>,
+                <span class="ident">program</span>: <span class="ident">new_program</span>,
+                <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>,
+                <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>,
+                <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
             }
         )
     }
 
-    <span class='doccomment'>/// Replace the current context&#39;s internal `renderbuffer` field (of</span>
-    <span class='doccomment'>/// type `B`) with a new value, returning a new context and the old value.</span>
-    <span class='doccomment'>/// This function will likely be removed from the public API in the future.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// // Get the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Replace the context&#39;s renderbuffer binder with `()`</span>
-    <span class='doccomment'>/// let (gl_renderbuffer_binder, gl) = gl.swap_renderbuffer(());</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>swap_renderbuffer</span><span class='op'>&lt;</span><span class='ident'>NR</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>new_renderbuffer</span>: <span class='ident'>NR</span>)
-        <span class='op'>-&gt;</span> (<span class='ident'>R</span>, <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>NR</span>, <span class='ident'>T</span><span class='op'>&gt;</span>)
+    <span class="doccomment">/// Replace the current context&#39;s internal `renderbuffer` field (of</span>
+    <span class="doccomment">/// type `B`) with a new value, returning a new context and the old value.</span>
+    <span class="doccomment">/// This function will likely be removed from the public API in the future.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// // Get the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Replace the context&#39;s renderbuffer binder with `()`</span>
+    <span class="doccomment">/// let (gl_renderbuffer_binder, gl) = gl.swap_renderbuffer(());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_renderbuffer</span><span class="op">&lt;</span><span class="ident">NR</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">new_renderbuffer</span>: <span class="ident">NR</span>)
+        <span class="op">-&gt;</span> (<span class="ident">R</span>, <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">NR</span>, <span class="ident">T</span><span class="op">&gt;</span>)
     {
         (
-            <span class='self'>self</span>.<span class='ident'>renderbuffer</span>,
-            <span class='ident'>ContextOf</span> {
-                <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>,
-                <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>,
-                <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>,
-                <span class='ident'>renderbuffer</span>: <span class='ident'>new_renderbuffer</span>,
-                <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>,
-                <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+            <span class="self">self</span>.<span class="ident">renderbuffer</span>,
+            <span class="ident">ContextOf</span> {
+                <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>,
+                <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>,
+                <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>,
+                <span class="ident">renderbuffer</span>: <span class="ident">new_renderbuffer</span>,
+                <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>,
+                <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
             }
         )
     }
 
-    <span class='doccomment'>/// Replace the current context&#39;s internal `tex_units` field (of type `T`)</span>
-    <span class='doccomment'>/// with a new value, returning the old value and a new context. This</span>
-    <span class='doccomment'>/// function will likely be removed from the public API in the future.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// // Get the current context</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Replace the context&#39;s texture unit binder with `()`</span>
-    <span class='doccomment'>/// let (gl_tex_unit_binder, gl) = gl.swap_tex_units(());</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>swap_tex_units</span><span class='op'>&lt;</span><span class='ident'>NT</span><span class='op'>&gt;</span>(<span class='self'>self</span>, <span class='ident'>new_tex_units</span>: <span class='ident'>NT</span>)
-        <span class='op'>-&gt;</span> (<span class='ident'>T</span>, <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>NT</span><span class='op'>&gt;</span>)
+    <span class="doccomment">/// Replace the current context&#39;s internal `tex_units` field (of type `T`)</span>
+    <span class="doccomment">/// with a new value, returning the old value and a new context. This</span>
+    <span class="doccomment">/// function will likely be removed from the public API in the future.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// // Get the current context</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Replace the context&#39;s texture unit binder with `()`</span>
+    <span class="doccomment">/// let (gl_tex_unit_binder, gl) = gl.swap_tex_units(());</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">swap_tex_units</span><span class="op">&lt;</span><span class="ident">NT</span><span class="op">&gt;</span>(<span class="self">self</span>, <span class="ident">new_tex_units</span>: <span class="ident">NT</span>)
+        <span class="op">-&gt;</span> (<span class="ident">T</span>, <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">NT</span><span class="op">&gt;</span>)
     {
         (
-            <span class='self'>self</span>.<span class='ident'>tex_units</span>,
-            <span class='ident'>ContextOf</span> {
-                <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>,
-                <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>,
-                <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>,
-                <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>,
-                <span class='ident'>tex_units</span>: <span class='ident'>new_tex_units</span>,
-                <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+            <span class="self">self</span>.<span class="ident">tex_units</span>,
+            <span class="ident">ContextOf</span> {
+                <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>,
+                <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>,
+                <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>,
+                <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>,
+                <span class="ident">tex_units</span>: <span class="ident">new_tex_units</span>,
+                <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
             }
         )
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>B</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>F</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>P</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>R</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>T</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToRef</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">B</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">F</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">P</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">R</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">T</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToRef</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
 {
-    <span class='kw'>type</span> <span class='ident'>Ref</span> <span class='op'>=</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>::<span class='ident'>Ref</span>, <span class='ident'>F</span>::<span class='ident'>Ref</span>, <span class='ident'>P</span>::<span class='ident'>Ref</span>, <span class='ident'>R</span>::<span class='ident'>Ref</span>, <span class='ident'>T</span>::<span class='ident'>Ref</span><span class='op'>&gt;</span>;
+    <span class="kw">type</span> <span class="ident">Ref</span> <span class="op">=</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>::<span class="ident">Ref</span>, <span class="ident">F</span>::<span class="ident">Ref</span>, <span class="ident">P</span>::<span class="ident">Ref</span>, <span class="ident">R</span>::<span class="ident">Ref</span>, <span class="ident">T</span>::<span class="ident">Ref</span><span class="op">&gt;</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>to_ref</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Ref</span> {
-        <span class='ident'>ContextOf</span> {
-            <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>.<span class='ident'>to_ref</span>(),
-            <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>.<span class='ident'>to_ref</span>(),
-            <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>.<span class='ident'>to_ref</span>(),
-            <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>.<span class='ident'>to_ref</span>(),
-            <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>.<span class='ident'>to_ref</span>(),
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="kw">fn</span> <span class="ident">to_ref</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Ref</span> {
+        <span class="ident">ContextOf</span> {
+            <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>.<span class="ident">to_ref</span>(),
+            <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>.<span class="ident">to_ref</span>(),
+            <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>.<span class="ident">to_ref</span>(),
+            <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>.<span class="ident">to_ref</span>(),
+            <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>.<span class="ident">to_ref</span>(),
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>B</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>F</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>P</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>R</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>,
-          <span class='ident'>T</span>: <span class='lifetime'>&#39;a</span> <span class='op'>+</span> <span class='ident'>ToMut</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">B</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">F</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">P</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">R</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+          <span class="ident">T</span>: <span class="lifetime">&#39;a</span> <span class="op">+</span> <span class="ident">ToMut</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>
 {
-    <span class='kw'>type</span> <span class='ident'>Mut</span> <span class='op'>=</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>::<span class='ident'>Mut</span>, <span class='ident'>F</span>::<span class='ident'>Mut</span>, <span class='ident'>P</span>::<span class='ident'>Mut</span>, <span class='ident'>R</span>::<span class='ident'>Mut</span>, <span class='ident'>T</span>::<span class='ident'>Mut</span><span class='op'>&gt;</span>;
+    <span class="kw">type</span> <span class="ident">Mut</span> <span class="op">=</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>::<span class="ident">Mut</span>, <span class="ident">F</span>::<span class="ident">Mut</span>, <span class="ident">P</span>::<span class="ident">Mut</span>, <span class="ident">R</span>::<span class="ident">Mut</span>, <span class="ident">T</span>::<span class="ident">Mut</span><span class="op">&gt;</span>;
 
-    <span class='kw'>fn</span> <span class='ident'>to_mut</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Mut</span> {
-        <span class='ident'>ContextOf</span> {
-            <span class='ident'>buffers</span>: <span class='self'>self</span>.<span class='ident'>buffers</span>.<span class='ident'>to_mut</span>(),
-            <span class='ident'>framebuffer</span>: <span class='self'>self</span>.<span class='ident'>framebuffer</span>.<span class='ident'>to_mut</span>(),
-            <span class='ident'>program</span>: <span class='self'>self</span>.<span class='ident'>program</span>.<span class='ident'>to_mut</span>(),
-            <span class='ident'>renderbuffer</span>: <span class='self'>self</span>.<span class='ident'>renderbuffer</span>.<span class='ident'>to_mut</span>(),
-            <span class='ident'>tex_units</span>: <span class='self'>self</span>.<span class='ident'>tex_units</span>.<span class='ident'>to_mut</span>(),
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="kw">fn</span> <span class="ident">to_mut</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Mut</span> {
+        <span class="ident">ContextOf</span> {
+            <span class="ident">buffers</span>: <span class="self">self</span>.<span class="ident">buffers</span>.<span class="ident">to_mut</span>(),
+            <span class="ident">framebuffer</span>: <span class="self">self</span>.<span class="ident">framebuffer</span>.<span class="ident">to_mut</span>(),
+            <span class="ident">program</span>: <span class="self">self</span>.<span class="ident">program</span>.<span class="ident">to_mut</span>(),
+            <span class="ident">renderbuffer</span>: <span class="self">self</span>.<span class="ident">renderbuffer</span>.<span class="ident">to_mut</span>(),
+            <span class="ident">tex_units</span>: <span class="self">self</span>.<span class="ident">tex_units</span>.<span class="ident">to_mut</span>(),
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 }
 
 
 
-<span class='doccomment'>/// A marker trait for types that represent an active OpenGL context.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # Safety</span>
-<span class='doccomment'>/// This type should only be implemented for types that can guarntee that</span>
-<span class='doccomment'>/// an OpenGL context will be available for the lifetime of an instance</span>
-<span class='doccomment'>/// of the type.</span>
-<span class='kw'>pub</span> <span class='kw'>unsafe</span> <span class='kw'>trait</span> <span class='ident'>BaseContext</span> {
+<span class="doccomment">/// A marker trait for types that represent an active OpenGL context.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # Safety</span>
+<span class="doccomment">/// This type should only be implemented for types that can guarantee that</span>
+<span class="doccomment">/// an OpenGL context will be available for the lifetime of an instance</span>
+<span class="doccomment">/// of the type.</span>
+<span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">trait</span> <span class="ident">BaseContext</span> {
 
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>BaseContext</span> <span class='kw'>for</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">BaseContext</span> <span class="kw">for</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> {
 
 }
 
-<span class='kw'>unsafe</span> <span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>BaseContext</span>
-    <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span>
+<span class="kw">unsafe</span> <span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">BaseContext</span>
+    <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span>
 {
 
 }
 
 
 
-<span class='doccomment'>/// An extension trait that contains some of the core OpenGL methods that</span>
-<span class='doccomment'>/// maintain state, such as the current clear color or whether depth testing</span>
-<span class='doccomment'>/// is enabled.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ContextExt</span>: <span class='ident'>BaseContext</span> {
-    <span class='doccomment'>/// Set the clear value when clearing a color buffer with</span>
-    <span class='doccomment'>/// [`gl.clear(glitter::COLOR_BUFFER_BIT)`]</span>
-    <span class='doccomment'>/// (framebuffer_context/trait.ContextFramebufferExt.html#method.clear).</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let mut gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Clear the screen with solid red</span>
-    <span class='doccomment'>/// gl.clear_color(glitter::Color { r: 1.0, g: 0.0, b: 0.0, a: 1.0 });</span>
-    <span class='doccomment'>/// gl.clear(glitter::COLOR_BUFFER_BIT);</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>clear_color</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>color</span>: <span class='ident'>Color</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>ClearColor</span>(<span class='ident'>color</span>.<span class='ident'>r</span>, <span class='ident'>color</span>.<span class='ident'>g</span>, <span class='ident'>color</span>.<span class='ident'>b</span>, <span class='ident'>color</span>.<span class='ident'>a</span>);
+<span class="doccomment">/// An extension trait that contains some of the core OpenGL methods that</span>
+<span class="doccomment">/// maintain state, such as the current clear color or whether depth testing</span>
+<span class="doccomment">/// is enabled.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextExt</span>: <span class="ident">BaseContext</span> {
+    <span class="doccomment">/// Set the clear value when clearing a color buffer with</span>
+    <span class="doccomment">/// [`gl.clear(glitter::COLOR_BUFFER_BIT)`]</span>
+    <span class="doccomment">/// (framebuffer_context/trait.ContextFramebufferExt.html#method.clear).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let mut gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Clear the screen with solid red</span>
+    <span class="doccomment">/// gl.clear_color(glitter::Color { r: 1.0, g: 0.0, b: 0.0, a: 1.0 });</span>
+    <span class="doccomment">/// gl.clear(glitter::COLOR_BUFFER_BIT);</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">clear_color</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">color</span>: <span class="ident">Color</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">ClearColor</span>(<span class="ident">color</span>.<span class="ident">r</span>, <span class="ident">color</span>.<span class="ident">g</span>, <span class="ident">color</span>.<span class="ident">b</span>, <span class="ident">color</span>.<span class="ident">a</span>);
         }
     }
 
-    <span class='doccomment'>/// Enable an OpenGL capability.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let mut gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Enable depth testing</span>
-    <span class='doccomment'>/// gl.enable(glitter::DEPTH_TEST);</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>enable</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cap</span>: <span class='ident'>Capability</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>Enable</span>(<span class='ident'>cap</span>.<span class='ident'>gl_enum</span>());
-            <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`cap` is not a valid OpenGL capability&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="doccomment">/// Enable an OpenGL capability.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let mut gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Enable depth testing</span>
+    <span class="doccomment">/// gl.enable(glitter::DEPTH_TEST);</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">enable</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Capability</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">Enable</span>(<span class="ident">cap</span>.<span class="ident">gl_enum</span>());
+            <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`cap` is not a valid OpenGL capability&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
         }
     }
 
-    <span class='doccomment'>/// Disable an OpenGL capability.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let mut gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// // Disable depth testing</span>
-    <span class='doccomment'>/// gl.disable(glitter::DEPTH_TEST);</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>disable</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>, <span class='ident'>cap</span>: <span class='ident'>Capability</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>Disable</span>(<span class='ident'>cap</span>.<span class='ident'>gl_enum</span>());
-            <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`cap` is not a valid OpenGL capability&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="doccomment">/// Disable an OpenGL capability.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let mut gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// // Disable depth testing</span>
+    <span class="doccomment">/// gl.disable(glitter::DEPTH_TEST);</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">disable</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Capability</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">Disable</span>(<span class="ident">cap</span>.<span class="ident">gl_enum</span>());
+            <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`cap` is not a valid OpenGL capability&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
         }
     }
 
-    <span class='doccomment'>/// Enable the vertex attribute array to be used while drawing with</span>
-    <span class='doccomment'>/// [`gl.draw_arrays_range`](buffer_context/trait.ContextBufferExt.html#method.draw_arrays_range),</span>
-    <span class='doccomment'>/// [`gl.draw_elements`](buffer_context/trait.ContextBufferExt.html#method.draw_elements),</span>
-    <span class='doccomment'>/// [`gl.draw_n_elements`](buffer_context/trait.ContextBufferExt.html#method.draw_n_elements),</span>
-    <span class='doccomment'>/// [`gl.draw_n_elements_buffered`](buffer_context/trait.ContextBufferExt.html#method.draw_n_elements_buffered).</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Panics</span>
-    <span class='doccomment'>/// This function will panics on an OpenGL error in debug mode.</span>
-    <span class='kw'>fn</span> <span class='ident'>enable_vertex_attrib_array</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>attrib</span>: <span class='ident'>ProgramAttrib</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>EnableVertexAttribArray</span>(<span class='ident'>attrib</span>.<span class='ident'>gl_index</span>);
-            <span class='macro'>dbg_gl_error</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`index` is &gt;= GL_MAX_VERTEX_ATTRIBS&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="doccomment">/// Enable the vertex attribute array to be used while drawing with</span>
+    <span class="doccomment">/// [`gl.draw_arrays_range`](buffer_context/trait.ContextBufferExt.html#method.draw_arrays_range),</span>
+    <span class="doccomment">/// [`gl.draw_elements`](buffer_context/trait.ContextBufferExt.html#method.draw_elements),</span>
+    <span class="doccomment">/// [`gl.draw_n_elements`](buffer_context/trait.ContextBufferExt.html#method.draw_n_elements),</span>
+    <span class="doccomment">/// [`gl.draw_n_elements_buffered`](buffer_context/trait.ContextBufferExt.html#method.draw_n_elements_buffered).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// This function will panics on an OpenGL error in debug mode.</span>
+    <span class="kw">fn</span> <span class="ident">enable_vertex_attrib_array</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">attrib</span>: <span class="ident">ProgramAttrib</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">EnableVertexAttribArray</span>(<span class="ident">attrib</span>.<span class="ident">gl_index</span>);
+            <span class="macro">dbg_gl_error</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`index` is &gt;= GL_MAX_VERTEX_ATTRIBS&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
         }
     }
 
-    <span class='doccomment'>/// Set the OpenGL viewport dimensions, which maps from device coordinates</span>
-    <span class='doccomment'>/// to window coordinates.</span>
-    <span class='kw'>fn</span> <span class='ident'>viewport</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>viewport</span>: <span class='ident'>Viewport</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>Viewport</span>(<span class='ident'>viewport</span>.<span class='ident'>x</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                         <span class='ident'>viewport</span>.<span class='ident'>y</span> <span class='kw'>as</span> <span class='ident'>GLint</span>,
-                         <span class='ident'>viewport</span>.<span class='ident'>width</span> <span class='kw'>as</span> <span class='ident'>GLsizei</span>,
-                         <span class='ident'>viewport</span>.<span class='ident'>height</span> <span class='kw'>as</span> <span class='ident'>GLsizei</span>);
-            <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`width` or `height` is negative&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="doccomment">/// Set the OpenGL viewport dimensions, which maps from device coordinates</span>
+    <span class="doccomment">/// to window coordinates.</span>
+    <span class="kw">fn</span> <span class="ident">viewport</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">viewport</span>: <span class="ident">Viewport</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">Viewport</span>(<span class="ident">viewport</span>.<span class="ident">x</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                         <span class="ident">viewport</span>.<span class="ident">y</span> <span class="kw">as</span> <span class="ident">GLint</span>,
+                         <span class="ident">viewport</span>.<span class="ident">width</span> <span class="kw">as</span> <span class="ident">GLsizei</span>,
+                         <span class="ident">viewport</span>.<span class="ident">height</span> <span class="kw">as</span> <span class="ident">GLsizei</span>);
+            <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`width` or `height` is negative&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>BaseContext</span><span class='op'>&gt;</span> <span class='ident'>ContextExt</span> <span class='kw'>for</span> <span class='ident'>C</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">BaseContext</span><span class="op">&gt;</span> <span class="ident">ContextExt</span> <span class="kw">for</span> <span class="ident">C</span> {
 
 }
 
-<span class='doccomment'>/// Contains all of the [`ContextOf`](../struct.ContextOf.html) extension</span>
-<span class='doccomment'>/// traits that implement core OpenGL functionality.</span>
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>ext</span> {
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>BaseContext</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextBufferExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextFramebufferExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextProgramExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextRenderbufferExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextShaderExt</span>;
-    <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>ContextTextureExt</span>;
+<span class="doccomment">/// Contains all of the [`ContextOf`](../struct.ContextOf.html) extension</span>
+<span class="doccomment">/// traits that implement core OpenGL functionality.</span>
+<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">ext</span> {
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">BaseContext</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextBufferExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextFramebufferExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextProgramExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextRenderbufferExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextShaderExt</span>;
+    <span class="kw">pub</span> <span class="kw">use</span> <span class="ident">ContextTextureExt</span>;
 }
 
-<span class='doccomment'>/// The &#39;core&#39; OpenGL context trait. This trait provides access to any OpenGL</span>
-<span class='doccomment'>/// functionality that don&#39;t deal with binding. This trait is implemented for</span>
-<span class='doccomment'>/// `ContextOf&lt;_, _, _, _, _&gt;`, as well as for `&amp;mut ContextOf&lt;_, _, _, _, _&gt;`.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>AContext</span>: <span class='ident'>ContextExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextBufferExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextFramebufferExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextProgramExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextRenderbufferExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextShaderExt</span> <span class='op'>+</span>
-                    <span class='ident'>ContextTextureExt</span>
+<span class="doccomment">/// The &#39;core&#39; OpenGL context trait. This trait provides access to any OpenGL</span>
+<span class="doccomment">/// functionality that don&#39;t deal with binding. This trait is implemented for</span>
+<span class="doccomment">/// `ContextOf&lt;_, _, _, _, _&gt;`, as well as for `&amp;mut ContextOf&lt;_, _, _, _, _&gt;`.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">AContext</span>: <span class="ident">ContextExt</span> <span class="op">+</span>
+                    <span class="ident">ContextBufferExt</span> <span class="op">+</span>
+                    <span class="ident">ContextFramebufferExt</span> <span class="op">+</span>
+                    <span class="ident">ContextProgramExt</span> <span class="op">+</span>
+                    <span class="ident">ContextRenderbufferExt</span> <span class="op">+</span>
+                    <span class="ident">ContextShaderExt</span> <span class="op">+</span>
+                    <span class="ident">ContextTextureExt</span>
 {
 
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>AContext</span> <span class='kw'>for</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">AContext</span> <span class="kw">for</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> {
 
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> <span class='ident'>AContext</span> <span class='kw'>for</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>ContextOf</span><span class='op'>&lt;</span><span class='ident'>B</span>, <span class='ident'>F</span>, <span class='ident'>P</span>, <span class='ident'>R</span>, <span class='ident'>T</span><span class='op'>&gt;</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> <span class="ident">AContext</span> <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">ContextOf</span><span class="op">&lt;</span><span class="ident">B</span>, <span class="ident">F</span>, <span class="ident">P</span>, <span class="ident">R</span>, <span class="ident">T</span><span class="op">&gt;</span> {
 
 }
 </pre>
@@ -1294,12 +1294,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -1320,7 +1324,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -1331,11 +1335,8 @@
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

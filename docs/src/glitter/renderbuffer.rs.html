@@ -9,13 +9,15 @@
 
     <title>renderbuffer.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1"> 1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
 <span id="2"> 2</span>
 <span id="3"> 3</span>
 <span id="4"> 4</span>
@@ -109,73 +111,73 @@
 <span id="66">66</span>
 <span id="67">67</span>
 <span id="68">68</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Exposes the OpenGL [`Renderbuffer`](struct.Renderbuffer.html) object,</span>
-<span class='doccomment'>//! and related types.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Exposes the OpenGL [`Renderbuffer`](struct.Renderbuffer.html) object,</span>
+<span class="doccomment">//! and related types.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>types</span>::<span class='ident'>GLObject</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
+<span class="kw">use</span> <span class="ident">gl</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">types</span>::<span class="ident">GLObject</span>;
 
-<span class='doccomment'>/// An OpenGL renderbuffer object.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// A renderbuffer is essentially a 2D image that&#39;s optimized to be</span>
-<span class='doccomment'>/// a render target. Unlike a [`Texture2d`](../texture/type.Texture2d.html),</span>
-<span class='doccomment'>/// a renderbuffer is always created with uninitialized data. The only way</span>
-<span class='doccomment'>/// to &#39;send&#39; an image to a renderbuffer is to render to it by attaching it</span>
-<span class='doccomment'>/// to a [`Framebuffer`](../framebuffer/struct.Framebuffer.html). A renderbuffer</span>
-<span class='doccomment'>/// is most appropriate when rendering a final output image, where no extra</span>
-<span class='doccomment'>/// postprocessing is required.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// A renderbuffer will automatically be deleted after going out of scope.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # See also</span>
-<span class='doccomment'>/// [`gl.build_renderbuffer`](../context/renderbuffer_context/trait.ContextRenderbufferBuilderExt.html#method.build_renderbuffer):</span>
-<span class='doccomment'>/// Build a new renderbuffer, using the [`RenderbufferBuilder`](../context/renderbuffer_context/struct.RenderbufferBuilder.html)</span>
-<span class='doccomment'>/// type to setup storage options.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [`gl.gen_framebuffer`](../context/framebuffer_context/trait.ContextFramebufferExt.html#method.gen_framebuffer):</span>
-<span class='doccomment'>/// Create a new framebuffer with no attachment points.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [`gl.bind_renderbuffer`](../context/renderbuffer_context/trait.RenderbufferContext.html#method.bind_renderbuffer):</span>
-<span class='doccomment'>/// Bind a renderbuffer to a context, returning a [`RenderbufferBinding`]</span>
-<span class='doccomment'>/// (../context/renderbuffer_context/struct.RenderbufferBinding.html) type</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Renderbuffer</span> {
-    <span class='ident'>gl_id</span>: <span class='ident'>GLuint</span>,
-    <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// An OpenGL renderbuffer object.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A renderbuffer is essentially a 2D image that&#39;s optimized to be</span>
+<span class="doccomment">/// a render target. Unlike a [`Texture2d`](../texture/type.Texture2d.html),</span>
+<span class="doccomment">/// a renderbuffer is always created with uninitialized data. The only way</span>
+<span class="doccomment">/// to &#39;send&#39; an image to a renderbuffer is to render to it by attaching it</span>
+<span class="doccomment">/// to a [`Framebuffer`](../framebuffer/struct.Framebuffer.html). A renderbuffer</span>
+<span class="doccomment">/// is most appropriate when rendering a final output image, where no extra</span>
+<span class="doccomment">/// postprocessing is required.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A renderbuffer will automatically be deleted after going out of scope.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # See also</span>
+<span class="doccomment">/// [`gl.build_renderbuffer`](../context/renderbuffer_context/trait.ContextRenderbufferBuilderExt.html#method.build_renderbuffer):</span>
+<span class="doccomment">/// Build a new renderbuffer, using the [`RenderbufferBuilder`](../context/renderbuffer_context/struct.RenderbufferBuilder.html)</span>
+<span class="doccomment">/// type to setup storage options.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`gl.gen_framebuffer`](../context/framebuffer_context/trait.ContextFramebufferExt.html#method.gen_framebuffer):</span>
+<span class="doccomment">/// Create a new framebuffer with no attachment points.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`gl.bind_renderbuffer`](../context/renderbuffer_context/trait.RenderbufferContext.html#method.bind_renderbuffer):</span>
+<span class="doccomment">/// Bind a renderbuffer to a context, returning a [`RenderbufferBinding`]</span>
+<span class="doccomment">/// (../context/renderbuffer_context/struct.RenderbufferBinding.html) type</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Renderbuffer</span> {
+    <span class="ident">gl_id</span>: <span class="ident">GLuint</span>,
+    <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Renderbuffer</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>DeleteRenderbuffers</span>(<span class='number'>1</span>, <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>gl_id</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLuint</span>);
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Renderbuffer</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">DeleteRenderbuffers</span>(<span class="number">1</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">gl_id</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLuint</span>);
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>GLObject</span> <span class='kw'>for</span> <span class='ident'>Renderbuffer</span> {
-    <span class='kw'>type</span> <span class='ident'>Id</span> <span class='op'>=</span> <span class='ident'>GLuint</span>;
+<span class="kw">impl</span> <span class="ident">GLObject</span> <span class="kw">for</span> <span class="ident">Renderbuffer</span> {
+    <span class="kw">type</span> <span class="ident">Id</span> <span class="op">=</span> <span class="ident">GLuint</span>;
 
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>id</span>: <span class='ident'>Self</span>::<span class='ident'>Id</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Renderbuffer</span> {
-            <span class='ident'>gl_id</span>: <span class='ident'>id</span>,
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">id</span>: <span class="self">Self</span>::<span class="ident">Id</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Renderbuffer</span> {
+            <span class="ident">gl_id</span>: <span class="ident">id</span>,
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Id</span> {
-        <span class='self'>self</span>.<span class='ident'>gl_id</span>
+    <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Id</span> {
+        <span class="self">self</span>.<span class="ident">gl_id</span>
     }
 }
 
 
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// All of the possible OpenGL targets for binding renderbuffer objects.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>RenderbufferTarget</span> {
-        <span class='doccomment'>/// The lone renderbuffer target.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Renderbuffer</span> <span class='kw'>as</span> <span class='ident'>RENDERBUFFER</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>RENDERBUFFER</span>
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// All of the possible OpenGL targets for binding renderbuffer objects.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">RenderbufferTarget</span> {
+        <span class="doccomment">/// The lone renderbuffer target.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Renderbuffer</span> <span class="kw">as</span> <span class="ident">RENDERBUFFER</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">RENDERBUFFER</span>
     }
 }
 </pre>
@@ -196,12 +198,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -222,7 +228,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -233,11 +239,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

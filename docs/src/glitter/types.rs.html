@@ -9,13 +9,15 @@
 
     <title>types.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -408,372 +410,372 @@
 <span id="365">365</span>
 <span id="366">366</span>
 <span id="367">367</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Contains miscellaneous general-purpose OpenGL types.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Contains miscellaneous general-purpose OpenGL types.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>mem</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>error</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">error</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
 
-<span class='doccomment'>/// A color, with floating-point RGBA components.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Color</span> {
-    <span class='doccomment'>/// The color&#39;s red component.</span>
-    <span class='kw'>pub</span> <span class='ident'>r</span>: <span class='ident'>f32</span>,
+<span class="doccomment">/// A color, with floating-point RGBA components.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Color</span> {
+    <span class="doccomment">/// The color&#39;s red component.</span>
+    <span class="kw">pub</span> <span class="ident">r</span>: <span class="ident">f32</span>,
 
-    <span class='doccomment'>/// The color&#39;s green component.</span>
-    <span class='kw'>pub</span> <span class='ident'>g</span>: <span class='ident'>f32</span>,
+    <span class="doccomment">/// The color&#39;s green component.</span>
+    <span class="kw">pub</span> <span class="ident">g</span>: <span class="ident">f32</span>,
 
-    <span class='doccomment'>/// The color&#39;s blue component.</span>
-    <span class='kw'>pub</span> <span class='ident'>b</span>: <span class='ident'>f32</span>,
+    <span class="doccomment">/// The color&#39;s blue component.</span>
+    <span class="kw">pub</span> <span class="ident">b</span>: <span class="ident">f32</span>,
 
-    <span class='doccomment'>/// The color&#39;s alpha component.</span>
-    <span class='kw'>pub</span> <span class='ident'>a</span>: <span class='ident'>f32</span>
+    <span class="doccomment">/// The color&#39;s alpha component.</span>
+    <span class="kw">pub</span> <span class="ident">a</span>: <span class="ident">f32</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Color</span> {
-    <span class='doccomment'>/// Create a new color, with the specified RGBA values.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>rgba</span>(<span class='ident'>r</span>: <span class='ident'>f32</span>, <span class='ident'>g</span>: <span class='ident'>f32</span>, <span class='ident'>b</span>: <span class='ident'>f32</span>, <span class='ident'>a</span>: <span class='ident'>f32</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Color</span> { <span class='ident'>r</span>: <span class='ident'>r</span>, <span class='ident'>g</span>: <span class='ident'>g</span>, <span class='ident'>b</span>: <span class='ident'>b</span>, <span class='ident'>a</span>: <span class='ident'>a</span>}
+<span class="kw">impl</span> <span class="ident">Color</span> {
+    <span class="doccomment">/// Create a new color, with the specified RGBA values.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">rgba</span>(<span class="ident">r</span>: <span class="ident">f32</span>, <span class="ident">g</span>: <span class="ident">f32</span>, <span class="ident">b</span>: <span class="ident">f32</span>, <span class="ident">a</span>: <span class="ident">f32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Color</span> { <span class="ident">r</span>: <span class="ident">r</span>, <span class="ident">g</span>: <span class="ident">g</span>, <span class="ident">b</span>: <span class="ident">b</span>, <span class="ident">a</span>: <span class="ident">a</span>}
     }
 }
 
-<span class='doccomment'>/// An OpenGL viewport, with an origin and size, with integer components.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>, <span class='ident'>Copy</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Viewport</span> {
-    <span class='doccomment'>/// The X coordinate of the viewport&#39;s origin</span>
-    <span class='kw'>pub</span> <span class='ident'>x</span>: <span class='ident'>u32</span>,
+<span class="doccomment">/// An OpenGL viewport, with an origin and size, with integer components.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Viewport</span> {
+    <span class="doccomment">/// The X coordinate of the viewport&#39;s origin</span>
+    <span class="kw">pub</span> <span class="ident">x</span>: <span class="ident">u32</span>,
 
-    <span class='doccomment'>/// The Y coordinate of the viewport&#39;s origin</span>
-    <span class='kw'>pub</span> <span class='ident'>y</span>: <span class='ident'>u32</span>,
+    <span class="doccomment">/// The Y coordinate of the viewport&#39;s origin</span>
+    <span class="kw">pub</span> <span class="ident">y</span>: <span class="ident">u32</span>,
 
-    <span class='doccomment'>/// The viewport&#39;s width</span>
-    <span class='kw'>pub</span> <span class='ident'>width</span>: <span class='ident'>u32</span>,
+    <span class="doccomment">/// The viewport&#39;s width</span>
+    <span class="kw">pub</span> <span class="ident">width</span>: <span class="ident">u32</span>,
 
-    <span class='doccomment'>/// The viewport&#39;s height</span>
-    <span class='kw'>pub</span> <span class='ident'>height</span>: <span class='ident'>u32</span>
+    <span class="doccomment">/// The viewport&#39;s height</span>
+    <span class="kw">pub</span> <span class="ident">height</span>: <span class="ident">u32</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Viewport</span> {
-    <span class='doccomment'>/// Create a new viewport, with the given X and Y coordinates as the origin</span>
-    <span class='doccomment'>/// and the given width and height as the size.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>x</span>: <span class='ident'>u32</span>, <span class='ident'>y</span>: <span class='ident'>u32</span>, <span class='ident'>width</span>: <span class='ident'>u32</span>, <span class='ident'>height</span>: <span class='ident'>u32</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Viewport</span> {
-            <span class='ident'>x</span>: <span class='ident'>x</span>,
-            <span class='ident'>y</span>: <span class='ident'>y</span>,
-            <span class='ident'>width</span>: <span class='ident'>width</span>,
-            <span class='ident'>height</span>: <span class='ident'>height</span>
+<span class="kw">impl</span> <span class="ident">Viewport</span> {
+    <span class="doccomment">/// Create a new viewport, with the given X and Y coordinates as the origin</span>
+    <span class="doccomment">/// and the given width and height as the size.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">x</span>: <span class="ident">u32</span>, <span class="ident">y</span>: <span class="ident">u32</span>, <span class="ident">width</span>: <span class="ident">u32</span>, <span class="ident">height</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Viewport</span> {
+            <span class="ident">x</span>: <span class="ident">x</span>,
+            <span class="ident">y</span>: <span class="ident">y</span>,
+            <span class="ident">width</span>: <span class="ident">width</span>,
+            <span class="ident">height</span>: <span class="ident">height</span>
         }
     }
 }
 
-<span class='doccomment'>/// An OpenGL object.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>GLObject</span> {
-    <span class='doccomment'>/// The type of the object&#39;s internal ID.</span>
-    <span class='kw'>type</span> <span class='ident'>Id</span>;
+<span class="doccomment">/// An OpenGL object.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">GLObject</span> {
+    <span class="doccomment">/// The type of the object&#39;s internal ID.</span>
+    <span class="kw">type</span> <span class="ident">Id</span>;
 
-    <span class='doccomment'>/// Get a new object from an OpenGL ID.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// The provided ID must correspond to an instance of the target</span>
-    <span class='doccomment'>/// type. Providing an invalid object ID is considered undefined</span>
-    <span class='doccomment'>/// behavior in glitter.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// Additionally, using `from_raw` should not be used to create two</span>
-    <span class='doccomment'>/// objects that contain the same ID. Doing so will likely lead to</span>
-    <span class='doccomment'>/// the object being freed twice (which may not be catastrophic in</span>
-    <span class='doccomment'>/// OpenGL).</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>id</span>: <span class='ident'>Self</span>::<span class='ident'>Id</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span>;
+    <span class="doccomment">/// Get a new object from an OpenGL ID.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// The provided ID must correspond to an instance of the target</span>
+    <span class="doccomment">/// type. Providing an invalid object ID is considered undefined</span>
+    <span class="doccomment">/// behavior in glitter.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// Additionally, using `from_raw` should not be used to create two</span>
+    <span class="doccomment">/// objects that contain the same ID. Doing so will likely lead to</span>
+    <span class="doccomment">/// the object being freed twice (which may not be catastrophic in</span>
+    <span class="doccomment">/// OpenGL).</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">id</span>: <span class="self">Self</span>::<span class="ident">Id</span>) <span class="op">-&gt;</span> <span class="self">Self</span>;
 
-    <span class='doccomment'>/// Get the object&#39;s ID.</span>
-    <span class='kw'>fn</span> <span class='ident'>id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Id</span>;
+    <span class="doccomment">/// Get the object&#39;s ID.</span>
+    <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Id</span>;
 
-    <span class='doccomment'>/// Consume the object without cleaning up its resources, returning the</span>
-    <span class='doccomment'>/// object&#39;s ID.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Note</span>
-    <span class='doccomment'>/// To properly clean up the object&#39;s resources, the returned ID</span>
-    <span class='doccomment'>/// should be passed to [`GLObject::from_raw`]</span>
-    <span class='doccomment'>/// (trait.GLObject.html#tymethod.from_raw) so that the object</span>
-    <span class='doccomment'>/// will be properly destroyed.</span>
-    <span class='kw'>fn</span> <span class='ident'>into_raw</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Id</span>
-        <span class='kw'>where</span> <span class='kw'>Self</span>: <span class='ident'>Sized</span>
+    <span class="doccomment">/// Consume the object without cleaning up its resources, returning the</span>
+    <span class="doccomment">/// object&#39;s ID.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Note</span>
+    <span class="doccomment">/// To properly clean up the object&#39;s resources, the returned ID</span>
+    <span class="doccomment">/// should be passed to [`GLObject::from_raw`]</span>
+    <span class="doccomment">/// (trait.GLObject.html#tymethod.from_raw) so that the object</span>
+    <span class="doccomment">/// will be properly destroyed.</span>
+    <span class="kw">fn</span> <span class="ident">into_raw</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Id</span>
+        <span class="kw">where</span> <span class="self">Self</span>: <span class="ident">Sized</span>
     {
-        <span class='kw'>let</span> <span class='ident'>id</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>id</span>();
-        <span class='ident'>mem</span>::<span class='ident'>forget</span>(<span class='self'>self</span>);
-        <span class='ident'>id</span>
+        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">id</span>();
+        <span class="ident">mem</span>::<span class="ident">forget</span>(<span class="self">self</span>);
+        <span class="ident">id</span>
     }
 }
 
-<span class='macro'>bitflags</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The possible buffers that the active framebuffer may contain.</span>
-    <span class='kw'>pub</span> <span class='ident'>flags</span> <span class='ident'>BufferBits</span>: ::<span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='ident'>GLbitfield</span> {
-        <span class='doccomment'>/// The color buffer, which stores color information</span>
-        <span class='doccomment'>/// for each fragment (or pixel).</span>
-        <span class='kw'>const</span> <span class='ident'>COLOR_BUFFER_BIT</span> <span class='op'>=</span> ::<span class='ident'>gl</span>::<span class='ident'>COLOR_BUFFER_BIT</span>,
+<span class="macro">bitflags</span><span class="macro">!</span> {
+    <span class="doccomment">/// The possible buffers that the active framebuffer may contain.</span>
+    <span class="kw">pub</span> <span class="ident">flags</span> <span class="ident">BufferBits</span>: ::<span class="ident">gl</span>::<span class="ident">types</span>::<span class="ident">GLbitfield</span> {
+        <span class="doccomment">/// The color buffer, which stores color information</span>
+        <span class="doccomment">/// for each fragment (or pixel).</span>
+        <span class="kw">const</span> <span class="ident">COLOR_BUFFER_BIT</span> <span class="op">=</span> ::<span class="ident">gl</span>::<span class="ident">COLOR_BUFFER_BIT</span>,
 
-        <span class='doccomment'>/// The depth buffer, which stores distance information</span>
-        <span class='doccomment'>/// for each fragment when depth testing is enabled.</span>
-        <span class='kw'>const</span> <span class='ident'>DEPTH_BUFFER_BIT</span> <span class='op'>=</span> ::<span class='ident'>gl</span>::<span class='ident'>DEPTH_BUFFER_BIT</span>,
+        <span class="doccomment">/// The depth buffer, which stores distance information</span>
+        <span class="doccomment">/// for each fragment when depth testing is enabled.</span>
+        <span class="kw">const</span> <span class="ident">DEPTH_BUFFER_BIT</span> <span class="op">=</span> ::<span class="ident">gl</span>::<span class="ident">DEPTH_BUFFER_BIT</span>,
 
-        <span class='doccomment'>/// The stencil buffer, which stores information about</span>
-        <span class='doccomment'>/// which fragments should be kept or discarded when</span>
-        <span class='doccomment'>/// stencil testing is enabled.</span>
-        <span class='kw'>const</span> <span class='ident'>STENCIL_BUFFER_BIT</span> <span class='op'>=</span> ::<span class='ident'>gl</span>::<span class='ident'>STENCIL_BUFFER_BIT</span>
+        <span class="doccomment">/// The stencil buffer, which stores information about</span>
+        <span class="doccomment">/// which fragments should be kept or discarded when</span>
+        <span class="doccomment">/// stencil testing is enabled.</span>
+        <span class="kw">const</span> <span class="ident">STENCIL_BUFFER_BIT</span> <span class="op">=</span> ::<span class="ident">gl</span>::<span class="ident">STENCIL_BUFFER_BIT</span>
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The OpenGL drawing capabilities that can be enabled or disabled.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>Capability</span> {
-        <span class='doccomment'>/// Blend newly-computed fragment colors with the current</span>
-        <span class='doccomment'>/// values in the color buffer.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Blend</span> <span class='kw'>as</span> <span class='ident'>BLEND</span>
-            <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>BLEND</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The OpenGL drawing capabilities that can be enabled or disabled.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">Capability</span> {
+        <span class="doccomment">/// Blend newly-computed fragment colors with the current</span>
+        <span class="doccomment">/// values in the color buffer.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Blend</span> <span class="kw">as</span> <span class="ident">BLEND</span>
+            <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">BLEND</span>,
 
-        <span class='doccomment'>/// Cull polygons, based on their winding in window coordinates.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>CullFace</span> <span class='kw'>as</span> <span class='ident'>CULL_FACE</span>
-            <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>CULL_FACE</span>,
+        <span class="doccomment">/// Cull polygons, based on their winding in window coordinates.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CullFace</span> <span class="kw">as</span> <span class="ident">CULL_FACE</span>
+            <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">CULL_FACE</span>,
 
-        <span class='doccomment'>/// Perform a depth test for each fragment, only drawing</span>
-        <span class='doccomment'>/// fragments that are not obscured by other geometry.</span>
-        <span class='doccomment'>/// Also updates the depth buffer appropriately.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>DepthTest</span> <span class='kw'>as</span> <span class='ident'>DEPTH_TEST</span>
-            <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>DEPTH_TEST</span>,
+        <span class="doccomment">/// Perform a depth test for each fragment, only drawing</span>
+        <span class="doccomment">/// fragments that are not obscured by other geometry.</span>
+        <span class="doccomment">/// Also updates the depth buffer appropriately.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">DepthTest</span> <span class="kw">as</span> <span class="ident">DEPTH_TEST</span>
+            <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">DEPTH_TEST</span>,
 
-        <span class='doccomment'>/// Dither color components or indices.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Dither</span> <span class='kw'>as</span> <span class='ident'>DITHER</span>
-            <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>DITHER</span>,
+        <span class="doccomment">/// Dither color components or indices.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Dither</span> <span class="kw">as</span> <span class="ident">DITHER</span>
+            <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">DITHER</span>,
 
-        <span class='doccomment'>/// When filling a polygon, add an offset to</span>
-        <span class='doccomment'>/// each fragment&#39;s depth value.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>PolygonOffsetFill</span> <span class='kw'>as</span> <span class='ident'>POLYGON_OFFSET_FILL</span>
-            <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>POLYGON_OFFSET_FILL</span>,
+        <span class="doccomment">/// When filling a polygon, add an offset to</span>
+        <span class="doccomment">/// each fragment&#39;s depth value.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PolygonOffsetFill</span> <span class="kw">as</span> <span class="ident">POLYGON_OFFSET_FILL</span>
+            <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">POLYGON_OFFSET_FILL</span>,
 
-        <span class='comment'>// TODO: Is this correct?</span>
-        <span class='doccomment'>/// When multisampling, use the alpha value from the sample</span>
-        <span class='doccomment'>/// location.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>SampleAlphaToCoverage</span> <span class='kw'>as</span> <span class='ident'>SAMPLE_ALPHA_TO_COVERAGE</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>SAMPLE_ALPHA_TO_COVERAGE</span>,
+        <span class="comment">// TODO: Is this correct?</span>
+        <span class="doccomment">/// When multisampling, use the alpha value from the sample</span>
+        <span class="doccomment">/// location.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">SampleAlphaToCoverage</span> <span class="kw">as</span> <span class="ident">SAMPLE_ALPHA_TO_COVERAGE</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">SAMPLE_ALPHA_TO_COVERAGE</span>,
 
-        <span class='comment'>// TODO: Is this correct?</span>
-        <span class='comment'>// TODO: Link to glSampleCoverage</span>
-        <span class='doccomment'>/// When multisampling, use the preset sample coverage value</span>
-        <span class='doccomment'>/// as the alpha value.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>SampleCoverage</span> <span class='kw'>as</span> <span class='ident'>SAMPLE_COVERAGE</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>SAMPLE_COVERAGE</span>,
+        <span class="comment">// TODO: Is this correct?</span>
+        <span class="comment">// TODO: Link to glSampleCoverage</span>
+        <span class="doccomment">/// When multisampling, use the preset sample coverage value</span>
+        <span class="doccomment">/// as the alpha value.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">SampleCoverage</span> <span class="kw">as</span> <span class="ident">SAMPLE_COVERAGE</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">SAMPLE_COVERAGE</span>,
 
-        <span class='doccomment'>/// Only draw fragments within the scissor rectangle.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>ScisscorTest</span> <span class='kw'>as</span> <span class='ident'>SCISSCOR_TEST</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>SCISSOR_TEST</span>,
+        <span class="doccomment">/// Only draw fragments within the scissor rectangle.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ScisscorTest</span> <span class="kw">as</span> <span class="ident">SCISSCOR_TEST</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">SCISSOR_TEST</span>,
 
-        <span class='doccomment'>/// Perform a stencil test for each fragment, only drawing</span>
-        <span class='doccomment'>/// fragments that pass the currently-set stencil operation.</span>
-        <span class='doccomment'>/// Also updates the stencil buffer appropriately.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>StencilTest</span> <span class='kw'>as</span> <span class='ident'>STENCIL_TEST</span> <span class='op'>=</span>
-            <span class='ident'>gl</span>::<span class='ident'>STENCIL_TEST</span>
+        <span class="doccomment">/// Perform a stencil test for each fragment, only drawing</span>
+        <span class="doccomment">/// fragments that pass the currently-set stencil operation.</span>
+        <span class="doccomment">/// Also updates the stencil buffer appropriately.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">StencilTest</span> <span class="kw">as</span> <span class="ident">STENCIL_TEST</span> <span class="op">=</span>
+            <span class="ident">gl</span>::<span class="ident">STENCIL_TEST</span>
     }
 }
 
 
 
-<span class='doccomment'>/// The various possible OpenGL errors.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>GLError</span> {
-    <span class='doccomment'>/// Indicates that an unexpected enum value was passed to a function.</span>
-    <span class='ident'>InvalidEnum</span>,
+<span class="doccomment">/// The various possible OpenGL errors.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GLError</span> {
+    <span class="doccomment">/// Indicates that an unexpected enum value was passed to a function.</span>
+    <span class="ident">InvalidEnum</span>,
 
-    <span class='doccomment'>/// Indicates that a function was passed an argument with a</span>
-    <span class='doccomment'>/// value that had an unexpected value (such as passing a negative</span>
-    <span class='doccomment'>/// value to a function that only expects positive arguments).</span>
-    <span class='ident'>InvalidValue</span>,
+    <span class="doccomment">/// Indicates that a function was passed an argument with a</span>
+    <span class="doccomment">/// value that had an unexpected value (such as passing a negative</span>
+    <span class="doccomment">/// value to a function that only expects positive arguments).</span>
+    <span class="ident">InvalidValue</span>,
 
-    <span class='doccomment'>/// Indicates that a particular operation was attempted that is</span>
-    <span class='doccomment'>/// not allowed, often resulting from an unexpected pairing</span>
-    <span class='doccomment'>/// of arguments.</span>
-    <span class='ident'>InvalidOperation</span>,
+    <span class="doccomment">/// Indicates that a particular operation was attempted that is</span>
+    <span class="doccomment">/// not allowed, often resulting from an unexpected pairing</span>
+    <span class="doccomment">/// of arguments.</span>
+    <span class="ident">InvalidOperation</span>,
 
-    <span class='doccomment'>/// Indicates that a particular operation attempted to use a</span>
-    <span class='doccomment'>/// framebuffer that is not framebuffer-complete.</span>
-    <span class='ident'>InvalidFramebufferOperation</span>,
+    <span class="doccomment">/// Indicates that a particular operation attempted to use a</span>
+    <span class="doccomment">/// framebuffer that is not framebuffer-complete.</span>
+    <span class="ident">InvalidFramebufferOperation</span>,
 
-    <span class='doccomment'>/// Indicates that the OpenGL driver could not allocate</span>
-    <span class='doccomment'>/// enough memory to satisfy a request.</span>
-    <span class='ident'>OutOfMemory</span>,
+    <span class="doccomment">/// Indicates that the OpenGL driver could not allocate</span>
+    <span class="doccomment">/// enough memory to satisfy a request.</span>
+    <span class="ident">OutOfMemory</span>,
 
-    <span class='doccomment'>/// Indicates a framebuffer-related error.</span>
-    <span class='ident'>FramebufferError</span>(<span class='ident'>GLFramebufferError</span>),
+    <span class="doccomment">/// Indicates a framebuffer-related error.</span>
+    <span class="ident">FramebufferError</span>(<span class="ident">GLFramebufferError</span>),
 
-    <span class='doccomment'>/// Indicates an error with a message attached (such as</span>
-    <span class='doccomment'>/// a message from an info log, or an error message</span>
-    <span class='doccomment'>/// originating from glitter).</span>
-    <span class='ident'>Message</span>(<span class='ident'>String</span>)
+    <span class="doccomment">/// Indicates an error with a message attached (such as</span>
+    <span class="doccomment">/// a message from an info log, or an error message</span>
+    <span class="doccomment">/// originating from glitter).</span>
+    <span class="ident">Message</span>(<span class="ident">String</span>)
 }
 
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>GLError</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Invalid enum&quot;</span>)
+<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GLError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid enum&quot;</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Invalid value&quot;</span>)
+            <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid value&quot;</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Invalid operation&quot;</span>)
+            <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid operation&quot;</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidFramebufferOperation</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Invalid framebuffer operation&quot;</span>)
+            <span class="ident">GLError</span>::<span class="ident">InvalidFramebufferOperation</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Invalid framebuffer operation&quot;</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>OutOfMemory</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Out of memory&quot;</span>)
+            <span class="ident">GLError</span>::<span class="ident">OutOfMemory</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Out of memory&quot;</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>FramebufferError</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{:?}&quot;</span>, <span class='ident'>e</span>)
+            <span class="ident">GLError</span>::<span class="ident">FramebufferError</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{:?}&quot;</span>, <span class="ident">e</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;{}&quot;</span>, <span class='ident'>s</span>)
+            <span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">s</span>)
             }
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>error</span>::<span class='ident'>Error</span> <span class='kw'>for</span> <span class='ident'>GLError</span> {
-    <span class='kw'>fn</span> <span class='ident'>description</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Invalid enum variant in OpenGL call.&quot;</span>,
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Out-of-range value in OpenGL call.&quot;</span>,
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The specified OpenGL operation is not allowed in the current state.&quot;</span>,
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidFramebufferOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;OpenGL command tried to read or write to an incomplete framebuffer.&quot;</span>,
-            <span class='ident'>GLError</span>::<span class='ident'>OutOfMemory</span> <span class='op'>=&gt;</span> <span class='string'>&quot;There is not enough memory left to execute the specified OpenGL command.&quot;</span>,
-            <span class='ident'>GLError</span>::<span class='ident'>FramebufferError</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='op'>=&gt;</span> {
-                <span class='ident'>error</span>::<span class='ident'>Error</span>::<span class='ident'>description</span>(<span class='ident'>e</span>)
+<span class="kw">impl</span> <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">GLError</span> {
+    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;Invalid enum variant in OpenGL call.&quot;</span>,
+            <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;Out-of-range value in OpenGL call.&quot;</span>,
+            <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;The specified OpenGL operation is not allowed in the current state.&quot;</span>,
+            <span class="ident">GLError</span>::<span class="ident">InvalidFramebufferOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;OpenGL command tried to read or write to an incomplete framebuffer.&quot;</span>,
+            <span class="ident">GLError</span>::<span class="ident">OutOfMemory</span> <span class="op">=&gt;</span> <span class="string">&quot;There is not enough memory left to execute the specified OpenGL command.&quot;</span>,
+            <span class="ident">GLError</span>::<span class="ident">FramebufferError</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="ident">error</span>::<span class="ident">Error</span>::<span class="ident">description</span>(<span class="ident">e</span>)
             },
-            <span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='kw-2'>ref</span> <span class='ident'>s</span>) <span class='op'>=&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>s</span>
+            <span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="kw-2">ref</span> <span class="ident">s</span>) <span class="op">=&gt;</span> <span class="kw-2">&amp;</span><span class="ident">s</span>
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>cause</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>error</span>::<span class='ident'>Error</span><span class='op'>&gt;</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>GLError</span>::<span class='ident'>FramebufferError</span>(<span class='kw-2'>ref</span> <span class='ident'>e</span>) <span class='op'>=&gt;</span> { <span class='prelude-val'>Some</span>(<span class='ident'>e</span>) },
-            _ <span class='op'>=&gt;</span> { <span class='prelude-val'>None</span> }
+    <span class="kw">fn</span> <span class="ident">cause</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">error</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">GLError</span>::<span class="ident">FramebufferError</span>(<span class="kw-2">ref</span> <span class="ident">e</span>) <span class="op">=&gt;</span> { <span class="prelude-val">Some</span>(<span class="ident">e</span>) },
+            _ <span class="op">=&gt;</span> { <span class="prelude-val">None</span> }
         }
     }
 }
 
-<span class='doccomment'>/// The possible framebuffer-incomplete errors.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
-<span class='kw'>pub</span> <span class='kw'>enum</span> <span class='ident'>GLFramebufferError</span> {
-    <span class='doccomment'>/// Not all framebuffer attachments are [attachment-complete]</span>
-    <span class='doccomment'>/// (https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness).</span>
-    <span class='ident'>IncompleteAttachment</span>,
+<span class="doccomment">/// The possible framebuffer-incomplete errors.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">GLFramebufferError</span> {
+    <span class="doccomment">/// Not all framebuffer attachments are [attachment-complete]</span>
+    <span class="doccomment">/// (https://www.opengl.org/wiki/Framebuffer_Object#Attachment_Completeness).</span>
+    <span class="ident">IncompleteAttachment</span>,
 
-    <span class='doccomment'>/// Not all attachments have the same dimensions.</span>
-    <span class='ident'>IncompleteDimensions</span>,
+    <span class="doccomment">/// Not all attachments have the same dimensions.</span>
+    <span class="ident">IncompleteDimensions</span>,
 
-    <span class='doccomment'>/// The framebuffer has no attachments.</span>
-    <span class='ident'>IncompleteMissingAttachment</span>,
+    <span class="doccomment">/// The framebuffer has no attachments.</span>
+    <span class="ident">IncompleteMissingAttachment</span>,
 
-    <span class='doccomment'>/// The combination of attachment formats is unsupported by the current</span>
-    <span class='doccomment'>/// OpenGL implementation.</span>
-    <span class='ident'>Unsupported</span>
+    <span class="doccomment">/// The combination of attachment formats is unsupported by the current</span>
+    <span class="doccomment">/// OpenGL implementation.</span>
+    <span class="ident">Unsupported</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>GLFramebufferError</span> {
-    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteAttachment</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Incomplete attachment&quot;</span>)
+<span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">GLFramebufferError</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteAttachment</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Incomplete attachment&quot;</span>)
             },
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteDimensions</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Incomplete dimensions&quot;</span>)
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteDimensions</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Incomplete dimensions&quot;</span>)
             },
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteMissingAttachment</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Missing attachments&quot;</span>)
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteMissingAttachment</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Missing attachments&quot;</span>)
             },
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>Unsupported</span> <span class='op'>=&gt;</span> {
-                <span class='macro'>write</span><span class='macro'>!</span>(<span class='ident'>f</span>, <span class='string'>&quot;Unsupported&quot;</span>)
+            <span class="ident">GLFramebufferError</span>::<span class="ident">Unsupported</span> <span class="op">=&gt;</span> {
+                <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;Unsupported&quot;</span>)
             }
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>error</span>::<span class='ident'>Error</span> <span class='kw'>for</span> <span class='ident'>GLFramebufferError</span> {
-    <span class='kw'>fn</span> <span class='ident'>description</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
-        <span class='kw'>match</span> <span class='op'>*</span><span class='self'>self</span> {
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteAttachment</span> <span class='op'>=&gt;</span> <span class='string'>&quot;One or more framebuffer attachments are not complete&quot;</span>,
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteDimensions</span> <span class='op'>=&gt;</span> <span class='string'>&quot;Not all images attached to the framebuffer have the same width and height&quot;</span>,
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>IncompleteMissingAttachment</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The framebuffer has no images attached&quot;</span>,
-            <span class='ident'>GLFramebufferError</span>::<span class='ident'>Unsupported</span> <span class='op'>=&gt;</span> <span class='string'>&quot;The framebuffer contains an unsupported combination of attachments&quot;</span>,
+<span class="kw">impl</span> <span class="ident">error</span>::<span class="ident">Error</span> <span class="kw">for</span> <span class="ident">GLFramebufferError</span> {
+    <span class="kw">fn</span> <span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">str</span> {
+        <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteAttachment</span> <span class="op">=&gt;</span> <span class="string">&quot;One or more framebuffer attachments are not complete&quot;</span>,
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteDimensions</span> <span class="op">=&gt;</span> <span class="string">&quot;Not all images attached to the framebuffer have the same width and height&quot;</span>,
+            <span class="ident">GLFramebufferError</span>::<span class="ident">IncompleteMissingAttachment</span> <span class="op">=&gt;</span> <span class="string">&quot;The framebuffer has no images attached&quot;</span>,
+            <span class="ident">GLFramebufferError</span>::<span class="ident">Unsupported</span> <span class="op">=&gt;</span> <span class="string">&quot;The framebuffer contains an unsupported combination of attachments&quot;</span>,
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>From</span><span class='op'>&lt;</span><span class='ident'>GLFramebufferError</span><span class='op'>&gt;</span> <span class='kw'>for</span> <span class='ident'>GLError</span> {
-    <span class='kw'>fn</span> <span class='ident'>from</span>(<span class='ident'>e</span>: <span class='ident'>GLFramebufferError</span>) <span class='op'>-&gt;</span> <span class='ident'>GLError</span> {
-        <span class='ident'>GLError</span>::<span class='ident'>FramebufferError</span>(<span class='ident'>e</span>)
+<span class="kw">impl</span> <span class="ident">From</span><span class="op">&lt;</span><span class="ident">GLFramebufferError</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">GLError</span> {
+    <span class="kw">fn</span> <span class="ident">from</span>(<span class="ident">e</span>: <span class="ident">GLFramebufferError</span>) <span class="op">-&gt;</span> <span class="ident">GLError</span> {
+        <span class="ident">GLError</span>::<span class="ident">FramebufferError</span>(<span class="ident">e</span>)
     }
 }
 
 
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The primitive drawing modes for drawing raw vertex data.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>DrawingMode</span> {
-        <span class='doccomment'>/// Draw each vertex as a single point.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Points</span> <span class='kw'>as</span> <span class='ident'>POINTS</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>POINTS</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The primitive drawing modes for drawing raw vertex data.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">DrawingMode</span> {
+        <span class="doccomment">/// Draw each vertex as a single point.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Points</span> <span class="kw">as</span> <span class="ident">POINTS</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">POINTS</span>,
 
-        <span class='doccomment'>/// Draw a connected line segment, where each vertex is connected</span>
-        <span class='doccomment'>/// to the next. The first and last vertex are treated as the</span>
-        <span class='doccomment'>/// start and end points.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LineStrip</span> <span class='kw'>as</span> <span class='ident'>LINE_STRIP</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>LINE_STRIP</span>,
+        <span class="doccomment">/// Draw a connected line segment, where each vertex is connected</span>
+        <span class="doccomment">/// to the next. The first and last vertex are treated as the</span>
+        <span class="doccomment">/// start and end points.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LineStrip</span> <span class="kw">as</span> <span class="ident">LINE_STRIP</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">LINE_STRIP</span>,
 
-        <span class='doccomment'>/// Draw a self-connected line segment, where each vertex is connected</span>
-        <span class='doccomment'>/// to the next, and the last vertex connects to the first.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>LineLoop</span> <span class='kw'>as</span> <span class='ident'>LINE_LOOP</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>LINE_LOOP</span>,
+        <span class="doccomment">/// Draw a self-connected line segment, where each vertex is connected</span>
+        <span class="doccomment">/// to the next, and the last vertex connects to the first.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LineLoop</span> <span class="kw">as</span> <span class="ident">LINE_LOOP</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">LINE_LOOP</span>,
 
-        <span class='doccomment'>/// Draw each pair of vertices as individual line segments.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Lines</span> <span class='kw'>as</span> <span class='ident'>LINES</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>LINES</span>,
+        <span class="doccomment">/// Draw each pair of vertices as individual line segments.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Lines</span> <span class="kw">as</span> <span class="ident">LINES</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">LINES</span>,
 
-        <span class='doccomment'>/// Draw the vertices as a strip of triangles.</span>
-        <span class='doccomment'>/// The first three vertices form the first triangle, then</span>
-        <span class='doccomment'>/// the next vertex plus the previous two vertices form the next</span>
-        <span class='doccomment'>/// triangle, and so on. For example, vertices v1, v2, and v3 form</span>
-        <span class='doccomment'>/// the first triangle, then vertices v2, v3, and v4 form the next,</span>
-        <span class='doccomment'>/// and so on.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TriangleStrip</span> <span class='kw'>as</span> <span class='ident'>TRIANGLE_STRIP</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TRIANGLE_STRIP</span>,
+        <span class="doccomment">/// Draw the vertices as a strip of triangles.</span>
+        <span class="doccomment">/// The first three vertices form the first triangle, then</span>
+        <span class="doccomment">/// the next vertex plus the previous two vertices form the next</span>
+        <span class="doccomment">/// triangle, and so on. For example, vertices v1, v2, and v3 form</span>
+        <span class="doccomment">/// the first triangle, then vertices v2, v3, and v4 form the next,</span>
+        <span class="doccomment">/// and so on.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TriangleStrip</span> <span class="kw">as</span> <span class="ident">TRIANGLE_STRIP</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TRIANGLE_STRIP</span>,
 
-        <span class='doccomment'>/// Draw the vertices as a triangle fan. The first vertex, v1</span>
-        <span class='doccomment'>/// is the fan&#39;s &#39;center&#39;. Vertices v2 and v3 form the first triangle</span>
-        <span class='doccomment'>/// with the center, v1. Then vertices v3, v4, and v1 form the next</span>
-        <span class='doccomment'>/// triangle, then vertices v4, v5, and v1, and so on.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>TriangleFan</span> <span class='kw'>as</span> <span class='ident'>TRIANGLE_FAN</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TRIANGLE_FAN</span>,
+        <span class="doccomment">/// Draw the vertices as a triangle fan. The first vertex, v1</span>
+        <span class="doccomment">/// is the fan&#39;s &#39;center&#39;. Vertices v2 and v3 form the first triangle</span>
+        <span class="doccomment">/// with the center, v1. Then vertices v3, v4, and v1 form the next</span>
+        <span class="doccomment">/// triangle, then vertices v4, v5, and v1, and so on.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TriangleFan</span> <span class="kw">as</span> <span class="ident">TRIANGLE_FAN</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TRIANGLE_FAN</span>,
 
-        <span class='doccomment'>/// Draw each group of three vertices as a triangle.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Triangles</span> <span class='kw'>as</span> <span class='ident'>TRIANGLES</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>TRIANGLES</span>
+        <span class="doccomment">/// Draw each group of three vertices as a triangle.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Triangles</span> <span class="kw">as</span> <span class="ident">TRIANGLES</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">TRIANGLES</span>
     }
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The different OpenGL data types.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>DataType</span> {
-        <span class='doccomment'>/// A signed 8-bit byte.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Byte</span> <span class='kw'>as</span> <span class='ident'>BYTE</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>BYTE</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The different OpenGL data types.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">DataType</span> {
+        <span class="doccomment">/// A signed 8-bit byte.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Byte</span> <span class="kw">as</span> <span class="ident">BYTE</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">BYTE</span>,
 
-        <span class='doccomment'>/// An unsigned 8-bit byte.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedByte</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_BYTE</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_BYTE</span>,
+        <span class="doccomment">/// An unsigned 8-bit byte.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedByte</span> <span class="kw">as</span> <span class="ident">UNSIGNED_BYTE</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">UNSIGNED_BYTE</span>,
 
-        <span class='doccomment'>/// A signed 16-bit short.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Short</span> <span class='kw'>as</span> <span class='ident'>SHORT</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>SHORT</span>,
+        <span class="doccomment">/// A signed 16-bit short.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Short</span> <span class="kw">as</span> <span class="ident">SHORT</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">SHORT</span>,
 
-        <span class='doccomment'>/// An unsigned 16-bit short.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>UnsignedShort</span> <span class='kw'>as</span> <span class='ident'>UNSIGNED_SHORT</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>UNSIGNED_SHORT</span>,
+        <span class="doccomment">/// An unsigned 16-bit short.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">UnsignedShort</span> <span class="kw">as</span> <span class="ident">UNSIGNED_SHORT</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">UNSIGNED_SHORT</span>,
 
-        <span class='doccomment'>/// A signed 32-bit, fixed-point number in 16.16 form.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Fixed</span> <span class='kw'>as</span> <span class='ident'>FIXED</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>FIXED</span>,
+        <span class="doccomment">/// A signed 32-bit, fixed-point number in 16.16 form.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Fixed</span> <span class="kw">as</span> <span class="ident">FIXED</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">FIXED</span>,
 
-        <span class='doccomment'>/// A 32-bit, IEEE floating-point number.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>Float</span> <span class='kw'>as</span> <span class='ident'>FLOAT</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>FLOAT</span>
+        <span class="doccomment">/// A 32-bit, IEEE floating-point number.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">Float</span> <span class="kw">as</span> <span class="ident">FLOAT</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">FLOAT</span>
     }
 }
 </pre>
@@ -794,12 +796,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -820,7 +826,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -831,11 +837,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

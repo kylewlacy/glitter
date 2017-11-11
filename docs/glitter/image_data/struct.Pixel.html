@@ -9,6 +9,7 @@
 
     <title>glitter::image_data::Pixel - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a></p><script>window.sidebarCurrent = {name: 'Pixel', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Pixel</p><div class="block items"><a class="sidebar-title" href="#fields">Fields</a><div class="sidebar-links"><a href="#structfield.r">r</a><a href="#structfield.g">g</a><a href="#structfield.b">b</a><a href="#structfield.a">a</a></div><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.r_g_b_a">r_g_b_a</a><a href="#method.r_g_b">r_g_b</a><a href="#method.rgb">rgb</a><a href="#method.argb">argb</a><a href="#method.rgba">rgba</a><a href="#method.rgb_a">rgb_a</a></div><a class="sidebar-title" href="#implementations">Trait Implementations</a><div class="sidebar-links"><a href="#impl-Debug">Debug</a><a href="#impl-Clone">Clone</a><a href="#impl-Copy">Copy</a><a href="#impl-Default">Default</a><a href="#impl-From%3CP%3E">From&lt;P&gt;</a></div></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a></p><script>window.sidebarCurrent = {name: 'Pixel', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,120 +43,134 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a>::<wbr><a class='struct' href=''>Pixel</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>image_data</a>::<wbr><a class="struct" href=''>Pixel</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-3755' class='srclink' href='../../src/glitter/src/image_data.rs.html#37-49' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct Pixel {
-    pub r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>,
-    pub g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>,
-    pub b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>,
-    pub a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>,
+               </span><a class='srclink' href='../../src/glitter/image_data.rs.html#37-49' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'><div class="docblock attributes">#[repr(C)]
+</div>pub struct Pixel {
+    pub r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+    pub g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+    pub b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
+    pub a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>,
 }</pre><div class='docblock'><p>A single OpenGL color value, with <code>u8</code> components laid out
 as a C struct in RGBA order. This type is the simplest implementation
 of <a href="trait.Image2d.html"><code>Image2d</code></a>, which allows it to be uploaded
 to a texture.</p>
-</div><h2 class='fields'>Fields</h2><span id='structfield.r' class='structfield'>
-                           <span id='r.v' class='invisible'>
-                           <code>r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The red component.</p>
-</div><span id='structfield.g' class='structfield'>
-                           <span id='g.v' class='invisible'>
-                           <code>g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The green component.</p>
-</div><span id='structfield.b' class='structfield'>
-                           <span id='b.v' class='invisible'>
-                           <code>b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The blue component.</p>
-</div><span id='structfield.a' class='structfield'>
-                           <span id='a.v' class='invisible'>
-                           <code>a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a></code>
-                           </span></span><span class='stab '></span><div class='docblock'><p>The alpha component.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2240' class='srclink' href='../../src/glitter/src/image_data.rs.html#51-151' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.r_g_b_a' class='method'><span id='r_g_b_a.v' class='invisible'><code>fn <a href='#method.r_g_b_a' class='fnname'>r_g_b_a</a>(r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; Self</code></span></h4>
+</div><h2 id='fields' class='fields small-section-header'>
+                       Fields<a href='#fields' class='anchor'></a></h2><span id="structfield.r" class="structfield small-section-header">
+                           <a href="#structfield.r" class="anchor field"></a>
+                           <span id="r.v" class='invisible'>
+                           <code>r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code>
+                           </span></span><div class='docblock'><p>The red component.</p>
+</div><span id="structfield.g" class="structfield small-section-header">
+                           <a href="#structfield.g" class="anchor field"></a>
+                           <span id="g.v" class='invisible'>
+                           <code>g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code>
+                           </span></span><div class='docblock'><p>The green component.</p>
+</div><span id="structfield.b" class="structfield small-section-header">
+                           <a href="#structfield.b" class="anchor field"></a>
+                           <span id="b.v" class='invisible'>
+                           <code>b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code>
+                           </span></span><div class='docblock'><p>The blue component.</p>
+</div><span id="structfield.a" class="structfield small-section-header">
+                           <a href="#structfield.a" class="anchor field"></a>
+                           <span id="a.v" class='invisible'>
+                           <code>a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a></code>
+                           </span></span><div class='docblock'><p>The alpha component.</p>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#51-151' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.r_g_b_a' class="method"><span id='r_g_b_a.v' class='invisible'><code>pub fn <a href='#method.r_g_b_a' class='fnname'>r_g_b_a</a>(r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#62-64' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color, provided each color component.</p>
 
 <h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>r_g_b_a</span>(<span class='number'>0xAA</span>, <span class='number'>0xBB</span>, <span class='number'>0xCC</span>, <span class='number'>0xDD</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xDD</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div><h4 id='method.r_g_b' class='method'><span id='r_g_b.v' class='invisible'><code>fn <a href='#method.r_g_b' class='fnname'>r_g_b</a>(r: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, g: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>, b: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; Self</code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">r_g_b_a</span>(<span class="number">0xAA</span>, <span class="number">0xBB</span>, <span class="number">0xCC</span>, <span class="number">0xDD</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xDD</span>);</pre>
+</div><h4 id='method.r_g_b' class="method"><span id='r_g_b.v' class='invisible'><code>pub fn <a href='#method.r_g_b' class='fnname'>r_g_b</a>(r: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, g: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>, b: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#77-79' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color, provided the RGB components and using
 <code>0xFF</code> as the A value.</p>
 
 <h1 id='examples-1' class='section-header'><a href='#examples-1'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>r_g_b</span>(<span class='number'>0xAA</span>, <span class='number'>0xBB</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xFF</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div><h4 id='method.rgb' class='method'><span id='rgb.v' class='invisible'><code>fn <a href='#method.rgb' class='fnname'>rgb</a>(rgb: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self</code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">r_g_b</span>(<span class="number">0xAA</span>, <span class="number">0xBB</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xFF</span>);</pre>
+</div><h4 id='method.rgb' class="method"><span id='rgb.v' class='invisible'><code>pub fn <a href='#method.rgb' class='fnname'>rgb</a>(rgb: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#93-95' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color, provided the RGB components as a packed
 <code>u32</code> value. The <code>u32</code> value will be read as <code>0x00RRGGBB</code>.</p>
 
 <h1 id='examples-2' class='section-header'><a href='#examples-2'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='comment'>// The `0x55` component gets discared</span>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>rgb</span>(<span class='number'>0x55AABBCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xFF</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div><h4 id='method.argb' class='method'><span id='argb.v' class='invisible'><code>fn <a href='#method.argb' class='fnname'>argb</a>(argb: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self</code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="comment">// The `0x55` component gets discared</span>
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">rgb</span>(<span class="number">0x55AABBCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xFF</span>);</pre>
+</div><h4 id='method.argb' class="method"><span id='argb.v' class='invisible'><code>pub fn <a href='#method.argb' class='fnname'>argb</a>(argb: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#108-111' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color value, provided the components as a packed
 <code>u32</code> value. The <code>u32</code> value will be read as <code>0xAARRGGBB</code>.</p>
 
 <h1 id='examples-3' class='section-header'><a href='#examples-3'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>argb</span>(<span class='number'>0xDDAABBCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xDD</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div><h4 id='method.rgba' class='method'><span id='rgba.v' class='invisible'><code>fn <a href='#method.rgba' class='fnname'>rgba</a>(rgba: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>) -&gt; Self</code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">argb</span>(<span class="number">0xDDAABBCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xDD</span>);</pre>
+</div><h4 id='method.rgba' class="method"><span id='rgba.v' class='invisible'><code>pub fn <a href='#method.rgba' class='fnname'>rgba</a>(rgba: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#124-130' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color, provided the RGB components as a packed
 <code>u32</code> value. The <code>u32</code> value will be read as <code>0xRRGGBBAA</code>.</p>
 
 <h1 id='examples-4' class='section-header'><a href='#examples-4'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>rgba</span>(<span class='number'>0xAABBCCDD</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xDD</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div><h4 id='method.rgb_a' class='method'><span id='rgb_a.v' class='invisible'><code>fn <a href='#method.rgb_a' class='fnname'>rgb_a</a>(rgb: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u32.html'>u32</a>, a: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>) -&gt; Self</code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">rgba</span>(<span class="number">0xAABBCCDD</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xDD</span>);</pre>
+</div><h4 id='method.rgb_a' class="method"><span id='rgb_a.v' class='invisible'><code>pub fn <a href='#method.rgb_a' class='fnname'>rgb_a</a>(rgb: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, a: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>) -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#145-150' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Create an RGBA color, provided the RGB components as a packed
 <code>u32</code> value, and a separate A component. The <code>u32</code> value
 will be read as <code>0x00RRGGBB</code>.</p>
 
 <h1 id='examples-5' class='section-header'><a href='#examples-5'>Examples</a></h1>
-<pre class='rust rust-example-rendered'>
-<span class='comment'>// The `0x55` component gets discarded</span>
-<span class='kw'>let</span> <span class='ident'>pixel</span> <span class='op'>=</span> <span class='ident'>glitter</span>::<span class='ident'>Pixel</span>::<span class='ident'>rgb_a</span>(<span class='number'>0x55AABBCC</span>, <span class='number'>0xDD</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>r</span>, <span class='number'>0xAA</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>g</span>, <span class='number'>0xBB</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>b</span>, <span class='number'>0xCC</span>);
-<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>pixel</span>.<span class='ident'>a</span>, <span class='number'>0xDD</span>);<a class='test-arrow' target='_blank' href=''>Run</a></pre>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3760' class='srclink' href='../../src/glitter/src/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
-<div class='docblock'><p>Formats the value using the given formatter.</p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3769' class='srclink' href='../../src/glitter/src/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span></h4>
+<pre class="rust rust-example-rendered">
+<span class="comment">// The `0x55` component gets discarded</span>
+<span class="kw">let</span> <span class="ident">pixel</span> <span class="op">=</span> <span class="ident">glitter</span>::<span class="ident">Pixel</span>::<span class="ident">rgb_a</span>(<span class="number">0x55AABBCC</span>, <span class="number">0xDD</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">r</span>, <span class="number">0xAA</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">g</span>, <span class="number">0xBB</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">b</span>, <span class="number">0xCC</span>);
+<span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">pixel</span>.<span class="ident">a</span>, <span class="number">0xDD</span>);</pre>
+</div></div>
+            <h2 id='implementations' class='small-section-header'>
+              Trait Implementations<a href='#implementations' class='anchor'></a>
+            </h2>
+        <h3 id='impl-Debug' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html" title="trait core::fmt::Debug">Debug</a> for <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl-Debug' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class="method"><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html" title="struct core::fmt::Formatter">Formatter</a>) -&gt; <a class="type" href="https://doc.rust-lang.org/nightly/core/fmt/type.Result.html" title="type core::fmt::Result">Result</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter. <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt">Read more</a></p>
+</div></div><h3 id='impl-Clone' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html" title="trait core::clone::Clone">Clone</a> for <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl-Clone' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class="method"><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
-</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+</div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.reference.html">&amp;</a>Self)</code></span><span class='out-of-band'><div class='ghost'></div><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div><a class='srclink' href='https://doc.rust-lang.org/nightly/src/core/clone.rs.html#112-114' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3772' class='srclink' href='../../src/glitter/src/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-3773' class='srclink' href='../../src/glitter/src/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.default' class='method'><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span></h4>
+</div></div><h3 id='impl-Copy' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html" title="trait core::marker::Copy">Copy</a> for <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl-Copy' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 id='impl-Default' class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html" title="trait core::default::Default">Default</a> for <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl-Default' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class="method"><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_data.rs.html#35' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
-</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;P:&nbsp;Pixel&lt;Subpixel=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u8.html'>u8</a>&gt;&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html' title='core::convert::From'>From</a>&lt;P&gt; for <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2724' class='srclink' href='../../src/glitter/src/image_features/image_conversions.rs.html#4-10' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.from' class='method'><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(pixel: P) -&gt; <a class='struct' href='../../glitter/image_data/struct.Pixel.html' title='glitter::image_data::Pixel'>Pixel</a></code></span></h4>
+</div></div><h3 id='impl-From%3CP%3E' class='impl'><span class='in-band'><code>impl&lt;P:&nbsp;Pixel&lt;Subpixel = <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;&gt; <a class="trait" href="https://doc.rust-lang.org/nightly/core/convert/trait.From.html" title="trait core::convert::From">From</a>&lt;P&gt; for <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code><a href='#impl-From%3CP%3E' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_features/image_conversions.rs.html#4-10' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.from' class="method"><span id='from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.From.html#tymethod.from' class='fnname'>from</a>(pixel: P) -&gt; <a class="struct" href="../../glitter/image_data/struct.Pixel.html" title="struct glitter::image_data::Pixel">Pixel</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/image_features/image_conversions.rs.html#5-9' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Performs the conversion.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -174,13 +189,15 @@ will be read as <code>0x00RRGGBB</code>.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -213,11 +230,8 @@ will be read as <code>0x00RRGGBB</code>.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

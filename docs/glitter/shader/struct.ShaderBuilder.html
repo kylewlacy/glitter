@@ -9,6 +9,7 @@
 
     <title>glitter::shader::ShaderBuilder - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a></p><script>window.sidebarCurrent = {name: 'ShaderBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct ShaderBuilder</p><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.try_unwrap">try_unwrap</a><a href="#method.unwrap">unwrap</a></div></div><p class='location'><a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a></p><script>window.sidebarCurrent = {name: 'ShaderBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,20 +43,24 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a>::<wbr><a class='struct' href=''>ShaderBuilder</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>glitter</a>::<wbr><a href='index.html'>shader</a>::<wbr><a class="struct" href=''>ShaderBuilder</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-2033' class='srclink' href='../../src/glitter/src/shader.rs.html#75-81' title='goto source code'>[src]</a></span></h1>
-<pre class='rust struct'>pub struct ShaderBuilder&lt;'a, C:&nbsp;'a&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span> { /* fields omitted */ }</pre><div class='docblock'><p>A safe interface for creating a shader with a source, and returning an error
+               </span><a class='srclink' href='../../src/glitter/shader.rs.html#75-81' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ShaderBuilder&lt;'a, C:&nbsp;'a&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;C: <a class="trait" href="../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a>,&nbsp;</span> { /* fields omitted */ }</pre><div class='docblock'><p>A safe interface for creating a shader with a source, and returning an error
 or panicking if there is an error.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'a, C:&nbsp;'a&gt; <a class='struct' href='../../glitter/shader/struct.ShaderBuilder.html' title='glitter::shader::ShaderBuilder'>ShaderBuilder</a>&lt;'a, C&gt; <span class='where'>where C: <a class='trait' href='../../glitter/context/trait.AContext.html' title='glitter::context::AContext'>AContext</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-2039' class='srclink' href='../../src/glitter/src/shader.rs.html#83-116' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.try_unwrap' class='method'><span id='try_unwrap.v' class='invisible'><code>fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a>, <a class='enum' href='../../glitter/types/enum.GLError.html' title='glitter::types::GLError'>GLError</a>&gt;</code></span></h4>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl&lt;'a, C:&nbsp;'a&gt; <a class="struct" href="../../glitter/shader/struct.ShaderBuilder.html" title="struct glitter::shader::ShaderBuilder">ShaderBuilder</a>&lt;'a, C&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;C: <a class="trait" href="../../glitter/context/trait.AContext.html" title="trait glitter::context::AContext">AContext</a>,&nbsp;</span></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/shader.rs.html#83-116' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.try_unwrap' class="method"><span id='try_unwrap.v' class='invisible'><code>pub fn <a href='#method.try_unwrap' class='fnname'>try_unwrap</a>(self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="../../glitter/shader/struct.Shader.html" title="struct glitter::shader::Shader">Shader</a>, <a class="enum" href="../../glitter/types/enum.GLError.html" title="enum glitter::types::GLError">GLError</a>&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/shader.rs.html#95-108' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Try to compile a shader with the provided options, or <code>Err</code> if
 a new shader object could not be created or if there was an error
 compiling the provided source.</p>
-</div><h4 id='method.unwrap' class='method'><span id='unwrap.v' class='invisible'><code>fn <a href='#method.unwrap' class='fnname'>unwrap</a>(self) -&gt; <a class='struct' href='../../glitter/shader/struct.Shader.html' title='glitter::shader::Shader'>Shader</a></code></span></h4>
+</div><h4 id='method.unwrap' class="method"><span id='unwrap.v' class='invisible'><code>pub fn <a href='#method.unwrap' class='fnname'>unwrap</a>(self) -&gt; <a class="struct" href="../../glitter/shader/struct.Shader.html" title="struct glitter::shader::Shader">Shader</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/glitter/shader.rs.html#113-115' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Try to compile a shader with the provided options, panicking if
 a new shader object could not be created or if there was an error
 compiling the provided source.</p>
@@ -76,13 +81,15 @@ compiling the provided source.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -115,11 +122,8 @@ compiling the provided source.</p>
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    <script src="../../extra.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
 </html>

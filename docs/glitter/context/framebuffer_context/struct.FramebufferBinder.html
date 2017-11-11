@@ -9,6 +9,7 @@
 
     <title>glitter::context::framebuffer_context::FramebufferBinder - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../main.css">
     
@@ -16,7 +17,7 @@
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc struct">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -28,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a></p><script>window.sidebarCurrent = {name: 'FramebufferBinder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct FramebufferBinder</p><div class="block items"><a class="sidebar-title" href="#methods">Methods</a><div class="sidebar-links"><a href="#method.current">current</a><a href="#method.current_binding">current_binding</a><a href="#method.bind">bind</a></div></div><p class='location'><a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a></p><script>window.sidebarCurrent = {name: 'FramebufferBinder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -42,27 +43,31 @@
         </form>
     </nav>
 
-    <section id='main' class="content struct">
-<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a>::<wbr><a class='struct' href=''>FramebufferBinder</a></span><span class='out-of-band'><span id='render-detail'>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../../index.html'>glitter</a>::<wbr><a href='../index.html'>context</a>::<wbr><a href='index.html'>framebuffer_context</a>::<wbr><a class="struct" href=''>FramebufferBinder</a></span><span class='out-of-band'><span id='render-detail'>
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-493' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#409-411' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#409-411' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'>pub struct FramebufferBinder { /* fields omitted */ }</pre><div class='docblock'><p>The OpenGL state representing the <code>GL_FRAMEBUFFER</code> target.</p>
-</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html' title='glitter::context::framebuffer_context::FramebufferBinder'>FramebufferBinder</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-495' class='srclink' href='../../../src/glitter/src/context/framebuffer_context.rs.html#413-455' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.current' class='method'><span id='current.v' class='invisible'><code>unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; Self</code></span></h4>
+</div>
+                    <h2 id='methods' class='small-section-header'>
+                      Methods<a href='#methods' class='anchor'></a>
+                    </h2>
+                <h3 id='impl' class='impl'><span class='in-band'><code>impl <a class="struct" href="../../../glitter/context/framebuffer_context/struct.FramebufferBinder.html" title="struct glitter::context::framebuffer_context::FramebufferBinder">FramebufferBinder</a></code><a href='#impl' class='anchor'></a></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#413-455' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.current' class="method"><span id='current.v' class='invisible'><code>pub unsafe fn <a href='#method.current' class='fnname'>current</a>() -&gt; Self</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#420-424' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Get the current <code>GL_FRAMEBUFFER</code> binder.</p>
 
 <h1 id='safety' class='section-header'><a href='#safety'>Safety</a></h1>
 <p>The same rules apply to this method as the
 <a href="../struct.ContextOf.html#method.current_context"><code>ContextOf::current_context()</code></a> method.</p>
-</div><h4 id='method.current_binding' class='method'><span id='current_binding.v' class='invisible'><code>unsafe fn <a href='#method.current_binding' class='fnname'>current_binding</a>(&amp;mut self) -&gt; <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a></code></span></h4>
+</div><h4 id='method.current_binding' class="method"><span id='current_binding.v' class='invisible'><code>pub unsafe fn <a href='#method.current_binding' class='fnname'>current_binding</a>(&amp;mut self) -&gt; <a class="struct" href="../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html" title="struct glitter::context::framebuffer_context::FramebufferBinding">FramebufferBinding</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#431-436' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Get the current <code>GL_FRAMEBUFFER</code> binding.</p>
 
 <h1 id='safety-1' class='section-header'><a href='#safety-1'>Safety</a></h1>
 <p>This function should not be used to create an aliasing framebuffer
 binding.</p>
-</div><h4 id='method.bind' class='method'><span id='bind.v' class='invisible'><code>fn <a href='#method.bind' class='fnname'>bind</a>&lt;'a&gt;(&amp;mut self, fbo: &amp;'a mut <a class='struct' href='../../../glitter/framebuffer/struct.Framebuffer.html' title='glitter::framebuffer::Framebuffer'>Framebuffer</a>) -&gt; <a class='struct' href='../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html' title='glitter::context::framebuffer_context::FramebufferBinding'>FramebufferBinding</a>&lt;'a&gt;</code></span></h4>
+</div><h4 id='method.bind' class="method"><span id='bind.v' class='invisible'><code>pub fn <a href='#method.bind' class='fnname'>bind</a>&lt;'a&gt;(&amp;mut self, fbo: &amp;'a mut <a class="struct" href="../../../glitter/framebuffer/struct.Framebuffer.html" title="struct glitter::framebuffer::Framebuffer">Framebuffer</a>) -&gt; <a class="struct" href="../../../glitter/context/framebuffer_context/struct.FramebufferBinding.html" title="struct glitter::context::framebuffer_context::FramebufferBinding">FramebufferBinding</a>&lt;'a&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/glitter/context/framebuffer_context.rs.html#439-454' title='goto source code'>[src]</a></span></h4>
 <div class='docblock'><p>Bind a framebuffer to the <code>GL_FRAMEBUFFER</code> target, returning a binding.</p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
@@ -81,13 +86,15 @@ binding.</p>
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
-                    <dt>+</dt>
+                    <dt style="width:31px;">+ / -</dt>
                     <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
@@ -120,11 +127,8 @@ binding.</p>
     <script>
         window.rootPath = "../../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
-    <script src="../../../extra.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
 </html>

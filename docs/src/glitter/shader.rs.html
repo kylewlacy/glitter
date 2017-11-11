@@ -9,13 +9,15 @@
 
     <title>shader.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../main.css">
+    
 
     
     
 </head>
-<body class="rustdoc">
+<body class="rustdoc source">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -41,7 +43,7 @@
         </form>
     </nav>
 
-    <section id='main' class="content source"><pre class="line-numbers"><span id="1">  1</span>
+    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -473,437 +475,437 @@
 <span id="430">430</span>
 <span id="431">431</span>
 <span id="432">432</span>
-</pre><pre class='rust '>
-<span class='doccomment'>//! Exposes the OpenGL [`Shader`](struct.Shader.html) object and related types.</span>
+</pre><pre class="rust ">
+<span class="doccomment">//! Exposes the OpenGL [`Shader`](struct.Shader.html) object and related types.</span>
 
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>marker</span>::<span class='ident'>PhantomData</span>;
-<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>ptr</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>;
-<span class='kw'>use</span> <span class='ident'>gl</span>::<span class='ident'>types</span>::<span class='op'>*</span>;
-<span class='kw'>use</span> <span class='ident'>context</span>::{<span class='ident'>AContext</span>, <span class='ident'>BaseContext</span>};
-<span class='kw'>use</span> <span class='ident'>types</span>::{<span class='ident'>GLObject</span>, <span class='ident'>GLError</span>};
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">marker</span>::<span class="ident">PhantomData</span>;
+<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
+<span class="kw">use</span> <span class="ident">gl</span>;
+<span class="kw">use</span> <span class="ident">gl</span>::<span class="ident">types</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="ident">context</span>::{<span class="ident">AContext</span>, <span class="ident">BaseContext</span>};
+<span class="kw">use</span> <span class="ident">types</span>::{<span class="ident">GLObject</span>, <span class="ident">GLError</span>};
 
-<span class='doccomment'>/// An OpenGL shader object.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// A shader is a small program that runs on the GPU to compute a part of</span>
-<span class='doccomment'>/// the rendering pipeline. There are two shaders that are necessary for</span>
-<span class='doccomment'>/// rendering in OpenGL: the vertex shader and the fragment shader. The</span>
-<span class='doccomment'>/// vertex shader translates geometry from world space into screen space, and</span>
-<span class='doccomment'>/// the fragment shader determines the final color of each pixel (or</span>
-<span class='doccomment'>/// &#39;fragment&#39;). In order to use a shader, it should be linked with</span>
-<span class='doccomment'>/// a [`Program`](../program/struct.Program.html) to be used for drawing.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// A shader will automatically be deleted after going out of scope.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// # See also</span>
-<span class='doccomment'>/// [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_fragment_shader),</span>
-<span class='doccomment'>/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_vertex_shader),</span>
-<span class='doccomment'>/// and [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader):</span>
-<span class='doccomment'>/// Build and compile a new shader object.</span>
-<span class='doccomment'>///</span>
-<span class='doccomment'>/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
-<span class='doccomment'>/// Create a new, empty shader object.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Shader</span> {
-    <span class='ident'>gl_id</span>: <span class='ident'>GLuint</span>,
-    <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span><span class='op'>&lt;</span><span class='op'>*</span><span class='kw-2'>mut</span> ()<span class='op'>&gt;</span>
+<span class="doccomment">/// An OpenGL shader object.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A shader is a small program that runs on the GPU to compute a part of</span>
+<span class="doccomment">/// the rendering pipeline. There are two shaders that are necessary for</span>
+<span class="doccomment">/// rendering in OpenGL: the vertex shader and the fragment shader. The</span>
+<span class="doccomment">/// vertex shader translates geometry from world space into screen space, and</span>
+<span class="doccomment">/// the fragment shader determines the final color of each pixel (or</span>
+<span class="doccomment">/// &#39;fragment&#39;). In order to use a shader, it should be linked with</span>
+<span class="doccomment">/// a [`Program`](../program/struct.Program.html) to be used for drawing.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// A shader will automatically be deleted after going out of scope.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// # See also</span>
+<span class="doccomment">/// [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_fragment_shader),</span>
+<span class="doccomment">/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_vertex_shader),</span>
+<span class="doccomment">/// and [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader):</span>
+<span class="doccomment">/// Build and compile a new shader object.</span>
+<span class="doccomment">///</span>
+<span class="doccomment">/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
+<span class="doccomment">/// Create a new, empty shader object.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Shader</span> {
+    <span class="ident">gl_id</span>: <span class="ident">GLuint</span>,
+    <span class="ident">_phantom</span>: <span class="ident">PhantomData</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw-2">mut</span> ()<span class="op">&gt;</span>
 }
 
-<span class='kw'>impl</span> <span class='ident'>Drop</span> <span class='kw'>for</span> <span class='ident'>Shader</span> {
-    <span class='kw'>fn</span> <span class='ident'>drop</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='self'>self</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>DeleteShader</span>(<span class='self'>self</span>.<span class='ident'>gl_id</span>);
+<span class="kw">impl</span> <span class="ident">Drop</span> <span class="kw">for</span> <span class="ident">Shader</span> {
+    <span class="kw">fn</span> <span class="ident">drop</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">DeleteShader</span>(<span class="self">self</span>.<span class="ident">gl_id</span>);
         }
     }
 }
 
-<span class='kw'>impl</span> <span class='ident'>GLObject</span> <span class='kw'>for</span> <span class='ident'>Shader</span> {
-    <span class='kw'>type</span> <span class='ident'>Id</span> <span class='op'>=</span> <span class='ident'>GLuint</span>;
+<span class="kw">impl</span> <span class="ident">GLObject</span> <span class="kw">for</span> <span class="ident">Shader</span> {
+    <span class="kw">type</span> <span class="ident">Id</span> <span class="op">=</span> <span class="ident">GLuint</span>;
 
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>from_raw</span>(<span class='ident'>id</span>: <span class='ident'>Self</span>::<span class='ident'>Id</span>) <span class='op'>-&gt;</span> <span class='kw'>Self</span> {
-        <span class='ident'>Shader</span> {
-            <span class='ident'>gl_id</span>: <span class='ident'>id</span>,
-            <span class='ident'>_phantom</span>: <span class='ident'>PhantomData</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">from_raw</span>(<span class="ident">id</span>: <span class="self">Self</span>::<span class="ident">Id</span>) <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">Shader</span> {
+            <span class="ident">gl_id</span>: <span class="ident">id</span>,
+            <span class="ident">_phantom</span>: <span class="ident">PhantomData</span>
         }
     }
 
-    <span class='kw'>fn</span> <span class='ident'>id</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Self</span>::<span class='ident'>Id</span> {
-        <span class='self'>self</span>.<span class='ident'>gl_id</span>
+    <span class="kw">fn</span> <span class="ident">id</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="self">Self</span>::<span class="ident">Id</span> {
+        <span class="self">self</span>.<span class="ident">gl_id</span>
     }
 }
 
 
 
-<span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>_get_shader_iv</span>(<span class='ident'>shader</span>: <span class='kw-2'>&amp;</span><span class='ident'>Shader</span>,
-                         <span class='ident'>pname</span>: <span class='ident'>GLenum</span>,
-                         <span class='ident'>params</span>: <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GLint</span>)
+<span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">_get_shader_iv</span>(<span class="ident">shader</span>: <span class="kw-2">&amp;</span><span class="ident">Shader</span>,
+                         <span class="ident">pname</span>: <span class="ident">GLenum</span>,
+                         <span class="ident">params</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GLint</span>)
 {
-    <span class='ident'>gl</span>::<span class='ident'>GetShaderiv</span>(<span class='ident'>shader</span>.<span class='ident'>id</span>(), <span class='ident'>pname</span>, <span class='ident'>params</span>);
-    <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`pname` is not an accepted value&quot;</span>,
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a value generated by OpenGL&quot;</span>,
-        <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a shader object, or `pname` is GL_COMPILE_STATUS, GL_INFO_LOG_LENGTH or GL_SHADER_SOURCE_LENGTH but a shader compiler is not supported&quot;</span>,
-        _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="ident">gl</span>::<span class="ident">GetShaderiv</span>(<span class="ident">shader</span>.<span class="ident">id</span>(), <span class="ident">pname</span>, <span class="ident">params</span>);
+    <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+        <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`pname` is not an accepted value&quot;</span>,
+        <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a value generated by OpenGL&quot;</span>,
+        <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a shader object, or `pname` is GL_COMPILE_STATUS, GL_INFO_LOG_LENGTH or GL_SHADER_SOURCE_LENGTH but a shader compiler is not supported&quot;</span>,
+        _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
     }
 }
 
-<span class='doccomment'>/// A safe interface for creating a shader with a source, and returning an error</span>
-<span class='doccomment'>/// or panicking if there is an error.</span>
-<span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span>: <span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>C</span>: <span class='ident'>AContext</span>
+<span class="doccomment">/// A safe interface for creating a shader with a source, and returning an error</span>
+<span class="doccomment">/// or panicking if there is an error.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="lifetime">&#39;a</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">C</span>: <span class="ident">AContext</span>
 {
-    <span class='ident'>gl</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>C</span>,
-    <span class='ident'>ty</span>: <span class='ident'>ShaderType</span>,
-    <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>
+    <span class="ident">gl</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>,
+    <span class="ident">ty</span>: <span class="ident">ShaderType</span>,
+    <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span>: <span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span><span class='op'>&gt;</span>
-    <span class='kw'>where</span> <span class='ident'>C</span>: <span class='ident'>AContext</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span>: <span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">C</span>: <span class="ident">AContext</span>
 {
-    <span class='kw'>fn</span> <span class='ident'>new</span>(<span class='ident'>gl</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>C</span>, <span class='ident'>ty</span>: <span class='ident'>ShaderType</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
-        <span class='op'>-&gt;</span> <span class='kw'>Self</span>
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">gl</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">C</span>, <span class="ident">ty</span>: <span class="ident">ShaderType</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>)
+        <span class="op">-&gt;</span> <span class="self">Self</span>
     {
-        <span class='ident'>ShaderBuilder</span> { <span class='ident'>gl</span>: <span class='ident'>gl</span>, <span class='ident'>ty</span>: <span class='ident'>ty</span>, <span class='ident'>source</span>: <span class='ident'>source</span> }
+        <span class="ident">ShaderBuilder</span> { <span class="ident">gl</span>: <span class="ident">gl</span>, <span class="ident">ty</span>: <span class="ident">ty</span>, <span class="ident">source</span>: <span class="ident">source</span> }
     }
 
-    <span class='doccomment'>/// Try to compile a shader with the provided options, or `Err` if</span>
-    <span class='doccomment'>/// a new shader object could not be created or if there was an error</span>
-    <span class='doccomment'>/// compiling the provided source.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>try_unwrap</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Shader</span>, <span class='ident'>GLError</span><span class='op'>&gt;</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>shader</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span> {
-                <span class='self'>self</span>.<span class='ident'>gl</span>.<span class='ident'>create_shader</span>(<span class='self'>self</span>.<span class='ident'>ty</span>).<span class='ident'>or_else</span>(<span class='op'>|</span>_<span class='op'>|</span> {
-                    <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='string'>&quot;Error creating OpenGL shader&quot;</span>;
-                    <span class='prelude-val'>Err</span>(<span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='ident'>msg</span>.<span class='ident'>to_owned</span>()))
+    <span class="doccomment">/// Try to compile a shader with the provided options, or `Err` if</span>
+    <span class="doccomment">/// a new shader object could not be created or if there was an error</span>
+    <span class="doccomment">/// compiling the provided source.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">try_unwrap</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Shader</span>, <span class="ident">GLError</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">shader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span> {
+                <span class="self">self</span>.<span class="ident">gl</span>.<span class="ident">create_shader</span>(<span class="self">self</span>.<span class="ident">ty</span>).<span class="ident">or_else</span>(<span class="op">|</span>_<span class="op">|</span> {
+                    <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="string">&quot;Error creating OpenGL shader&quot;</span>;
+                    <span class="prelude-val">Err</span>(<span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="ident">msg</span>.<span class="ident">to_owned</span>()))
                 })
             };
 
-            <span class='self'>self</span>.<span class='ident'>gl</span>.<span class='ident'>shader_source</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>shader</span>, <span class='self'>self</span>.<span class='ident'>source</span>);
-            <span class='macro'>try</span><span class='macro'>!</span>(<span class='self'>self</span>.<span class='ident'>gl</span>.<span class='ident'>compile_shader</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>shader</span>));
-            <span class='prelude-val'>Ok</span>(<span class='ident'>shader</span>)
+            <span class="self">self</span>.<span class="ident">gl</span>.<span class="ident">shader_source</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">shader</span>, <span class="self">self</span>.<span class="ident">source</span>);
+            <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">gl</span>.<span class="ident">compile_shader</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">shader</span>));
+            <span class="prelude-val">Ok</span>(<span class="ident">shader</span>)
         }
     }
 
-    <span class='doccomment'>/// Try to compile a shader with the provided options, panicking if</span>
-    <span class='doccomment'>/// a new shader object could not be created or if there was an error</span>
-    <span class='doccomment'>/// compiling the provided source.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>unwrap</span>(<span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Shader</span> {
-        <span class='self'>self</span>.<span class='ident'>try_unwrap</span>().<span class='ident'>unwrap</span>()
+    <span class="doccomment">/// Try to compile a shader with the provided options, panicking if</span>
+    <span class="doccomment">/// a new shader object could not be created or if there was an error</span>
+    <span class="doccomment">/// compiling the provided source.</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">unwrap</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Shader</span> {
+        <span class="self">self</span>.<span class="ident">try_unwrap</span>().<span class="ident">unwrap</span>()
     }
 }
 
-<span class='doccomment'>/// An extension trait for [`ContextOf`](../context/struct.ContextOf.html) that</span>
-<span class='doccomment'>/// adds functions to build shaders using the [`ShaderBuilder`]</span>
-<span class='doccomment'>/// (struct.ShaderBuilder.html) interface.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ContextShaderBuilderExt</span>: <span class='ident'>AContext</span> <span class='op'>+</span> <span class='ident'>Sized</span> {
-    <span class='doccomment'>/// Build a new shader with the provided shader type and shader source.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let vertex_source = r##&quot;#version 100</span>
-    <span class='doccomment'>///     attribute vec4 position;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>///     void main() {</span>
-    <span class='doccomment'>///         gl_Position = position;</span>
-    <span class='doccomment'>///         _color = color;</span>
-    <span class='doccomment'>///     }</span>
-    <span class='doccomment'>/// &quot;##;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// let shader = gl.build_shader(glitter::VERTEX_SHADER, vertex_source).unwrap();</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>build_shader</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>ty</span>: <span class='ident'>ShaderType</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='kw'>Self</span><span class='op'>&gt;</span>;
+<span class="doccomment">/// An extension trait for [`ContextOf`](../context/struct.ContextOf.html) that</span>
+<span class="doccomment">/// adds functions to build shaders using the [`ShaderBuilder`]</span>
+<span class="doccomment">/// (struct.ShaderBuilder.html) interface.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextShaderBuilderExt</span>: <span class="ident">AContext</span> <span class="op">+</span> <span class="ident">Sized</span> {
+    <span class="doccomment">/// Build a new shader with the provided shader type and shader source.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let vertex_source = r##&quot;#version 100</span>
+    <span class="doccomment">///     attribute vec4 position;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///     void main() {</span>
+    <span class="doccomment">///         gl_Position = position;</span>
+    <span class="doccomment">///         _color = color;</span>
+    <span class="doccomment">///     }</span>
+    <span class="doccomment">/// &quot;##;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// let shader = gl.build_shader(glitter::VERTEX_SHADER, vertex_source).unwrap();</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">build_shader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">ty</span>: <span class="ident">ShaderType</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>)
+        <span class="op">-&gt;</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span>;
 
-    <span class='doccomment'>/// Build a new fragment shader with the provided shader source.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let fragment_source = r##&quot;#version 100</span>
-    <span class='doccomment'>///     void main() {</span>
-    <span class='doccomment'>///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);</span>
-    <span class='doccomment'>///     }</span>
-    <span class='doccomment'>/// &quot;##;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// let shader = gl.build_fragment_shader(fragment_source).unwrap();</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>build_fragment_shader</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='kw'>Self</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Build a new fragment shader with the provided shader source.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let fragment_source = r##&quot;#version 100</span>
+    <span class="doccomment">///     void main() {</span>
+    <span class="doccomment">///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);</span>
+    <span class="doccomment">///     }</span>
+    <span class="doccomment">/// &quot;##;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// let shader = gl.build_fragment_shader(fragment_source).unwrap();</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">build_fragment_shader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>)
+        <span class="op">-&gt;</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span>
     {
-        <span class='self'>self</span>.<span class='ident'>build_shader</span>(<span class='ident'>ShaderType</span>::<span class='ident'>FragmentShader</span>, <span class='ident'>source</span>)
+        <span class="self">self</span>.<span class="ident">build_shader</span>(<span class="ident">ShaderType</span>::<span class="ident">FragmentShader</span>, <span class="ident">source</span>)
     }
 
-    <span class='doccomment'>/// Build a new vertex shader with the provided shader source.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let vertex_source = r##&quot;#version 100</span>
-    <span class='doccomment'>///     attribute vec4 position;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>///     void main() {</span>
-    <span class='doccomment'>///         gl_Position = position;</span>
-    <span class='doccomment'>///         _color = color;</span>
-    <span class='doccomment'>///     }</span>
-    <span class='doccomment'>/// &quot;##;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// let shader = gl.build_vertex_shader(vertex_source).unwrap();</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='kw'>fn</span> <span class='ident'>build_vertex_shader</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='kw'>Self</span><span class='op'>&gt;</span>
+    <span class="doccomment">/// Build a new vertex shader with the provided shader source.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let vertex_source = r##&quot;#version 100</span>
+    <span class="doccomment">///     attribute vec4 position;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///     void main() {</span>
+    <span class="doccomment">///         gl_Position = position;</span>
+    <span class="doccomment">///         _color = color;</span>
+    <span class="doccomment">///     }</span>
+    <span class="doccomment">/// &quot;##;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// let shader = gl.build_vertex_shader(vertex_source).unwrap();</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="kw">fn</span> <span class="ident">build_vertex_shader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>)
+        <span class="op">-&gt;</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="self">Self</span><span class="op">&gt;</span>
     {
-        <span class='self'>self</span>.<span class='ident'>build_shader</span>(<span class='ident'>ShaderType</span>::<span class='ident'>VertexShader</span>, <span class='ident'>source</span>)
-    }
-}
-
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>AContext</span><span class='op'>&gt;</span> <span class='ident'>ContextShaderBuilderExt</span> <span class='kw'>for</span> <span class='ident'>C</span> {
-    <span class='kw'>fn</span> <span class='ident'>build_shader</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='self'>self</span>, <span class='ident'>ty</span>: <span class='ident'>ShaderType</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span>)
-        <span class='op'>-&gt;</span> <span class='ident'>ShaderBuilder</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span>, <span class='ident'>C</span><span class='op'>&gt;</span>
-    {
-        <span class='ident'>ShaderBuilder</span>::<span class='ident'>new</span>(<span class='self'>self</span>, <span class='ident'>ty</span>, <span class='ident'>source</span>)
+        <span class="self">self</span>.<span class="ident">build_shader</span>(<span class="ident">ShaderType</span>::<span class="ident">VertexShader</span>, <span class="ident">source</span>)
     }
 }
 
-<span class='doccomment'>/// An extension trait that includes shader-related OpenGL methods.</span>
-<span class='kw'>pub</span> <span class='kw'>trait</span> <span class='ident'>ContextShaderExt</span>: <span class='ident'>BaseContext</span> {
-    <span class='doccomment'>/// Create a new, uninitalized shader.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Safety</span>
-    <span class='doccomment'>/// Most OpenGL functions that take a shader expect the shader to have</span>
-    <span class='doccomment'>/// been setup and compiled already. Before using this shader,</span>
-    <span class='doccomment'>/// it must have its source set using [`gl.shader_source`]</span>
-    <span class='doccomment'>/// (trait.ContextShaderExt.html#method.shader_source) and compiled with</span>
-    <span class='doccomment'>/// [`gl.compile_shader`](trait.ContextShaderExt.html#method.compile_shader).</span>
-    <span class='doccomment'>/// Instead, consider using one of the shader builder functions, which</span>
-    <span class='doccomment'>/// handle proper setup and compilation automatically.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// let vertex_source = r##&quot;#version 100</span>
-    <span class='doccomment'>///     attribute vec4 position;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>///     void main() {</span>
-    <span class='doccomment'>///         gl_Position = position;</span>
-    <span class='doccomment'>///     }</span>
-    <span class='doccomment'>/// &quot;##;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let shader = unsafe {</span>
-    <span class='doccomment'>///     let mut shader = gl.create_shader(glitter::VERTEX_SHADER).unwrap();</span>
-    <span class='doccomment'>///     gl.shader_source(&amp;mut shader, vertex_source);</span>
-    <span class='doccomment'>///     gl.compile_shader(&amp;mut shader).unwrap();</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>///     shader</span>
-    <span class='doccomment'>/// };</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
-    <span class='doccomment'>/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
-    <span class='doccomment'>/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
-    <span class='doccomment'>/// A safe interface for creating and building shaders, which automatically</span>
-    <span class='doccomment'>/// handle compilation and error checking.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`glCreateShader`](http://docs.gl/es2/glCreateShader) OpenGL docs</span>
-    <span class='kw'>unsafe</span> <span class='kw'>fn</span> <span class='ident'>create_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader_type</span>: <span class='ident'>ShaderType</span>)
-        <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>Shader</span>, ()<span class='op'>&gt;</span>
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">AContext</span><span class="op">&gt;</span> <span class="ident">ContextShaderBuilderExt</span> <span class="kw">for</span> <span class="ident">C</span> {
+    <span class="kw">fn</span> <span class="ident">build_shader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>, <span class="ident">ty</span>: <span class="ident">ShaderType</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">str</span>)
+        <span class="op">-&gt;</span> <span class="ident">ShaderBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span>, <span class="ident">C</span><span class="op">&gt;</span>
     {
-        <span class='kw'>let</span> <span class='ident'>id</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>CreateShader</span>(<span class='ident'>shader_type</span>.<span class='ident'>gl_enum</span>());
-        <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-            <span class='ident'>GLError</span>::<span class='ident'>InvalidEnum</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shaderType` is not an accepted value&quot;</span>,
-            _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+        <span class="ident">ShaderBuilder</span>::<span class="ident">new</span>(<span class="self">self</span>, <span class="ident">ty</span>, <span class="ident">source</span>)
+    }
+}
+
+<span class="doccomment">/// An extension trait that includes shader-related OpenGL methods.</span>
+<span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ContextShaderExt</span>: <span class="ident">BaseContext</span> {
+    <span class="doccomment">/// Create a new, uninitialized shader.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Safety</span>
+    <span class="doccomment">/// Most OpenGL functions that take a shader expect the shader to have</span>
+    <span class="doccomment">/// been setup and compiled already. Before using this shader,</span>
+    <span class="doccomment">/// it must have its source set using [`gl.shader_source`]</span>
+    <span class="doccomment">/// (trait.ContextShaderExt.html#method.shader_source) and compiled with</span>
+    <span class="doccomment">/// [`gl.compile_shader`](trait.ContextShaderExt.html#method.compile_shader).</span>
+    <span class="doccomment">/// Instead, consider using one of the shader builder functions, which</span>
+    <span class="doccomment">/// handle proper setup and compilation automatically.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// let vertex_source = r##&quot;#version 100</span>
+    <span class="doccomment">///     attribute vec4 position;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///     void main() {</span>
+    <span class="doccomment">///         gl_Position = position;</span>
+    <span class="doccomment">///     }</span>
+    <span class="doccomment">/// &quot;##;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let shader = unsafe {</span>
+    <span class="doccomment">///     let mut shader = gl.create_shader(glitter::VERTEX_SHADER).unwrap();</span>
+    <span class="doccomment">///     gl.shader_source(&amp;mut shader, vertex_source);</span>
+    <span class="doccomment">///     gl.compile_shader(&amp;mut shader).unwrap();</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">///     shader</span>
+    <span class="doccomment">/// };</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
+    <span class="doccomment">/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
+    <span class="doccomment">/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
+    <span class="doccomment">/// A safe interface for creating and building shaders, which automatically</span>
+    <span class="doccomment">/// handle compilation and error checking.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`glCreateShader`](http://docs.gl/es2/glCreateShader) OpenGL docs</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">create_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader_type</span>: <span class="ident">ShaderType</span>)
+        <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Shader</span>, ()<span class="op">&gt;</span>
+    {
+        <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">CreateShader</span>(<span class="ident">shader_type</span>.<span class="ident">gl_enum</span>());
+        <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+            <span class="ident">GLError</span>::<span class="ident">InvalidEnum</span> <span class="op">=&gt;</span> <span class="string">&quot;`shaderType` is not an accepted value&quot;</span>,
+            _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
         }
-        <span class='kw'>if</span> <span class='ident'>id</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-            <span class='prelude-val'>Ok</span>(<span class='ident'>Shader</span>::<span class='ident'>from_raw</span>(<span class='ident'>id</span>))
+        <span class="kw">if</span> <span class="ident">id</span> <span class="op">&gt;</span> <span class="number">0</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">Shader</span>::<span class="ident">from_raw</span>(<span class="ident">id</span>))
         }
-        <span class='kw'>else</span> {
-            <span class='prelude-val'>Err</span>(())
+        <span class="kw">else</span> {
+            <span class="prelude-val">Err</span>(())
         }
     }
 
-    <span class='doccomment'>/// Set or replace a shader object&#39;s source. The shader should be recompiled</span>
-    <span class='doccomment'>/// after calling this function by using the [`gl.compile_shader`]</span>
-    <span class='doccomment'>/// (trait.ContextShaderExt.html#method.compile_shader) function</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
-    <span class='doccomment'>/// A function to create a new, uninitialized shader. Includes an example</span>
-    <span class='doccomment'>/// of how to use `gl.shader_source`</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
-    <span class='doccomment'>/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
-    <span class='doccomment'>/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
-    <span class='doccomment'>/// The preferred way to create and compile a shader object, which skips</span>
-    <span class='doccomment'>/// the need to directly call `gl.shader_source`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`glShaderSource`](http://docs.gl/es2/glShaderSource) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>shader_source</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Shader</span>, <span class='ident'>source</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='ident'>source_ptr</span> <span class='op'>=</span> <span class='ident'>source</span>.<span class='ident'>as_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLchar</span>;
-            <span class='kw'>let</span> <span class='ident'>source_len</span> <span class='op'>=</span> <span class='ident'>source</span>.<span class='ident'>len</span>() <span class='kw'>as</span> <span class='ident'>GLint</span>;
+    <span class="doccomment">/// Set or replace a shader object&#39;s source. The shader should be recompiled</span>
+    <span class="doccomment">/// after calling this function by using the [`gl.compile_shader`]</span>
+    <span class="doccomment">/// (trait.ContextShaderExt.html#method.compile_shader) function</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
+    <span class="doccomment">/// A function to create a new, uninitialized shader. Includes an example</span>
+    <span class="doccomment">/// of how to use `gl.shader_source`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
+    <span class="doccomment">/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
+    <span class="doccomment">/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
+    <span class="doccomment">/// The preferred way to create and compile a shader object, which skips</span>
+    <span class="doccomment">/// the need to directly call `gl.shader_source`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`glShaderSource`](http://docs.gl/es2/glShaderSource) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">shader_source</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Shader</span>, <span class="ident">source</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="ident">source_ptr</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLchar</span>;
+            <span class="kw">let</span> <span class="ident">source_len</span> <span class="op">=</span> <span class="ident">source</span>.<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">GLint</span>;
 
-            <span class='ident'>gl</span>::<span class='ident'>ShaderSource</span>(<span class='ident'>shader</span>.<span class='ident'>id</span>(), <span class='number'>1</span>,
-                             <span class='kw-2'>&amp;</span><span class='ident'>source_ptr</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLchar</span>,
-                             <span class='kw-2'>&amp;</span><span class='ident'>source_len</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw'>const</span> <span class='ident'>GLint</span>);
-            <span class='macro'>dbg_gl_error</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a shader object or shader compiler is not supported&quot;</span>,
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a value generated by OpenGL or `count` &lt; 0&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+            <span class="ident">gl</span>::<span class="ident">ShaderSource</span>(<span class="ident">shader</span>.<span class="ident">id</span>(), <span class="number">1</span>,
+                             <span class="kw-2">&amp;</span><span class="ident">source_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLchar</span>,
+                             <span class="kw-2">&amp;</span><span class="ident">source_len</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">GLint</span>);
+            <span class="macro">dbg_gl_error</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a shader object or shader compiler is not supported&quot;</span>,
+                <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a value generated by OpenGL or `count` &lt; 0&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
         }
     }
 
-    <span class='doccomment'>/// Compile the shader&#39;s associated source.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Panics</span>
-    <span class='doccomment'>/// This function will panic if an OpenGL error occurs while trying to</span>
-    <span class='doccomment'>/// compile the shader (determined by calling [`gl.get_error`]</span>
-    <span class='doccomment'>/// (../context/struct.ContextOf.html#method.get_error)). Note that this</span>
-    <span class='doccomment'>/// function ***does not*** panic if there was an error *within* the shader;</span>
-    <span class='doccomment'>/// this function should only panic if the shader is invalid or if</span>
-    <span class='doccomment'>/// shader compilation is unavailable with the current OpenGL context.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Failures</span>
-    <span class='doccomment'>/// If a compilation error occurs, an `Err` value will be returned</span>
-    <span class='doccomment'>/// with the compilation error messages (as determined by</span>
-    <span class='doccomment'>/// [`gl.get_shader_info_log`](trait.ContextShaderExt.html#method.get_shader_info_log)).</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
-    <span class='doccomment'>/// A function to create a new, uninitialized shader. Includes an example</span>
-    <span class='doccomment'>/// of how to use `gl.compile_shader`</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
-    <span class='doccomment'>/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
-    <span class='doccomment'>/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
-    <span class='doccomment'>/// The preferred way to create and compile a shader object, which skips</span>
-    <span class='doccomment'>/// the need to directly call `gl.compile_shader`.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// [`glCompileShader`](http://docs.gl/es2/glCompileShader) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>compile_shader</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>Shader</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span>(), <span class='ident'>GLError</span><span class='op'>&gt;</span> {
-        <span class='kw'>let</span> <span class='ident'>success</span> <span class='op'>=</span> <span class='kw'>unsafe</span> {
-            <span class='ident'>gl</span>::<span class='ident'>CompileShader</span>(<span class='ident'>shader</span>.<span class='ident'>id</span>());
-            <span class='macro'>dbg_gl_error</span><span class='macro'>!</span> {
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a shader object or shader compiler is not supported&quot;</span>,
-                <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a value generated by OpenGL&quot;</span>,
-                _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+    <span class="doccomment">/// Compile the shader&#39;s associated source.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Panics</span>
+    <span class="doccomment">/// This function will panic if an OpenGL error occurs while trying to</span>
+    <span class="doccomment">/// compile the shader (determined by calling [`gl.get_error`]</span>
+    <span class="doccomment">/// (../context/struct.ContextOf.html#method.get_error)). Note that this</span>
+    <span class="doccomment">/// function ***does not*** panic if there was an error *within* the shader;</span>
+    <span class="doccomment">/// this function should only panic if the shader is invalid or if</span>
+    <span class="doccomment">/// shader compilation is unavailable with the current OpenGL context.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Failures</span>
+    <span class="doccomment">/// If a compilation error occurs, an `Err` value will be returned</span>
+    <span class="doccomment">/// with the compilation error messages (as determined by</span>
+    <span class="doccomment">/// [`gl.get_shader_info_log`](trait.ContextShaderExt.html#method.get_shader_info_log)).</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`gl.create_shader`](trait.ContextShaderExt.html#method.create_shader):</span>
+    <span class="doccomment">/// A function to create a new, uninitialized shader. Includes an example</span>
+    <span class="doccomment">/// of how to use `gl.compile_shader`</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`gl.build_shader`](trait.ContextShaderBuilderExt.html#tymethod.build_shader),</span>
+    <span class="doccomment">/// [`gl.build_vertex_shader`](trait.ContextShaderBuilderExt.html#method.build_vertex_shader),</span>
+    <span class="doccomment">/// and [`gl.build_fragment_shader`](trait.ContextShaderBuilderExt.html#method.build_fragment_shader):</span>
+    <span class="doccomment">/// The preferred way to create and compile a shader object, which skips</span>
+    <span class="doccomment">/// the need to directly call `gl.compile_shader`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// [`glCompileShader`](http://docs.gl/es2/glCompileShader) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">compile_shader</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Shader</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">GLError</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">success</span> <span class="op">=</span> <span class="kw">unsafe</span> {
+            <span class="ident">gl</span>::<span class="ident">CompileShader</span>(<span class="ident">shader</span>.<span class="ident">id</span>());
+            <span class="macro">dbg_gl_error</span><span class="macro">!</span> {
+                <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a shader object or shader compiler is not supported&quot;</span>,
+                <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a value generated by OpenGL&quot;</span>,
+                _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
             }
 
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>compile_status</span> : <span class='ident'>GLint</span> <span class='op'>=</span> <span class='number'>0</span>;
-            <span class='ident'>_get_shader_iv</span>(<span class='ident'>shader</span>,
-                           <span class='ident'>gl</span>::<span class='ident'>COMPILE_STATUS</span>,
-                           <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>compile_status</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GLint</span>);
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">compile_status</span> : <span class="ident">GLint</span> <span class="op">=</span> <span class="number">0</span>;
+            <span class="ident">_get_shader_iv</span>(<span class="ident">shader</span>,
+                           <span class="ident">gl</span>::<span class="ident">COMPILE_STATUS</span>,
+                           <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">compile_status</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GLint</span>);
 
-            <span class='ident'>compile_status</span> <span class='op'>==</span> <span class='ident'>gl</span>::<span class='ident'>TRUE</span> <span class='kw'>as</span> <span class='ident'>GLint</span>
+            <span class="ident">compile_status</span> <span class="op">==</span> <span class="ident">gl</span>::<span class="ident">TRUE</span> <span class="kw">as</span> <span class="ident">GLint</span>
         };
 
-        <span class='kw'>if</span> <span class='ident'>success</span> {
-            <span class='prelude-val'>Ok</span>(())
+        <span class="kw">if</span> <span class="ident">success</span> {
+            <span class="prelude-val">Ok</span>(())
         }
-        <span class='kw'>else</span> {
-            <span class='kw'>let</span> <span class='ident'>msg</span> <span class='op'>=</span> <span class='kw'>match</span> <span class='self'>self</span>.<span class='ident'>get_shader_info_log</span>(<span class='kw-2'>&amp;</span><span class='ident'>shader</span>) {
-                <span class='prelude-val'>Some</span>(<span class='ident'>s</span>) <span class='op'>=&gt;</span> { <span class='ident'>s</span> },
-                <span class='prelude-val'>None</span> <span class='op'>=&gt;</span> { <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='string'>&quot;[Unknown shader error]&quot;</span>) }
+        <span class="kw">else</span> {
+            <span class="kw">let</span> <span class="ident">msg</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">get_shader_info_log</span>(<span class="kw-2">&amp;</span><span class="ident">shader</span>) {
+                <span class="prelude-val">Some</span>(<span class="ident">s</span>) <span class="op">=&gt;</span> { <span class="ident">s</span> },
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> { <span class="ident">String</span>::<span class="ident">from</span>(<span class="string">&quot;[Unknown shader error]&quot;</span>) }
             };
-            <span class='prelude-val'>Err</span>(<span class='ident'>GLError</span>::<span class='ident'>Message</span>(<span class='ident'>msg</span>))
+            <span class="prelude-val">Err</span>(<span class="ident">GLError</span>::<span class="ident">Message</span>(<span class="ident">msg</span>))
         }
     }
 
-    <span class='doccomment'>/// Get the information log associated with a shader. This is used to</span>
-    <span class='doccomment'>/// get compilation errors, warnings, or other diagnostic information</span>
-    <span class='doccomment'>/// that may have occurred while trying to compile a shader. Returns `None`</span>
-    <span class='doccomment'>/// if no such diagnostic information was generated.</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # Example</span>
-    <span class='doccomment'>/// ```no_run</span>
-    <span class='doccomment'>/// #[macro_use] extern crate glitter;</span>
-    <span class='doccomment'>/// use glitter::prelude::*;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # fn main() {</span>
-    <span class='doccomment'>/// let fragment_source = r##&quot;#version 100</span>
-    <span class='doccomment'>///     void main() {</span>
-    <span class='doccomment'>///         float someValue = 1.0 * 2.0;</span>
-    <span class='doccomment'>///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);</span>
-    <span class='doccomment'>///     }</span>
-    <span class='doccomment'>/// &quot;##;</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// let gl = unsafe { glitter::Context::current_context() };</span>
-    <span class='doccomment'>/// let shader = gl.build_fragment_shader(fragment_source).unwrap();</span>
-    <span class='doccomment'>/// if let Some(info) = gl.get_shader_info_log(&amp;shader) {</span>
-    <span class='doccomment'>///     println!(&quot;Shader compilation info: {}&quot;, info);</span>
-    <span class='doccomment'>///     // &quot;Shader compilation info: unused variable `someValue` on line 3&quot;</span>
-    <span class='doccomment'>///     // (or whatever other diagnostics your graphics device</span>
-    <span class='doccomment'>///     //  decides to output)</span>
-    <span class='doccomment'>/// }</span>
-    <span class='doccomment'>/// # }</span>
-    <span class='doccomment'>/// ```</span>
-    <span class='doccomment'>///</span>
-    <span class='doccomment'>/// # See also</span>
-    <span class='doccomment'>/// [`glGetShaderInfoLog`](http://docs.gl/es2/glGetShaderInfoLog) OpenGL docs</span>
-    <span class='kw'>fn</span> <span class='ident'>get_shader_info_log</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>shader</span>: <span class='kw-2'>&amp;</span><span class='ident'>Shader</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>String</span><span class='op'>&gt;</span> {
-        <span class='kw'>unsafe</span> {
-            <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>info_length</span> : <span class='ident'>GLint</span> <span class='op'>=</span> <span class='number'>0</span>;
-            <span class='ident'>_get_shader_iv</span>(<span class='ident'>shader</span>,
-                           <span class='ident'>gl</span>::<span class='ident'>INFO_LOG_LENGTH</span>,
-                           <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>info_length</span> <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GLint</span>);
+    <span class="doccomment">/// Get the information log associated with a shader. This is used to</span>
+    <span class="doccomment">/// get compilation errors, warnings, or other diagnostic information</span>
+    <span class="doccomment">/// that may have occurred while trying to compile a shader. Returns `None`</span>
+    <span class="doccomment">/// if no such diagnostic information was generated.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Example</span>
+    <span class="doccomment">/// ```no_run</span>
+    <span class="doccomment">/// #[macro_use] extern crate glitter;</span>
+    <span class="doccomment">/// use glitter::prelude::*;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # fn main() {</span>
+    <span class="doccomment">/// let fragment_source = r##&quot;#version 100</span>
+    <span class="doccomment">///     void main() {</span>
+    <span class="doccomment">///         float someValue = 1.0 * 2.0;</span>
+    <span class="doccomment">///         gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);</span>
+    <span class="doccomment">///     }</span>
+    <span class="doccomment">/// &quot;##;</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// let gl = unsafe { glitter::Context::current_context() };</span>
+    <span class="doccomment">/// let shader = gl.build_fragment_shader(fragment_source).unwrap();</span>
+    <span class="doccomment">/// if let Some(info) = gl.get_shader_info_log(&amp;shader) {</span>
+    <span class="doccomment">///     println!(&quot;Shader compilation info: {}&quot;, info);</span>
+    <span class="doccomment">///     // &quot;Shader compilation info: unused variable `someValue` on line 3&quot;</span>
+    <span class="doccomment">///     // (or whatever other diagnostics your graphics device</span>
+    <span class="doccomment">///     //  decides to output)</span>
+    <span class="doccomment">/// }</span>
+    <span class="doccomment">/// # }</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # See also</span>
+    <span class="doccomment">/// [`glGetShaderInfoLog`](http://docs.gl/es2/glGetShaderInfoLog) OpenGL docs</span>
+    <span class="kw">fn</span> <span class="ident">get_shader_info_log</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">shader</span>: <span class="kw-2">&amp;</span><span class="ident">Shader</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">String</span><span class="op">&gt;</span> {
+        <span class="kw">unsafe</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">info_length</span> : <span class="ident">GLint</span> <span class="op">=</span> <span class="number">0</span>;
+            <span class="ident">_get_shader_iv</span>(<span class="ident">shader</span>,
+                           <span class="ident">gl</span>::<span class="ident">INFO_LOG_LENGTH</span>,
+                           <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">info_length</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GLint</span>);
 
-            <span class='kw'>if</span> <span class='ident'>info_length</span> <span class='op'>&gt;</span> <span class='number'>0</span> {
-                <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>bytes</span> <span class='op'>=</span> <span class='ident'>Vec</span>::<span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>::<span class='ident'>with_capacity</span>(<span class='ident'>info_length</span> <span class='kw'>as</span> <span class='ident'>usize</span>);
+            <span class="kw">if</span> <span class="ident">info_length</span> <span class="op">&gt;</span> <span class="number">0</span> {
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>::<span class="ident">with_capacity</span>(<span class="ident">info_length</span> <span class="kw">as</span> <span class="ident">usize</span>);
 
-                <span class='ident'>gl</span>::<span class='ident'>GetShaderInfoLog</span>(<span class='ident'>shader</span>.<span class='ident'>id</span>(),
-                                     <span class='ident'>info_length</span>,
-                                     <span class='ident'>ptr</span>::<span class='ident'>null_mut</span>(),
-                                     <span class='ident'>bytes</span>.<span class='ident'>as_mut_ptr</span>() <span class='kw'>as</span> <span class='op'>*</span><span class='kw-2'>mut</span> <span class='ident'>GLchar</span>);
-                <span class='macro'>dbg_gl_sanity_check</span><span class='macro'>!</span> {
-                    <span class='ident'>GLError</span>::<span class='ident'>InvalidValue</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a value generated by OpenGL, or `maxLength` &lt; 0&quot;</span>,
-                    <span class='ident'>GLError</span>::<span class='ident'>InvalidOperation</span> <span class='op'>=&gt;</span> <span class='string'>&quot;`shader` is not a shader object&quot;</span>,
-                    _ <span class='op'>=&gt;</span> <span class='string'>&quot;Unknown error&quot;</span>
+                <span class="ident">gl</span>::<span class="ident">GetShaderInfoLog</span>(<span class="ident">shader</span>.<span class="ident">id</span>(),
+                                     <span class="ident">info_length</span>,
+                                     <span class="ident">ptr</span>::<span class="ident">null_mut</span>(),
+                                     <span class="ident">bytes</span>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">GLchar</span>);
+                <span class="macro">dbg_gl_sanity_check</span><span class="macro">!</span> {
+                    <span class="ident">GLError</span>::<span class="ident">InvalidValue</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a value generated by OpenGL, or `maxLength` &lt; 0&quot;</span>,
+                    <span class="ident">GLError</span>::<span class="ident">InvalidOperation</span> <span class="op">=&gt;</span> <span class="string">&quot;`shader` is not a shader object&quot;</span>,
+                    _ <span class="op">=&gt;</span> <span class="string">&quot;Unknown error&quot;</span>
                 }
 
-                <span class='ident'>bytes</span>.<span class='ident'>set_len</span>((<span class='ident'>info_length</span> <span class='op'>-</span> <span class='number'>1</span>) <span class='kw'>as</span> <span class='ident'>usize</span>);
+                <span class="ident">bytes</span>.<span class="ident">set_len</span>((<span class="ident">info_length</span> <span class="op">-</span> <span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>);
 
-                <span class='ident'>String</span>::<span class='ident'>from_utf8</span>(<span class='ident'>bytes</span>).<span class='ident'>ok</span>()
+                <span class="ident">String</span>::<span class="ident">from_utf8</span>(<span class="ident">bytes</span>).<span class="ident">ok</span>()
             }
-            <span class='kw'>else</span> {
-                <span class='prelude-val'>None</span>
+            <span class="kw">else</span> {
+                <span class="prelude-val">None</span>
             }
         }
     }
 }
 
-<span class='kw'>impl</span><span class='op'>&lt;</span><span class='ident'>C</span>: <span class='ident'>BaseContext</span><span class='op'>&gt;</span> <span class='ident'>ContextShaderExt</span> <span class='kw'>for</span> <span class='ident'>C</span> {
+<span class="kw">impl</span><span class="op">&lt;</span><span class="ident">C</span>: <span class="ident">BaseContext</span><span class="op">&gt;</span> <span class="ident">ContextShaderExt</span> <span class="kw">for</span> <span class="ident">C</span> {
 
 }
 
-<span class='macro'>gl_enum</span><span class='macro'>!</span> {
-    <span class='doccomment'>/// The possible types of shader objects.</span>
-    <span class='kw'>pub</span> <span class='ident'>gl_enum</span> <span class='ident'>ShaderType</span> {
-        <span class='doccomment'>/// A shader that is used for processing per-vertex data.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>VertexShader</span> <span class='kw'>as</span> <span class='ident'>VERTEX_SHADER</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>VERTEX_SHADER</span>,
+<span class="macro">gl_enum</span><span class="macro">!</span> {
+    <span class="doccomment">/// The possible types of shader objects.</span>
+    <span class="kw">pub</span> <span class="ident">gl_enum</span> <span class="ident">ShaderType</span> {
+        <span class="doccomment">/// A shader that is used for processing per-vertex data.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">VertexShader</span> <span class="kw">as</span> <span class="ident">VERTEX_SHADER</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">VERTEX_SHADER</span>,
 
-        <span class='doccomment'>/// A shader that is used for processing per-fragment (per-pixel)</span>
-        <span class='doccomment'>/// data.</span>
-        <span class='kw'>pub</span> <span class='kw'>const</span> <span class='ident'>FragmentShader</span> <span class='kw'>as</span> <span class='ident'>FRAGMENT_SHADER</span> <span class='op'>=</span> <span class='ident'>gl</span>::<span class='ident'>FRAGMENT_SHADER</span>
+        <span class="doccomment">/// A shader that is used for processing per-fragment (per-pixel)</span>
+        <span class="doccomment">/// data.</span>
+        <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">FragmentShader</span> <span class="kw">as</span> <span class="ident">FRAGMENT_SHADER</span> <span class="op">=</span> <span class="ident">gl</span>::<span class="ident">FRAGMENT_SHADER</span>
     }
 }
 </pre>
@@ -924,12 +926,16 @@
                     <dd>Show this help dialog</dd>
                     <dt>S</dt>
                     <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
+                    <dt>↑</dt>
                     <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
+                    <dt>↓</dt>
                     <dd>Move down in search results</dd>
+                    <dt>↹</dt>
+                    <dd>Switch tab</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt style="width:31px;">+ / -</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -950,7 +956,7 @@
 
                 <p>
                     Search functions by type signature (e.g.
-                    <code>vec -> usize</code>)
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
                 </p>
             </div>
         </div>
@@ -961,11 +967,8 @@
     <script>
         window.rootPath = "../../";
         window.currentCrate = "glitter";
-        window.playgroundUrl = "";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
-    
     <script defer src="../../search-index.js"></script>
 </body>
 </html>
