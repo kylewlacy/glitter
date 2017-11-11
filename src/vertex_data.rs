@@ -83,7 +83,7 @@ pub unsafe trait VertexData: Copy {
     /// (struct.VertexAttribute.html) passed to the function *must*
     /// be correct. See the [`VertexAttribute`](struct.VertexAttribute.html)
     /// docs for more details on what each field means.
-    fn visit_attributes<F>(&f: F) where F: FnMut(VertexAttribute);
+    fn visit_attributes<F>(f: F) where F: FnMut(VertexAttribute);
 }
 
 /// A single value that can be treated as a part of a vertex. Implementors
