@@ -8,6 +8,7 @@ repository = "https://github.com/kylewlacy/glitter"
 documentation = "https://kylewlacy.github.io/glitter/docs/glitter/index.html"
 description = "A safe, low-level, zero-cost OpenGL wrapper library."
 keywords = ["opengl", "gl", "graphics", "gamedev"]
+exclude = [".travis/**/*"]
 
 [features]
 default = ["cgmath", "image"]
