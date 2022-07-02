@@ -1,21 +1,36 @@
 # glitter - A safe, low-level, zero-cost Rust OpenGL wrapper library
 
-glitter is an experimental Rust library designed to wrap the OpenGL graphics
-API. It's designed for applications where performance and correctness are
-critical, such as in game and game engine development. **Currently, glitter
-only supports the OpenGL ES2 API**, but this will change in an upcoming
-release.
+glitter was an experimental library I made to attempt to codify the rules of
+OpenGL's state machine with Rust's type system. The goal was to have a zero-cost
+and safe wrapper around the OpenGL API, where invalid OpenGL calls would be
+caught at compile-time instead of runtime. The core idea is to represent OpenGL
+state using [typestate](https://yoric.github.io/post/rust-typestate/).
 
-# [crates.io](https://crates.io/crates/glitter)
-# [Documentation](https://kylewlacy.github.io/glitter/docs/glitter/index.html)
+I only got as far as wrapping a subset of OpenGL ES 2. While working on the
+project, I was held back by a number of Rust limitations, some of which have
+since been lifted (such as const generics), and others that still linger to this
+day (like [partial borrowing](https://github.com/rust-lang/rfcs/issues/1215)).
 
-(The documentation, like the rest of the project, is still very much
-work-in-progress. Every public API has been documented, but there's still
-a lot to clean up!)
+Since I initially published glitter, the landscape of graphics APIs has evolved
+greatly, both in the Rust community and in the world at large. I no longer feel
+that glitter is a good fit for any kind of project-- gamedevs are better served
+by higher-level abstractions (like the renderer integrated in [Bevy](https://bevyengine.org/)),
+engine devs are better served with platform-agnostic abstractions (like [wgpu](https://wgpu.rs/)),
+and library devs are served better by direct access to graphics APIs
+without needing to jump through type-system hoops. Modern graphics APIs like
+Vulkan, Metal, and DX12 also seem to steer away from the stateful design of
+OpenGL, which makes something like glitter less compelling or interesting.
 
-# Show me the code!
+So, I've decided to put glitter into archive mode. I hope it will be of interest
+to those looking for inspiration in the future!
 
-There are also currently two examples in the [`examples`](https://github.com/kylewlacy/glitter/tree/master/examples)
+**Note that this repo won't get any security patches! There are currently known
+security holes in some of the dependencies, so it should not be used for any
+serious projects!**
+
+# Code examples
+
+There are some examples of glitter in the [`examples`](https://github.com/kylewlacy/glitter/tree/master/examples)
 directory, which use the [`sdl2`](https://crates.io/crates/sdl2) crate.
 These can be run using `cargo`, such as with the following:
 
@@ -101,58 +116,21 @@ errors by default.
 ## Low Level
 Most OpenGL functions have a 1:1 parallel in glitter. Additionally,
 a small set of higher-level abstractions are provided where applicable,
-such as with the [`VertexBuffer`]
-(https://kylewlacy.github.io/glitter/docs/glitter/vertex_buffer/struct.VertexBuffer.html)
+such as with the [`VertexBuffer`](https://docs.rs/glitter/0.1.2/glitter/vertex_buffer/struct.VertexBuffer.html)
 type, which provides a low-overhead, high-level interface for creating,
 buffering, and drawing vertex data.
 
 ## Zero Cost
-Many of the core types in glitter are composed of [zero-sized types]
-(https://doc.rust-lang.org/nomicon/vec-zsts.html) or [pointers to zero-sized
-types](http://www.wabbo.org/blog/2014/03aug_09aug.html) (such as the
-[`Context`](https://kylewlacy.github.io/glitter/docs/glitter/context/type.Context.html)
+Many of the core types in glitter are composed of [zero-sized types](https://doc.rust-lang.org/nomicon/vec-zsts.html)
+or [pointers to zero-sized types](http://www.wabbo.org/blog/2014/03aug_09aug.html)
+(such as the [`Context`](https://docs.rs/glitter/0.1.2/glitter/context/type.Context.html)
 type). This means that glitter method calls can often compile directly OpenGL
 function invocations.
 
 ----------
 
 For more details about how glitter achieves its design goals, consult
-the [documentation](https://kylewlacy.github.io/glitter/docs/glitter/index.html).
-
-# What's next?
-glitter is very much still in the 'experimental' phase. Functions will be
-buggy, API calls will break, things will be outright missing. So, here's
-an off-the-cuff list of things coming in the near(ish) future:
-
-- [ ] A testing setup, and a test suite
-- [ ] Add missing OpenGL ES 2.0 methods
-- [ ] Fix the ugly "VAO hack" in the examples
-- [ ] Set up a framework for targeting different OpenGL versions (currently
-OpenGL ES 2.0 is baked in- the goal is to be able to list which OpenGL
-versions and extensions an application wants to target, and only code
-for that set of features gets generated)
-- [ ] Clean up the documentation (make docs clearer, add more examples, remove
-dead links, etc.)
-
-# FAQ
-
-*Should I use this?*
-
-> No. Not unless you like using broken, buggy, untested libraries with API's
-> that breaks between minor releases. That is, until glitter reaches 1.0 :)
-
-*I'm okay with broken, buggy, untested libraries with API's that break
-between minor releases! Can I use this?*
-
-> Sure, go nuts! But don't say I didn't warn you when literally all of your
-> code stops compiling...
-
-*I found something that doesn't work, a missing OpenGL function, a typo in
-the docs where you spelled it 'indicies', or an API that is dumb and breaks
-the borrow checker. Where can I yell at you about it?*
-
-> Feel free [file an issue](https://github.com/kylewlacy/glitter/issues)! I'm
-> open to suggestions for API changes or ideas as well!
+the [documentation](https://docs.rs/glitter/0.1.2/glitter/index.html).
 
 # License
 All source code in this repository is licensed under both the MIT license
